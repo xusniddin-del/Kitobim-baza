@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{
   --bg:#f4f4f6;--card:#fff;--soft:#f1f1f4;--ink:#16161a;--ink2:#4a4a52;--muted:#8b8b93;--line:#ececf0;
@@ -748,7 +748,7 @@ var KitobimCore = (function () {
     feed: function (db, r) {
       var u = me(db, r), list = db.posts.slice();
       if (r.mode === "following") { var f = db.follows.filter(function (x) { return x.a === u.id; }).map(function (x) { return x.b; }); f.push(u.id); list = list.filter(function (p) { return f.indexOf(p.userId) >= 0; }); }
-      if (r.userId) list = list.filter(function (p) { return p.userId === r.userId; });
+      if (r.userId) { var tu = db.users.filter(function (x) { return x.id === r.userId || x.username === r.userId; })[0]; var tid = tu ? tu.id : r.userId; list = list.filter(function (p) { return p.userId === tid; }); }
       if (r.bookKey) list = list.filter(function (p) { return p.bookKey === r.bookKey; });
       list.sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; });
       var lim = Math.min(int(r.limit) || 30, 100), page = list.slice(int(r.offset), int(r.offset) + lim);
@@ -871,7 +871,7 @@ var KitobimCore = (function () {
       return { result: { ok: false, error: e.userMessage || ("Server xatosi: " + e.message) }, touched: [] };
     }
   }
-  return { handle: handle, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
+  return { handle: handle, stats: stats, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
 })();
 if (typeof module !== "undefined") module.exports = KitobimCore;
 
@@ -1023,20 +1023,79 @@ const LS = {
   del(k) { try { localStorage.removeItem(k); } catch (e) {} }
 };
 function localDB() { let db = LS.get("kitobim_demo_db", null); if (!db) { db = { users: [], books: [], posts: [], follows: [] }; seedDemo(db); LS.set("kitobim_demo_db", db); } return db; }
-async function api(action, p = {}) {
-  const req = Object.assign({ action, token: S.token, today: today() }, p);
+/* So'rovlar: o'qish so'rovlari keshdan darhol qaytadi va orqa fonda yangilanadi (tezlik uchun),
+   bir nechta so'rov bitta "batch" bilan yuboriladi. */
+const READS = new Set(["feed", "user", "people", "catalog", "book", "leaderboard", "notifs"]);
+let RC = LS.get("kitobim_rc", {});
+const rcKey = (a, p) => a + ":" + JSON.stringify(p);
+function rcSave() { const ks = Object.keys(RC).sort((x, y) => RC[y].t - RC[x].t); if (ks.length > 40) ks.slice(40).forEach(k => delete RC[k]); LS.set("kitobim_rc", RC); }
+function rcStale() { Object.values(RC).forEach(v => v.t = 0); rcSave(); }
+async function rawCall(list) {
+  const reqs = list.map(([action, p]) => Object.assign({ action, token: S.token, today: today() }, p || {}));
   if (DEMO) {
-    const db = localDB(); const out = KitobimCore.handle(db, req, { adminKey: "demo" });
-    if (out.touched.length) LS.set("kitobim_demo_db", db);
-    await new Promise(r => setTimeout(r, 60));
-    return check(out.result);
+    const db = localDB(), out = reqs.map(r => KitobimCore.handle(db, r, { adminKey: "demo" }));
+    if (out.some(o => o.touched.length)) LS.set("kitobim_demo_db", db);
+    await new Promise(r => setTimeout(r, 40));
+    return out.map(o => o.result);
   }
+  const body = reqs.length === 1 ? reqs[0] : { action: "batch", token: S.token, today: today(), calls: reqs };
   let res;
-  try {
-    const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(req) });
-    res = await r.json();
-  } catch (e) { throw new Error("Internet bilan aloqa yo'q. Qayta urinib ko'ring"); }
-  return check(res);
+  try { const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) }); res = await r.json(); }
+  catch (e) { throw new Error("Internet bilan aloqa yo'q. Qayta urinib ko'ring"); }
+  if (reqs.length > 1) {
+    if (!res.ok && /Noma'lum amal/.test(res.error || "")) return Promise.all(list.map(x => rawCall([x]).then(r => r[0])));  // eski server: birma-bir yuboramiz
+    if (!res.ok) throw new Error(res.error || "Xatolik"); return res.results;
+  }
+  return [res];
+}
+const inflight = {};
+function refresh(list, keys, hashAt) {
+  const k = keys.join("|"); if (inflight[k]) return inflight[k];
+  return inflight[k] = rawCall(list).then(rs => {
+    let changed = false;
+    rs.forEach((r, i) => { if (!r.ok) return; const nv = JSON.stringify(r); if (!RC[keys[i]] || JSON.stringify(RC[keys[i]].r) !== nv) changed = true; RC[keys[i]] = { t: Date.now(), r }; });
+    rcSave();
+    if (changed && hashAt === location.hash && !$("#ov") && !(document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))) render(true);
+    return rs;
+  }).finally(() => delete inflight[k]);
+}
+/* list: [[action, params], ...]  →  natijalar massivi */
+async function apiMany(list) {
+  const keys = list.map(([a, p]) => rcKey(a, p || {}));
+  if (keys.every(k => RC[k])) {
+    if (keys.some(k => Date.now() - RC[k].t > 15000)) refresh(list, keys, location.hash).catch(() => {});
+    return keys.map(k => RC[k].r);
+  }
+  const rs = await refresh(list, keys, null);
+  return rs.map(check);
+}
+async function api(action, p = {}) {
+  if (READS.has(action)) return (await apiMany([[action, p]]))[0];
+  const [r] = await rawCall([[action, p]]);
+  if (r.ok && !["me", "login", "register", "admin"].includes(action)) rcStale();
+  return check(r);
+}
+/* asosiy sahifalar ma'lumotini oldindan (orqa fonda) yuklab qo'yish */
+let prefetched = 0;
+function prefetch() {
+  if (!S.token || Date.now() - prefetched < 60000) return; prefetched = Date.now();
+  const id = S.me.user.id, list = [["feed", { mode: "all", limit: 40 }], ["people", { limit: 8 }], ["leaderboard", { limit: 10 }], ["user", { userId: id }], ["feed", { userId: id, limit: 30 }]];
+  const keys = list.map(([a, p]) => rcKey(a, p));
+  if (keys.every(k => RC[k] && Date.now() - RC[k].t < 60000)) return;
+  rawCall(list).then(rs => { rs.forEach((r, i) => { if (r.ok) RC[keys[i]] = { t: Date.now(), r }; }); rcSave(); }).catch(() => {});
+}
+/* serverni kutmasdan ekranni darhol yangilash */
+function localStats(books) {
+  const uid = S.me.user.id, db = { users: [], follows: [], books: books.map(b => Object.assign({}, b, { userId: uid })), posts: Array.from({ length: S.me.stats.posts || 0 }, () => ({ userId: uid })) };
+  return KitobimCore.stats(db, uid, today());
+}
+function applyBookLocal(b, remove) {
+  const books = myBooks().filter(x => x.id !== b.id); if (!remove) books.push(Object.assign({}, b, { updated: new Date().toISOString() }));
+  setMe(Object.assign({}, S.me, { books, stats: localStats(books) }));
+}
+function bgSave(action, p) {
+  return rawCall([[action, p]]).then(([r]) => { if (!r.ok) throw new Error(r.error); rcStale(); check(r); if (["home", "shelf", "marra"].includes(route.name) && !$("#ov")) render(true); })
+    .catch(e => { toast("Saqlanmadi: " + e.message); api("me").then(() => render(true)).catch(() => {}); });
 }
 function check(res) {
   if (!res.ok) { if (/qayta kiring/.test(res.error || "")) { logout(true); } throw new Error(res.error || "Xatolik"); }
@@ -1158,7 +1217,7 @@ function footer() {
 
 /* ---------- router ---------- */
 let renderSeq = 0;
-async function render() {
+async function render(keep) {
   const h = location.hash.replace(/^#\/?/, "").split("/");
   route = { name: h[0] || "home", arg: decodeURIComponent(h.slice(1).join("/") || "") };
   document.body.classList.toggle("dark", !!S.dark);
@@ -1173,13 +1232,14 @@ async function render() {
   const pages = { home: vHome, shelf: vShelf, book: vBook, marra: vMarra, davra: vDavra, profile: vProfile, user: vProfile, settings: vSettings, premium: vPremium, search: vSearch, terms: vTerms, notifs: vNotifs };
   const fn = pages[route.name] || vHome;
   const html = fn(route.arg);
-  if (typeof html === "string") { view.innerHTML = html; window.scrollTo(0, 0); return; }
-  view.innerHTML = mtop("", true) + `<div class="skel" style="height:44px;width:40%;margin:10px 0 24px"></div><div class="skel" style="height:220px"></div><div class="skel" style="height:140px;margin-top:16px"></div>`;
+  if (typeof html === "string") { view.innerHTML = html; if (!keep) window.scrollTo(0, 0); return; }
+  if (keep) { try { const out = await html; if (seq === renderSeq) { const y = scrollY; view.innerHTML = out; scrollTo(0, y); } } catch (e) {} return; }
+  let shown = false; const sk = setTimeout(() => { if (seq === renderSeq && !shown) view.innerHTML = mtop("", true) + `<div class="skel" style="height:44px;width:40%;margin:10px 0 24px"></div><div class="skel" style="height:220px"></div><div class="skel" style="height:140px;margin-top:16px"></div>`; }, 120);
   window.scrollTo(0, 0);
-  try { const out = await html; if (seq === renderSeq) view.innerHTML = out; }
-  catch (e) { if (seq === renderSeq) view.innerHTML = mtop("", true) + `<div class="empty"><div class="ic">${ic("sad",44)}</div>${esc(e.message)}<br><br><button class="btn pri" onclick="render()">Qayta urinish</button></div>`; }
+  try { const out = await html; shown = true; clearTimeout(sk); if (seq === renderSeq) { view.innerHTML = out; window.scrollTo(0, 0); } }
+  catch (e) { shown = true; clearTimeout(sk); if (seq === renderSeq) view.innerHTML = mtop("", true) + `<div class="empty"><div class="ic">${ic("sad",44)}</div>${esc(e.message)}<br><br><button class="btn pri" onclick="render()">Qayta urinish</button></div>`; }
 }
-window.addEventListener("hashchange", render);
+window.addEventListener("hashchange", () => render());
 
 /* ================= SAHIFALAR ================= */
 
@@ -1307,7 +1367,7 @@ function passField(id, ph, ac) {
 }
 function togglePass(id, btn) { const i = $("#" + id), show = i.type === "password"; i.type = show ? "text" : "password"; btn.innerHTML = show ? EYE_OFF : EYE; btn.classList.toggle("on", show); btn.setAttribute("aria-label", show ? "Parolni yashirish" : "Parolni ko'rsatish"); }
 function logout(silent) {
-  S.token = null; S.me = null; LS.del("kitobim_token"); LS.del("kitobim_me");
+  S.token = null; S.me = null; LS.del("kitobim_token"); LS.del("kitobim_me"); RC = {}; LS.del("kitobim_rc");
   $("#app").innerHTML = ""; if (!silent) toast("Akkauntdan chiqdingiz"); location.hash = "#/home"; render();
 }
 function toggleDark() { S.dark = !S.dark; LS.set("kitobim_dark", S.dark); document.body.classList.toggle("dark", S.dark); if (!S.token) return; paintChrome(); const t = $("#dkS"); if (t) t.classList.toggle("on", S.dark); }
@@ -1318,8 +1378,8 @@ async function vHome() {
   const reading = myBooks().filter(b => b.status === "reading").sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
   const plan = myBooks().filter(b => b.status === "plan"), done = myBooks().filter(b => b.status === "done").sort((a, b) => (b.end || "").localeCompare(a.end || ""));
   const cur = reading[0], pct = cur && cur.pages ? Math.min(100, Math.round(cur.current / cur.pages * 100)) : 0;
-  const [cat, feed] = await Promise.all([api("catalog", { limit: 14 }).catch(() => ({ books: [] })), api("feed", { limit: 3 }).catch(() => ({ posts: [] }))]);
-  api("me").catch(() => {});
+  const [cat, feed] = await apiMany([["catalog", { limit: 14 }], ["feed", { limit: 3 }]]).catch(() => [{ books: [] }, { posts: [] }]);
+  setTimeout(prefetch, 1200);
   const popular = cat.books.length >= 6 ? cat.books : cat.books.concat(CURATED.filter(c => !cat.books.some(b => b.key === c.key))).slice(0, 14);
   return mtop() + installBanner() + ph(`${greetWord()}, ${esc(u.name.split(" ")[0])}`, "", false,
       `<a class="ibtn" href="#/search/">${I.search}</a><a class="ibtn" href="#/notifs">${I.bell}<span class="dot"></span></a>`) +
@@ -1433,19 +1493,23 @@ async function saveBook(isEdit) {
   const old = myBooks().find(b => b.id === F.id);
   if (F.status === "reading" && (+F.current || 0) > (old ? +old.current || 0 : 0)) { F.sessions = F.sessions || []; F.sessions.push({ d: today(), from: old ? +old.current || 0 : 0, to: +F.current, note: "" }); }
   if (F.status === "done" && F.pages) F.current = F.pages;
-  $("#fSave").disabled = true;
-  await safe(async () => { await api("saveBook", { book: F }); closeSheet(); render(); toast(isEdit ? "Saqlandi" : "Kitob javonga qo'shildi 📚"); });
-  const b = $("#fSave"); if (b) b.disabled = false;
+  if (!F.id) F.id = "tmp" + Date.now();
+  const sent = stripTmp(F);
+  applyBookLocal(F); closeSheet(); render(true); toast(isEdit ? "Saqlandi" : "Kitob javonga qo'shildi 📚");
+  bgSave("saveBook", { book: sent });
 }
 async function delBook(id) {
   if (!confirm("Bu kitob kundalikdan o'chirilsinmi?")) return;
-  await safe(async () => { await api("deleteBook", { id }); closeSheet(); render(); toast("O'chirildi"); });
+  applyBookLocal({ id }, true); closeSheet(); render(true); toast("O'chirildi");
+  if (!String(id).startsWith("tmp")) bgSave("deleteBook", { id });
 }
 async function quickAdd(title, author, status, genre) {
   const ex = myBookByKey(KitobimCore.bkey(title, author));
   if (ex) return openEntry(ex.id);
   if (status === "reading") return openForm(null, "reading", { title, author, genre: genre || "" });
-  await safe(async () => { await api("saveBook", { book: { title, author, status, genre: genre || "" } }); render(); toast(status === "plan" ? "Rejaga qo'shildi 🗓" : "Javonga qo'shildi"); });
+  const nb = { id: "tmp" + Date.now(), title, author, status, genre: genre || "", sessions: [] };
+  applyBookLocal(nb); render(true); toast(status === "plan" ? "Rejaga qo'shildi 🗓" : "Javonga qo'shildi");
+  bgSave("saveBook", { book: { title, author, status, genre: genre || "" } });
 }
 
 /* ---------- kundalik yozuvi (sheet) ---------- */
@@ -1491,14 +1555,13 @@ async function saveProgress(id) {
   if (b.pages && p > b.pages) return toast(`Kitobda ${b.pages} bet bor`);
   const from = +b.current || 0;
   b.sessions = b.sessions || []; b.sessions.push({ d: today(), from, to: p, note }); b.current = p;
-  $("#pBtn").disabled = true;
-  await safe(async () => {
-    await api("saveBook", { book: b }); closeSheet();
-    if (b.pages && p >= b.pages) { render(); return finishBook(id); }
-    render(); const st = S.me.stats;
-    toast(p > from ? (st.today >= S.me.user.goal ? `Bugungi reja bajarildi! +${p - from} bet 🎉` : `Barakalla! Bugun +${p - from} bet 👏`) : "Saqlandi");
-  });
+  applyBookLocal(b); closeSheet();
+  bgSave("saveBook", { book: stripTmp(b) });
+  if (b.pages && p >= b.pages) { render(true); return finishBook(id); }
+  render(true); const st = S.me.stats;
+  toast(p > from ? (st.today >= S.me.user.goal ? `Bugungi reja bajarildi! +${p - from} bet 🎉` : `Barakalla! Bugun +${p - from} bet 👏`) : "Saqlandi");
 }
+const stripTmp = b => { const c = Object.assign({}, b); if (String(c.id).startsWith("tmp")) delete c.id; return c; };
 function finishBook(id) {
   const b = myBooks().find(x => x.id === id);
   F = JSON.parse(JSON.stringify(b)); F.status = "done"; F.end = today(); F.current = b.pages || b.current;
@@ -1507,7 +1570,8 @@ function finishBook(id) {
 async function startBook(id) {
   const b = JSON.parse(JSON.stringify(myBooks().find(x => x.id === id)));
   b.status = "reading"; b.start = today(); b.current = 0;
-  await safe(async () => { await api("saveBook", { book: b }); closeSheet(); render(); toast("Yaxshi mutolaa! 📖"); });
+  applyBookLocal(b); closeSheet(); render(true); toast("Yaxshi mutolaa! 📖");
+  bgSave("saveBook", { book: stripTmp(b) });
 }
 
 /* ---------- Kitob sahifasi ---------- */
@@ -1554,7 +1618,10 @@ function postCard(p) {
       <div class="row" style="margin-top:8px"><input placeholder="Izoh yozing…" style="padding:10px 14px" onkeydown="if(event.key==='Enter')sendCmt('${p.id}',this)"><button class="btn pri sm" onclick="sendCmt('${p.id}',this.previousElementSibling)">Yuborish</button></div></div></div>`;
 }
 function swapPost(p) { const el = $("#p-" + p.id); if (!el) return; const open = !$("#c-" + p.id).classList.contains("hidden"); el.outerHTML = postCard(p); if (open) $("#c-" + p.id).classList.remove("hidden"); }
-async function likePost(id) { await safe(async () => { const r = await api("like", { id }); swapPost(r.post); }); }
+function likePost(id) {
+  const p = PC[id]; if (p) { p.liked = !p.liked; p.likes += p.liked ? 1 : -1; swapPost(p); }
+  rawCall([["like", { id }]]).then(([r]) => { if (r.ok) { rcStale(); swapPost(r.post); } else throw new Error(r.error); }).catch(e => { toast(e.message); if (p) { p.liked = !p.liked; p.likes += p.liked ? 1 : -1; swapPost(p); } });
+}
 function toggleCmts(id) { $("#c-" + id).classList.toggle("hidden"); }
 async function sendCmt(id, inp) { const t = inp.value.trim(); if (!t) return; inp.disabled = true; await safe(async () => { const r = await api("comment", { id, text: t }); swapPost(r.post); $("#c-" + id).classList.remove("hidden"); }); inp.disabled = false; }
 async function delPost(id) { if (!confirm("Fikringiz o'chirilsinmi?")) return; await safe(async () => { await api("deletePost", { id }); $("#p-" + id).remove(); toast("O'chirildi"); }); }
@@ -1582,7 +1649,7 @@ async function sendPost() {
 }
 async function vDavra(mode) {
   mode = mode === "following" ? "following" : "all";
-  const [f, ppl] = await Promise.all([api("feed", { mode, limit: 40 }), api("people", { limit: 8 })]);
+  const [f, ppl] = await apiMany([["feed", { mode, limit: 40 }], ["people", { limit: 8 }]]);
   const u = S.me.user;
   return mtop() + `<div class="davra"><div>
     <div class="tabs"><button class="${mode === "all" ? "on" : ""}" onclick="go('#/davra')">Fikrlar</button><button class="${mode === "following" ? "on" : ""}" onclick="go('#/davra/following')">Davram</button></div>
@@ -1648,8 +1715,8 @@ async function saveProfile(profile, msg) { await safe(async () => { await api("s
 let profTab = "posts";
 async function vProfile(id) {
   const own = !id || (S.me && (id === S.me.user.id || id === S.me.user.username));
-  const r = await api("user", { userId: own ? S.me.user.id : id });
-  const f = await api("feed", { userId: r.user.id, limit: 30 });
+  const uid = own ? S.me.user.id : id;
+  const [r, f] = await apiMany([["user", { userId: uid }], ["feed", { userId: uid, limit: 30 }]]);
   const u = r.user, st = r.stats;
   const tabsHTML = `<div class="tabs" style="margin-top:20px"><button class="${profTab === "posts" ? "on" : ""}" onclick="profTab='posts';render()">Fikrlar</button><button class="${profTab === "shelf" ? "on" : ""}" onclick="profTab='shelf';render()">Javon</button></div>`;
   const shelfHTML = !r.books.length ? `<div class="empty">Javon hali bo'sh</div>` :
@@ -1726,7 +1793,7 @@ async function vNotifs() {
 /* ---------- Qidiruv ---------- */
 async function vSearch(q) {
   q = q || "";
-  const [c, p] = await Promise.all([api("catalog", { q, limit: 40 }), api("people", { q, limit: 12 })]);
+  const [c, p] = await apiMany([["catalog", { q, limit: 40 }], ["people", { q, limit: 12 }]]);
   const cur = CURATED.filter(x => (!q || (x.title + " " + x.author).toLowerCase().includes(q.toLowerCase())) && !c.books.some(b => b.key === x.key));
   const books = c.books.concat(cur);
   return mtop("Qidiruv", true) + ph("Qidiruv", "", true) +
@@ -1896,7 +1963,7 @@ document.body.classList.toggle("dark", !!S.dark);
 if (location.search.includes("a=add")) { history.replaceState(null, "", location.pathname + "#/shelf"); setTimeout(() => S.token && openForm(), 400); }
 if (location.search.includes("a=page")) { history.replaceState(null, "", location.pathname + "#/home"); setTimeout(() => S.token && openProgress(), 400); }
 render();
-if (S.token) api("me").then(() => { if (["home", "marra"].includes(route.name)) render(); }).catch(() => {});
+if (S.token) { const before = JSON.stringify(S.me); api("me").then(() => { if (JSON.stringify(S.me) !== before && ["home", "marra", "shelf", "profile"].includes(route.name) && !$("#ov")) render(true); }).catch(() => {}); }
 
 </script>
 </body>
