@@ -469,6 +469,113 @@ body.dark .plan .b{background:#0f0f12}
 @media (min-width:981px){.mob{display:none!important}}
 .mood .recs .tile{background:rgba(255,255,255,.16)!important;box-shadow:none!important}.mood .recs .tile h4{color:#fff}.prem-strip span{white-space:nowrap}
 
+.ico{flex:0 0 auto;vertical-align:-3px}
+.sic{display:inline-flex;align-items:center;justify-content:center}
+.chip .ico,.tag .ico,.btn .ico{vertical-align:-3px}
+.empty .ic{color:var(--muted);display:flex;justify-content:center}
+.mi .ic{color:#fff}
+.banner .art{color:#fff;opacity:.95}
+.tree{font-size:0!important}
+.tree::after{display:none}
+.ms .e{filter:grayscale(1);opacity:.4;display:flex;justify-content:center}
+.ms .got .e{filter:none;opacity:1}
+.kv span{display:inline-flex;align-items:center;gap:6px}
+.feat .fi{color:inherit}
+.phero .ic{color:#fff}
+.side-prem .ico{vertical-align:-2px}
+
+/* ---------- landing ---------- */
+.land{background:var(--bg)}
+.lw{max-width:1180px;margin:0 auto;padding:0 24px}
+.lnav{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:14px 0;border-bottom:1px solid var(--line)}
+.lnk{display:flex;gap:28px;font-weight:600;font-size:14.5px;color:var(--ink2)}
+.lnk a:hover{color:var(--or)}
+.btn.lg{padding:16px 26px;font-size:16px;border-radius:16px}
+.btn.pri.lg{box-shadow:0 12px 26px rgba(255,107,26,.35)}
+.lhero{padding:60px 0 40px;overflow:hidden}
+.lhero-in{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.lbadge{display:inline-flex;gap:8px;align-items:center;background:var(--or-soft);color:var(--or2);font-weight:700;font-size:13.5px;padding:8px 14px;border-radius:30px}
+.lhero h1{font-size:clamp(40px,5.4vw,68px);font-weight:800;letter-spacing:-.045em;line-height:1.02;margin:22px 0 18px}
+.lhero h1 em{font-style:normal;color:var(--or)}
+.lhero p{font-size:19px;line-height:1.55;color:var(--ink2);margin:0 0 28px;max-width:540px}
+.lproof{display:flex;align-items:center;gap:14px;margin-top:28px;color:var(--muted);font-size:14.5px}
+.lproof .ava{width:36px;height:36px;font-size:14px;box-shadow:0 0 0 3px var(--bg)}
+.lproof b{color:var(--ink)}
+.lart{position:relative;height:600px}
+.lart::before{content:"";position:absolute;inset:40px 0 0 20px;border-radius:40%;background:radial-gradient(circle,rgba(255,107,26,.28),transparent 65%)}
+.lphone{width:270px;border-radius:40px;background:#0b0b0d;padding:9px;box-shadow:0 0 0 1.5px #3a3a40,0 40px 80px rgba(0,0,0,.25)}
+.lphone img{width:100%;display:block;border-radius:32px}
+.lart .p1{position:absolute;left:40px;top:10px;transform:rotate(-5deg);z-index:2}
+.lart .p2{position:absolute;right:10px;top:70px;transform:rotate(6deg)}
+.lfl{position:absolute;z-index:3;background:var(--card);border-radius:18px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 20px 40px rgba(0,0,0,.14);font-size:15px}
+.lfl .sic{width:42px;height:42px;border-radius:12px}
+.lfl small{display:block;color:var(--muted);font-size:12.5px}
+.lfl.f1{left:-10px;top:330px}
+.lfl.f2{right:0;top:470px}
+.lsec{padding:70px 24px}
+.lhead{text-align:center;max-width:720px;margin:0 auto 40px}
+.lk{display:inline-block;color:var(--or);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.08em}
+.lsec h2,.lpain h2{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin-top:10px}
+.lsub{font-size:17.5px;line-height:1.6;color:var(--ink2);margin:16px 0 0}
+.lpain{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center}
+.lvs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lv{border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px;font-size:15px}
+.lv b{font-size:19px;margin-bottom:4px}
+.lv span{display:flex;gap:10px;align-items:center}
+.lv.bad{background:var(--soft);color:var(--ink2)}
+.lv.bad .ico{color:#e5484d}
+.lv.good{background:var(--grad);color:#fff;box-shadow:0 20px 40px rgba(240,78,28,.25)}
+.lfeat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.lfeat>div{border-radius:24px;background:var(--card);padding:28px;box-shadow:var(--shadow)}
+body.dark .lfeat>div{background:var(--soft)}
+.lfeat .sic{width:54px;height:54px;border-radius:16px;margin-bottom:22px}
+.lfeat h3{font-size:20px}
+.lfeat p{color:var(--muted);line-height:1.55;margin:10px 0 0;font-size:15px}
+.lsplit{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.lsplit .solo{margin:auto;transform:rotate(-3deg)}
+.lsplit.rev .solo{transform:rotate(3deg)}
+.lli{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px;font-size:16.5px;font-weight:600}
+.lli li{display:flex;gap:10px;align-items:center}
+.lli .ico{color:var(--green)}
+.lsteps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.lsteps>div{border-radius:24px;background:var(--soft);padding:28px}
+.lsteps b{width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px}
+.lsteps h3{font-size:20px}
+.lsteps p{color:var(--muted);line-height:1.55;margin:8px 0 0}
+.lorg{border-radius:34px;background:radial-gradient(ellipse 70% 70% at 90% 100%,rgba(255,107,26,.4),transparent 70%),#130c09;color:#fff;padding:54px;display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center;overflow:hidden}
+.lorg p{opacity:.8;font-size:17px;line-height:1.6;margin:16px 0 0}
+.lorgf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.lorgf span{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;font-weight:600;font-size:14.5px}
+.lorgimg img{width:100%;border-radius:18px;box-shadow:0 30px 60px rgba(0,0,0,.4);display:block}
+.lapp{border-radius:34px;background:var(--soft);padding:50px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.lst{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.lst div{background:var(--card);border-radius:16px;padding:14px 16px}
+.lst b{display:block}
+.lst span{color:var(--muted);font-size:14px}
+.lappic img{width:200px;border-radius:46px;box-shadow:0 30px 60px rgba(255,107,26,.35);transform:rotate(-8deg)}
+.lcta{border-radius:34px;background:var(--grad);color:#fff;text-align:center;padding:64px 24px;margin:20px 0 40px;position:relative;overflow:hidden}
+.lcta::after{content:"";position:absolute;right:-80px;top:-100px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.12)}
+.lcta h2{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.035em}
+.lcta p{opacity:.9;font-size:18px;margin:12px 0 26px}
+.lfoot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-top:26px;padding-bottom:40px;border-top:1px solid var(--line);font-size:14.5px;color:var(--ink2)}
+@media (max-width:980px){
+  .lnk{display:none}
+  .lhero{padding:30px 0 10px}
+  .lhero-in,.lpain,.lsplit,.lorg{grid-template-columns:1fr}
+  .lhero p{font-size:17px}
+  .lart{height:520px;margin-top:10px}
+  .lphone{width:210px;border-radius:32px;padding:7px}.lphone img{border-radius:26px}
+  .lart .p1{left:0}.lart .p2{right:0;top:60px}
+  .lfl.f1{left:0;top:auto;bottom:40px}.lfl.f2{right:0;top:auto;bottom:-6px}
+  .lsec{padding:44px 20px}
+  .lvs,.lfeat,.lsteps,.lorgf,.lst{grid-template-columns:1fr}
+  .lsplit.rev>div:last-child{order:-1}
+  .lorg,.lapp{padding:30px 22px;border-radius:26px}
+  .lapp{flex-direction:column;align-items:flex-start}
+  .lappic{display:none}
+  .lnav .btn.ghost{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -778,6 +885,7 @@ if (typeof module !== "undefined") module.exports = KitobimCore;
 const APP_NAME = "Kitobim";
 const API_URL = "https://script.google.com/macros/s/AKfycbzEHr59fvr7PCXlESS5LWfXEHFfOMbWbYdT6cHLkejnJVW06QN826UXQC0QrnquXPjfug/exec";
 const PRICES = { month: 19000, year: 149000 };
+const CONTACT_TG = "";   // maktab/markazlar uchun aloqa: Telegram username (masalan "kitobim_admin"). Bo'sh bo'lsa tugma ko'rinmaydi
 /* ============================================== */
 
 const DEMO = !API_URL;
@@ -833,6 +941,54 @@ const I = {
   cal: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`,
   edit: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>`,
 };
+
+
+/* ---------- chiziqli ikonkalar (emoji o'rniga) ---------- */
+const ICP = {
+  book: '<path d="M2 4.5C4.5 3 8 3 12 5.5 16 3 19.5 3 22 4.5V19c-2.5-1.5-6-1.5-10 1-4-2.5-7.5-2.5-10-1z"/><path d="M12 5.5V20"/>',
+  check: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.7 2.7L16 9.5"/>',
+  cal: '<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.5-5 6.5-5s5.5 1.5 6.5 5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 15c2 .5 3.2 2 3.7 5"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/>',
+  key: '<circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.8-9.8M17 6l3 3M14.5 8.5l2 2"/>',
+  moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+  lock: '<rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+  phone: '<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+  download: '<path d="M12 3v12m-5-5 5 5 5-5M5 21h14"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
+  logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  coin: '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1 1.1-1.8 2.5-1.8s2.5.8 2.5 1.8-1 1.5-2.5 1.8-2.5.8-2.5 1.9 1.1 1.8 2.5 1.8 2.5-.8 2.5-1.8"/>',
+  flame: '<path d="M12 22c4.4 0 7.5-3 7.5-7.2 0-3.4-2-5.9-4-7.8-.4 2-1.4 3.2-2.8 3.6C13 7 12 4 9.5 2c0 3-4 5.5-4 10.3C5.5 18.5 8.3 22 12 22z"/>',
+  flameF: '<path fill="currentColor" stroke="none" d="M12 22c4.4 0 7.5-3 7.5-7.2 0-3.4-2-5.9-4-7.8-.4 2-1.4 3.2-2.8 3.6C13 7 12 4 9.5 2c0 3-4 5.5-4 10.3C5.5 18.5 8.3 22 12 22z"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  palette: '<circle cx="13.5" cy="6.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1.2" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1.2" fill="currentColor"/><path d="M12 2a10 10 0 0 0 0 20c1.4 0 2-1 2-2 0-1.5-1.5-1.6-1.5-3s1-2 2.5-2H17a5 5 0 0 0 5-5c0-4.4-4.5-8-10-8z"/>',
+  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>',
+  ban: '<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>',
+  sparkle: '<path d="M12 3c.5 4 2.5 6.3 7 7-4.5.7-6.5 3-7 7-.5-4-2.5-6.3-7-7 4.5-.7 6.5-3 7-7z"/><path d="M19 3v4M17 5h4"/>',
+  crown: '<path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 12H5z"/>',
+  pin: '<path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+  msg: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  edit: '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  star: '<path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9z"/>',
+  sad: '<circle cx="12" cy="12" r="9"/><path d="M8.5 16c1-1.2 2.2-1.8 3.5-1.8s2.5.6 3.5 1.8M9 9.5h.01M15 9.5h.01"/>',
+  shelf: '<path d="M4 19V5M9 19V5M14 19V7l4-1 3 13M2 19h20"/>',
+  tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor"/>'
+};
+function ic(n, sz = 18, extra = "") { return `<svg class="ico" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${ICP[n] || ""}</svg>`; }
+/* o'sish bosqichiga qarab chiziladigan nihol */
+function plant(stage, sz = 96) {
+  const L = ['<path d="M50 70 C50 58 50 52 50 46"/><path d="M50 52c-8-1-13-6-13-13 8 0 13 5 13 13z" fill="#6cc86a" stroke="none"/><path d="M50 50c7-1 11-6 11-12-7 0-11 5-11 12z" fill="#3bb54a" stroke="none"/>',
+    '<path d="M50 72V36"/><path d="M50 56c-10-1-16-7-16-15 10 0 16 6 16 15z" fill="#6cc86a" stroke="none"/><path d="M50 48c9-1 15-7 15-15-9 0-15 6-15 15z" fill="#3bb54a" stroke="none"/><path d="M50 40c-6 0-10-4-10-10 6 0 10 4 10 10z" fill="#4fbf5c" stroke="none"/>',
+    '<path d="M50 74V28"/><path d="M50 60c-12-1-19-8-19-17 12 0 19 7 19 17z" fill="#6cc86a" stroke="none"/><path d="M50 52c11-1 18-8 18-17-11 0-18 7-18 17z" fill="#3bb54a" stroke="none"/><path d="M50 42c-9 0-14-5-14-12 9 0 14 5 14 12z" fill="#4fbf5c" stroke="none"/><path d="M50 34c7 0 11-4 11-10-7 0-11 4-11 10z" fill="#2fa040" stroke="none"/>',
+    '<path d="M50 76V44M50 58l-9-6M50 54l10-7"/><circle cx="50" cy="34" r="20" fill="#3bb54a" stroke="none"/><circle cx="36" cy="40" r="12" fill="#4fbf5c" stroke="none"/><circle cx="64" cy="40" r="12" fill="#2fa040" stroke="none"/><circle cx="50" cy="24" r="12" fill="#6cc86a" stroke="none"/>'][Math.min(3, stage)];
+  return `<svg width="${sz}" height="${sz}" viewBox="0 0 100 100" fill="none" stroke="#8a5a34" stroke-width="3.5" stroke-linecap="round"><ellipse cx="50" cy="82" rx="24" ry="6" fill="#c9733d" opacity=".55" stroke="none"/><path d="M36 72h28l-3 12H39z" fill="#e08a4a" stroke="none"/>${L}</svg>`;
+}
+const stageOf = d => d >= 30 ? 3 : d >= 7 ? 2 : d >= 3 ? 1 : 0;
+function medal(r) { const c = ["#f2b632", "#b8bec7", "#d48a4f"][r - 1]; return `<span style="width:28px;height:28px;border-radius:50%;background:${c};color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.15)">${r}</span>`; }
 
 /* ---------- sha256 (parol shifrlash) ---------- */
 function sha256(s) {
@@ -968,7 +1124,7 @@ function shell() {
     <div class="sbox">${I.search}<input id="sq" placeholder="Kitob, muallif yoki kitobxon" onkeydown="if(event.key==='Enter')go('#/search/'+encodeURIComponent(this.value))"></div>
     <div class="nav">${NAV.map(([k, t, ic]) => `<a href="#/${k}" data-k="${k}">${ic}${t}</a>`).join("")}<a href="#/profile" data-k="profile">${I.user}Profil</a></div>
     <div class="grow"></div>
-    <a class="side-prem" href="#/premium">${APP_NAME} Premium ✦</a>
+    <a class="side-prem" href="#/premium">${ic("crown",17,'fill="currentColor" stroke="none"')} ${APP_NAME} Premium</a>
     <div class="tgl-row" onclick="toggleDark()"><span class="row" style="gap:10px">${I.moon.replace("<svg", '<svg width="19" height="19"')} Tungi rejim</span><div class="tg" id="dkT"></div></div>
     <div class="me-card" onclick="go('#/profile')"><span id="meAva"></span><b id="meName"></b><span class="muted">${I.gear.replace("<svg", '<svg width="18" height="18"')}</span></div>
     ${DEMO ? `<div class="demo-note">Demo rejim: ma'lumotlar faqat shu brauzerda saqlanadi.</div>` : ""}
@@ -990,7 +1146,7 @@ function paintChrome() {
 function mtop(title, back) {
   const st = S.me ? S.me.stats.streak : 0;
   return `<div class="mtop">${back ? `<div class="row"><button class="back" onclick="history.back()">${I.back}</button><b style="font-size:18px">${esc(title || "")}</b></div>` : `<a class="logo" href="#/home"><i>${I.logo}</i><span>${brand()}</span></a>`}
-    <div class="r"><a class="ibtn" href="#/search/">${I.search}</a><a class="ibtn" href="#/marra" title="Seriya"><b style="font-size:14px;color:${st ? "var(--green)" : "var(--muted)"}">${st}🔥</b></a>
+    <div class="r"><a class="ibtn" href="#/search/">${I.search}</a><a class="ibtn" href="#/marra" title="Seriya"><b style="font-size:14px;color:${st ? "var(--or)" : "var(--muted)"};display:flex;align-items:center;gap:2px">${ic("flameF",15)}${st}</b></a>
     <a href="#/profile">${S.me ? ava(S.me.user, 40) : ""}</a></div></div>`;
 }
 function ph(title, sub, back, right = "") {
@@ -1009,7 +1165,7 @@ async function render() {
   closeSheet();
   if (route.name === "terms" && !S.token) { $("#app").innerHTML = `<div style="padding:30px 20px;max-width:880px;margin:auto">${vTerms()}</div>`; return; }
   if (route.name === "admin") { $("#app").innerHTML = ""; return vAdmin(); }
-  if (!S.token) return vAuth();
+  if (!S.token) { if (route.name === "login" || route.name === "register") { authMode = route.name === "register" ? "reg" : "login"; return vAuth(); } return vLanding(); }
   if (!$("#view")) shell();
   paintChrome();
   if (route.name === "mood") return vMood();
@@ -1021,11 +1177,90 @@ async function render() {
   view.innerHTML = mtop("", true) + `<div class="skel" style="height:44px;width:40%;margin:10px 0 24px"></div><div class="skel" style="height:220px"></div><div class="skel" style="height:140px;margin-top:16px"></div>`;
   window.scrollTo(0, 0);
   try { const out = await html; if (seq === renderSeq) view.innerHTML = out; }
-  catch (e) { if (seq === renderSeq) view.innerHTML = mtop("", true) + `<div class="empty"><div class="ic">😕</div>${esc(e.message)}<br><br><button class="btn pri" onclick="render()">Qayta urinish</button></div>`; }
+  catch (e) { if (seq === renderSeq) view.innerHTML = mtop("", true) + `<div class="empty"><div class="ic">${ic("sad",44)}</div>${esc(e.message)}<br><br><button class="btn pri" onclick="render()">Qayta urinish</button></div>`; }
 }
 window.addEventListener("hashchange", render);
 
 /* ================= SAHIFALAR ================= */
+
+
+/* ---------- Sotuv sahifasi (landing) ---------- */
+function vLanding() {
+  document.body.classList.toggle("dark", !!S.dark);
+  const shot = (n, cls = "") => `<div class="lphone ${cls}"><img src="img/${n}.jpg" alt="${APP_NAME} ilovasi" loading="lazy"></div>`;
+  const F = [["book", "Kitobxon kundaligi", "Qaysi kitobni o'qiyapsiz, qaysi betga keldingiz, qachon boshladingiz — har kuni bir bosishda yozasiz.", "#fff1e8", "#f04e1c"],
+    ["check", "O'qilgan kitoblar tarixi", "Har bir kitob qachon tugagani, bahosi va undan olgan saboqlaringiz umrbod saqlanadi.", "#e9f8ec", "#23863a"],
+    ["cal", "Rejadagi kitoblar", "Keyin o'qimoqchi bo'lgan kitoblaringiz ro'yxati: kim tavsiya qilgani bilan birga.", "#eaf0fd", "#3d7bf0"],
+    ["gift", "Tavsiya va sovg'alar", "Kitobni kim tavsiya qilgan, kim sovg'a qilgan va siz uni kimga tavsiya qilasiz.", "#fdecef", "#c53a5a"],
+    ["flame", "Marra va seriyalar", "Kunlik maqsad, ketma-ket kunlar seriyasi, o'sib boruvchi nihol va haftalik reyting.", "#fff6e0", "#c98a1a"],
+    ["users", "Kitobxonlar davrasi", "Fikr yozing, do'stlaringizni kuzating, kim nima o'qiyotganini ko'ring va ilhom oling.", "#f0e8fd", "#8a4fc0"]];
+  $("#app").innerHTML = `<div class="land">
+  <header class="lnav"><div class="lw row between">
+    <a class="logo" href="#/" style="padding:0"><i>${I.logo}</i><span>${brand()}</span></a>
+    <nav class="lnk"><a href="#feat" onclick="return lscroll('feat')">Imkoniyatlar</a><a href="#how" onclick="return lscroll('how')">Qanday ishlaydi</a><a href="#org" onclick="return lscroll('org')">Maktab va markazlar</a><a href="#faq" onclick="return lscroll('faq')">Savollar</a></nav>
+    <div class="row" style="gap:8px"><a class="btn ghost sm" href="#/login">Kirish</a><a class="btn pri sm" href="#/register">Bepul boshlash</a></div></div></header>
+
+  <section class="lhero"><div class="lw lhero-in">
+    <div class="ltxt"><span class="lbadge">${ic("sparkle",15)} Kitobxonlar uchun yangi odat</span>
+      <h1>Kitobxon daftaringiz endi <em>telefonda</em></h1>
+      <p>Qaysi kitobni o'qiyotganingiz, qaysi betga kelganingiz, o'qigan kitoblaringiz va ulardan olgan saboqlaringiz — hammasi bir joyda. Telefonda ham, kompyuterda ham.</p>
+      <div class="row" style="gap:12px;flex-wrap:wrap"><a class="btn pri lg" href="#/register">Bepul boshlash ${ic("arrow",18)}</a><a class="btn ghost lg" href="#how" onclick="return lscroll('how')">Qanday ishlaydi?</a></div>
+      <div class="lproof"><div class="ava-stack">${["A", "J", "M", "S", "N"].map((l, i) => `<div class="ava" style="background:${AVC[i]}">${l}</div>`).join("")}</div><span><b>Bepul</b> · ro'yxatdan o'tish 1 daqiqa</span></div></div>
+    <div class="lart">${shot("home", "p1")}${shot("marra", "p2")}
+      <div class="lfl f1"><span class="sic" style="background:var(--or-soft);color:var(--or)">${ic("book",20)}</span><span><b>+24 bet</b><small>bugun o'qildi</small></span></div>
+      <div class="lfl f2"><span class="sic" style="background:#fff6e0;color:#e08a10">${ic("flameF",20)}</span><span><b>7 kun</b><small>ketma-ket o'qidim</small></span></div></div>
+  </div></section>
+
+  <section class="lsec lw"><div class="lpain">
+    <div><h2>Qog'oz daftar yo'qoladi, unutiladi, uyda qoladi</h2><p class="lsub">Har bir kitobxon daftar tutadi. Lekin daftar varaqlari to'lib ketadi, kerakli kitobni topish qiyin, statistika yo'q, do'stlar bilan ulashib bo'lmaydi.</p></div>
+    <div class="lvs"><div class="lv bad"><b>Qog'oz daftar</b><span>${ic("ban",16)} Yo'qolishi mumkin</span><span>${ic("ban",16)} Statistika yo'q</span><span>${ic("ban",16)} Eslatma yo'q</span><span>${ic("ban",16)} Ulashib bo'lmaydi</span></div>
+      <div class="lv good"><b>${APP_NAME}</b><span>${ic("check",16)} Hamma qurilmada saqlanadi</span><span>${ic("check",16)} Avtomatik statistika</span><span>${ic("check",16)} Kunlik maqsad va seriya</span><span>${ic("check",16)} Kitobxonlar davrasi</span></div></div>
+  </div></section>
+
+  <section class="lsec lw" id="feat"><div class="lhead"><span class="lk">Imkoniyatlar</span><h2>Kitobxonga kerak bo'lgan hamma narsa</h2><p class="lsub">Sizning qog'oz daftaringizdagi har bir ustun — endi qulay va chiroyli ko'rinishda.</p></div>
+    <div class="lfeat">${F.map(([i, t, d, bg, c]) => `<div><span class="sic" style="background:${bg};color:${c}">${ic(i, 24)}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></section>
+
+  <section class="lsec lw lsplit"><div>${shot("detail", "solo")}</div><div><span class="lk">Kitobdan saboq</span><h2>Har bir kitobdan nima o'rgandingiz?</h2>
+    <p class="lsub">Kitobni tugatgach, undan olgan tajribangizni yozasiz va kimga tavsiya qilishingizni belgilaysiz. Yillar o'tib ham o'qigan kitoblaringiz va fikrlaringiz qo'lingizda bo'ladi.</p>
+    <ul class="lli"><li>${ic("check",18)} Baho va saboqlar</li><li>${ic("check",18)} Kunma-kun o'qish tarixi</li><li>${ic("check",18)} Kim tavsiya qilgan, kim sovg'a qilgan</li></ul></div></section>
+
+  <section class="lsec lw" id="how"><div class="lhead"><span class="lk">Qanday ishlaydi</span><h2>3 qadamda boshlang</h2></div>
+    <div class="lsteps"><div><b>1</b><h3>Ro'yxatdan o'ting</h3><p>Telefon raqamingiz va parol bilan 1 daqiqada akkaunt oching.</p></div>
+      <div><b>2</b><h3>Kitobingizni qo'shing</h3><p>Hozir o'qiyotgan, o'qib bo'lgan va rejadagi kitoblaringizni javonga qo'ying.</p></div>
+      <div><b>3</b><h3>Har kuni betni yozing</h3><p>"Bugun qaysi betga keldim?" — bitta raqam. Qolganini ${APP_NAME} hisoblaydi.</p></div></div></section>
+
+  <section class="lsec lw lsplit rev"><div><span class="lk">Davra</span><h2>Kitobxonlar bilan birga o'qing</h2>
+    <p class="lsub">Fikringizni yozing, kitob biriktiring, do'stlaringizni davrangizga qo'shing. Kim nima o'qiyotganini ko'rib, keyingi kitobingizni tanlang.</p>
+    <ul class="lli"><li>${ic("check",18)} Fikr, like va izohlar</li><li>${ic("check",18)} Haftalik reyting va marralar</li><li>${ic("check",18)} Kayfiyatga mos kitob tavsiyasi</li></ul>
+    <a class="btn pri lg" href="#/register" style="margin-top:20px">Davraga qo'shilish ${ic("arrow",18)}</a></div><div>${shot("davra", "solo")}</div></section>
+
+  <section class="lsec lw" id="org"><div class="lorg"><div><span class="lk" style="color:#ffb27a">Maktab, o'quv markaz va kutubxonalar uchun</span>
+    <h2>O'quvchilaringiz nima o'qiyotganini kuzating</h2>
+    <p>Admin panel orqali har bir kitobxon qaysi kitobni o'qiyotganini, nechanchi betga kelganini, qancha kitob o'qiganini va oxirgi marta qachon faol bo'lganini ko'rasiz. Ro'yxatni Excel'ga yuklab olasiz.</p>
+    <div class="lorgf"><span>${ic("users",18)} Barcha kitobxonlar bir joyda</span><span>${ic("chart",18)} Faollik va reyting</span><span>${ic("download",18)} Excel'ga eksport</span><span>${ic("trophy",18)} Kitobxonlik tanlovlari</span></div>
+    ${CONTACT_TG ? `<a class="btn pri lg" target="_blank" href="https://t.me/${CONTACT_TG}" style="margin-top:22px">Bog'lanish ${ic("arrow",18)}</a>` : `<a class="btn pri lg" href="#/register" style="margin-top:22px">Bepul boshlash ${ic("arrow",18)}</a>`}</div>
+    <div class="lorgimg"><img src="img/admin.jpg" alt="Admin panel" loading="lazy"></div></div></section>
+
+  <section class="lsec lw"><div class="lapp"><div><h2>Telefoningizga o'rnating</h2><p class="lsub">${APP_NAME} brauzerda ochiladi va telefoningizga ilova bo'lib o'rnatiladi — bosh ekranda ikonkasi bilan, internetsiz ham ishlaydi.</p>
+    <div class="lst"><div><b>Android</b><span>Chrome'da saytni oching → "O'rnatish"</span></div><div><b>iPhone</b><span>Safari → Ulashish ⬆ → "Bosh ekranga"</span></div></div>
+    <button class="btn dark lg" onclick="installApp()" style="margin-top:18px">${ic("phone",18)} Ilovani o'rnatish</button></div>
+    <div class="lappic"><img src="icons/icon-512.png" alt=""></div></div></section>
+
+  <section class="lsec lw" id="faq"><div class="lhead"><span class="lk">Savollar</span><h2>Ko'p beriladigan savollar</h2></div>
+    <div class="faq"><details><summary>${APP_NAME} bepulmi?</summary><p>Ha. Kundalik, Davra, Marra va reyting — barchasi bepul. Keyinchalik qo'shimcha imkoniyatlar uchun Premium bo'ladi.</p></details>
+      <details><summary>Kitoblarni shu yerda o'qiymanmi?</summary><p>Yo'q. ${APP_NAME} — kitobxon kundaligi. Siz qog'oz yoki elektron kitobni o'zingiz o'qiysiz, bu yerda esa o'qishingizni yozib, kuzatib borasiz.</p></details>
+      <details><summary>Telefon va kompyuterda bitta akkaunt ishlaydimi?</summary><p>Ha. Bir marta ro'yxatdan o'tasiz va istalgan qurilmadan kirasiz — ma'lumotlaringiz hamma joyda bir xil.</p></details>
+      <details><summary>Ma'lumotlarim xavfsizmi?</summary><p>Parolingiz shifrlangan holda saqlanadi. Kunlik yozuvlaringiz faqat sizga ko'rinadi, xohlasangiz profilingizni butunlay yopishingiz mumkin.</p></details>
+      <details><summary>Maktabimiz o'quvchilari uchun ishlatsak bo'ladimi?</summary><p>Albatta. O'quvchilar ro'yxatdan o'tadi, siz esa admin panel orqali kim nima o'qiyotganini kuzatib borasiz.</p></details></div></section>
+
+  <section class="lw"><div class="lcta"><h2>Bugun birinchi betdan boshlang</h2><p>Har kuni bir varaq bo'lsa ham — umr bo'yi odat.</p><a class="btn lg" style="background:#fff;color:var(--or2)" href="#/register">Bepul ro'yxatdan o'tish ${ic("arrow",18)}</a></div></section>
+
+  <footer class="lw lfoot"><a class="logo" href="#/" style="padding:0"><i>${I.logo}</i><span>${brand()}</span></a>
+    <div class="row" style="gap:18px;flex-wrap:wrap"><a href="#/terms">Foydalanish shartlari</a><a href="#/terms/privacy">Maxfiylik siyosati</a><a href="#/login">Kirish</a><a onclick="toggleDark()" style="cursor:pointer">${ic("moon",15)} Tungi rejim</a></div>
+    <span class="muted">© ${new Date().getFullYear()} ${APP_NAME}</span></footer></div>`;
+  window.scrollTo(0, 0);
+}
+function lscroll(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); return false; }
 
 /* ---------- kirish / ro'yxatdan o'tish ---------- */
 let authMode = "login";
@@ -1033,10 +1268,10 @@ function vAuth() {
   document.body.classList.toggle("dark", !!S.dark);
   const demoCovers = [["Kecha va kunduz", "Cho'lpon"], ["O'tkan kunlar", "A. Qodiriy"], ["Alkimyogar", "Paulo Koelo"]].map(([title, author]) => ({ title, author }));
   $("#app").innerHTML = `<div class="auth"><div class="l"><div class="form">
-    <a class="logo" style="padding:0"><i>${I.logo}</i><span>${brand()}</span></a>
+    <div class="row between"><a class="logo" style="padding:0" href="#/"><i>${I.logo}</i><span>${brand()}</span></a><a class="muted" style="font-weight:600;font-size:14px" href="#/">← Bosh sahifa</a></div>
     <h1>${authMode === "login" ? "Xush kelibsiz!" : "Ro'yxatdan o'tish"}</h1>
     <p class="sub">${authMode === "login" ? "Telefon raqamingiz va parolingiz bilan kiring. Bir akkaunt — saytda ham, ilovada ham." : "Bir daqiqada akkaunt oching va kitobxon kundaligingizni boshlang."}</p>
-    <div class="seg" style="grid-template-columns:1fr 1fr;margin-bottom:6px"><button class="${authMode === "login" ? "on" : ""}" onclick="authMode='login';vAuth()">Kirish</button><button class="${authMode === "reg" ? "on" : ""}" onclick="authMode='reg';vAuth()">Ro'yxatdan o'tish</button></div>
+    <div class="seg" style="grid-template-columns:1fr 1fr;margin-bottom:6px"><button class="${authMode === "login" ? "on" : ""}" onclick="go('#/login')">Kirish</button><button class="${authMode === "reg" ? "on" : ""}" onclick="go('#/register')">Ro'yxatdan o'tish</button></div>
     ${authMode === "reg" ? `<label>Ism-familiya</label><input id="aName" placeholder="Masalan: Aziza Karimova" autocomplete="name">` : ""}
     <label>Telefon raqam</label><input id="aPhone" type="tel" value="+998 " autocomplete="tel">
     <label>Parol</label>${passField("aPass", authMode === "reg" ? "Kamida 6 ta belgi" : "Parolingiz", authMode === "reg" ? "new-password" : "current-password")}
@@ -1075,7 +1310,7 @@ function logout(silent) {
   S.token = null; S.me = null; LS.del("kitobim_token"); LS.del("kitobim_me");
   $("#app").innerHTML = ""; if (!silent) toast("Akkauntdan chiqdingiz"); location.hash = "#/home"; render();
 }
-function toggleDark() { S.dark = !S.dark; LS.set("kitobim_dark", S.dark); document.body.classList.toggle("dark", S.dark); paintChrome(); const t = $("#dkS"); if (t) t.classList.toggle("on", S.dark); }
+function toggleDark() { S.dark = !S.dark; LS.set("kitobim_dark", S.dark); document.body.classList.toggle("dark", S.dark); if (!S.token) return; paintChrome(); const t = $("#dkS"); if (t) t.classList.toggle("on", S.dark); }
 
 /* ---------- Asosiy ---------- */
 async function vHome() {
@@ -1100,19 +1335,19 @@ async function vHome() {
         <div class="in"><div class="ring">${ring(st.today, u.goal, 124, 11)}<div class="lbl"><small>Bugungi reja</small><b>${st.today}<span style="font-size:14px;font-weight:600">/${u.goal}</span></b><span>bet</span></div></div>
         <div style="flex:1;min-width:0">${weekStrip()}<div class="mini2"><div><small>Joriy ko'rsatkich</small><b>${st.streak} <span>kun</span></b></div><div><small>Keyingi marra</small><b>${nextMs(st.streak)} <span>kun</span></b></div></div></div></div></div>
     </div>
-    <div class="banner moodb" onclick="go('#/mood')"><div style="position:relative;z-index:1"><h2>Bugun nima o'qiy?</h2><p>Kayfiyatingizni tanlang — sizga mos kitoblarni topamiz.</p><span class="bw">Kayfiyatni tanlash ${I.ch}</span></div><div class="art">✨</div></div>
+    <div class="banner moodb" onclick="go('#/mood')"><div style="position:relative;z-index:1"><h2>Bugun nima o'qiy?</h2><p>Kayfiyatingizni tanlang — sizga mos kitoblarni topamiz.</p><span class="bw">Kayfiyatni tanlash ${I.ch}</span></div><div class="art">${ic("sparkle",96,'stroke-width="1.4"')}</div></div>
     <div class="sec"><h2>Kitobxonlar orasida mashhur</h2><a onclick="go('#/search/')">Barchasi ${I.ch}</a></div>
     <div class="shelfrow">${popular.map(tile).join("")}</div>
     ${plan.length ? `<div class="sec"><h2>Keyingi o'qiyman</h2><a onclick="go('#/shelf/plan')">Barchasi ${I.ch}</a></div><div class="shelfrow">${plan.map(b => tile(b, true)).join("")}</div>` : ""}
     ${done.length ? `<div class="sec"><h2>O'qib bo'lganlarim</h2><a onclick="go('#/shelf/done')">Barchasi ${I.ch}</a></div><div class="shelfrow">${done.map(b => tile(b, true)).join("")}</div>` : ""}
     <div class="sec"><h2>Davrada nima gap?</h2><a onclick="go('#/davra')">Davraga o'tish ${I.ch}</a></div>
     ${feed.posts.length ? feed.posts.map(postCard).join("") : `<div class="card empty">Hali fikrlar yo'q. Birinchi bo'lib yozing!</div>`}
-    <div class="banner" onclick="go('#/premium')"><div style="position:relative;z-index:1"><h2>${APP_NAME} Premium</h2><p>Kengaytirilgan statistika, kitob klublari va boshqa imkoniyatlar.</p><span class="bw">Batafsil ${I.ch}</span></div><div class="art">👑</div></div>
+    <div class="banner" onclick="go('#/premium')"><div style="position:relative;z-index:1"><h2>${APP_NAME} Premium</h2><p>Kengaytirilgan statistika, kitob klublari va boshqa imkoniyatlar.</p><span class="bw">Batafsil ${I.ch}</span></div><div class="art">${ic("crown",96,'fill="#fff" stroke="none" opacity=".9"')}</div></div>
     ${footer()}`;
 }
 function tile(b, mine) {
   const k = b.key || KitobimCore.bkey(b.title, b.author);
-  const badge = mine ? (b.status === "done" && b.rating ? `${b.rating}.0 ★` : b.status === "reading" && b.pages ? Math.round((b.current || 0) / b.pages * 100) + "%" : "") : (b.readers ? `👥 ${b.readers}` : b.rating ? `${b.rating} ★` : "");
+  const badge = mine ? (b.status === "done" && b.rating ? `${b.rating}.0 ${ic("star",12,'fill="currentColor" style="color:var(--or)"')}` : b.status === "reading" && b.pages ? Math.round((b.current || 0) / b.pages * 100) + "%" : "") : (b.readers ? `${ic("users",13)} ${b.readers}` : b.rating ? `${b.rating} ${ic("star",12,'fill="currentColor" style="color:var(--or)"')}` : "");
   const [a] = palFor(b.title);
   return `<div class="tile" onclick="${mine ? `openEntry('${b.id}')` : `go('#/book/${encodeURIComponent(k)}')`}"><div class="tp" style="background:linear-gradient(180deg,${a}26,${a}08)">${badge ? `<span class="bdg">${badge}</span>` : ""}${cover(b)}</div>
     <div class="bt"><h4>${esc(b.title)}</h4><small>${esc(b.author || "—")}</small></div></div>`;
@@ -1134,8 +1369,8 @@ function vShelf(f) {
   return mtop() + ph("Javonim", "Kitobxon kundaligim", false, `<button class="btn pri" onclick="openForm()">+ Kitob qo'shish</button>`) +
     `<h1 class="mob" style="font-size:26px;margin:4px 0 14px">Javonim</h1>
     <div class="sbox">${I.search}<input placeholder="Javonimdan izlash" value="${esc(shelfQ)}" oninput="shelfQ=this.value;const p=this.selectionStart;render();const i=$('#view .sbox input');i.focus();i.setSelectionRange(p,p)"></div>
-    <div class="chips">${chip("all", "Hammasi")}${chip("reading", "📖 O'qiyapman")}${chip("done", "✅ O'qidim")}${chip("plan", "🗓 Rejada")}</div>
-    ${list.length ? `<div class="shelf-grid">${list.map(bookRow).join("")}</div>` : `<div class="card empty"><div class="ic">📚</div>Bu yerda hali kitob yo'q.<br><br><button class="btn pri sm" onclick="openForm(null,'${filter === "all" ? "reading" : filter}')">+ Kitob qo'shish</button></div>`}`;
+    <div class="chips">${chip("all", "Hammasi")}${chip("reading", ic("book",15) + " O'qiyapman")}${chip("done", ic("check",15) + " O'qidim")}${chip("plan", ic("cal",15) + " Rejada")}</div>
+    ${list.length ? `<div class="shelf-grid">${list.map(bookRow).join("")}</div>` : `<div class="card empty"><div class="ic">${ic("shelf",44)}</div>Bu yerda hali kitob yo'q.<br><br><button class="btn pri sm" onclick="openForm(null,'${filter === "all" ? "reading" : filter}')">+ Kitob qo'shish</button></div>`}`;
 }
 function bookRow(b) {
   const pct = b.pages ? Math.min(100, Math.round((b.current || 0) / b.pages * 100)) : 0;
@@ -1144,7 +1379,7 @@ function bookRow(b) {
   else if (b.status === "done") mid = `<div class="meta" style="margin-top:8px">${stars(b.rating) || "<span></span>"}<span>${fmtD(b.end)}</span></div>`;
   else mid = `<div class="meta" style="margin-top:8px"><span>${b.recBy ? "Tavsiya: " + esc(b.recBy) : b.planDate ? "Reja: " + fmtD(b.planDate) : ""}</span></div>`;
   return `<div class="brow" onclick="openEntry('${b.id}')">${cover(b, "sm")}<div class="info"><h3>${esc(b.title)}</h3><div class="au">${esc(b.author || "Muallif ko'rsatilmagan")}</div>${mid}
-    <div class="tags"><span class="tag t-${b.status}">${STATUS[b.status]}</span>${b.gift ? `<span class="tag t-gift">🎁 Sovg'a</span>` : ""}${b.genre ? `<span class="tag" style="background:var(--card);color:var(--muted)">${esc(b.genre)}</span>` : ""}</div></div></div>`;
+    <div class="tags"><span class="tag t-${b.status}">${STATUS[b.status]}</span>${b.gift ? `<span class="tag t-gift">${ic("gift",12)} Sovg'a</span>` : ""}${b.genre ? `<span class="tag" style="background:var(--card);color:var(--muted)">${esc(b.genre)}</span>` : ""}</div></div></div>`;
 }
 
 /* ---------- kitob formasi ---------- */
@@ -1168,7 +1403,7 @@ function drawForm(isEdit) {
       : `<label>Qachon boshlamoqchisiz?</label><input id="fPlanDate" type="date" value="${esc(f.planDate)}">`}
     <div class="fs"><h4>Kitob qayerdan keldi</h4>
       <label>Kim tavsiya qilgan?</label><input id="fRecBy" value="${esc(f.recBy)}" placeholder="Masalan: ustozim, do'stim Jasur">
-      <div class="switch" onclick="fSet('gift',${!f.gift})"><span>🎁 Bu kitob menga sovg'a qilingan</span><div class="tg ${f.gift ? "on" : ""}"></div></div>
+      <div class="switch" onclick="fSet('gift',${!f.gift})"><span class="row" style="gap:8px">${ic("gift",19)} Bu kitob menga sovg'a qilingan</span><div class="tg ${f.gift ? "on" : ""}"></div></div>
       ${f.gift ? `<label>Kim sovg'a qilgan?</label><input id="fGiftFrom" value="${esc(f.giftFrom)}" placeholder="Masalan: dadam">` : ""}</div>
     ${f.status !== "plan" ? `<div class="fs"><h4>Mening fikrim</h4>
       <label>Bu kitobdan nima o'rgandim (tajriba, saboq)</label><textarea id="fExp" placeholder="Kitobdan olgan asosiy saboqlarim…">${esc(f.experience)}</textarea>
@@ -1221,21 +1456,21 @@ function openEntry(id) {
   const daysTook = b.status === "done" && b.start && b.end ? Math.max(1, Math.round((new Date(b.end) - new Date(b.start)) / 864e5) + 1) : null;
   const key = KitobimCore.bkey(b.title, b.author);
   sheet(`<div style="text-align:center;padding-top:6px"><div style="display:flex;justify-content:center">${cover(b, "lg")}</div><h2 style="margin-top:18px;font-size:23px">${esc(b.title)}</h2><div class="muted" style="margin-top:4px">${esc(b.author || "")}</div></div>
-    <div class="glass"><div><small>${b.status === "done" ? "Bahom" : "Holat"}</small><b>${b.status === "done" ? (b.rating ? b.rating + ".0 ★" : "—") : STATUS[b.status]}</b></div>
+    <div class="glass"><div><small>${b.status === "done" ? "Bahom" : "Holat"}</small><b>${b.status === "done" ? (b.rating ? b.rating + ".0" : "—") : STATUS[b.status]}</b></div>
       <div><small>${b.status === "reading" ? "Joriy bet" : "Betlar"}</small><b>${b.status === "reading" ? (b.current || 0) + `<span class="muted" style="font-size:13px">/${b.pages || "?"}</span>` : (b.pages || "—")}</b></div>
-      <div><small>${daysTook ? "O'qildi" : b.status === "reading" ? "Progress" : "Sovg'a"}</small><b>${daysTook ? daysTook + " kun" : b.status === "reading" ? pct + "%" : (b.gift ? "🎁 Ha" : "Yo'q")}</b></div></div>
+      <div><small>${daysTook ? "O'qildi" : b.status === "reading" ? "Progress" : "Sovg'a"}</small><b>${daysTook ? daysTook + " kun" : b.status === "reading" ? pct + "%" : (b.gift ? "Ha" : "Yo'q")}</b></div></div>
     ${b.status === "reading" ? `<div class="pb" style="height:8px;margin-top:16px"><i style="width:${pct}%"></i></div>` : ""}
-    <div class="btns">${b.status === "reading" ? `<button class="btn pri" onclick="openProgress('${b.id}')">📌 Betni yangilash</button><button class="btn dark" onclick="finishBook('${b.id}')">✓ Tugatdim</button>` : ""}
+    <div class="btns">${b.status === "reading" ? `<button class="btn pri" onclick="openProgress('${b.id}')">${ic("pin",17)} Betni yangilash</button><button class="btn dark" onclick="finishBook('${b.id}')">✓ Tugatdim</button>` : ""}
       ${b.status === "plan" ? `<button class="btn pri" onclick="startBook('${b.id}')">Albatta, o'qiyman →</button>` : ""}</div>
     ${b.experience ? `<h3 style="margin:22px 0 10px;font-size:17px">${b.status === "plan" ? "Nega o'qimoqchiman" : "Olgan tajribam"}</h3><div class="note">${esc(b.experience)}</div>` : ""}
     <h3 style="margin:22px 0 10px;font-size:17px">Kitob haqida</h3>
     <div class="dl">${b.status !== "plan" ? `<dt>Boshlagan</dt><dd>${fmtD(b.start)}</dd>` : `<dt>Boshlash rejasi</dt><dd>${fmtD(b.planDate)}</dd>`}
       ${b.status === "done" ? `<dt>Tugatgan</dt><dd>${fmtD(b.end)}</dd>` : ""}${b.genre ? `<dt>Janr</dt><dd>${esc(b.genre)}</dd>` : ""}
-      <dt>Kim tavsiya qilgan</dt><dd>${esc(b.recBy || "—")}</dd><dt>Sovg'ami?</dt><dd>${b.gift ? "🎁 Ha" + (b.giftFrom ? ", " + esc(b.giftFrom) : "") : "Yo'q"}</dd>
+      <dt>Kim tavsiya qilgan</dt><dd>${esc(b.recBy || "—")}</dd><dt>Sovg'ami?</dt><dd>${b.gift ? "Ha" + (b.giftFrom ? ", " + esc(b.giftFrom) : "") : "Yo'q"}</dd>
       ${b.recTo ? `<dt>Kimga tavsiya qilaman</dt><dd>${esc(b.recTo)}</dd>` : ""}</div>
     ${ses.length ? `<h3 style="margin:22px 0 12px;font-size:17px">O'qish kundaligi</h3><div class="log">${ses.map(s => `<div><b>${s.from} → ${s.to} bet</b> <span style="color:var(--or2);font-weight:700">+${Math.max(0, s.to - s.from)}</span><small>${fmtD(s.d)}</small>${s.note ? `<p>${esc(s.note)}</p>` : ""}</div>`).join("")}</div>` : ""}
-    <div class="btns" style="margin-top:20px"><button class="btn ghost" onclick="openForm('${b.id}')">✏️ Tahrirlash</button><button class="btn ghost" onclick="closeSheet();go('#/book/${encodeURIComponent(key)}')">Kitob sahifasi →</button></div>
-    ${b.status !== "plan" ? `<button class="btn line full" style="margin-top:10px" onclick="openComposer({title:${esc(JSON.stringify(b.title))},author:${esc(JSON.stringify(b.author || ""))}},${b.rating || 0})">💬 Davrada fikr bildirish</button>` : ""}`);
+    <div class="btns" style="margin-top:20px"><button class="btn ghost" onclick="openForm('${b.id}')">${ic("edit",17)} Tahrirlash</button><button class="btn ghost" onclick="closeSheet();go('#/book/${encodeURIComponent(key)}')">Kitob sahifasi →</button></div>
+    ${b.status !== "plan" ? `<button class="btn line full" style="margin-top:10px" onclick="openComposer({title:${esc(JSON.stringify(b.title))},author:${esc(JSON.stringify(b.author || ""))}},${b.rating || 0})">${ic("msg",17)} Davrada fikr bildirish</button>` : ""}`);
 }
 function openProgress(id) {
   const reading = myBooks().filter(x => x.status === "reading");
@@ -1280,21 +1515,21 @@ async function vBook(key) {
   const r = await api("book", { key });
   const cur = CURATED.find(c => c.key === key);
   const bk = r.book || (cur ? { key, title: cur.title, author: cur.author, genre: cur.genre, readers: 0, readingNow: 0, done: 0, rating: 0 } : null);
-  if (!bk) return mtop("Kitob", true) + `<div class="empty"><div class="ic">📕</div>Kitob topilmadi</div>`;
+  if (!bk) return mtop("Kitob", true) + `<div class="empty"><div class="ic">${ic("book",44)}</div>Kitob topilmadi</div>`;
   const mine = myBookByKey(key), [a] = palFor(bk.title);
   const tj = s => esc(JSON.stringify(s || ""));
   return mtop("Kitob", true) + ph("Ortga", "", true) +
     `<div class="bk"><div class="left"><div class="glow" style="--gl:${a}66"><div style="display:flex;justify-content:center">${cover(bk, "lg")}</div></div>
       <div class="card" style="text-align:left;margin-top:8px"><b>Kitobxon kundaligi</b><p class="muted" style="font-size:13.5px;margin:6px 0 12px;line-height:1.45">Bu kitobni javoningizga qo'shing va har kuni qaysi betga kelganingizni yozib boring.</p>
-        ${mine ? `<button class="btn pri full" onclick="openEntry('${mine.id}')">Kundaligimni ochish</button>` : `<button class="btn pri full" onclick="quickAdd(${tj(bk.title)},${tj(bk.author)},'reading',${tj(bk.genre)})">📖 O'qiyapman</button>
-        <button class="btn ghost full" style="margin-top:8px" onclick="quickAdd(${tj(bk.title)},${tj(bk.author)},'plan',${tj(bk.genre)})">🗓 Rejaga qo'shish</button>
-        <button class="btn ghost full" style="margin-top:8px" onclick="openForm(null,'done',{title:${tj(bk.title)},author:${tj(bk.author)},genre:${tj(bk.genre)}})">✅ O'qib bo'lganman</button>`}</div></div>
+        ${mine ? `<button class="btn pri full" onclick="openEntry('${mine.id}')">Kundaligimni ochish</button>` : `<button class="btn pri full" onclick="quickAdd(${tj(bk.title)},${tj(bk.author)},'reading',${tj(bk.genre)})">${ic("book",17)} O'qiyapman</button>
+        <button class="btn ghost full" style="margin-top:8px" onclick="quickAdd(${tj(bk.title)},${tj(bk.author)},'plan',${tj(bk.genre)})">${ic("cal",17)} Rejaga qo'shish</button>
+        <button class="btn ghost full" style="margin-top:8px" onclick="openForm(null,'done',{title:${tj(bk.title)},author:${tj(bk.author)},genre:${tj(bk.genre)}})">${ic("check",17)} O'qib bo'lganman</button>`}</div></div>
     <div><h1>${esc(bk.title)}</h1><div class="au">Muallif <b>${esc(bk.author || "—")}</b></div>
-      <div class="kv"><span>⭐ Reyting: <b>${bk.rating || "—"}</b></span><span>👥 Javonda: <b>${bk.readers || 0}</b></span><span>📖 O'qimoqda: <b>${bk.readingNow || 0}</b></span><span>✅ O'qib bo'lgan: <b>${bk.done || 0}</b></span></div>
+      <div class="kv"><span>${ic("star",16)} Reyting: <b>${bk.rating || "—"}</b></span><span>${ic("users",16)} Javonda: <b>${bk.readers || 0}</b></span><span>${ic("book",16)} O'qimoqda: <b>${bk.readingNow || 0}</b></span><span>${ic("check",16)} O'qib bo'lgan: <b>${bk.done || 0}</b></span></div>
       ${mine ? `<div class="row" style="gap:10px;flex-wrap:wrap"><span class="tag t-${mine.status}">Javonimda: ${STATUS[mine.status]}</span>${mine.status === "reading" && mine.pages ? `<span class="muted" style="font-size:13.5px">${mine.current}/${mine.pages} bet</span>` : ""}</div>` : ""}
       <div class="facts">${bk.genre ? `<div><span>Janr</span><b>${esc(bk.genre)}</b></div>` : ""}${bk.pages ? `<div><span>Betlar soni</span><b>${bk.pages}</b></div>` : ""}<div><span>Rejaga qo'shganlar</span><b>${bk.plan || 0}</b></div></div>
       ${r.readers.length ? `<h3 style="margin:28px 0 12px;font-size:19px">Bu kitobni javoniga qo'shganlar</h3><div class="row" style="flex-wrap:wrap;gap:8px">${r.readers.map(u => `<a href="#/user/${u.id}" title="${esc(u.name)}">${ava(u, 42)}</a>`).join("")}</div>` : ""}
-      ${r.reviews.length ? `<h3 style="margin:30px 0 12px;font-size:19px">Kitobxonlar saboqlari</h3>${r.reviews.map(v => `<div class="post"><div class="hd">${ava(v.user)}<div class="nm"><a href="#/user/${v.user.id}"><b>${esc(v.user.name)}</b></a> <small>@${esc(v.user.username)}</small><div>${stars(v.rating)}</div></div><small>${fmtD(v.date)}</small></div><div class="tx">${esc(v.text)}</div>${v.recTo ? `<div class="more">➡️ Kimga tavsiya: ${esc(v.recTo)}</div>` : ""}</div>`).join("")}` : ""}
+      ${r.reviews.length ? `<h3 style="margin:30px 0 12px;font-size:19px">Kitobxonlar saboqlari</h3>${r.reviews.map(v => `<div class="post"><div class="hd">${ava(v.user)}<div class="nm"><a href="#/user/${v.user.id}"><b>${esc(v.user.name)}</b></a> <small>@${esc(v.user.username)}</small><div>${stars(v.rating)}</div></div><small>${fmtD(v.date)}</small></div><div class="tx">${esc(v.text)}</div>${v.recTo ? `<div class="more">${ic("arrow",14)} Kimga tavsiya: ${esc(v.recTo)}</div>` : ""}</div>`).join("")}` : ""}
       <div class="sec" style="margin-top:30px"><h2>Fikrlar <span class="muted" style="font-weight:600">${r.posts.length}</span></h2></div>
       <div class="composer" onclick="openComposer({title:${tj(bk.title)},author:${tj(bk.author)}})" style="cursor:text"><div class="row">${ava(S.me.user, 40)}<span class="muted">Kitob haqida fikringiz qanday?</span></div></div>
       ${r.posts.length ? r.posts.map(postCard).join("") : `<div class="empty">Hali fikr yo'q. Birinchi bo'lib yozing!</div>`}
@@ -1311,7 +1546,7 @@ function postCard(p) {
   return `<div class="post" id="p-${p.id}"><div class="hd"><a href="#/user/${p.user.id}">${ava(p.user)}</a><div class="nm"><a href="#/user/${p.user.id}"><b>${esc(p.user.name)}</b></a> <small>@${esc(p.user.username)} · ${ago(p.createdAt)}</small>${p.rating ? `<div>${stars(p.rating)}</div>` : ""}</div>
       ${mine ? `<button class="muted" title="O'chirish" onclick="delPost('${p.id}')">⋯</button>` : ""}</div>
     <div class="tx ${long ? "clamp" : ""}">${esc(p.text)}</div>${long ? `<a class="more" onclick="this.previousElementSibling.classList.remove('clamp');this.remove()">Ko'proq ▾</a>` : ""}
-    ${p.book ? `<div class="att" onclick="go('#/book/${encodeURIComponent(p.book.key)}')">${cover(p.book, "xs")}<div><h4>${esc(p.book.title)}</h4><small>${esc(p.book.author || "")}</small><em>👥 ${p.book.readers} kitobxon javonida</em></div></div>` : ""}
+    ${p.book ? `<div class="att" onclick="go('#/book/${encodeURIComponent(p.book.key)}')">${cover(p.book, "xs")}<div><h4>${esc(p.book.title)}</h4><small>${esc(p.book.author || "")}</small><em>${ic("users",13)} ${p.book.readers} kitobxon javonida</em></div></div>` : ""}
     <div class="acts"><button class="${p.liked ? "on" : ""}" onclick="likePost('${p.id}')">${p.liked ? I.heartF : I.heart}${p.likes}</button>
       <button onclick="toggleCmts('${p.id}')">${I.cmt}${p.comments.length}</button><span class="row" style="gap:6px">${I.eye}${num(p.views)}</span>
       <button style="margin-left:auto" onclick="sharePost('${p.id}')">${I.share}</button></div>
@@ -1332,7 +1567,7 @@ function composerHTML() {
   const opts = myBooks().filter(b => b.status !== "plan");
   const sel = CR.book ? KitobimCore.bkey(CR.book.title, CR.book.author) : "";
   return `<textarea id="cText" maxlength="1500" placeholder="Fikringizni yozing…" oninput="$('#cCnt').textContent=this.value.length+'/1500'"></textarea>
-    <div class="bar"><select id="cBook" onchange="CR.book=this.value?JSON.parse(this.value):null"><option value="">📕 Kitob tanlash</option>
+    <div class="bar"><select id="cBook" onchange="CR.book=this.value?JSON.parse(this.value):null"><option value="">Kitob tanlash</option>
       ${CR.book && !opts.some(b => KitobimCore.bkey(b.title, b.author) === sel) ? `<option selected value='${esc(JSON.stringify(CR.book))}'>${esc(CR.book.title)}</option>` : ""}
       ${opts.map(b => { const v = JSON.stringify({ title: b.title, author: b.author || "" }); return `<option value='${esc(v)}' ${KitobimCore.bkey(b.title, b.author) === sel ? "selected" : ""}>${esc(b.title)}</option>`; }).join("")}</select>
       <div class="rate" style="font-size:22px;gap:4px" id="cRate">${[1, 2, 3, 4, 5].map(n => `<button class="${n <= CR.rating ? "on" : ""}" onclick="CR.rating=CR.rating===${n}?0:${n};document.querySelectorAll('#cRate button').forEach((b,i)=>b.classList.toggle('on',i<CR.rating))">★</button>`).join("")}</div>
@@ -1352,7 +1587,7 @@ async function vDavra(mode) {
   return mtop() + `<div class="davra"><div>
     <div class="tabs"><button class="${mode === "all" ? "on" : ""}" onclick="go('#/davra')">Fikrlar</button><button class="${mode === "following" ? "on" : ""}" onclick="go('#/davra/following')">Davram</button></div>
     <div class="composer" onclick="openComposer()" style="cursor:text"><div class="row">${ava(u, 40)}<span class="muted" style="flex:1">Fikringizni yozing…</span><span class="btn pri sm">Fikr bildirish</span></div></div>
-    ${f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty"><div class="ic">💬</div>${mode === "following" ? "Siz obuna bo'lgan kitobxonlar hali fikr yozmagan. O'ng tomondagi faol kitobxonlarga obuna bo'ling." : "Hali fikrlar yo'q. Birinchi bo'lib yozing!"}</div>`}
+    ${f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty"><div class="ic">${ic("msg",44)}</div>${mode === "following" ? "Siz obuna bo'lgan kitobxonlar hali fikr yozmagan. O'ng tomondagi faol kitobxonlarga obuna bo'ling." : "Hali fikrlar yo'q. Birinchi bo'lib yozing!"}</div>`}
     <div class="mob"><div class="sec"><h2>Faol kitobxonlar</h2></div>${ppl.people.map(personRow).join("")}</div>
   </div><div class="right">
     <div class="sbox">${I.search}<input placeholder="Davradan do'stlaringizni toping" onkeydown="if(event.key==='Enter')go('#/search/'+encodeURIComponent(this.value))"></div>
@@ -1379,25 +1614,25 @@ async function follow(id, btn) {
 async function vMarra() {
   const st = S.me.stats, u = S.me.user;
   const lb = await api("leaderboard", { limit: 10 });
-  const stage = st.streak >= 30 ? "🌳" : st.streak >= 7 ? "🪴" : st.streak >= 3 ? "🌿" : "🌱";
+  const stage = stageOf(st.streak);
   const next = nextMs(st.streak);
   return mtop() + ph("Marra faolligi", "", false) + `<h1 class="mob" style="font-size:26px;margin:4px 0 16px">Marra</h1>
     <div class="mgrid"><div>
       <div class="row" style="gap:30px;justify-content:center;flex-wrap:wrap;padding:10px 0 20px">
         <div class="ring">${ring(st.today, u.goal, 200, 16)}<div class="lbl"><small style="font-size:14px">Bugungi reja</small><b style="font-size:42px">${st.today}<span style="font-size:18px;color:var(--muted)">/${u.goal}</span></b><span style="font-size:13px">bet · <a style="color:var(--or);font-weight:600" onclick="openGoal()">o'zgartirish</a></span></div></div>
-        <div class="tree"><span>${stage}</span></div></div>
+        <div class="tree">${plant(stage, 150)}</div></div>
       <div class="row between" style="margin:10px 0 12px"><h3 style="font-size:19px">Faolligingiz</h3></div>
       <div class="mini2" style="margin:0 0 12px"><div style="background:var(--soft)"><small>Joriy ko'rsatkich</small><b>${st.streak} <span>kun</span></b></div><div style="background:var(--soft)"><small>Keyingi marra</small><b>${next} <span>kun</span></b></div></div>
       ${weekStrip()}
       <div class="mini2" style="margin-top:12px"><div style="background:var(--soft)"><small>Eng uzun seriya</small><b>${st.best} <span>kun</span></b></div><div style="background:var(--soft)"><small>Kunlik rekord</small><b>${st.record} <span>bet</span></b></div></div>
-      <button class="btn pri full" style="margin-top:16px" onclick="openProgress()">📌 Bugun qaysi betga keldim?</button>
+      <button class="btn pri full" style="margin-top:16px" onclick="openProgress()">${ic("pin",17)} Bugun qaysi betga keldim?</button>
     </div><div>
       <h3 style="font-size:19px;margin-bottom:12px">O'sish marralari</h3>
-      <div class="ms">${KitobimCore.MILESTONES.map(([d, r]) => `<div class="${st.best >= d ? "got" : ""}"><span class="e">${d >= 30 ? "🌳" : d >= 7 ? "🪴" : d >= 3 ? "🌿" : "🌱"}</span><b>${d} kun</b><small>+${num(r)} ball</small></div>`).join("")}</div>
-      <div class="mini2" style="margin-top:12px"><div style="background:var(--soft)"><small>Ball balansi</small><b>${num(st.ball)} <span>🪙</span></b></div><div style="background:var(--soft)"><small>Oxirgi 7 kun</small><b>${st.week} <span>bet</span></b></div></div>
+      <div class="ms">${KitobimCore.MILESTONES.map(([d, r]) => `<div class="${st.best >= d ? "got" : ""}"><span class="e">${plant(stageOf(d), 44)}</span><b>${d} kun</b><small>+${num(r)} ball</small></div>`).join("")}</div>
+      <div class="mini2" style="margin-top:12px"><div style="background:var(--soft)"><small>Ball balansi</small><b>${num(st.ball)} <span>ball</span></b></div><div style="background:var(--soft)"><small>Oxirgi 7 kun</small><b>${st.week} <span>bet</span></b></div></div>
       <h3 style="font-size:19px;margin:26px 0 6px">Haftalik reyting</h3>
       <p class="muted" style="font-size:13.5px;margin:0 0 6px">Oxirgi 7 kunda o'qilgan betlar bo'yicha. Sizning o'rningiz: <b style="color:var(--or)">${lb.myRank || "—"}</b> / ${lb.total}</p>
-      <div class="lb">${lb.top.map(x => `<a class="urow ${x.id === u.id ? "me" : ""}" href="#/user/${x.id}"><span class="rk">${x.rank <= 3 ? ["🥇", "🥈", "🥉"][x.rank - 1] : x.rank}</span>${ava(x, 38)}<span class="info"><b>${esc(x.name)}</b><small>${x.streak}🔥 seriya · ${x.done} kitob</small></span><b>${x.week} bet</b></a>`).join("")}</div>
+      <div class="lb">${lb.top.map(x => `<a class="urow ${x.id === u.id ? "me" : ""}" href="#/user/${x.id}"><span class="rk">${x.rank <= 3 ? medal(x.rank) : x.rank}</span>${ava(x, 38)}<span class="info"><b>${esc(x.name)}</b><small>${x.streak} kun seriya · ${x.done} kitob</small></span><b>${x.week} bet</b></a>`).join("")}</div>
       <div class="info-note">Ball qanday yig'iladi: har bir o'qilgan bet — 1 ball, tugatilgan kitob — 50 ball, Davradagi fikr — 5 ball, marralar uchun qo'shimcha ball.</div>
     </div></div>`;
 }
@@ -1418,15 +1653,15 @@ async function vProfile(id) {
   const u = r.user, st = r.stats;
   const tabsHTML = `<div class="tabs" style="margin-top:20px"><button class="${profTab === "posts" ? "on" : ""}" onclick="profTab='posts';render()">Fikrlar</button><button class="${profTab === "shelf" ? "on" : ""}" onclick="profTab='shelf';render()">Javon</button></div>`;
   const shelfHTML = !r.books.length ? `<div class="empty">Javon hali bo'sh</div>` :
-    ["reading", "done", "plan"].map(s => { const L = r.books.filter(b => b.status === s); return L.length ? `<h3 style="margin:18px 0 10px;font-size:16px">${{ reading: "📖 O'qiyapti", done: "✅ O'qib bo'lgan", plan: "🗓 Rejada" }[s]} <span class="muted">${L.length}</span></h3><div class="shelfrow">${L.map(b => tile(b)).join("")}</div>` : ""; }).join("");
-  const body = r.hidden ? `<div class="empty"><div class="ic">🔒</div>Bu profil yopiq</div>` : `
-    <div class="sts"><div><small>Ball balansi</small><b>🪙 ${num(u.ball)}</b></div><div><small>O'qilgan betlar</small><b>📖 ${num(st.pages)}</b></div><div><small>Oxirgi 7 kun</small><b>📅 ${st.week} bet</b></div></div>
+    ["reading", "done", "plan"].map(s => { const L = r.books.filter(b => b.status === s); return L.length ? `<h3 style="margin:18px 0 10px;font-size:16px">${{ reading: ic("book",17) + " O'qiyapti", done: ic("check",17) + " O'qib bo'lgan", plan: ic("cal",17) + " Rejada" }[s]} <span class="muted">${L.length}</span></h3><div class="shelfrow">${L.map(b => tile(b)).join("")}</div>` : ""; }).join("");
+  const body = r.hidden ? `<div class="empty"><div class="ic">${ic("lock",44)}</div>Bu profil yopiq</div>` : `
+    <div class="sts"><div><small>Ball balansi</small><b class="row" style="gap:8px"><span class="sic" style="color:#f2a20f">${ic("coin",22)}</span>${num(u.ball)}</b></div><div><small>O'qilgan betlar</small><b class="row" style="gap:8px"><span class="sic" style="color:var(--or)">${ic("book",22)}</span>${num(st.pages)}</b></div><div><small>Oxirgi 7 kun</small><b class="row" style="gap:8px"><span class="sic" style="color:var(--blue)">${ic("cal",22)}</span>${st.week} bet</b></div></div>
     ${own ? `<div class="prem-strip" onclick="go('#/premium')"><div><b>${APP_NAME} Premium</b><small>O'zingiz uchun premium imkoniyatlarni kashf eting</small></div><span>Premium ›</span></div>` : ""}
     ${tabsHTML}${profTab === "shelf" ? shelfHTML : (own ? `<div class="composer" onclick="openComposer()" style="cursor:text"><div class="row">${ava(u, 40)}<span class="muted">Fikringizni yozing…</span></div></div>` : "") + (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q</div>`)}`;
   const main = `<div><div class="pcover"></div>
     <div class="phead">${ava(u, 128)}<div class="row" style="padding-bottom:8px">${own ? `<button class="btn ghost" onclick="openPersonal()">Profilni tahrirlash</button><button class="ibtn mob" onclick="go('#/settings')">${I.gear}</button>` : `<button class="btn ${r.iFollow ? "ghost" : "pri"}" onclick="follow('${u.id}')">${r.iFollow ? "Davradasiz ✓" : r.followsMe ? "+ Javoban davraga" : "+ Davraga qo'shish"}</button>`}
       <button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
-    <div class="pname"><h1>${esc(u.name)}</h1><div class="sub"><span>@${esc(u.username)}</span><span class="row" style="gap:6px">${I.cal}${new Date(u.createdAt).getFullYear()}-yil qo'shilgan</span>${st ? `<span>🔥 ${st.streak} kun seriya</span>` : ""}</div>
+    <div class="pname"><h1>${esc(u.name)}</h1><div class="sub"><span>@${esc(u.username)}</span><span class="row" style="gap:6px">${I.cal}${new Date(u.createdAt).getFullYear()}-yil qo'shilgan</span>${st ? `<span class="row" style="gap:5px;color:var(--or)">${ic("flameF",16)}<span style="color:var(--muted)">${st.streak} kun seriya</span></span>` : ""}</div>
       ${u.bio ? `<p style="margin:12px 0 0;line-height:1.5">${esc(u.bio)}</p>` : ""}
       <div class="fol"><span><b>${u.followers}</b> <span class="muted">fikrdosh</span></span><span><b>${u.following}</b> <span class="muted">davradosh</span></span>${st ? `<span><b>${st.done}</b> <span class="muted">kitob o'qigan</span></span>` : ""}</div></div>
     ${body}</div>`;
@@ -1437,16 +1672,16 @@ function completeness() { const u = S.me.user; const items = [["To'liq ism", !!u
 function settingsMenu() {
   const c = completeness();
   const mi = (ic, bg, t, fn, extra = "") => `<button class="mi" onclick="${fn}"><span class="ic" style="background:${bg}">${ic}</span><span>${t}</span>${extra}<span class="ch">${I.ch}</span></button>`;
-  return `${c.pct < 100 ? `<div class="prog">✨ To'liq profil 3 barobar ko'proq fikrdosh jalb qiladi. Bir necha qadam qoldi!</div>
+  return `${c.pct < 100 ? `<div class="prog">${ic("sparkle",20)} To'liq profil 3 barobar ko'proq fikrdosh jalb qiladi. Bir necha qadam qoldi!</div>
     <div class="row between" style="margin:12px 4px 6px;font-weight:700"><span>Deyarli tayyor!</span><span style="color:var(--or)">${c.pct}%</span></div><div class="pb" style="margin:0 4px"><i style="width:${c.pct}%"></i></div>` : ""}
     <div class="mlabel">Shaxsiy hisob</div>
-    <div class="menu">${mi("👤", "#3bb54a", "Shaxsiy ma'lumotlar", "openPersonal()")}${mi("🎯", "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`)}${mi("🎁", "#e0475a", "Do'stni taklif qilish", "inviteFriend()")}${mi("🔑", "#5f6b7a", "Parolni o'zgartirish", "openPass()")}</div>
+    <div class="menu">${mi(ic("user",18), "#3bb54a", "Shaxsiy ma'lumotlar", "openPersonal()")}${mi(ic("target",18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`)}${mi(ic("gift",18), "#e0475a", "Do'stni taklif qilish", "inviteFriend()")}${mi(ic("key",18), "#5f6b7a", "Parolni o'zgartirish", "openPass()")}</div>
     <div class="mlabel">Obuna</div>
     <div class="menu">${mi(I.crown.replace("<svg", '<svg width="17" height="17"'), "#ff8a2b", "Premium", "go('#/premium')")}</div>
     <div class="mlabel">Sozlamalar</div>
-    <div class="menu"><button class="mi" onclick="toggleDark()"><span class="ic" style="background:#2a9a6a">🌙</span><span>Tungi rejim</span><div class="tg ${S.dark ? "on" : ""}" id="dkS"></div></button>
-      <button class="mi" onclick="saveProfile({private:${!S.me.user.private}},'${S.me.user.private ? "Profil ochiq" : "Profil yopildi"}')"><span class="ic" style="background:#3d7bf0">🔒</span><span>Yopiq profil</span><div class="tg ${S.me.user.private ? "on" : ""}"></div></button>
-      ${mi("📲", "#8a4fc0", "Ilovani o'rnatish", "installApp()")}${mi("💾", "#0f8a9a", "Ma'lumotlarimni yuklab olish", "exportData()")}${mi("📄", "#5f6b7a", "Foydalanish shartlari", "go('#/terms')")}</div>
+    <div class="menu"><button class="mi" onclick="toggleDark()"><span class="ic" style="background:#2a9a6a">${ic("moon",18)}</span><span>Tungi rejim</span><div class="tg ${S.dark ? "on" : ""}" id="dkS"></div></button>
+      <button class="mi" onclick="saveProfile({private:${!S.me.user.private}},'${S.me.user.private ? "Profil ochiq" : "Profil yopildi"}')"><span class="ic" style="background:#3d7bf0">${ic("lock",18)}</span><span>Yopiq profil</span><div class="tg ${S.me.user.private ? "on" : ""}"></div></button>
+      ${mi(ic("phone",18), "#8a4fc0", "Ilovani o'rnatish", "installApp()")}${mi(ic("download",18), "#0f8a9a", "Ma'lumotlarimni yuklab olish", "exportData()")}${mi(ic("file",18), "#5f6b7a", "Foydalanish shartlari", "go('#/terms')")}</div>
     <div class="menu">${mi("↩", "#e5484d", "Chiqish", "if(confirm('Akkauntdan chiqasizmi?'))logout()")}</div>`;
 }
 function vSettings() { return mtop("Sozlamalar", true) + ph("Sozlamalar", "", true) + `<div style="max-width:560px">${settingsMenu()}</div>`; }
@@ -1472,7 +1707,7 @@ function changePass() {
 }
 function shareProfile(un) { const t = `${APP_NAME}da mening kitobxon kundaligim: @${un}\n${location.origin + location.pathname}#/user/${un}`; if (navigator.share) navigator.share({ title: APP_NAME, text: t }).catch(() => {}); else { navigator.clipboard && navigator.clipboard.writeText(t); toast("Havola nusxalandi"); } }
 function inviteFriend() {
-  const t = `Men ${APP_NAME}da kitobxon kundaligimni yuritaman 📖 Qaysi kitobni o'qiyotganim, qaysi betga kelganim va o'qigan kitoblarimdan olgan saboqlarim — hammasi shu yerda. Sen ham qo'shil, birga o'qiymiz!\n${location.origin + location.pathname}`;
+  const t = `Men ${APP_NAME}da kitobxon kundaligimni yuritaman. Qaysi kitobni o'qiyotganim, qaysi betga kelganim va o'qigan kitoblarimdan olgan saboqlarim — hammasi shu yerda. Sen ham qo'shil, birga o'qiymiz!\n${location.origin + location.pathname}`;
   sheet(`<h2>Do'stni taklif qilish</h2><p class="sub">Do'stlaringiz bilan birga o'qish yanada qiziqarli. Havolani yuboring:</p><div class="note" style="margin-top:14px">${esc(t)}</div>
     <div class="btns"><button class="btn pri" onclick="${navigator.share ? `navigator.share({text:${esc(JSON.stringify(t))}}).catch(()=>{})` : `navigator.clipboard.writeText(${esc(JSON.stringify(t))});toast('Nusxa olindi')`}">Ulashish</button>
     <a class="btn ghost" target="_blank" href="https://t.me/share/url?url=${encodeURIComponent(location.origin + location.pathname)}&text=${encodeURIComponent(t)}">Telegram orqali</a></div>`);
@@ -1485,7 +1720,7 @@ function exportData() {
 /* ---------- Bildirishnomalar ---------- */
 async function vNotifs() {
   const r = await api("notifs");
-  return mtop("Bildirishnomalar", true) + ph("Bildirishnomalar", "", true) + `<div style="max-width:640px">${r.notifs.length ? r.notifs.map(n => `<a class="urow" href="#/user/${n.user.id}" style="border-bottom:1px solid var(--line)">${ava(n.user, 42)}<span class="info"><b>${esc(n.user.name)}</b><small>${n.type === "follow" ? "sizni davrasiga qo'shdi" : "fikringizga izoh qoldirdi: " + esc(n.text.slice(0, 60))}</small></span><small class="muted">${ago(n.at)}</small></a>`).join("") : `<div class="empty"><div class="ic">🔔</div>Hozircha yangilik yo'q</div>`}</div>`;
+  return mtop("Bildirishnomalar", true) + ph("Bildirishnomalar", "", true) + `<div style="max-width:640px">${r.notifs.length ? r.notifs.map(n => `<a class="urow" href="#/user/${n.user.id}" style="border-bottom:1px solid var(--line)">${ava(n.user, 42)}<span class="info"><b>${esc(n.user.name)}</b><small>${n.type === "follow" ? "sizni davrasiga qo'shdi" : "fikringizga izoh qoldirdi: " + esc(n.text.slice(0, 60))}</small></span><small class="muted">${ago(n.at)}</small></a>`).join("") : `<div class="empty"><div class="ic">${ic("bell",44)}</div>Hozircha yangilik yo'q</div>`}</div>`;
 }
 
 /* ---------- Qidiruv ---------- */
@@ -1523,7 +1758,7 @@ function vMood() {
     const mine = new Set(myBooks().map(b => KitobimCore.bkey(b.title, b.author)));
     const recs = CURATED.map(c => ({ c, s: c.topics.filter(t => want.includes(t)).length * 2 + c.topics.filter(t => boost.includes(t)).length - (mine.has(c.key) ? 5 : 0) }))
       .filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 10).map(x => x.c);
-    inner = `<h1 style="font-size:clamp(26px,4vw,38px);font-weight:800;margin-top:60px;text-align:center">${MD.v <= 1 ? "Sizga ilhom beradigan kitoblar 🌤" : MD.v >= 3 ? "Kayfiyatingiz zo'r — chuqur asarlar vaqti! ✨" : "Siz uchun tanladik 📚"}</h1>
+    inner = `<h1 style="font-size:clamp(26px,4vw,38px);font-weight:800;margin-top:60px;text-align:center">${MD.v <= 1 ? "Sizga ilhom beradigan kitoblar" : MD.v >= 3 ? "Kayfiyatingiz zo'r — chuqur asarlar vaqti!" : "Siz uchun tanladik 📚"}</h1>
       <p style="opacity:.85;margin-top:8px">Kitobni bosing — sahifasini ko'rasiz va javoningizga qo'shasiz</p>
       <div class="recs">${recs.map(c => `<div class="tile" onclick="MD.step=1;go('#/book/${encodeURIComponent(c.key)}')"><div class="tp">${cover(c)}</div><div class="bt"><h4>${esc(c.title)}</h4><small>${esc(c.author)}</small></div></div>`).join("")}</div>
       <button class="go" style="max-width:360px;margin-top:auto" onclick="MD={v:2,step:1,topics:[]};vMood()">Qaytadan tanlash</button>`;
@@ -1538,19 +1773,19 @@ function vMood() {
 /* ---------- Premium ---------- */
 function vPremium() {
   const c3 = [["Ikki eshik orasi", "O'tkir Hoshimov"], ["Kecha va kunduz", "Cho'lpon"], ["O'tkan kunlar", "Abdulla Qodiriy"], ["Kichkina shahzoda", "Antuan de Sent-Ekzyuperi"], ["Boburnoma", "Bobur"]].map(([title, author]) => ({ title, author }));
-  return mtop("Premium", true) + `<div class="phero"><span class="ic">👑</span><h1>Bilim — eng yaxshi<br>sarmoya.</h1><p>${APP_NAME} Premium bilan kitobxonligingizni yangi bosqichga olib chiqing.</p>
+  return mtop("Premium", true) + `<div class="phero"><span class="ic">${ic("crown",34,'fill="#fff" stroke="none"')}</span><h1>Bilim — eng yaxshi<br>sarmoya.</h1><p>${APP_NAME} Premium bilan kitobxonligingizni yangi bosqichga olib chiqing.</p>
     <button class="btn pri" onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">Premiumga o'tish</button>
     <div class="covers">${cover(c3[0], "")}${cover(c3[1], "")}${cover(c3[2], "lg")}${cover(c3[3], "")}${cover(c3[4], "")}</div></div>
-    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:14px;border-radius:20px;background:var(--soft);padding:18px 20px;margin-top:22px"><div class="row"><span style="font-size:32px">🎁</span><div><b>Sovg'a promokodini faollashtirish</b><div class="muted" style="font-size:13.5px">Promokod bo'lsa, shu yerga kiriting</div></div></div>
+    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:14px;border-radius:20px;background:var(--soft);padding:18px 20px;margin-top:22px"><div class="row"><span class="sic" style="width:48px;height:48px;border-radius:14px;background:var(--grad);color:#fff">${ic("gift",24)}</span><div><b>Sovg'a promokodini faollashtirish</b><div class="muted" style="font-size:13.5px">Promokod bo'lsa, shu yerga kiriting</div></div></div>
       <div class="row" style="flex:1;max-width:420px"><input id="promo" placeholder="Promokodni kiriting"><button class="btn pri" onclick="toast($('#promo').value.trim()?'Promokod tizimi tez kunda ishga tushadi':'Promokodni kiriting')">Faollashtirish</button></div></div>
     <div style="text-align:center;margin:56px 0 28px"><h2 style="font-size:30px;font-weight:800">Kitob o'qish hech qachon bunchalik qulay bo'lmagan</h2><p class="muted" style="margin-top:10px">Har bir premium imkoniyat sizni kitobga yanada yaqinlashtiradi</p></div>
     <div class="feat">
-      <div><span class="fi" style="background:#fff1e8">📊</span><h3>Kengaytirilgan statistika</h3><p>Oylik va yillik hisobotlar, eng sevimli mualliflar, o'qish tezligi va yillik "kitobxonlik yakuni".</p></div>
-      <div><span class="fi" style="background:#fdecf3">👥</span><h3>Kitob klublari</h3><p>Do'stlaringiz bilan yopiq klub oching, bitta kitobni birga o'qing va muhokama qiling.</p></div>
-      <div><span class="fi" style="background:#fdf8d8">📄</span><h3>Kundalikni PDF'ga chiqarish</h3><p>Butun kitobxon kundaligingizni chiroyli PDF daftar qilib yuklab oling va chop eting.</p></div>
-      <div><span class="fi" style="background:#e3f7e8">🎨</span><h3>Maxsus muqova va mavzular</h3><p>Javoningiz uchun maxsus dizaynlar, rangli profil muqovalari va premium belgi.</p></div>
-      <div><span class="fi" style="background:#e8eefd">🏆</span><h3>Tanlovlar va sertifikatlar</h3><p>Kitobxonlik tanlovlarida qatnashing va yutuqlaringiz uchun sertifikat oling.</p></div>
-      <div><span class="fi" style="background:#f0e8fd">🚫</span><h3>Reklamasiz</h3><p>Hech narsa chalg'itmaydi — faqat siz va kitob.</p></div></div>
+      <div><span class="fi" style="background:#fff1e8;color:#f04e1c">${ic("chart",24)}</span><h3>Kengaytirilgan statistika</h3><p>Oylik va yillik hisobotlar, eng sevimli mualliflar, o'qish tezligi va yillik "kitobxonlik yakuni".</p></div>
+      <div><span class="fi" style="background:#fdecf3;color:#c53a7a">${ic("users",24)}</span><h3>Kitob klublari</h3><p>Do'stlaringiz bilan yopiq klub oching, bitta kitobni birga o'qing va muhokama qiling.</p></div>
+      <div><span class="fi" style="background:#fdf8d8;color:#b08a0a">${ic("file",24)}</span><h3>Kundalikni PDF'ga chiqarish</h3><p>Butun kitobxon kundaligingizni chiroyli PDF daftar qilib yuklab oling va chop eting.</p></div>
+      <div><span class="fi" style="background:#e3f7e8;color:#23863a">${ic("palette",24)}</span><h3>Maxsus muqova va mavzular</h3><p>Javoningiz uchun maxsus dizaynlar, rangli profil muqovalari va premium belgi.</p></div>
+      <div><span class="fi" style="background:#e8eefd;color:#3d7bf0">${ic("trophy",24)}</span><h3>Tanlovlar va sertifikatlar</h3><p>Kitobxonlik tanlovlarida qatnashing va yutuqlaringiz uchun sertifikat oling.</p></div>
+      <div><span class="fi" style="background:#f0e8fd;color:#8a4fc0">${ic("ban",24)}</span><h3>Reklamasiz</h3><p>Hech narsa chalg'itmaydi — faqat siz va kitob.</p></div></div>
     <div style="text-align:center;margin:56px 0 24px" id="plans"><h2 style="font-size:30px;font-weight:800">O'zingizga mos obunani tanlang</h2><p class="muted" style="margin-top:10px">Istalgan vaqtda o'zgartirishingiz yoki bekor qilishingiz mumkin</p></div>
     <div class="plans"><div class="plan"><div class="h">Oylik</div><div class="b"><div>Juda oddiy — har oyda to'lov</div><div class="pr">${num(PRICES.month)} <span>so'm / oy</span></div><button class="btn dark full" onclick="buy('month')">Sinab ko'rish</button></div></div>
       <div class="plan best"><div class="h">Yillik <em>-${Math.round((1 - PRICES.year / (PRICES.month * 12)) * 100)}% tejash</em></div><div class="b"><div>Bir marta to'lang — yil bo'yi xotirjam</div><div class="pr">${num(Math.round(PRICES.year / 12))} <span>so'm / oy</span></div><button class="btn pri full" onclick="buy('year')">Eng yaxshisini tanlash</button><div class="muted" style="text-align:center;font-size:13px;margin-top:8px">jami ${num(PRICES.year)} so'm</div></div></div></div>
@@ -1627,14 +1862,14 @@ function admUser(id) {
   const u = ADM.data.users.find(x => x.id === id), bs = ADM.data.books.filter(b => b.userId === id);
   const g = s => bs.filter(b => b.status === s);
   const row = b => `<div class="brow" style="cursor:default;align-items:flex-start">${cover(b, "sm")}<div class="info"><h3>${esc(b.title)}</h3><div class="au">${esc(b.author || "")}</div>
-    <div class="muted" style="font-size:12.5px;margin-top:6px;line-height:1.6">${b.status === "reading" ? `📍 ${b.current || 0}/${b.pages || "?"} bet · ${fmtD(b.start)} dan<br>` : ""}${b.status === "done" ? `✅ ${fmtD(b.start)} → ${fmtD(b.end)} ${stars(b.rating)}<br>` : ""}
-    ${b.recBy ? `👤 Tavsiya: ${esc(b.recBy)}<br>` : ""}${b.gift ? `🎁 Sovg'a${b.giftFrom ? ": " + esc(b.giftFrom) : ""}<br>` : ""}${b.recTo ? `➡️ Kimga tavsiya qiladi: ${esc(b.recTo)}` : ""}</div>
+    <div class="muted" style="font-size:12.5px;margin-top:6px;line-height:1.6">${b.status === "reading" ? `${ic("pin",13)} ${b.current || 0}/${b.pages || "?"} bet · ${fmtD(b.start)} dan<br>` : ""}${b.status === "done" ? `${ic("check",13)} ${fmtD(b.start)} → ${fmtD(b.end)} ${stars(b.rating)}<br>` : ""}
+    ${b.recBy ? `${ic("user",13)} Tavsiya: ${esc(b.recBy)}<br>` : ""}${b.gift ? `${ic("gift",13)} Sovg'a${b.giftFrom ? ": " + esc(b.giftFrom) : ""}<br>` : ""}${b.recTo ? `${ic("arrow",13)} Kimga tavsiya qiladi: ${esc(b.recTo)}` : ""}</div>
     ${b.experience ? `<div class="note" style="font-size:13px;margin-top:8px;padding:10px 12px">${esc(b.experience)}</div>` : ""}</div></div>`;
   sheet(`<div class="row">${ava(u, 64)}<div><h2>${esc(u.name)}</h2><div class="muted">+${esc(u.phone)} · @${esc(u.username)}</div><div class="muted" style="font-size:13px">${esc(u.region || "")}${u.age ? " · " + esc(u.age) + " yosh" : ""}</div></div></div>
-    <div class="glass"><div><small>O'qigan</small><b>${u.done}</b></div><div><small>Betlar</small><b>${num(u.pages)}</b></div><div><small>Seriya</small><b>${u.streak} 🔥</b></div></div>
+    <div class="glass"><div><small>O'qigan</small><b>${u.done}</b></div><div><small>Betlar</small><b>${num(u.pages)}</b></div><div><small>Seriya</small><b>${u.streak} kun</b></div></div>
     <p class="muted" style="font-size:13px;text-align:center">Ro'yxatdan o'tgan: ${fmtD(u.createdAt)} · Oxirgi faollik: ${ago(u.lastActive)}</p>
-    ${g("reading").length ? `<h3 style="margin:16px 0 8px">📖 O'qiyapti</h3>${g("reading").map(row).join("")}` : ""}${g("plan").length ? `<h3 style="margin:16px 0 8px">🗓 Rejada</h3>${g("plan").map(row).join("")}` : ""}
-    ${g("done").length ? `<h3 style="margin:16px 0 8px">✅ O'qib bo'lgan</h3>${g("done").map(row).join("")}` : ""}${!bs.length ? `<div class="empty">Hali kitob qo'shmagan</div>` : ""}`);
+    ${g("reading").length ? `<h3 style="margin:16px 0 8px">${ic("book",17)} O'qiyapti</h3>${g("reading").map(row).join("")}` : ""}${g("plan").length ? `<h3 style="margin:16px 0 8px">${ic("cal",17)} Rejada</h3>${g("plan").map(row).join("")}` : ""}
+    ${g("done").length ? `<h3 style="margin:16px 0 8px">${ic("check",17)} O'qib bo'lgan</h3>${g("done").map(row).join("")}` : ""}${!bs.length ? `<div class="empty">Hali kitob qo'shmagan</div>` : ""}`);
 }
 function admCSV() {
   const rows = [["Ism", "Telefon", "Hudud", "Yosh", "Ro'yxatdan o'tgan", "Oxirgi faollik", "Hozir o'qiyapti", "O'qigan kitoblar", "Jami bet", "7 kunda bet", "Seriya", "Fikrdoshlar"]]
