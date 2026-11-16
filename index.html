@@ -344,7 +344,14 @@ body.dark .tg{background:#3a3a40}
 .auth h1{font-size:28px;font-weight:800;margin-top:22px}
 .auth .sub{color:var(--muted);margin:8px 0 22px}
 .pass{position:relative}
-.pass button{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;font-weight:600}
+.pass input{padding-right:52px}
+.pass .eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ink2)}
+.pass .eye svg{width:21px;height:21px}
+.pass .eye:hover{background:var(--line)}
+.pass .eye.on{color:var(--or)}
+.auth input{background:var(--card);border-color:var(--line)}
+.auth input:focus{border-color:var(--or)}
+body.dark .auth input{background:var(--soft);border-color:#34343a}
 
 /* ---------- premium / mood / misc ---------- */
 .phero{border-radius:28px;padding:56px 30px 0;text-align:center;background:radial-gradient(circle at 50% 0,rgba(255,107,26,.35),transparent 60%),linear-gradient(180deg,#3a1d10,#1a0f0a);color:#fff;overflow:hidden}
@@ -1032,8 +1039,8 @@ function vAuth() {
     <div class="seg" style="grid-template-columns:1fr 1fr;margin-bottom:6px"><button class="${authMode === "login" ? "on" : ""}" onclick="authMode='login';vAuth()">Kirish</button><button class="${authMode === "reg" ? "on" : ""}" onclick="authMode='reg';vAuth()">Ro'yxatdan o'tish</button></div>
     ${authMode === "reg" ? `<label>Ism-familiya</label><input id="aName" placeholder="Masalan: Aziza Karimova" autocomplete="name">` : ""}
     <label>Telefon raqam</label><input id="aPhone" type="tel" value="+998 " autocomplete="tel">
-    <label>Parol</label><div class="pass"><input id="aPass" type="password" placeholder="${authMode === "reg" ? "Kamida 6 ta belgi" : "Parolingiz"}" autocomplete="${authMode === "reg" ? "new-password" : "current-password"}" onkeydown="if(event.key==='Enter')doAuth()"><button type="button" onclick="const i=$('#aPass');i.type=i.type==='password'?'text':'password'">Ko'rsatish</button></div>
-    ${authMode === "reg" ? `<label>Parolni takrorlang</label><input id="aPass2" type="password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doAuth()">` : ""}
+    <label>Parol</label>${passField("aPass", authMode === "reg" ? "Kamida 6 ta belgi" : "Parolingiz", authMode === "reg" ? "new-password" : "current-password")}
+    ${authMode === "reg" ? `<label>Parolni takrorlang</label>${passField("aPass2", "Parolni qayta kiriting", "new-password")}` : ""}
     <button class="btn pri full" style="margin-top:22px;padding:15px" id="aBtn" onclick="doAuth()">${authMode === "login" ? "Kirish" : "Akkaunt ochish"}</button>
     ${authMode === "login" ? `<p class="muted" style="font-size:13px;margin-top:14px;text-align:center">Parolni unutdingizmi? Administratorga murojaat qiling.</p>` : ""}
     ${DEMO ? `<div class="demo-note" style="margin-top:18px">Demo rejim: akkaunt va yozuvlar faqat shu brauzerda saqlanadi. Server ulanganda hamma qurilmada bir xil bo'ladi.</div>` : ""}
@@ -1058,6 +1065,12 @@ async function doAuth() {
     toast(authMode === "reg" ? `Xush kelibsiz, ${r.me.user.name.split(" ")[0]}! 📖` : "Qaytganingizdan xursandmiz!");
   } catch (e) { toast(e.message); btn.disabled = false; btn.textContent = authMode === "login" ? "Kirish" : "Akkaunt ochish"; }
 }
+const EYE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+const EYE_OFF = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>`;
+function passField(id, ph, ac) {
+  return `<div class="pass"><input id="${id}" type="password" placeholder="${ph}" autocomplete="${ac}" onkeydown="if(event.key==='Enter')doAuth()"><button type="button" class="eye" aria-label="Parolni ko'rsatish" onclick="togglePass('${id}',this)">${EYE}</button></div>`;
+}
+function togglePass(id, btn) { const i = $("#" + id), show = i.type === "password"; i.type = show ? "text" : "password"; btn.innerHTML = show ? EYE_OFF : EYE; btn.classList.toggle("on", show); btn.setAttribute("aria-label", show ? "Parolni yashirish" : "Parolni ko'rsatish"); }
 function logout(silent) {
   S.token = null; S.me = null; LS.del("kitobim_token"); LS.del("kitobim_me");
   $("#app").innerHTML = ""; if (!silent) toast("Akkauntdan chiqdingiz"); location.hash = "#/home"; render();
