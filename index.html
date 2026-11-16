@@ -576,6 +576,200 @@ body.dark .lfeat>div{background:var(--soft)}
   .lnav .btn.ghost{display:none}
 }
 
+/* ---------- admin (qora shablon) ---------- */
+body.admbody{background:#0d0907}
+.adm2{--a-card:rgba(30,22,18,.72);--a-line:rgba(255,255,255,.08);--a-mu:#9b8f86;min-height:100vh;display:grid;grid-template-columns:250px 1fr;color:#f4ece6;
+  background:radial-gradient(ellipse 60% 50% at 75% 0%,rgba(255,107,26,.32),transparent 70%),radial-gradient(ellipse 50% 45% at 100% 85%,rgba(240,78,28,.28),transparent 70%),radial-gradient(ellipse 40% 40% at 0% 100%,rgba(255,138,43,.16),transparent 70%),#0d0907}
+.adm2 .mu{color:var(--a-mu)}
+.adm2 h2{font-size:26px;font-weight:700;letter-spacing:-.02em;margin-top:4px}
+.adm2 h3{font-size:18px;font-weight:700}
+.aside{position:sticky;top:0;height:100vh;padding:24px 16px;border-right:1px solid var(--a-line);display:flex;flex-direction:column;background:rgba(10,7,5,.55);backdrop-filter:blur(10px)}
+.anav{display:flex;flex-direction:column;gap:4px}
+.anav button{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;color:#d9cfc8;font-weight:500;font-size:14.5px;text-align:left;transition:.15s}
+.anav button:hover{background:rgba(255,255,255,.05);color:#fff}
+.anav button.on{background:rgba(255,255,255,.06);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.anav button.on .ico{color:#ff7a2f}
+.asec{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--a-mu);margin:24px 10px 8px;font-weight:600}
+.ahelp{margin-top:auto;border-radius:20px;background:linear-gradient(180deg,rgba(255,107,26,.16),rgba(255,107,26,.05));border:1px solid rgba(255,140,80,.18);padding:30px 16px 16px;text-align:center;position:relative}
+.ahelp .q{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:50%;background:#fff;color:#16161a;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px #1a110c}
+.ahelp b{display:block;font-size:14.5px}
+.ahelp small{display:block;color:var(--a-mu);font-size:12px;line-height:1.45;margin:8px 0 14px}
+.ahelp button{width:100%;background:var(--grad);color:#fff;font-weight:600;padding:10px;border-radius:30px;font-size:13.5px}
+.amain{padding:22px 28px 50px;min-width:0}
+.atop{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--a-line);margin-bottom:22px}
+.asearch{position:relative;flex:1;max-width:380px}
+.asearch svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--a-mu)}
+.asearch input,.adm2 input{background:rgba(255,255,255,.04);border:1px solid var(--a-line);color:#fff;border-radius:30px;padding:12px 18px 12px 44px}
+.asearch input:focus{border-color:#ff7a2f;background:rgba(255,255,255,.06)}
+.aib{width:44px;height:44px;border-radius:50%;border:1px solid var(--a-line);display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(255,255,255,.03)}
+.aib:hover{border-color:#ff7a2f}
+.ame{display:flex;align-items:center;gap:10px;border:1px solid var(--a-line);border-radius:30px;padding:5px 16px 5px 5px;background:rgba(255,255,255,.03)}
+.ame b{display:block;font-size:13.5px}.ame small{color:var(--a-mu);font-size:12px}
+.aic{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex:0 0 auto;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.aic.sm{width:36px;height:36px}
+.ahd{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.ahd small{color:var(--a-mu);font-size:13px;display:flex;align-items:center;gap:6px}
+.apill{border:1px solid var(--a-line);background:rgba(255,255,255,.03);color:#f4ece6;border-radius:30px;padding:9px 16px;font-size:13.5px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.apill:hover{border-color:rgba(255,255,255,.25)}
+.apill.on{background:#1b1411;border-color:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1px rgba(255,122,47,.35)}
+.apill.danger{color:#ff8a7a;border-color:rgba(255,90,70,.3)}
+.acard{background:var(--a-card);border:1px solid var(--a-line);border-radius:24px;padding:20px 22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:relative;overflow:hidden}
+.acard small{font-size:12.5px}
+.al{display:block;font-size:16px;font-weight:600}
+.abig{font-size:32px;font-weight:600;letter-spacing:-.02em}
+.trend{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600}
+.trend .ico{width:18px;height:18px;padding:3px;border-radius:50%}
+.trend.up{color:#3bd164}.trend.up .ico{background:#3bb54a;color:#fff}
+.trend.dn{color:#ff6b5a}.trend.dn .ico{background:#e8452c;color:#fff}
+.ag3{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:18px}
+.ag2{display:grid;grid-template-columns:1.7fr 1fr;gap:18px;margin-top:18px}
+.spark{width:calc(100% + 44px);height:70px;margin:12px -22px -20px;display:block}
+.agauge{text-align:center}
+.agauge .row.between{text-align:left;align-items:flex-start}
+.gauge{width:100%;max-width:320px;margin:10px auto -6px;display:block}
+.gl{margin-top:-60px;position:relative}
+.gl b{display:block;font-size:24px}
+.gl small{color:var(--a-mu)}
+.atabs{display:flex;gap:4px;background:rgba(255,255,255,.03);border:1px solid var(--a-line);border-radius:30px;padding:4px;margin:16px 0;overflow-x:auto;scrollbar-width:none}
+.atabs button{flex:1;white-space:nowrap;padding:9px 14px;border-radius:30px;font-size:13px;color:#cfc4bc;font-weight:500}
+.atabs button.on{background:#2a201b;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.bigc{width:100%;height:auto;display:block}
+.bigc .ax{fill:#8e837b;font-size:11px;font-family:Inter,sans-serif}
+.bigc .tip{fill:#16161a;font-size:12px;font-weight:700;font-family:Inter,sans-serif}
+.alegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.alegend span{border:1px solid var(--a-line);border-radius:30px;padding:7px 12px;font-size:12.5px;display:inline-flex;align-items:center;gap:7px;color:#d9cfc8}
+.alegend i{width:8px;height:8px;border-radius:50%}
+.alegend b{color:#fff}
+.alist{display:flex;flex-direction:column}
+.ali{display:flex;align-items:center;gap:14px;padding:11px 4px;border-bottom:1px solid var(--a-line)}
+.ali:last-child{border:0}
+.ali .in{flex:1;min-width:0}.ali .in b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ali small{color:var(--a-mu)}
+.ali .vr{text-align:right}.ali .vr b{display:block}
+.tblw{overflow-x:auto;margin:12px -6px 0}
+.atbl{width:100%;border-collapse:collapse;font-size:14px}
+.atbl th{text-align:left;color:var(--a-mu);font-weight:500;font-size:12.5px;padding:10px;border-bottom:1px solid var(--a-line);white-space:nowrap}
+.atbl td{padding:12px 10px;border-bottom:1px solid var(--a-line);vertical-align:middle}
+.atbl tr:last-child td{border:0}
+.atbl tr{cursor:pointer;transition:.12s}
+.atbl tr:hover td{background:rgba(255,255,255,.03)}
+.atbl td b{font-weight:600}
+.atbl small{display:block;color:var(--a-mu);font-size:12.5px}
+.atbl .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px}
+.cur{display:grid;grid-template-columns:1fr 70px auto;gap:10px;align-items:center;font-size:13px;min-width:220px}
+.cur span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cur i{height:5px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}.cur i b{display:block;height:100%;background:var(--grad)}
+.cur small{display:inline!important}
+.flm{display:inline-flex;gap:4px;align-items:center;color:#ff8a3a;font-weight:600}
+.aempty{text-align:center;color:var(--a-mu);padding:30px}
+.abooks{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.abk{display:flex;gap:16px;align-items:center;padding:14px}
+.abk b{display:block;font-size:15px}.abk small{color:var(--a-mu)}
+.abst{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;margin-top:10px;color:#d9cfc8}
+.abst span{display:inline-flex;gap:4px;align-items:center}
+.apost{margin-bottom:12px}
+.apost p{margin:12px 0 8px;line-height:1.55;white-space:pre-wrap}
+.alogin{display:flex;align-items:center;justify-content:center;grid-template-columns:1fr;padding:20px}
+.alc{width:100%;max-width:420px;background:var(--a-card);border:1px solid var(--a-line);border-radius:28px;padding:34px;backdrop-filter:blur(14px)}
+.alc h1{font-size:28px;margin:26px 0 8px}
+.alc p{color:var(--a-mu);line-height:1.5;margin:0 0 20px}
+.alc input{padding-left:18px}
+.abk{color:var(--a-mu)}
+.alc .abk{display:block;text-align:center;margin-top:16px;font-size:14px}
+.asheet{background:#17110e!important;color:#f4ece6;border:1px solid rgba(255,255,255,.08)}
+.asheet .brow,.asheet .glass{background:rgba(255,255,255,.04)!important}
+.asheet .note{background:rgba(255,107,26,.12)}
+@media (max-width:1100px){.ag3{grid-template-columns:1fr 1fr}.ag3 .agauge{grid-column:span 2;order:-1}.ag2{grid-template-columns:1fr}}
+@media (max-width:820px){
+  .adm2{grid-template-columns:1fr}
+  .aside{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;padding:10px 12px;gap:8px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--a-line);background:rgba(13,9,7,.92)}
+  .aside .logo{padding:0 8px 0 0!important}.aside .logo span{display:none}
+  .anav{flex-direction:row}.anav button{white-space:nowrap;padding:9px 12px}
+  .asec,.ahelp,.aside .anav:nth-of-type(2){display:none}
+  .amain{padding:16px 14px 40px}
+  .ame{display:none}
+  .ag3{grid-template-columns:1fr}.ag3 .agauge{grid-column:auto}
+  .atbl .hm{display:none}
+  .cur{min-width:0;grid-template-columns:1fr auto}.cur i{display:none}
+}
+
+/* ---------- landing animatsiyalari ---------- */
+.lhero{position:relative}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;z-index:0}
+.blob.b1{width:420px;height:420px;background:#ff8a2b;right:6%;top:40px;animation:drift 14s ease-in-out infinite}
+.blob.b2{width:300px;height:300px;background:#ffc06a;right:30%;top:300px;opacity:.35;animation:drift 18s ease-in-out infinite reverse}
+.blob.b3{width:260px;height:260px;background:#f04e1c;left:-80px;top:-60px;opacity:.18;animation:drift 20s ease-in-out infinite}
+body.dark .blob{opacity:.28}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
+.lhero-in{position:relative;z-index:1}
+.lart::before{animation:pulse 6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.75}}
+.lart .p1{animation:float1 7s ease-in-out infinite}
+.lart .p2{animation:float2 8s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:rotate(-5deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-16px)}}
+@keyframes float2{0%,100%{transform:rotate(6deg) translateY(0)}50%{transform:rotate(8deg) translateY(14px)}}
+.lfl{animation:bob 5s ease-in-out infinite}
+.lfl.f2{animation-delay:-2.5s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.rotw{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em}
+.rot{display:inline-block;transition:transform .32s cubic-bezier(.6,0,.4,1),opacity .32s}
+.rot.out{transform:translateY(-100%);opacity:0}
+.rot.inw{animation:rotin .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes rotin{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.4s ease-in-out infinite}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.lfeat>.rv.in{transition-delay:var(--d,0ms)}
+.tilt{position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,opacity .8s}
+.tilt::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,107,26,.13),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.tilt:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(20,20,30,.1)}
+.tilt:hover::before{opacity:1}
+.tilt:hover .sic{animation:wig .6s ease}
+@keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg) scale(1.08)}75%{transform:rotate(8deg) scale(1.08)}}
+.lstats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:10px 0 0}
+.lstats div{background:var(--card);border-radius:20px;padding:20px;box-shadow:var(--shadow);text-align:center}
+.lstats b{display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;color:var(--or)}
+.lstats span{color:var(--muted);font-weight:600}
+.lmarq{padding:60px 0 10px;overflow:hidden}
+.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);padding:14px 0}
+.mqt{display:flex;gap:22px;width:max-content;animation:mq 60s linear infinite;align-items:center}
+.mq.rev .mqt{animation-direction:reverse;animation-duration:70s}
+.mq:hover .mqt{animation-play-state:paused}
+.mqt .cover{transition:transform .3s}
+.mqt .cover:hover{transform:translateY(-8px) rotate(-2deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.lsteps{position:relative}
+.lsteps::before{content:"";position:absolute;left:12%;right:12%;top:52px;height:3px;background:linear-gradient(90deg,var(--or),#ffc06a);border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform 1.4s .3s cubic-bezier(.2,.8,.2,1);z-index:0}
+.lsteps.in::before{transform:scaleX(1)}
+.lsteps>div{position:relative;z-index:1}
+.lsteps b{box-shadow:0 0 0 6px var(--soft)}
+.lv.good{animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 20px 40px rgba(240,78,28,.25)}50%{box-shadow:0 20px 60px rgba(240,78,28,.45)}}
+.spin{animation:spin3 8s ease-in-out infinite}
+@keyframes spin3{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(4deg) translateY(-12px)}}
+.ltry{border-radius:34px;background:var(--card);box-shadow:var(--shadow);padding:44px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+body.dark .ltry{background:var(--soft)}
+.tryr{-webkit-appearance:none;appearance:none;height:10px;border-radius:10px;background:linear-gradient(90deg,var(--or),#ffc06a);padding:0;margin:26px 0 8px;border:0}
+.tryr::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px var(--or),0 6px 16px rgba(0,0,0,.2);cursor:grab}
+.tryr::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:6px solid var(--or)}
+.mu2{color:var(--muted);font-size:13px}
+.trymsg{margin-top:18px;font-size:16px;min-height:26px}
+.trymsg .ok{color:var(--green);font-weight:700;display:inline-flex;gap:8px;align-items:center;animation:pop .3s}
+.trybox{display:flex;flex-direction:column;align-items:center;gap:20px}
+.trybox .ring .lbl b{font-size:38px}
+.tryweek{display:flex;gap:8px}
+.tryweek div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-weight:600}
+.tryweek b{width:36px;height:36px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:13px;transition:.3s}
+body.dark .tryweek b{background:#0f0f12}
+.tryweek .on b{background:var(--green);color:#fff;transform:scale(1.05)}
+.tryweek .td b{box-shadow:0 0 0 2px var(--or)}
+@media (max-width:980px){.lstats{grid-template-columns:1fr 1fr}.ltry{grid-template-columns:1fr;padding:26px 20px}.lsteps::before{display:none}.blob.b1{width:260px;height:260px}}
+@media (prefers-reduced-motion:reduce){.blob,.lart .p1,.lart .p2,.lfl,.shine::after,.mqt,.lv.good,.spin,.lart::before{animation:none!important}.rv{opacity:1;transform:none}}
+
+.lmarq h2{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin-top:10px}
+
 </style>
 </head>
 <body>
@@ -849,12 +1043,31 @@ var KitobimCore = (function () {
       out = out.slice(0, 40).map(function (n) { var bu = db.users.filter(function (x) { return x.id === n.by; })[0]; n.user = bu ? { id: bu.id, name: bu.name, color: bu.color || 0 } : { name: "?" }; return n; });
       return { touched: ["users"], res: { notifs: out } };
     },
+    publicStats: function (db) {
+      var pages = 0, done = 0; db.books.forEach(function (b) { pages += pagesRead(b); if (b.status === "done") done++; });
+      return { touched: [], res: { readers: db.users.length, books: db.books.length, done: done, pages: pages, posts: db.posts.length } };
+    },
+    adminDeletePost: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      db.posts = db.posts.filter(function (p) { return p.id !== r.id; });
+      return { touched: ["posts"], res: { ok: true } };
+    },
     admin: function (db, r, cfg) {
       if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      var days = 30, daily = [], i, byDay = {};
+      for (i = days - 1; i >= 0; i--) { var dd = addDays(r.today, -i); byDay[dd] = { d: dd, pages: 0, active: {}, joined: 0, posts: 0, done: 0 }; daily.push(byDay[dd]); }
+      db.books.forEach(function (b) {
+        (b.sessions || []).forEach(function (s) { var x = byDay[s.d]; if (x) { x.pages += Math.max(0, (s.to || 0) - (s.from || 0)); x.active[b.userId] = 1; } });
+        if (b.status === "done" && b.end && byDay[b.end]) byDay[b.end].done++;
+      });
+      db.users.forEach(function (u) { var x = byDay[String(u.createdAt || "").slice(0, 10)]; if (x) x.joined++; });
+      db.posts.forEach(function (p) { var x = byDay[String(p.createdAt || "").slice(0, 10)]; if (x) x.posts++; });
+      daily.forEach(function (x) { x.active = Object.keys(x.active).length; });
+      var recent = db.posts.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 40).map(function (p) { return postView(db, p, "", r.today); });
       var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || "";
         p.current = s.current; p.plan = s.plan; p.reading = s.reading; return p; });
       return { touched: [], res: { users: users, books: db.books.map(function (b) { var o = publicBook(b); o.userId = b.userId; return o; }),
-        posts: db.posts.length, catalog: aggregate(db).map(function (a) { a.users = a.users.length; return a; }).sort(function (a, b) { return b.readers - a.readers; }).slice(0, 20) } };
+        posts: db.posts.length, daily: daily, recent: recent, catalogAll: aggregate(db).map(function (a) { a.users = a.users.length; return a; }), catalog: aggregate(db).map(function (a) { a.users = a.users.length; return a; }).sort(function (a, b) { return b.readers - a.readers; }).slice(0, 20) } };
     }
   };
 
@@ -976,6 +1189,7 @@ const ICP = {
   star: '<path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3L2.8 9.5l6.4-.9z"/>',
   sad: '<circle cx="12" cy="12" r="9"/><path d="M8.5 16c1-1.2 2.2-1.8 3.5-1.8s2.5.6 3.5 1.8M9 9.5h.01M15 9.5h.01"/>',
   shelf: '<path d="M4 19V5M9 19V5M14 19V7l4-1 3 13M2 19h20"/>',
+  refresh: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
   tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor"/>'
 };
 function ic(n, sz = 18, extra = "") { return `<svg class="ico" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${ICP[n] || ""}</svg>`; }
@@ -1224,6 +1438,7 @@ async function render(keep) {
   closeSheet();
   if (route.name === "terms" && !S.token) { $("#app").innerHTML = `<div style="padding:30px 20px;max-width:880px;margin:auto">${vTerms()}</div>`; return; }
   if (route.name === "admin") { $("#app").innerHTML = ""; return vAdmin(); }
+  document.body.classList.remove("admbody");
   if (!S.token) { if (route.name === "login" || route.name === "register") { authMode = route.name === "register" ? "reg" : "login"; return vAuth(); } return vLanding(); }
   if (!$("#view")) shell();
   paintChrome();
@@ -1260,65 +1475,104 @@ function vLanding() {
     <nav class="lnk"><a href="#feat" onclick="return lscroll('feat')">Imkoniyatlar</a><a href="#how" onclick="return lscroll('how')">Qanday ishlaydi</a><a href="#org" onclick="return lscroll('org')">Maktab va markazlar</a><a href="#faq" onclick="return lscroll('faq')">Savollar</a></nav>
     <div class="row" style="gap:8px"><a class="btn ghost sm" href="#/login">Kirish</a><a class="btn pri sm" href="#/register">Bepul boshlash</a></div></div></header>
 
-  <section class="lhero"><div class="lw lhero-in">
+  <section class="lhero"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="lw lhero-in">
     <div class="ltxt"><span class="lbadge">${ic("sparkle",15)} Kitobxonlar uchun yangi odat</span>
-      <h1>Kitobxon daftaringiz endi <em>telefonda</em></h1>
+      <h1>Kitobxon daftaringiz endi <span class="rotw"><em class="rot">telefonda</em></span></h1>
       <p>Qaysi kitobni o'qiyotganingiz, qaysi betga kelganingiz, o'qigan kitoblaringiz va ulardan olgan saboqlaringiz — hammasi bir joyda. Telefonda ham, kompyuterda ham.</p>
-      <div class="row" style="gap:12px;flex-wrap:wrap"><a class="btn pri lg" href="#/register">Bepul boshlash ${ic("arrow",18)}</a><a class="btn ghost lg" href="#how" onclick="return lscroll('how')">Qanday ishlaydi?</a></div>
+      <div class="row" style="gap:12px;flex-wrap:wrap"><a class="btn pri lg shine" href="#/register">Bepul boshlash ${ic("arrow",18)}</a><a class="btn ghost lg" href="#how" onclick="return lscroll('how')">Qanday ishlaydi?</a></div>
       <div class="lproof"><div class="ava-stack">${["A", "J", "M", "S", "N"].map((l, i) => `<div class="ava" style="background:${AVC[i]}">${l}</div>`).join("")}</div><span><b>Bepul</b> · ro'yxatdan o'tish 1 daqiqa</span></div></div>
     <div class="lart">${shot("home", "p1")}${shot("marra", "p2")}
       <div class="lfl f1"><span class="sic" style="background:var(--or-soft);color:var(--or)">${ic("book",20)}</span><span><b>+24 bet</b><small>bugun o'qildi</small></span></div>
       <div class="lfl f2"><span class="sic" style="background:#fff6e0;color:#e08a10">${ic("flameF",20)}</span><span><b>7 kun</b><small>ketma-ket o'qidim</small></span></div></div>
   </div></section>
 
-  <section class="lsec lw"><div class="lpain">
+
+  <div class="lw"><div class="lstats rv hidden" id="lstats"></div></div>
+  <section class="lmarq rv"><div class="lhead" style="margin-bottom:26px"><span class="lk">Javonlarda</span><h2>Kitobxonlar sevgan asarlar</h2></div>
+    <div class="mq"><div class="mqt">${[...CURATED, ...CURATED].map(c => cover(c, "")).join("")}</div></div>
+    <div class="mq rev"><div class="mqt">${[...CURATED.slice().reverse(), ...CURATED.slice().reverse()].map(c => cover(c, "sm")).join("")}</div></div></section>
+  <section class="lsec lw"><div class="lpain rv">
     <div><h2>Qog'oz daftar yo'qoladi, unutiladi, uyda qoladi</h2><p class="lsub">Har bir kitobxon daftar tutadi. Lekin daftar varaqlari to'lib ketadi, kerakli kitobni topish qiyin, statistika yo'q, do'stlar bilan ulashib bo'lmaydi.</p></div>
     <div class="lvs"><div class="lv bad"><b>Qog'oz daftar</b><span>${ic("ban",16)} Yo'qolishi mumkin</span><span>${ic("ban",16)} Statistika yo'q</span><span>${ic("ban",16)} Eslatma yo'q</span><span>${ic("ban",16)} Ulashib bo'lmaydi</span></div>
       <div class="lv good"><b>${APP_NAME}</b><span>${ic("check",16)} Hamma qurilmada saqlanadi</span><span>${ic("check",16)} Avtomatik statistika</span><span>${ic("check",16)} Kunlik maqsad va seriya</span><span>${ic("check",16)} Kitobxonlar davrasi</span></div></div>
   </div></section>
 
-  <section class="lsec lw" id="feat"><div class="lhead"><span class="lk">Imkoniyatlar</span><h2>Kitobxonga kerak bo'lgan hamma narsa</h2><p class="lsub">Sizning qog'oz daftaringizdagi har bir ustun — endi qulay va chiroyli ko'rinishda.</p></div>
-    <div class="lfeat">${F.map(([i, t, d, bg, c]) => `<div><span class="sic" style="background:${bg};color:${c}">${ic(i, 24)}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></section>
+  <section class="lsec lw" id="feat"><div class="lhead rv"><span class="lk">Imkoniyatlar</span><h2>Kitobxonga kerak bo'lgan hamma narsa</h2><p class="lsub">Sizning qog'oz daftaringizdagi har bir ustun — endi qulay va chiroyli ko'rinishda.</p></div>
+    <div class="lfeat">${F.map(([i, t, d, bg, c], k) => `<div class="rv tilt" style="--d:${k * 70}ms"><span class="sic" style="background:${bg};color:${c}">${ic(i, 24)}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></section>
 
-  <section class="lsec lw lsplit"><div>${shot("detail", "solo")}</div><div><span class="lk">Kitobdan saboq</span><h2>Har bir kitobdan nima o'rgandingiz?</h2>
+  <section class="lsec lw lsplit rv"><div>${shot("detail", "solo")}</div><div><span class="lk">Kitobdan saboq</span><h2>Har bir kitobdan nima o'rgandingiz?</h2>
     <p class="lsub">Kitobni tugatgach, undan olgan tajribangizni yozasiz va kimga tavsiya qilishingizni belgilaysiz. Yillar o'tib ham o'qigan kitoblaringiz va fikrlaringiz qo'lingizda bo'ladi.</p>
     <ul class="lli"><li>${ic("check",18)} Baho va saboqlar</li><li>${ic("check",18)} Kunma-kun o'qish tarixi</li><li>${ic("check",18)} Kim tavsiya qilgan, kim sovg'a qilgan</li></ul></div></section>
 
-  <section class="lsec lw" id="how"><div class="lhead"><span class="lk">Qanday ishlaydi</span><h2>3 qadamda boshlang</h2></div>
-    <div class="lsteps"><div><b>1</b><h3>Ro'yxatdan o'ting</h3><p>Telefon raqamingiz va parol bilan 1 daqiqada akkaunt oching.</p></div>
+
+  <section class="lsec lw"><div class="ltry rv"><div><span class="lk">Sinab ko'ring</span><h2>Bugun qaysi betga keldingiz?</h2>
+      <p class="lsub">Slayderni suring — ${APP_NAME} kunlik rejangizni qanday hisoblashini ko'ring. Ilovada bu bitta raqam yozish bilan bo'ladi.</p>
+      <input type="range" min="0" max="60" value="12" id="tryR" class="tryr"><div class="row between mu2"><span>0 bet</span><span>60 bet</span></div>
+      <div class="trymsg" id="tryM"></div></div>
+    <div class="trybox"><div class="ring" id="tryRing"></div><div class="tryweek" id="tryW"></div></div></div></section>
+  <section class="lsec lw" id="how"><div class="lhead rv"><span class="lk">Qanday ishlaydi</span><h2>3 qadamda boshlang</h2></div>
+    <div class="lsteps rv"><div><b>1</b><h3>Ro'yxatdan o'ting</h3><p>Telefon raqamingiz va parol bilan 1 daqiqada akkaunt oching.</p></div>
       <div><b>2</b><h3>Kitobingizni qo'shing</h3><p>Hozir o'qiyotgan, o'qib bo'lgan va rejadagi kitoblaringizni javonga qo'ying.</p></div>
       <div><b>3</b><h3>Har kuni betni yozing</h3><p>"Bugun qaysi betga keldim?" — bitta raqam. Qolganini ${APP_NAME} hisoblaydi.</p></div></div></section>
 
-  <section class="lsec lw lsplit rev"><div><span class="lk">Davra</span><h2>Kitobxonlar bilan birga o'qing</h2>
+  <section class="lsec lw lsplit rev rv"><div><span class="lk">Davra</span><h2>Kitobxonlar bilan birga o'qing</h2>
     <p class="lsub">Fikringizni yozing, kitob biriktiring, do'stlaringizni davrangizga qo'shing. Kim nima o'qiyotganini ko'rib, keyingi kitobingizni tanlang.</p>
     <ul class="lli"><li>${ic("check",18)} Fikr, like va izohlar</li><li>${ic("check",18)} Haftalik reyting va marralar</li><li>${ic("check",18)} Kayfiyatga mos kitob tavsiyasi</li></ul>
     <a class="btn pri lg" href="#/register" style="margin-top:20px">Davraga qo'shilish ${ic("arrow",18)}</a></div><div>${shot("davra", "solo")}</div></section>
 
-  <section class="lsec lw" id="org"><div class="lorg"><div><span class="lk" style="color:#ffb27a">Maktab, o'quv markaz va kutubxonalar uchun</span>
+  <section class="lsec lw" id="org"><div class="lorg rv"><div><span class="lk" style="color:#ffb27a">Maktab, o'quv markaz va kutubxonalar uchun</span>
     <h2>O'quvchilaringiz nima o'qiyotganini kuzating</h2>
     <p>Admin panel orqali har bir kitobxon qaysi kitobni o'qiyotganini, nechanchi betga kelganini, qancha kitob o'qiganini va oxirgi marta qachon faol bo'lganini ko'rasiz. Ro'yxatni Excel'ga yuklab olasiz.</p>
     <div class="lorgf"><span>${ic("users",18)} Barcha kitobxonlar bir joyda</span><span>${ic("chart",18)} Faollik va reyting</span><span>${ic("download",18)} Excel'ga eksport</span><span>${ic("trophy",18)} Kitobxonlik tanlovlari</span></div>
     ${CONTACT_TG ? `<a class="btn pri lg" target="_blank" href="https://t.me/${CONTACT_TG}" style="margin-top:22px">Bog'lanish ${ic("arrow",18)}</a>` : `<a class="btn pri lg" href="#/register" style="margin-top:22px">Bepul boshlash ${ic("arrow",18)}</a>`}</div>
     <div class="lorgimg"><img src="img/admin.jpg" alt="Admin panel" loading="lazy"></div></div></section>
 
-  <section class="lsec lw"><div class="lapp"><div><h2>Telefoningizga o'rnating</h2><p class="lsub">${APP_NAME} brauzerda ochiladi va telefoningizga ilova bo'lib o'rnatiladi — bosh ekranda ikonkasi bilan, internetsiz ham ishlaydi.</p>
+  <section class="lsec lw"><div class="lapp rv"><div><h2>Telefoningizga o'rnating</h2><p class="lsub">${APP_NAME} brauzerda ochiladi va telefoningizga ilova bo'lib o'rnatiladi — bosh ekranda ikonkasi bilan, internetsiz ham ishlaydi.</p>
     <div class="lst"><div><b>Android</b><span>Chrome'da saytni oching → "O'rnatish"</span></div><div><b>iPhone</b><span>Safari → Ulashish ⬆ → "Bosh ekranga"</span></div></div>
     <button class="btn dark lg" onclick="installApp()" style="margin-top:18px">${ic("phone",18)} Ilovani o'rnatish</button></div>
-    <div class="lappic"><img src="icons/icon-512.png" alt=""></div></div></section>
+    <div class="lappic"><img class="spin" src="icons/icon-512.png" alt=""></div></div></section>
 
-  <section class="lsec lw" id="faq"><div class="lhead"><span class="lk">Savollar</span><h2>Ko'p beriladigan savollar</h2></div>
+  <section class="lsec lw" id="faq"><div class="lhead rv"><span class="lk">Savollar</span><h2>Ko'p beriladigan savollar</h2></div>
     <div class="faq"><details><summary>${APP_NAME} bepulmi?</summary><p>Ha. Kundalik, Davra, Marra va reyting — barchasi bepul. Keyinchalik qo'shimcha imkoniyatlar uchun Premium bo'ladi.</p></details>
       <details><summary>Kitoblarni shu yerda o'qiymanmi?</summary><p>Yo'q. ${APP_NAME} — kitobxon kundaligi. Siz qog'oz yoki elektron kitobni o'zingiz o'qiysiz, bu yerda esa o'qishingizni yozib, kuzatib borasiz.</p></details>
       <details><summary>Telefon va kompyuterda bitta akkaunt ishlaydimi?</summary><p>Ha. Bir marta ro'yxatdan o'tasiz va istalgan qurilmadan kirasiz — ma'lumotlaringiz hamma joyda bir xil.</p></details>
       <details><summary>Ma'lumotlarim xavfsizmi?</summary><p>Parolingiz shifrlangan holda saqlanadi. Kunlik yozuvlaringiz faqat sizga ko'rinadi, xohlasangiz profilingizni butunlay yopishingiz mumkin.</p></details>
       <details><summary>Maktabimiz o'quvchilari uchun ishlatsak bo'ladimi?</summary><p>Albatta. O'quvchilar ro'yxatdan o'tadi, siz esa admin panel orqali kim nima o'qiyotganini kuzatib borasiz.</p></details></div></section>
 
-  <section class="lw"><div class="lcta"><h2>Bugun birinchi betdan boshlang</h2><p>Har kuni bir varaq bo'lsa ham — umr bo'yi odat.</p><a class="btn lg" style="background:#fff;color:var(--or2)" href="#/register">Bepul ro'yxatdan o'tish ${ic("arrow",18)}</a></div></section>
+  <section class="lw"><div class="lcta rv"><h2>Bugun birinchi betdan boshlang</h2><p>Har kuni bir varaq bo'lsa ham — umr bo'yi odat.</p><a class="btn lg" style="background:#fff;color:var(--or2)" href="#/register">Bepul ro'yxatdan o'tish ${ic("arrow",18)}</a></div></section>
 
   <footer class="lw lfoot"><a class="logo" href="#/" style="padding:0"><i>${I.logo}</i><span>${brand()}</span></a>
     <div class="row" style="gap:18px;flex-wrap:wrap"><a href="#/terms">Foydalanish shartlari</a><a href="#/terms/privacy">Maxfiylik siyosati</a><a href="#/login">Kirish</a><a onclick="toggleDark()" style="cursor:pointer">${ic("moon",15)} Tungi rejim</a></div>
     <span class="muted">© ${new Date().getFullYear()} ${APP_NAME}</span></footer></div>`;
   window.scrollTo(0, 0);
+  initLanding();
+}
+let landTimers = [];
+function initLanding() {
+  landTimers.forEach(clearInterval); landTimers = [];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // scroll bilan paydo bo'lish
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll(".land .rv").forEach(el => reduce ? el.classList.add("in") : io.observe(el));
+  // aylanuvchi so'z
+  const words = ["telefonda", "cho'ntagingizda", "kompyuterda", "har doim yoningizda"]; let wi = 0; const rot = $(".rot");
+  if (rot && !reduce) landTimers.push(setInterval(() => { if (!document.body.contains(rot)) return; rot.classList.add("out"); setTimeout(() => { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove("out"); rot.classList.add("inw"); setTimeout(() => rot.classList.remove("inw"), 450); }, 320); }, 2600));
+  // kartalarda yorug'lik
+  document.querySelectorAll(".land .tilt").forEach(el => el.addEventListener("pointermove", e => { const r = el.getBoundingClientRect(); el.style.setProperty("--mx", (e.clientX - r.left) + "px"); el.style.setProperty("--my", (e.clientY - r.top) + "px"); }));
+  // sinab ko'ring
+  const R = $("#tryR"), goal = 20;
+  const draw = () => { const v = +R.value; $("#tryRing").innerHTML = ring(v, goal, 190, 15) + `<div class="lbl"><small>Bugungi reja</small><b>${v}<span style="font-size:16px;color:var(--muted)">/${goal}</span></b><span>bet</span></div>`;
+    $("#tryM").innerHTML = v >= goal ? `<span class="ok">${ic("check", 18)} Bugungi reja bajarildi! Seriya davom etmoqda</span>` : v ? `Yana <b>${goal - v} bet</b> o'qisangiz, kunlik maqsad bajariladi` : `Bugun hali o'qimadingiz — 10 bet ham yetarli`;
+    $("#tryW").innerHTML = WD.map((l, i) => `<div class="${i < 4 || (i === 4 && v >= goal) ? "on" : ""} ${i === 4 ? "td" : ""}"><b>${i < 4 || (i === 4 && v >= goal) ? ic("check", 14) : i + 17}</b><span>${l}</span></div>`).join(""); };
+  if (R) { R.addEventListener("input", draw); draw(); }
+  // haqiqiy statistika (faqat yetarlicha kitobxon bo'lsa ko'rsatiladi)
+  rawCall([["publicStats", {}]]).then(([r]) => {
+    if (!r || !r.ok || r.readers < 20) return; const box = $("#lstats"); if (!box) return;
+    box.innerHTML = [["readers", "kitobxon"], ["pages", "o'qilgan bet"], ["done", "tugatilgan kitob"], ["posts", "Davradagi fikr"]].map(([k, n]) => `<div><b data-n="${r[k]}">0</b><span>${n}</span></div>`).join("");
+    box.classList.remove("hidden");
+    const run = () => box.querySelectorAll("b").forEach(b => { const n = +b.dataset.n, t0 = performance.now(); const f = t => { const p = Math.min(1, (t - t0) / 1400); b.textContent = num(Math.round(n * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+    new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { run(); o.disconnect(); } }).observe(box);
+  }).catch(() => {});
 }
 function lscroll(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); return false; }
 
@@ -1892,51 +2146,150 @@ function vTerms(which) {
 }
 
 /* ---------- Admin panel ---------- */
-let ADM = { key: "", data: null, q: "" };
+let ADM = { key: LS.get("kitobim_adm_key", ""), data: null, q: "", tab: "dash", period: 14, metric: "pages", top: "readers", sort: "active" };
+function smoothPath(pts) {
+  if (pts.length < 2) return "";
+  let d = `M${pts[0][0]},${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i++) { const [x0, y0] = pts[i], [x1, y1] = pts[i + 1], cx = (x0 + x1) / 2; d += ` C${cx},${y0} ${cx},${y1} ${x1},${y1}`; }
+  return d;
+}
+function spark(vals, color, w = 220, h = 64) {
+  const max = Math.max(1, ...vals), min = Math.min(...vals), n = vals.length;
+  const pts = vals.map((v, i) => [i * (w / (n - 1 || 1)), h - 6 - ((v - min) / ((max - min) || 1)) * (h - 14)]);
+  const id = "g" + Math.random().toString(36).slice(2, 7), path = smoothPath(pts), last = pts[pts.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".35"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${path} L${w},${h} L0,${h} Z" fill="url(#${id})"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2.2" vector-effect="non-scaling-stroke"/>
+    <line x1="0" x2="${w}" y1="${h - 6}" y2="${h - 6}" stroke="rgba(255,255,255,.12)" stroke-dasharray="3 4"/><circle cx="${last[0] - 2}" cy="${last[1]}" r="4" fill="${color}" stroke="#1a1310" stroke-width="2"/></svg>`;
+}
+function gauge(pct) {
+  const cx = 150, cy = 140, r = 108, segs = [["#e8452c", 0, .2], ["#f7a03a", .22, .47], ["#b07ae8", .49, .74], ["#3bb54a", .76, 1]];
+  const P = t => { const a = Math.PI * (1 - t); return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; };
+  const arc = (t0, t1) => { const [x0, y0] = P(t0), [x1, y1] = P(t1); return `M${x0},${y0} A${r},${r} 0 0 1 ${x1},${y1}`; };
+  const [kx, ky] = P(Math.max(.01, Math.min(.99, pct)));
+  return `<svg viewBox="0 0 300 160" class="gauge">${segs.map(([c, a, b]) => `<path d="${arc(a, b)}" stroke="${c}" stroke-width="30" fill="none" stroke-linecap="round" opacity="${pct >= a ? 1 : .35}"/>`).join("")}
+    <g transform="translate(${kx},${ky}) rotate(${-180 * (1 - pct) + 90})"><rect x="-17" y="-13" width="34" height="26" rx="7" fill="none" stroke="#fff" stroke-width="5"/></g></svg>`;
+}
+function bigChart(vals, labels, color) {
+  const W = 760, H = 300, pl = 34, pb = 26, max = Math.max(4, ...vals), raw = max / 4, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(x => x >= raw);
+  const top = step * 4, n = vals.length, xw = (W - pl - 10) / (n - 1 || 1);
+  const pts = vals.map((v, i) => [pl + i * xw, (H - pb) - (v / top) * (H - pb - 12)]);
+  const path = smoothPath(pts), id = "bg" + Math.random().toString(36).slice(2, 7);
+  const grid = [0, 1, 2, 3, 4].map(k => { const y = (H - pb) - k * (H - pb - 12) / 4; return `<line x1="${pl}" x2="${W}" y1="${y}" y2="${y}" stroke="rgba(255,255,255,.07)"/><text x="0" y="${y + 4}" class="ax">${k * step}</text>`; }).join("");
+  const every = Math.ceil(n / 8);
+  const xl = labels.map((l, i) => i % every === 0 || i === n - 1 ? `<text x="${pl + i * xw}" y="${H - 6}" class="ax" text-anchor="middle">${l}</text>` : "").join("");
+  const dots = pts.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="10" fill="transparent"><title>${labels[i]}: ${vals[i]}</title></circle>`).join("");
+  const mi = vals.indexOf(Math.max(...vals)), [mx, my] = pts[mi];
+  return `<svg viewBox="0 0 ${W} ${H}" class="bigc"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".32"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient>
+    <filter id="${id}f"><feGaussianBlur stdDeviation="4"/></filter></defs>${grid}${xl}
+    <path d="${path} L${pts[n - 1][0]},${H - pb} L${pl},${H - pb} Z" fill="url(#${id})"/>
+    <path d="${path}" fill="none" stroke="${color}" stroke-width="6" opacity=".35" filter="url(#${id}f)"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2.6"/>
+    ${vals[mi] ? `<line x1="${mx}" x2="${mx}" y1="${my}" y2="${H - pb}" stroke="${color}" stroke-dasharray="3 4" opacity=".6"/><circle cx="${mx}" cy="${my}" r="5" fill="${color}" stroke="#1a1310" stroke-width="2.5"/><g transform="translate(${Math.min(W - 70, Math.max(40, mx))},${Math.max(14, my - 18)})"><rect x="-30" y="-14" width="60" height="22" rx="11" fill="#fff"/><text y="2" text-anchor="middle" class="tip">${vals[mi]}</text></g>` : ""}${dots}</svg>`;
+}
+const METRICS = { pages: ["O'qilgan betlar", "#ff7a2f"], active: ["Faol kitobxonlar", "#3bb54a"], joined: ["Yangi a'zolar", "#b07ae8"], posts: ["Fikrlar", "#f7c23a"], done: ["Tugatilgan kitoblar", "#4a9cf0"] };
 async function vAdmin() {
-  document.body.classList.toggle("dark", !!S.dark);
+  document.body.classList.add("admbody");
   const app = $("#app");
   if (!ADM.data) {
-    app.innerHTML = `<div class="auth"><div class="l"><div class="form"><a class="logo" style="padding:0"><i>${I.logo}</i><span>${brand()} <small class="muted" style="font-size:.6em">admin</small></span></a>
-      <h1>Admin panel</h1><p class="sub">Kitobxonlarni kuzatish uchun admin kalitini kiriting.${DEMO ? " Demo rejimda kalit: <b>demo</b>" : ""}</p>
-      <input id="aKey" type="password" placeholder="Admin kaliti" onkeydown="if(event.key==='Enter')admLoad()"><button class="btn pri full" style="margin-top:14px" onclick="admLoad()">Kirish</button>
-      <a class="btn ghost full" style="margin-top:8px" href="#/home">← Ilovaga qaytish</a></div></div><div class="r"><h2>Kim nima o'qiyapti?</h2><p>Barcha kitobxonlar, faollik va mashhur kitoblar bir joyda.</p></div></div>`;
+    app.innerHTML = `<div class="adm2 alogin"><div class="alc"><a class="logo" style="padding:0;color:#fff"><i>${I.logo}</i><span>${brand()}</span></a>
+      <h1>Admin panel</h1><p>Kitobxonlar faolligini kuzatish uchun admin kalitini kiriting.${DEMO ? " Demo rejimda kalit: <b>demo</b>" : ""}</p>
+      <input id="aKey" type="password" value="${esc(ADM.key)}" placeholder="Admin kaliti" onkeydown="if(event.key==='Enter')admLoad()">
+      <button class="btn pri full" style="margin-top:14px;padding:15px" id="aBtn" onclick="admLoad()">Kirish</button>
+      <a class="abk" href="#/">← Saytga qaytish</a></div></div>`;
+    if (ADM.key) admLoad();
     return;
   }
   const d = ADM.data, now = Date.now(), t = u => new Date(u.lastActive).getTime() || 0;
-  const act = u => { const x = (now - t(u)) / 864e5; return x < 1 ? "var(--green)" : x < 7 ? "var(--or)" : "#c4c4ca"; };
+  if (!d.daily) { d.old = true; d.daily = Array.from({ length: 30 }, (_, i) => ({ d: KitobimCore.addDays(today(), i - 29), pages: 0, active: 0, joined: 0, posts: 0, done: 0 })); }
+  d.recent = d.recent || []; d.catalogAll = d.catalogAll || d.catalog || [];
+  const P = ADM.period, days = d.daily.slice(-P), prev = d.daily.slice(-2 * P, -P);
+  const sum = (arr, k) => arr.reduce((a, x) => a + (x[k] || 0), 0);
+  const pct = (a, b) => b ? Math.round((a - b) / b * 100) : (a ? 100 : 0);
+  const a7 = d.users.filter(u => now - t(u) < 7 * 864e5).length, actPct = d.users.length ? a7 / d.users.length : 0;
+  const pagesP = sum(days, "pages"), pagesPrev = sum(prev, "pages"), joinedP = sum(days, "joined");
+  const lbl = days.map(x => { const z = new Date(x.d); return `${z.getDate()}.${String(z.getMonth() + 1).padStart(2, "0")}`; });
+  const trend = (v) => `<span class="trend ${v >= 0 ? "up" : "dn"}">${ic(v >= 0 ? "arrow" : "arrow", 12, `style="transform:rotate(${v >= 0 ? -45 : 45}deg)"`)} ${v >= 0 ? "+" : ""}${v}%</span>`;
+  const act = u => { const x = (now - t(u)) / 864e5; return x < 1 ? "#3bb54a" : x < 7 ? "#f7a03a" : "#6b6058"; };
   const q = ADM.q.toLowerCase();
-  const list = d.users.filter(u => !q || [u.name, u.phone, u.region, u.username].join(" ").toLowerCase().includes(q)).sort((a, b) => t(b) - t(a));
-  const a7 = d.users.filter(u => now - t(u) < 7 * 864e5).length;
-  app.innerHTML = `<div style="max-width:1200px;margin:auto;padding:26px 20px 60px">
-    <div class="row between" style="flex-wrap:wrap;gap:12px"><div class="row"><a class="logo" style="padding:0"><i>${I.logo}</i></a><div><small class="muted">${APP_NAME} · Admin panel</small><h1 style="font-size:28px">Kitobxonlar</h1></div></div>
-      <div class="row"><button class="btn ghost" onclick="admLoad(true)">↻ Yangilash</button><button class="btn ghost" onclick="admCSV()">⬇ Excel (CSV)</button><button class="btn ghost" onclick="ADM.data=null;go('#/home')">Chiqish</button></div></div>
-    <div class="sts" style="grid-template-columns:repeat(4,1fr)"><div><small>Kitobxonlar</small><b>${d.users.length}</b></div><div><small>7 kunda faol</small><b>${a7}</b></div><div><small>Javonlardagi kitoblar</small><b>${d.books.length}</b></div><div><small>Davradagi fikrlar</small><b>${d.posts}</b></div></div>
-    <div class="grid2" style="grid-template-columns:1fr 340px;align-items:start"><div>
-      <div class="sbox">${I.search}<input value="${esc(ADM.q)}" placeholder="Ism, telefon, hudud bo'yicha izlash" oninput="ADM.q=this.value;const p=this.selectionStart;vAdmin();const i=$('.sbox input');i.focus();i.setSelectionRange(p,p)"></div>
-      <div class="card" style="padding:6px 14px;overflow-x:auto"><table class="tbl"><tr><th>Kitobxon</th><th class="hm">Telefon</th><th>Hozir o'qiyapti</th><th>O'qigan</th><th class="hm">7 kun</th><th class="hm">Oxirgi faollik</th></tr>
-      ${list.map(u => `<tr onclick="admUser('${u.id}')"><td><div class="row">${ava(u, 34)}<div><b>${esc(u.name)}</b><div class="muted" style="font-size:12.5px">${esc(u.region || "")}${u.age ? " · " + esc(u.age) + " yosh" : ""}</div></div></div></td>
-        <td class="hm">+${esc(u.phone)}</td><td>${u.current.length ? u.current.map(c => `${esc(c.title)} <span class="muted">${c.current}/${c.pages || "?"}</span>`).join("<br>") : '<span class="muted">—</span>'}</td>
-        <td><b>${u.done}</b></td><td class="hm">${u.week} bet</td><td class="hm"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${act(u)};margin-right:6px"></span>${ago(u.lastActive)}</td></tr>`).join("")}</table>
-      ${!list.length ? `<div class="empty">Kitobxon topilmadi</div>` : ""}</div></div>
-      <div><div class="card"><h3 style="font-size:17px;margin-bottom:10px">Eng ko'p o'qilayotgan kitoblar</h3>${d.catalog.map((b, i) => `<div class="urow" style="border-bottom:1px solid var(--line)"><span class="muted" style="width:20px">${i + 1}</span>${cover(b, "xs")}<span class="info"><b>${esc(b.title)}</b><small>${esc(b.author)}</small></span><b>${b.readers}</b></div>`).join("") || '<div class="muted">—</div>'}</div></div></div></div>`;
+  const sorters = { active: (a, b) => t(b) - t(a), ball: (a, b) => b.ball - a.ball, done: (a, b) => b.done - a.done || b.pages - a.pages, week: (a, b) => b.week - a.week };
+  const users = d.users.filter(u => !q || [u.name, u.phone, u.region, u.username].join(" ").toLowerCase().includes(q)).sort(sorters[ADM.sort]);
+  const row = u => `<tr onclick="admUser('${u.id}')"><td><div class="row">${ava(u, 36)}<div><b>${esc(u.name)}</b><small>@${esc(u.username)}${u.region ? " · " + esc(u.region) : ""}</small></div></div></td>
+    <td class="hm">+${esc(u.phone)}</td><td>${u.current.length ? u.current.slice(0, 2).map(c => `<div class="cur"><span>${esc(c.title)}</span><i><b style="width:${c.pages ? Math.min(100, c.current / c.pages * 100) : 0}%"></b></i><small>${c.current}/${c.pages || "?"}</small></div>`).join("") : '<span class="mu">—</span>'}</td>
+    <td><b>${u.done}</b></td><td class="hm">${num(u.week)}</td><td class="hm"><span class="flm">${ic("flameF", 13)}${u.streak}</span></td><td class="hm"><span class="dot" style="background:${act(u)}"></span>${ago(u.lastActive)}</td><td class="hm mu">${I.ch}</td></tr>`;
+  const table = list => `<div class="tblw"><table class="atbl"><tr><th>Kitobxon</th><th class="hm">Telefon</th><th>Hozir o'qiyapti</th><th>O'qigan</th><th class="hm">7 kun (bet)</th><th class="hm">Seriya</th><th class="hm">Faollik</th><th class="hm"></th></tr>${list.map(row).join("")}</table>${!list.length ? `<div class="aempty">Kitobxon topilmadi</div>` : ""}</div>`;
+  const topKey = { readers: "readers", reading: "readingNow", done: "done" }[ADM.top];
+  const tops = d.catalogAll.slice().sort((a, b) => b[topKey] - a[topKey] || b.readers - a.readers).filter(x => x[topKey] > 0).slice(0, 5);
+  const nav = [["dash", "Boshqaruv", "chart"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
+  let body = "";
+  if (ADM.tab === "dash") body = `
+    <div class="ahd"><div><small>${ic("cal", 13)} Oxirgi ${P} kun</small><h2>Umumiy ko'rinish</h2></div>
+      <div class="row" style="gap:8px">${[7, 14, 30].map(n => `<button class="apill ${P === n ? "on" : ""}" onclick="ADM.period=${n};vAdmin()">${n} kun</button>`).join("")}</div></div>
+    <div class="ag3">
+      <div class="acard"><div class="row"><span class="aic" style="background:linear-gradient(135deg,#ffb04a,#ff6b1a)">${ic("users", 22)}</span><div><small>Jami</small><b class="al">Kitobxonlar</b></div></div>
+        <div class="row between" style="margin-top:18px"><div class="abig">${num(d.users.length)}</div>${trend(pct(joinedP, sum(prev, "joined")))}</div>
+        <small class="mu">+${joinedP} ta yangi a'zo · ${P} kunda</small>${spark(days.map(x => x.joined), "#3bb54a")}</div>
+      <div class="acard agauge"><div class="row between"><div><div class="abig" style="font-size:26px">${num(pagesP)} bet</div><span class="row" style="gap:6px">${trend(pct(pagesP, pagesPrev))}<small class="mu">oldingi ${P} kunga nisbatan</small></span></div>
+        <span class="apill on" style="pointer-events:none">${a7} / ${d.users.length} faol</span></div>
+        ${gauge(actPct)}<div class="gl"><b>${Math.round(actPct * 100)}%</b><small>kitobxon so'nggi 7 kunda faol</small></div></div>
+      <div class="acard"><div class="row"><span class="aic" style="background:linear-gradient(135deg,#6aa8ff,#3d6af0)">${ic("book", 22)}</span><div><small>Javonlarda</small><b class="al">Kitoblar</b></div></div>
+        <div class="row between" style="margin-top:18px"><div class="abig">${num(d.books.length)}</div>${trend(pct(sum(days, "done"), sum(prev, "done")))}</div>
+        <small class="mu">${d.books.filter(b => b.status === "done").length} ta o'qib tugatilgan · ${d.posts} fikr</small>${spark(days.map(x => x.done + x.posts), "#ff5a3c")}</div>
+    </div>
+    <div class="ag2">
+      <div class="acard"><div class="row between"><h3>Faollik grafigi</h3><button class="apill" onclick="ADM.tab='users';vAdmin()">Kitobxonlar ${I.ch}</button></div>
+        <div class="atabs">${Object.entries(METRICS).map(([k, [n]]) => `<button class="${ADM.metric === k ? "on" : ""}" onclick="ADM.metric='${k}';vAdmin()">${n}</button>`).join("")}</div>
+        ${bigChart(days.map(x => x[ADM.metric]), lbl, METRICS[ADM.metric][1])}
+        <div class="alegend">${Object.entries(METRICS).map(([k, [n, c]]) => `<span><i style="background:${c}"></i>${n} <b>${num(sum(days, k))}</b></span>`).join("")}</div></div>
+      <div class="acard"><div class="row between"><h3>Top kitoblar</h3><button class="apill" onclick="ADM.tab='books';vAdmin()">Barchasi</button></div>
+        <div class="atabs">${[["readers", "Javonda"], ["reading", "O'qilmoqda"], ["done", "O'qilgan"]].map(([k, n]) => `<button class="${ADM.top === k ? "on" : ""}" onclick="ADM.top='${k}';vAdmin()">${n}</button>`).join("")}</div>
+        <div class="alist">${tops.length ? tops.map(b => `<div class="ali">${cover(b, "xs")}<div class="in"><b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small></div><div class="vr"><b>${b[topKey]}</b><small>kitobxon</small></div><span class="mu">${I.ch}</span></div>`).join("") : `<div class="aempty">Hali ma'lumot yo'q</div>`}</div></div>
+    </div>
+    <div class="acard" style="margin-top:18px"><div class="row between"><h3>So'nggi faol kitobxonlar</h3><button class="apill" onclick="ADM.tab='users';vAdmin()">Barchasi ${I.ch}</button></div>${table(users.slice(0, 6))}</div>`;
+  else if (ADM.tab === "users") body = `<div class="ahd"><div><small>${d.users.length} ta kitobxon</small><h2>Kitobxonlar</h2></div>
+      <div class="row" style="gap:8px;flex-wrap:wrap">${[["active", "Faollik"], ["week", "7 kun"], ["ball", "Ball"], ["done", "O'qigan"]].map(([k, n]) => `<button class="apill ${ADM.sort === k ? "on" : ""}" onclick="ADM.sort='${k}';vAdmin()">${n}</button>`).join("")}<button class="apill" onclick="admCSV()">${ic("download", 15)} Excel</button></div></div>
+    <div class="acard">${table(users)}</div>`;
+  else if (ADM.tab === "books") body = `<div class="ahd"><div><small>${d.catalogAll.length} ta nom</small><h2>Kitoblar</h2></div></div>
+    <div class="abooks">${d.catalogAll.filter(b => !q || (b.title + " " + b.author).toLowerCase().includes(q)).sort((a, b) => b.readers - a.readers).map(b => `<div class="acard abk">${cover(b, "sm")}<div><b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small>
+      <div class="abst"><span>${ic("users", 13)} ${b.readers}</span><span>${ic("book", 13)} ${b.readingNow}</span><span>${ic("check", 13)} ${b.done}</span>${b.rating ? `<span style="color:#f7a03a">${ic("star", 13)} ${b.rating}</span>` : ""}</div></div></div>`).join("") || `<div class="aempty">Hali kitob yo'q</div>`}</div>`;
+  else body = `<div class="ahd"><div><small>So'nggi ${d.recent.length} ta</small><h2>Davra fikrlari</h2></div></div>
+    ${d.recent.filter(p => !q || (p.text + " " + p.user.name).toLowerCase().includes(q)).map(p => `<div class="acard apost" id="ap-${p.id}"><div class="row between"><div class="row">${ava(p.user, 38)}<div><b>${esc(p.user.name)}</b><small class="mu"> @${esc(p.user.username)} · ${ago(p.createdAt)}</small></div></div>
+      <button class="apill danger" onclick="admDelPost('${p.id}')">O'chirish</button></div><p>${esc(p.text)}</p>${p.book ? `<div class="mu" style="font-size:13px">${ic("book", 13)} ${esc(p.book.title)}</div>` : ""}
+      <div class="mu" style="font-size:13px;margin-top:8px;display:flex;gap:16px">${ic("heart", 14)} ${p.likes}<span>${ic("msg", 14)} ${p.comments.length}</span></div></div>`).join("") || `<div class="acard aempty">Hali fikr yo'q</div>`}`;
+  app.innerHTML = `<div class="adm2"><aside class="aside">
+      <a class="logo" style="padding:4px 6px 22px;color:#fff"><i>${I.logo}</i><span>${brand()}</span></a>
+      <div class="anav">${nav.map(([k, n, i]) => `<button class="${ADM.tab === k ? "on" : ""}" onclick="ADM.tab='${k}';vAdmin();scrollTo(0,0)">${ic(i, 18)}${n}</button>`).join("")}</div>
+      <div class="asec">Boshqaruv</div>
+      <div class="anav"><button onclick="admCSV()">${ic("download", 18)}Excel'ga yuklash</button><button onclick="location.hash='#/home'">${ic("phone", 18)}Ilovaga o'tish</button><button onclick="ADM.data=null;LS.del('kitobim_adm_key');ADM.key='';vAdmin()">${ic("logout", 18)}Chiqish</button></div>
+      <div class="ahelp"><span class="q">?</span><b>Kitobxonlarni rag'batlantiring</b><small>Eng faol kitobxonlarni Davrada e'lon qiling — bu boshqalarni ham ilhomlantiradi.</small><button onclick="ADM.tab='users';ADM.sort='week';vAdmin()">Eng faollar</button></div>
+    </aside><main class="amain">
+      <div class="atop"><div class="asearch">${I.search}<input placeholder="Ism, telefon, kitob bo'yicha izlash…" value="${esc(ADM.q)}" oninput="ADM.q=this.value;const p=this.selectionStart;vAdmin();const i=$('.asearch input');i.focus();i.setSelectionRange(p,p)"></div>
+        <div class="row" style="gap:10px"><button class="aib" title="Yangilash" onclick="admLoad(true)">${ic("refresh",19)}</button>
+        <div class="ame"><span class="aic sm" style="background:var(--grad)">${ic("user", 16)}</span><div><b>Administrator</b><small>${APP_NAME}</small></div></div></div></div>
+      ${d.old ? `<div class="acard" style="margin-bottom:16px;border-color:rgba(255,122,47,.5)">${ic("refresh", 16)} Grafiklar uchun serverdagi Code.gs ni yangi versiyaga yangilang (Deploy → New version).</div>` : ""}${body}</main></div>`;
 }
 async function admLoad(refresh) {
-  if (!refresh) ADM.key = ($("#aKey") || {}).value || ADM.key;
-  try { ADM.data = await api("admin", { key: ADM.key }); vAdmin(); if (refresh) toast("Yangilandi"); } catch (e) { toast(e.message); }
+  if (!refresh && $("#aKey")) ADM.key = $("#aKey").value;
+  if (!ADM.key) return toast("Kalitni kiriting");
+  const b = $("#aBtn"); if (b) { b.disabled = true; b.textContent = "Yuklanmoqda…"; }
+  try { const [r] = await rawCall([["admin", { key: ADM.key }]]); if (!r.ok) throw new Error(r.error); ADM.data = r; LS.set("kitobim_adm_key", ADM.key); vAdmin(); if (refresh) toast("Yangilandi"); }
+  catch (e) { toast(e.message); if (/kaliti/.test(e.message)) LS.del("kitobim_adm_key"); if (b) { b.disabled = false; b.textContent = "Kirish"; } }
+}
+async function admDelPost(id) {
+  if (!confirm("Bu fikr Davradan o'chirilsinmi?")) return;
+  try { const [r] = await rawCall([["adminDeletePost", { key: ADM.key, id }]]); if (!r.ok) throw new Error(r.error); ADM.data.recent = ADM.data.recent.filter(p => p.id !== id); ADM.data.posts--; $("#ap-" + id).remove(); toast("O'chirildi"); } catch (e) { toast(e.message); }
 }
 function admUser(id) {
   const u = ADM.data.users.find(x => x.id === id), bs = ADM.data.books.filter(b => b.userId === id);
   const g = s => bs.filter(b => b.status === s);
   const row = b => `<div class="brow" style="cursor:default;align-items:flex-start">${cover(b, "sm")}<div class="info"><h3>${esc(b.title)}</h3><div class="au">${esc(b.author || "")}</div>
-    <div class="muted" style="font-size:12.5px;margin-top:6px;line-height:1.6">${b.status === "reading" ? `${ic("pin",13)} ${b.current || 0}/${b.pages || "?"} bet · ${fmtD(b.start)} dan<br>` : ""}${b.status === "done" ? `${ic("check",13)} ${fmtD(b.start)} → ${fmtD(b.end)} ${stars(b.rating)}<br>` : ""}
-    ${b.recBy ? `${ic("user",13)} Tavsiya: ${esc(b.recBy)}<br>` : ""}${b.gift ? `${ic("gift",13)} Sovg'a${b.giftFrom ? ": " + esc(b.giftFrom) : ""}<br>` : ""}${b.recTo ? `${ic("arrow",13)} Kimga tavsiya qiladi: ${esc(b.recTo)}` : ""}</div>
+    <div class="muted" style="font-size:12.5px;margin-top:6px;line-height:1.7">${b.status === "reading" ? `${ic("pin", 13)} ${b.current || 0}/${b.pages || "?"} bet · ${fmtD(b.start)} dan<br>` : ""}${b.status === "done" ? `${ic("check", 13)} ${fmtD(b.start)} → ${fmtD(b.end)} ${stars(b.rating)}<br>` : ""}
+    ${b.recBy ? `${ic("user", 13)} Tavsiya: ${esc(b.recBy)}<br>` : ""}${b.gift ? `${ic("gift", 13)} Sovg'a${b.giftFrom ? ": " + esc(b.giftFrom) : ""}<br>` : ""}${b.recTo ? `${ic("arrow", 13)} Kimga tavsiya qiladi: ${esc(b.recTo)}` : ""}</div>
     ${b.experience ? `<div class="note" style="font-size:13px;margin-top:8px;padding:10px 12px">${esc(b.experience)}</div>` : ""}</div></div>`;
   sheet(`<div class="row">${ava(u, 64)}<div><h2>${esc(u.name)}</h2><div class="muted">+${esc(u.phone)} · @${esc(u.username)}</div><div class="muted" style="font-size:13px">${esc(u.region || "")}${u.age ? " · " + esc(u.age) + " yosh" : ""}</div></div></div>
     <div class="glass"><div><small>O'qigan</small><b>${u.done}</b></div><div><small>Betlar</small><b>${num(u.pages)}</b></div><div><small>Seriya</small><b>${u.streak} kun</b></div></div>
     <p class="muted" style="font-size:13px;text-align:center">Ro'yxatdan o'tgan: ${fmtD(u.createdAt)} · Oxirgi faollik: ${ago(u.lastActive)}</p>
-    ${g("reading").length ? `<h3 style="margin:16px 0 8px">${ic("book",17)} O'qiyapti</h3>${g("reading").map(row).join("")}` : ""}${g("plan").length ? `<h3 style="margin:16px 0 8px">${ic("cal",17)} Rejada</h3>${g("plan").map(row).join("")}` : ""}
-    ${g("done").length ? `<h3 style="margin:16px 0 8px">${ic("check",17)} O'qib bo'lgan</h3>${g("done").map(row).join("")}` : ""}${!bs.length ? `<div class="empty">Hali kitob qo'shmagan</div>` : ""}`);
+    ${g("reading").length ? `<h3 style="margin:16px 0 8px">O'qiyapti</h3>${g("reading").map(row).join("")}` : ""}${g("plan").length ? `<h3 style="margin:16px 0 8px">Rejada</h3>${g("plan").map(row).join("")}` : ""}
+    ${g("done").length ? `<h3 style="margin:16px 0 8px">O'qib bo'lgan</h3>${g("done").map(row).join("")}` : ""}${!bs.length ? `<div class="empty">Hali kitob qo'shmagan</div>` : ""}`);
+  $(".sheet").classList.add("asheet");
 }
 function admCSV() {
   const rows = [["Ism", "Telefon", "Hudud", "Yosh", "Ro'yxatdan o'tgan", "Oxirgi faollik", "Hozir o'qiyapti", "O'qigan kitoblar", "Jami bet", "7 kunda bet", "Seriya", "Fikrdoshlar"]]
