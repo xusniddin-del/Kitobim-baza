@@ -777,6 +777,27 @@ body:not(.admbody) .arp{background:var(--soft);border-color:var(--line)}
 .rpok b{display:block;font-size:30px;letter-spacing:.12em;margin:6px 0;font-family:ui-monospace,Menlo,monospace}
 .rpok span{font-size:13px;opacity:.8}
 
+.ava{overflow:hidden;flex-shrink:0}
+.ava img{width:100%;height:100%;object-fit:cover;display:block}
+.pcover{background-size:cover;background-position:center;position:relative;overflow:hidden}
+.camb{position:absolute;right:14px;top:14px;z-index:2;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-weight:600;font-size:13.5px;padding:9px 14px;border-radius:30px}
+.camb:hover{background:rgba(0,0,0,.6)}
+.pava{position:relative;flex:0 0 auto}
+.camav{position:absolute;right:4px;bottom:6px;width:40px;height:40px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--card)}
+body.dark .camav{box-shadow:0 0 0 4px #000}
+.pbtns{flex-wrap:wrap;justify-content:flex-end}
+.pbtns .btn .ico{margin-right:2px}
+@media (max-width:980px){
+  .camb span{display:none}.camb{padding:9px;right:10px;top:10px}
+  .camav{width:34px;height:34px;right:0;bottom:2px;box-shadow:0 0 0 3px var(--bg)}
+  .pbtns{gap:8px}
+  .pbtns .btn{padding:10px 12px;font-size:13.5px}
+  .pbtns .btn span{display:none}
+  .pbtns .ibtn{width:42px;height:42px}
+}
+@media (max-width:980px) and (min-width:420px){.pbtns .btn span{display:inline}}
+.phead{pointer-events:none}.phead>*{pointer-events:auto}
+
 </style>
 </head>
 <body>
@@ -788,7 +809,7 @@ body:not(.admbody) .arp{background:var(--soft);border-color:var(--line)}
    (haqiqiy server) ishlaydi. db = {users, books, posts, follows}
    ============================================================ */
 var KitobimCore = (function () {
-  var TABLES = ["users", "books", "posts", "follows"];
+  var TABLES = ["users", "books", "posts", "follows", "media"];
   var MILESTONES = [[1, 10], [3, 30], [7, 70], [14, 150], [30, 300], [60, 600], [100, 1000], [365, 5000]];
 
   function now() { return new Date().toISOString(); }
@@ -842,7 +863,7 @@ var KitobimCore = (function () {
     var c = counts(db, u.id), st = stats(db, u.id, today);
     return { id: u.id, name: u.name, username: u.username, bio: u.bio || "", createdAt: u.createdAt, lastActive: u.lastActive,
       private: !!u.private, followers: c.followers, following: c.following,
-      ball: st.ball, done: st.done, pages: st.pages, week: st.week, streak: st.streak, color: u.color || 0 };
+      ball: st.ball, done: st.done, pages: st.pages, week: st.week, streak: st.streak, color: u.color || 0, avatar: u.avatar || "" };
   }
   function self(db, u, today) {
     var p = pub(db, u, today);
@@ -865,7 +886,7 @@ var KitobimCore = (function () {
       book: p.bookKey ? { key: p.bookKey, title: p.bookTitle, author: p.bookAuthor, readers: readers } : null,
       likes: (p.likes || []).length, liked: (p.likes || []).indexOf(meId) >= 0, views: p.views || 0,
       comments: (p.comments || []).map(function (c) { var cu = db.users.filter(function (x) { return x.id === c.userId; })[0];
-        return { id: c.id, text: c.text, createdAt: c.createdAt, user: cu ? { id: cu.id, name: cu.name, username: cu.username, color: cu.color || 0 } : { name: "?" } }; }) };
+        return { id: c.id, text: c.text, createdAt: c.createdAt, user: cu ? { id: cu.id, name: cu.name, username: cu.username, color: cu.color || 0, avatar: cu.avatar || "" } : { name: "?" } }; }) };
   }
   function aggregate(db) {
     var map = {};
@@ -994,7 +1015,8 @@ var KitobimCore = (function () {
       var u = me(db, r), t = db.users.filter(function (x) { return x.id === r.userId || x.username === r.userId; })[0];
       if (!t) fail("Foydalanuvchi topilmadi");
       var mine = t.id === u.id, hidden = t.private && !mine;
-      return { touched: ["users"], res: { user: pub(db, t, r.today), isMe: mine, hidden: hidden,
+      var bn = db.media.filter(function (m) { return m.id === "banner_" + t.id; })[0];
+      return { touched: ["users"], res: { user: pub(db, t, r.today), isMe: mine, hidden: hidden, banner: bn ? bn.data : "",
         followsMe: db.follows.some(function (f) { return f.a === t.id && f.b === u.id; }),
         iFollow: db.follows.some(function (f) { return f.a === u.id && f.b === t.id; }),
         stats: hidden ? null : (function () { var s = stats(db, t.id, r.today); delete s.days; return s; })(),
@@ -1047,12 +1069,29 @@ var KitobimCore = (function () {
       });
       db.follows.filter(function (f) { return f.b === u.id; }).forEach(function (f) { out.push({ type: "follow", at: f.t, by: f.a }); });
       out.sort(function (a, b) { return b.at < a.at ? -1 : 1; });
-      out = out.slice(0, 40).map(function (n) { var bu = db.users.filter(function (x) { return x.id === n.by; })[0]; n.user = bu ? { id: bu.id, name: bu.name, color: bu.color || 0 } : { name: "?" }; return n; });
+      out = out.slice(0, 40).map(function (n) { var bu = db.users.filter(function (x) { return x.id === n.by; })[0]; n.user = bu ? { id: bu.id, name: bu.name, color: bu.color || 0, avatar: bu.avatar || "" } : { name: "?" }; return n; });
       return { touched: ["users"], res: { notifs: out } };
     },
     publicStats: function (db) {
       var pages = 0, done = 0; db.books.forEach(function (b) { pages += pagesRead(b); if (b.status === "done") done++; });
       return { touched: [], res: { readers: db.users.length, books: db.books.length, done: done, pages: pages, posts: db.posts.length } };
+    },
+    setMedia: function (db, r) {
+      var u = me(db, r), data = String(r.data || "");
+      if (data && !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(data)) fail("Rasm formati noto'g'ri");
+      if (r.kind === "avatar") {
+        if (data.length > 14000) fail("Rasm juda katta");
+        u.avatar = data;
+        return { touched: ["users"], res: { me: self(db, u, r.today) } };
+      }
+      if (r.kind === "banner") {
+        if (data.length > 46000) fail("Rasm juda katta");
+        var id = "banner_" + u.id;
+        db.media = db.media.filter(function (m) { return m.id !== id; });
+        if (data) db.media.push({ id: id, userId: u.id, data: data, t: now() });
+        return { touched: ["media", "users"], res: { me: self(db, u, r.today), banner: data } };
+      }
+      fail("Noma'lum rasm turi");
     },
     adminResetPass: function (db, r, cfg) {
       if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
@@ -1205,6 +1244,8 @@ const ICP = {
   sad: '<circle cx="12" cy="12" r="9"/><path d="M8.5 16c1-1.2 2.2-1.8 3.5-1.8s2.5.6 3.5 1.8M9 9.5h.01M15 9.5h.01"/>',
   shelf: '<path d="M4 19V5M9 19V5M14 19V7l4-1 3 13M2 19h20"/>',
   refresh: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+  cam: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  trash: '<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>',
   tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor"/>'
 };
 function ic(n, sz = 18, extra = "") { return `<svg class="ico" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${ICP[n] || ""}</svg>`; }
@@ -1375,7 +1416,8 @@ let route = { name: "home", arg: "" };
 
 /* ---------- yordamchilar ---------- */
 function toast(t) { document.querySelectorAll(".toast").forEach(x => x.remove()); const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 2600); }
-function ava(u, size = 44, ring = false) { const n = (u && u.name) || "?"; return `<div class="ava ${ring ? "ring" : ""}" style="width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px;background:${AVC[(u && u.color) || 0]}">${esc(n.trim()[0] || "?")}</div>`; }
+function ava(u, size = 44, ring = false) { const n = (u && u.name) || "?", img = u && /^data:image\//.test(u.avatar || "") ? u.avatar : "";
+  return `<div class="ava ${ring ? "ring" : ""}" style="width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px;background:${AVC[(u && u.color) || 0]}">${img ? `<img src="${img}" alt="">` : esc(n.trim()[0] || "?")}</div>`; }
 function cover(b, size = "") { const [a, c] = palFor(b.title); return `<div class="cover ${size}" style="background:linear-gradient(160deg,${c},${a})"><div class="ca">${esc(b.author || APP_NAME)}</div><div class="ct">${esc(b.title)}</div><div class="cl"></div></div>`; }
 function stars(n) { n = Math.round(n || 0); return n ? `<span class="stars">${"★".repeat(n)}<span style="opacity:.25">${"★".repeat(5 - n)}</span></span>` : ""; }
 function ring(val, max, size, stroke, color = "var(--or)") {
@@ -2015,8 +2057,8 @@ async function vProfile(id) {
     <div class="sts"><div><small>Ball balansi</small><b class="row" style="gap:8px"><span class="sic" style="color:#f2a20f">${ic("coin",22)}</span>${num(u.ball)}</b></div><div><small>O'qilgan betlar</small><b class="row" style="gap:8px"><span class="sic" style="color:var(--or)">${ic("book",22)}</span>${num(st.pages)}</b></div><div><small>Oxirgi 7 kun</small><b class="row" style="gap:8px"><span class="sic" style="color:var(--blue)">${ic("cal",22)}</span>${st.week} bet</b></div></div>
     ${own ? `<div class="prem-strip" onclick="go('#/premium')"><div><b>${APP_NAME} Premium</b><small>O'zingiz uchun premium imkoniyatlarni kashf eting</small></div><span>Premium ›</span></div>` : ""}
     ${tabsHTML}${profTab === "shelf" ? shelfHTML : (own ? `<div class="composer" onclick="openComposer()" style="cursor:text"><div class="row">${ava(u, 40)}<span class="muted">Fikringizni yozing…</span></div></div>` : "") + (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q</div>`)}`;
-  const main = `<div><div class="pcover"></div>
-    <div class="phead">${ava(u, 128)}<div class="row" style="padding-bottom:8px">${own ? `<button class="btn ghost" onclick="openPersonal()">Profilni tahrirlash</button><button class="ibtn mob" onclick="go('#/settings')">${I.gear}</button>` : `<button class="btn ${r.iFollow ? "ghost" : "pri"}" onclick="follow('${u.id}')">${r.iFollow ? "Davradasiz ✓" : r.followsMe ? "+ Javoban davraga" : "+ Davraga qo'shish"}</button>`}
+  const main = `<div><div class="pcover" ${r.banner ? `style="background-image:url('${r.banner}')"` : ""}>${own ? `<button class="camb" onclick="pickImage('banner')">${ic("cam", 17)}<span>${r.banner ? "Bannerni o'zgartirish" : "Banner qo'shish"}</span></button>` : ""}</div>
+    <div class="phead"><div class="pava">${ava(u, 128)}${own ? `<button class="camav" onclick="pickImage('avatar')" title="Rasm yuklash">${ic("cam", 18)}</button>` : ""}</div><div class="row pbtns" style="padding-bottom:8px">${own ? `<button class="btn ghost" onclick="openPersonal()">${ic("edit", 16)}<span>Profilni tahrirlash</span></button><button class="ibtn mob" onclick="go('#/settings')">${I.gear}</button>` : `<button class="btn ${r.iFollow ? "ghost" : "pri"}" onclick="follow('${u.id}')">${r.iFollow ? "Davradasiz ✓" : r.followsMe ? "+ Javoban davraga" : "+ Davraga qo'shish"}</button>`}
       <button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
     <div class="pname"><h1>${esc(u.name)}</h1><div class="sub"><span>@${esc(u.username)}</span><span class="row" style="gap:6px">${I.cal}${new Date(u.createdAt).getFullYear()}-yil qo'shilgan</span>${st ? `<span class="row" style="gap:5px;color:var(--or)">${ic("flameF",16)}<span style="color:var(--muted)">${st.streak} kun seriya</span></span>` : ""}</div>
       ${u.bio ? `<p style="margin:12px 0 0;line-height:1.5">${esc(u.bio)}</p>` : ""}
@@ -2072,6 +2114,46 @@ function inviteFriend() {
 function exportData() {
   const blob = new Blob([JSON.stringify({ app: APP_NAME, exported: new Date().toISOString(), user: S.me.user, books: S.me.books }, null, 2)], { type: "application/json" });
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${APP_NAME}-${S.me.user.username}-${today()}.json`; a.click();
+}
+
+
+/* ---------- rasm yuklash (avatar / banner) ---------- */
+function pickImage(kind) {
+  const has = kind === "avatar" ? !!S.me.user.avatar : !!(RC[rcKey("user", { userId: S.me.user.id })] || {}).r?.banner;
+  if (!has) return pickFile(kind);
+  sheet(`<h2>${kind === "avatar" ? "Profil rasmi" : "Banner"}</h2><div class="menu" style="margin-top:14px">
+    <button class="mi" onclick="closeSheet();pickFile('${kind}')"><span class="ic" style="background:var(--or)">${ic("cam", 18)}</span><span>Yangi rasm yuklash</span></button>
+    <button class="mi" onclick="closeSheet();saveImage('${kind}','')"><span class="ic" style="background:#e5484d">${ic("trash", 18)}</span><span>Rasmni o'chirish</span></button></div>`);
+}
+function pickFile(kind) { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.onchange = () => i.files[0] && uploadImage(kind, i.files[0]); i.click(); }
+function loadImg(file) { return new Promise((ok, no) => { const u = URL.createObjectURL(file), im = new Image(); im.onload = () => { ok(im); URL.revokeObjectURL(u); }; im.onerror = () => no(new Error("Rasmni o'qib bo'lmadi")); im.src = u; }); }
+function squeeze(im, W, H, max) {
+  const c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
+  const r = Math.max(W / im.width, H / im.height), w = im.width * r, h = im.height * r;
+  x.fillStyle = "#fff"; x.fillRect(0, 0, W, H); x.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+  for (const q of [.82, .74, .66, .58, .5, .42, .35]) { const d = c.toDataURL("image/jpeg", q); if (d.length <= max) return d; }
+  return null;
+}
+async function uploadImage(kind, file) {
+  if (!/^image\//.test(file.type)) return toast("Faqat rasm yuklash mumkin");
+  try {
+    toast("Rasm tayyorlanmoqda…");
+    const im = await loadImg(file);
+    let d = kind === "avatar" ? squeeze(im, 160, 160, 13000) : squeeze(im, 960, 320, 45000);
+    if (!d && kind === "banner") d = squeeze(im, 720, 240, 45000);
+    if (!d) return toast("Rasm juda katta, boshqasini tanlang");
+    await saveImage(kind, d);
+  } catch (e) { toast(e.message); }
+}
+async function saveImage(kind, data) {
+  // darhol ko'rsatamiz
+  if (kind === "avatar") { S.me.user.avatar = data; paintChrome(); const a = $(".pava .ava"); if (a) a.outerHTML = ava(S.me.user, 128); }
+  else { const c = $(".pcover"); if (c) c.style.backgroundImage = data ? `url('${data}')` : ""; }
+  try {
+    const r = await api("setMedia", { kind, data });
+    const k = rcKey("user", { userId: S.me.user.id }); if (RC[k]) { RC[k].r.banner = kind === "banner" ? data : RC[k].r.banner; RC[k].r.user.avatar = S.me.user.avatar; rcSave(); }
+    toast(data ? "Rasm saqlandi ✓" : "Rasm o'chirildi"); if (route.name === "profile") render(true);
+  } catch (e) { toast("Saqlanmadi: " + e.message); }
 }
 
 /* ---------- Bildirishnomalar ---------- */
