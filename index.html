@@ -798,6 +798,47 @@ body.dark .camav{box-shadow:0 0 0 4px #000}
 @media (max-width:980px) and (min-width:420px){.pbtns .btn span{display:inline}}
 .phead{pointer-events:none}.phead>*{pointer-events:auto}
 
+/* ---------- kutubxona ---------- */
+.cover.img::before,.cover.img::after{display:none}
+.cover.img{box-shadow:0 10px 22px rgba(0,0,0,.22)}
+.cbadge{position:absolute;right:6px;bottom:6px;width:24px;height:24px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;z-index:2}
+.tile .bdg .ico{vertical-align:-2px}
+.libb{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-radius:20px;padding:16px 18px;margin:4px 0 14px;background:linear-gradient(135deg,rgba(255,138,43,.14),rgba(240,78,28,.08));border:1.5px solid rgba(255,107,26,.3)}
+.libb b{display:flex;align-items:center;gap:6px;color:var(--or2)}
+.libb small{display:block;color:var(--muted);margin-top:3px}
+.libdesc{line-height:1.6;color:var(--ink2);margin:0 0 16px}
+.libov{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;animation:fd .2s}
+.lhd{display:flex;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;border-bottom:1px solid var(--line);background:var(--card)}
+.lhd .lt{flex:1;min-width:0}.lhd .lt b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lhd .lt small{color:var(--muted)}
+.lfr{flex:1;width:100%;border:0;background:#525659}
+.pl{flex:1;overflow-y:auto;text-align:center;padding:24px 18px calc(30px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto;width:100%}
+.plc{display:flex;justify-content:center;margin:6px 0 18px}
+.pl h2{font-size:21px}
+.pl p{margin:6px 0 14px}
+.afr{width:100%;height:96px;border:0;border-radius:16px;background:var(--soft)}
+.pl audio{width:100%}
+.pl .ibtn[disabled]{opacity:.35}
+.pls{margin-top:22px;text-align:left;border-radius:18px;background:var(--soft);overflow:hidden}
+.pls button{display:flex;align-items:center;gap:12px;width:100%;padding:13px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.pls button:last-child{border:0}
+.pls button span{width:26px;color:var(--muted);font-weight:700}
+.pls button b{flex:1;font-weight:600}
+.pls button.on{background:var(--or-soft);color:var(--or2)}
+.upz{display:flex;align-items:center;justify-content:center;gap:10px;border:2px dashed rgba(255,122,47,.45);border-radius:14px;padding:16px;cursor:pointer;color:var(--or);font-weight:600;font-size:14px;margin-top:10px;text-align:center}
+.upz:hover{background:rgba(255,107,26,.06)}
+.frow{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+body:not(.admbody) .frow{background:var(--soft);border-color:var(--line)}
+.frow span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frow input{flex:1;min-width:0}
+.frow button{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:inherit}
+.frow button[disabled]{opacity:.3}
+.asheet input,.asheet select,.asheet textarea{background:rgba(255,255,255,.06);color:#f4ece6;border-color:rgba(255,255,255,.1)}
+.asheet .switch{background:rgba(255,255,255,.05)}
+.asheet .sub,.asheet label{color:#a99d94}
+.asheet .fs h4{display:flex;gap:6px;align-items:center}
+
+@media (max-width:980px){.dsk{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -809,7 +850,7 @@ body.dark .camav{box-shadow:0 0 0 4px #000}
    (haqiqiy server) ishlaydi. db = {users, books, posts, follows}
    ============================================================ */
 var KitobimCore = (function () {
-  var TABLES = ["users", "books", "posts", "follows", "media"];
+  var TABLES = ["users", "books", "posts", "follows", "media", "library"];
   var MILESTONES = [[1, 10], [3, 30], [7, 70], [14, 150], [30, 300], [60, 600], [100, 1000], [365, 5000]];
 
   function now() { return new Date().toISOString(); }
@@ -888,6 +929,15 @@ var KitobimCore = (function () {
       comments: (p.comments || []).map(function (c) { var cu = db.users.filter(function (x) { return x.id === c.userId; })[0];
         return { id: c.id, text: c.text, createdAt: c.createdAt, user: cu ? { id: cu.id, name: cu.name, username: cu.username, color: cu.color || 0, avatar: cu.avatar || "" } : { name: "?" } }; }) };
   }
+  function libView(L) {
+    return { id: L.id, key: bkey(L.title, L.author), title: L.title, author: L.author, genre: L.genre || "", pages: int(L.pages), desc: L.desc || "",
+      cover: L.cover || null, pdf: L.pdf || null, audio: L.audio || [], published: !!L.published, createdAt: L.createdAt, updated: L.updated };
+  }
+  function cleanFile(f) {
+    if (!f) return null; var o = { id: clean(f.id, 120).replace(/[^A-Za-z0-9_-]/g, ""), url: /^data:image\//.test(String(f.url || "")) ? String(f.url).slice(0, 500000) : clean(f.url, 2000), name: clean(f.name, 160), size: int(f.size), mime: clean(f.mime, 80) };
+    if (o.url && !/^(https?:|blob:|data:)/.test(o.url)) o.url = "";
+    return o.id || o.url ? o : null;
+  }
   function aggregate(db) {
     var map = {};
     db.books.forEach(function (b) {
@@ -898,6 +948,11 @@ var KitobimCore = (function () {
       if (b.rating) { a.rsum += b.rating; a.rcnt++; }
     });
     db.posts.forEach(function (p) { if (p.bookKey && map[p.bookKey] && p.rating) { map[p.bookKey].rsum += p.rating; map[p.bookKey].rcnt++; } });
+    (db.library || []).forEach(function (L) {
+      if (!L.published) return; var k = bkey(L.title, L.author);
+      if (!map[k]) map[k] = { key: k, title: L.title, author: L.author, genre: L.genre || "", pages: int(L.pages), readers: 0, readingNow: 0, done: 0, plan: 0, rsum: 0, rcnt: 0, users: [] };
+      map[k].lib = libView(L); if (!map[k].genre) map[k].genre = L.genre || ""; if (!map[k].pages) map[k].pages = int(L.pages);
+    });
     return Object.keys(map).map(function (k) { var a = map[k]; a.rating = a.rcnt ? Math.round(a.rsum / a.rcnt * 10) / 10 : 0; delete a.rsum; return a; });
   }
 
@@ -1093,6 +1148,29 @@ var KitobimCore = (function () {
       }
       fail("Noma'lum rasm turi");
     },
+    library: function (db, r, cfg) {
+      var isAdm = cfg && cfg.adminKey && r.key === cfg.adminKey;
+      if (!isAdm) me(db, r);
+      var list = (db.library || []).filter(function (L) { return isAdm || L.published; }).map(libView)
+        .sort(function (a, b) { return (b.createdAt || "") < (a.createdAt || "") ? -1 : 1; });
+      return { touched: isAdm ? [] : ["users"], res: { library: list } };
+    },
+    adminSaveLib: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      var b = r.book || {}, title = clean(b.title, 160); if (!title) fail("Kitob nomini yozing");
+      var old = db.library.filter(function (x) { return x.id === b.id; })[0], rec = old || { id: rid(10), createdAt: now() };
+      var audio = (Array.isArray(b.audio) ? b.audio : []).slice(0, 200).map(function (a, i) { var f = cleanFile(a); if (!f) return null; f.title = clean(a.title, 120) || ((i + 1) + "-qism"); return f; }).filter(Boolean);
+      var f = { title: title, author: clean(b.author, 120), genre: clean(b.genre, 40), pages: int(b.pages), desc: clean(b.desc, 3000),
+        cover: cleanFile(b.cover), pdf: cleanFile(b.pdf), audio: audio, published: !!b.published, updated: now() };
+      for (var k in f) rec[k] = f[k];
+      if (!old) db.library.push(rec);
+      return { touched: ["library"], res: { book: libView(rec) } };
+    },
+    adminDeleteLib: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      db.library = db.library.filter(function (x) { return x.id !== r.id; });
+      return { touched: ["library"], res: { ok: true } };
+    },
     adminResetPass: function (db, r, cfg) {
       if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
       var u = db.users.filter(function (x) { return x.id === r.userId; })[0];
@@ -1244,8 +1322,17 @@ const ICP = {
   sad: '<circle cx="12" cy="12" r="9"/><path d="M8.5 16c1-1.2 2.2-1.8 3.5-1.8s2.5.6 3.5 1.8M9 9.5h.01M15 9.5h.01"/>',
   shelf: '<path d="M4 19V5M9 19V5M14 19V7l4-1 3 13M2 19h20"/>',
   refresh: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+  headph: '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/>',
+  play: '<path d="M7 4v16l13-8z" fill="currentColor"/>',
+  next: '<path d="M5 4v16l11-8zM19 5v14"/>',
+  prev: '<path d="M19 20V4L8 12zM5 19V5"/>',
+  upload: '<path d="M12 15V3m-5 5 5-5 5 5M5 21h14"/>',
+  x: '<path d="M18 6 6 18M6 6l12 12"/>',
+  up: '<path d="m6 15 6-6 6 6"/>',
+  down: '<path d="m6 9 6 6 6-6"/>',
   cam: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
   trash: '<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
   tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3" fill="currentColor"/>'
 };
 function ic(n, sz = 18, extra = "") { return `<svg class="ico" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${extra}>${ICP[n] || ""}</svg>`; }
@@ -1295,7 +1382,7 @@ const LS = {
 function localDB() { let db = LS.get("kitobim_demo_db", null); if (!db) { db = { users: [], books: [], posts: [], follows: [] }; seedDemo(db); LS.set("kitobim_demo_db", db); } return db; }
 /* So'rovlar: o'qish so'rovlari keshdan darhol qaytadi va orqa fonda yangilanadi (tezlik uchun),
    bir nechta so'rov bitta "batch" bilan yuboriladi. */
-const READS = new Set(["feed", "user", "people", "catalog", "book", "leaderboard", "notifs"]);
+const READS = new Set(["feed", "user", "people", "catalog", "book", "leaderboard", "notifs", "library"]);
 let RC = LS.get("kitobim_rc", {});
 const rcKey = (a, p) => a + ":" + JSON.stringify(p);
 function rcSave() { const ks = Object.keys(RC).sort((x, y) => RC[y].t - RC[x].t); if (ks.length > 40) ks.slice(40).forEach(k => delete RC[k]); LS.set("kitobim_rc", RC); }
@@ -1418,7 +1505,17 @@ let route = { name: "home", arg: "" };
 function toast(t) { document.querySelectorAll(".toast").forEach(x => x.remove()); const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 2600); }
 function ava(u, size = 44, ring = false) { const n = (u && u.name) || "?", img = u && /^data:image\//.test(u.avatar || "") ? u.avatar : "";
   return `<div class="ava ${ring ? "ring" : ""}" style="width:${size}px;height:${size}px;font-size:${Math.round(size * .4)}px;background:${AVC[(u && u.color) || 0]}">${img ? `<img src="${img}" alt="">` : esc(n.trim()[0] || "?")}</div>`; }
-function cover(b, size = "") { const [a, c] = palFor(b.title); return `<div class="cover ${size}" style="background:linear-gradient(160deg,${c},${a})"><div class="ca">${esc(b.author || APP_NAME)}</div><div class="ct">${esc(b.title)}</div><div class="cl"></div></div>`; }
+let LIBMAP = {};
+function setLib(list) { LIBMAP = {}; (list || []).forEach(l => LIBMAP[l.key] = l); LS.set("kitobim_lib", list || []); }
+setLib(LS.get("kitobim_lib", []));
+const libOf = b => b && (b.lib || LIBMAP[b.key || KitobimCore.bkey(b.title, b.author)]);
+const fThumb = f => f ? (f.id ? `https://drive.google.com/thumbnail?id=${f.id}&sz=w800` : f.url) : "";
+const fView = f => f ? (f.id ? `https://drive.google.com/file/d/${f.id}/preview` : /^https?:/.test(f.url) && /\.pdf($|\?)/i.test(f.url) ? `https://docs.google.com/viewer?embedded=true&url=${encodeURIComponent(f.url)}` : f.url) : "";
+const fDown = f => f ? (f.id ? `https://drive.google.com/uc?export=download&id=${f.id}` : f.url) : "";
+function cover(b, size = "") {
+  const L = libOf(b), im = L && L.cover ? fThumb(L.cover) : "";
+  if (im) return `<div class="cover ${size} img" style="background:#2a2a2e url('${esc(im)}') center/cover no-repeat">${L.audio && L.audio.length && size !== "xs" ? `<span class="cbadge">${ic("headph", 12)}</span>` : ""}</div>`;
+  const [a, c] = palFor(b.title); return `<div class="cover ${size}" style="background:linear-gradient(160deg,${c},${a})"><div class="ca">${esc(b.author || APP_NAME)}</div><div class="ct">${esc(b.title)}</div><div class="cl"></div></div>`; }
 function stars(n) { n = Math.round(n || 0); return n ? `<span class="stars">${"★".repeat(n)}<span style="opacity:.25">${"★".repeat(5 - n)}</span></span>` : ""; }
 function ring(val, max, size, stroke, color = "var(--or)") {
   const r = (size - stroke) / 2, C = 2 * Math.PI * r, p = Math.min(1, max ? val / max : 0);
@@ -1446,7 +1543,7 @@ function weekStrip() {
 const nextMs = s => (KitobimCore.MILESTONES.find(m => m[0] > s) || [s + 30])[0];
 
 /* ---------- qobiq (sidebar, mobil menyu) ---------- */
-const NAV = [["home", "Asosiy", I.home], ["shelf", "Javonim", I.shelf], ["mood", "Kayfiyat", I.mood], ["marra", "Marra", I.marra], ["davra", "Davra", I.davra]];
+const NAV = [["home", "Asosiy", I.home], ["library", "Kutubxona", ic("headph", 21)], ["shelf", "Javonim", I.shelf], ["mood", "Kayfiyat", I.mood], ["marra", "Marra", I.marra], ["davra", "Davra", I.davra]];
 function shell() {
   $("#app").innerHTML = `
   <aside class="side">
@@ -1501,7 +1598,7 @@ async function render(keep) {
   paintChrome();
   if (route.name === "mood") return vMood();
   const seq = ++renderSeq, view = $("#view");
-  const pages = { home: vHome, shelf: vShelf, book: vBook, marra: vMarra, davra: vDavra, profile: vProfile, user: vProfile, settings: vSettings, premium: vPremium, search: vSearch, terms: vTerms, notifs: vNotifs };
+  const pages = { library: vLibrary, home: vHome, shelf: vShelf, book: vBook, marra: vMarra, davra: vDavra, profile: vProfile, user: vProfile, settings: vSettings, premium: vPremium, search: vSearch, terms: vTerms, notifs: vNotifs };
   const fn = pages[route.name] || vHome;
   const html = fn(route.arg);
   if (typeof html === "string") { view.innerHTML = html; if (!keep) window.scrollTo(0, 0); return; }
@@ -1710,7 +1807,9 @@ async function vHome() {
   const reading = myBooks().filter(b => b.status === "reading").sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
   const plan = myBooks().filter(b => b.status === "plan"), done = myBooks().filter(b => b.status === "done").sort((a, b) => (b.end || "").localeCompare(a.end || ""));
   const cur = reading[0], pct = cur && cur.pages ? Math.min(100, Math.round(cur.current / cur.pages * 100)) : 0;
-  const [cat, feed] = await apiMany([["catalog", { limit: 14 }], ["feed", { limit: 3 }]]).catch(() => [{ books: [] }, { posts: [] }]);
+  const [cat, feed, lb] = await apiMany([["catalog", { limit: 14 }], ["feed", { limit: 3 }], ["library", {}]]).catch(() => [{ books: [] }, { posts: [] }, { library: [] }]);
+  if (lb && lb.library) setLib(lb.library);
+  const libList = Object.values(LIBMAP).filter(l => l.published);
   setTimeout(prefetch, 1200);
   const popular = cat.books.length >= 6 ? cat.books : cat.books.concat(CURATED.filter(c => !cat.books.some(b => b.key === c.key))).slice(0, 14);
   return mtop() + installBanner() + ph(`${greetWord()}, ${esc(u.name.split(" ")[0])}`, "", false,
@@ -1728,6 +1827,7 @@ async function vHome() {
         <div style="flex:1;min-width:0">${weekStrip()}<div class="mini2"><div><small>Joriy ko'rsatkich</small><b>${st.streak} <span>kun</span></b></div><div><small>Keyingi marra</small><b>${nextMs(st.streak)} <span>kun</span></b></div></div></div></div></div>
     </div>
     <div class="banner moodb" onclick="go('#/mood')"><div style="position:relative;z-index:1"><h2>Bugun nima o'qiy?</h2><p>Kayfiyatingizni tanlang — sizga mos kitoblarni topamiz.</p><span class="bw">Kayfiyatni tanlash ${I.ch}</span></div><div class="art">${ic("sparkle",96,'stroke-width="1.4"')}</div></div>
+    ${libList.length ? `<div class="sec"><h2>${ic("headph", 20)} Kutubxona: o'qing va tinglang</h2><a onclick="go('#/library')">Barchasi ${I.ch}</a></div><div class="shelfrow">${libList.map(l => libTile(l)).join("")}</div>` : ""}
     <div class="sec"><h2>Kitobxonlar orasida mashhur</h2><a onclick="go('#/search/')">Barchasi ${I.ch}</a></div>
     <div class="shelfrow">${popular.map(tile).join("")}</div>
     ${plan.length ? `<div class="sec"><h2>Keyingi o'qiyman</h2><a onclick="go('#/shelf/plan')">Barchasi ${I.ch}</a></div><div class="shelfrow">${plan.map(b => tile(b, true)).join("")}</div>` : ""}
@@ -1909,19 +2009,21 @@ async function startBook(id) {
 /* ---------- Kitob sahifasi ---------- */
 async function vBook(key) {
   const r = await api("book", { key });
+  if (r.book && r.book.lib) LIBMAP[key] = r.book.lib;
   const cur = CURATED.find(c => c.key === key);
   const bk = r.book || (cur ? { key, title: cur.title, author: cur.author, genre: cur.genre, readers: 0, readingNow: 0, done: 0, rating: 0 } : null);
   if (!bk) return mtop("Kitob", true) + `<div class="empty"><div class="ic">${ic("book",44)}</div>Kitob topilmadi</div>`;
   const mine = myBookByKey(key), [a] = palFor(bk.title);
   const tj = s => esc(JSON.stringify(s || ""));
   return mtop("Kitob", true) + ph("Ortga", "", true) +
-    `<div class="bk"><div class="left"><div class="glow" style="--gl:${a}66"><div style="display:flex;justify-content:center">${cover(bk, "lg")}</div></div>
+    `<div class="bk"><div class="left"><div class="glow" style="--gl:${a}66"><div style="display:flex;justify-content:center">${cover(bk, "lg")}</div></div><div class="mob" style="text-align:left">${libBlock(bk)}</div>
       <div class="card" style="text-align:left;margin-top:8px"><b>Kitobxon kundaligi</b><p class="muted" style="font-size:13.5px;margin:6px 0 12px;line-height:1.45">Bu kitobni javoningizga qo'shing va har kuni qaysi betga kelganingizni yozib boring.</p>
         ${mine ? `<button class="btn pri full" onclick="openEntry('${mine.id}')">Kundaligimni ochish</button>` : `<button class="btn pri full" onclick="quickAdd(${tj(bk.title)},${tj(bk.author)},'reading',${tj(bk.genre)})">${ic("book",17)} O'qiyapman</button>
         <button class="btn ghost full" style="margin-top:8px" onclick="quickAdd(${tj(bk.title)},${tj(bk.author)},'plan',${tj(bk.genre)})">${ic("cal",17)} Rejaga qo'shish</button>
         <button class="btn ghost full" style="margin-top:8px" onclick="openForm(null,'done',{title:${tj(bk.title)},author:${tj(bk.author)},genre:${tj(bk.genre)}})">${ic("check",17)} O'qib bo'lganman</button>`}</div></div>
     <div><h1>${esc(bk.title)}</h1><div class="au">Muallif <b>${esc(bk.author || "—")}</b></div>
       <div class="kv"><span>${ic("star",16)} Reyting: <b>${bk.rating || "—"}</b></span><span>${ic("users",16)} Javonda: <b>${bk.readers || 0}</b></span><span>${ic("book",16)} O'qimoqda: <b>${bk.readingNow || 0}</b></span><span>${ic("check",16)} O'qib bo'lgan: <b>${bk.done || 0}</b></span></div>
+      <div class="dsk">${libBlock(bk)}</div>
       ${mine ? `<div class="row" style="gap:10px;flex-wrap:wrap"><span class="tag t-${mine.status}">Javonimda: ${STATUS[mine.status]}</span>${mine.status === "reading" && mine.pages ? `<span class="muted" style="font-size:13.5px">${mine.current}/${mine.pages} bet</span>` : ""}</div>` : ""}
       <div class="facts">${bk.genre ? `<div><span>Janr</span><b>${esc(bk.genre)}</b></div>` : ""}${bk.pages ? `<div><span>Betlar soni</span><b>${bk.pages}</b></div>` : ""}<div><span>Rejaga qo'shganlar</span><b>${bk.plan || 0}</b></div></div>
       ${r.readers.length ? `<h3 style="margin:28px 0 12px;font-size:19px">Bu kitobni javoniga qo'shganlar</h3><div class="row" style="flex-wrap:wrap;gap:8px">${r.readers.map(u => `<a href="#/user/${u.id}" title="${esc(u.name)}">${ava(u, 42)}</a>`).join("")}</div>` : ""}
@@ -1931,6 +2033,60 @@ async function vBook(key) {
       ${r.posts.length ? r.posts.map(postCard).join("") : `<div class="empty">Hali fikr yo'q. Birinchi bo'lib yozing!</div>`}
       ${r.same.length ? `<div class="sec"><h2>Muallifning boshqa kitoblari</h2></div><div class="shelfrow">${r.same.map(x => tile(x)).join("")}</div>` : ""}
     </div></div>` + footer();
+}
+
+
+/* ---------- Kutubxona (o'qish va tinglash) ---------- */
+function libTile(l) {
+  return `<div class="tile" onclick="go('#/book/${encodeURIComponent(l.key)}')"><div class="tp" style="background:linear-gradient(180deg,#ff6b1a22,#ff6b1a08)">
+    <span class="bdg">${l.pdf ? ic("book", 12) : ""}${l.audio.length ? " " + ic("headph", 12) : ""}</span>${cover(l)}</div>
+    <div class="bt"><h4>${esc(l.title)}</h4><small>${esc(l.author || "—")}</small></div></div>`;
+}
+function libBlock(bk) {
+  const L = libOf(bk); if (!L) return "";
+  const tj = x => esc(JSON.stringify(x));
+  return `<div class="libb"><div><b>${ic("sparkle", 16)} ${APP_NAME} kutubxonasida bor</b><small>${[L.pdf ? "Elektron kitob (PDF)" : "", L.audio.length ? `Audio · ${L.audio.length} qism` : ""].filter(Boolean).join(" · ")}</small></div>
+    <div class="row" style="gap:10px;flex-wrap:wrap">${L.pdf ? `<button class="btn pri" onclick="openReader(${tj(L.key)})">${ic("book", 17)} O'qish</button>` : ""}${L.audio.length ? `<button class="btn dark" onclick="openPlayer(${tj(L.key)})">${ic("headph", 17)} Tinglash</button>` : ""}</div></div>
+    ${L.desc ? `<p class="libdesc">${esc(L.desc)}</p>` : ""}`;
+}
+async function vLibrary(q) {
+  const r = await api("library", {}); setLib(r.library);
+  const f = (q || "").toLowerCase(), list = r.library.filter(l => !f || (l.title + " " + l.author).toLowerCase().includes(f));
+  return mtop("Kutubxona", true) + ph("Kutubxona", "O'qing va tinglang", false) + `<h1 class="mob" style="font-size:26px;margin:4px 0 14px">Kutubxona</h1>
+    <div class="sbox">${I.search}<input placeholder="Kutubxonadan izlash" value="${esc(q || "")}" onkeydown="if(event.key==='Enter')go('#/library/'+encodeURIComponent(this.value))"></div>
+    ${list.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px">${list.map(libTile).join("")}</div>` : `<div class="card empty"><div class="ic">${ic("book", 44)}</div>${f ? "Topilmadi" : "Kutubxona tez orada to'ldiriladi"}</div>`}` + footer();
+}
+function ensureOnShelf(L) {
+  if (myBookByKey(L.key)) return;
+  const nb = { id: "tmp" + Date.now(), title: L.title, author: L.author, genre: L.genre || "", pages: L.pages || "", status: "reading", start: today(), current: 0, sessions: [] };
+  applyBookLocal(nb); bgSave("saveBook", { book: stripTmp(nb) }); toast("Javoningizga qo'shildi 📚");
+}
+function libOverlay(html) {
+  closeLib(); const el = document.createElement("div"); el.className = "libov"; el.id = "libov"; el.innerHTML = html; document.body.appendChild(el); document.body.style.overflow = "hidden";
+  history.pushState({ libov: 1 }, ""); window.addEventListener("popstate", closeLib, { once: true });
+}
+function closeLib() { const o = $("#libov"); if (o) { o.remove(); document.body.style.overflow = ""; } }
+function openReader(key) {
+  const L = LIBMAP[key]; if (!L || !L.pdf) return; ensureOnShelf(L);
+  const mine = myBookByKey(key);
+  libOverlay(`<div class="lhd"><button class="back" onclick="history.back()">${ic("x", 20)}</button><div class="lt"><b>${esc(L.title)}</b><small>${esc(L.author || "")}</small></div>
+    ${mine ? `<button class="btn pri sm" onclick="openProgress('${mine.id}')">${ic("pin", 15)} Bet</button>` : ""}<a class="btn ghost sm" href="${esc(fDown(L.pdf))}" target="_blank" rel="noopener">${ic("download", 15)}</a></div>
+    <iframe class="lfr" src="${esc(fView(L.pdf))}" allow="autoplay" loading="lazy"></iframe>`);
+}
+let PL = { key: "", i: 0 };
+function openPlayer(key, i) {
+  const L = LIBMAP[key]; if (!L || !L.audio.length) return; ensureOnShelf(L);
+  const saved = LS.get("kitobim_aud", {}); i = i ?? saved[key] ?? 0; i = Math.max(0, Math.min(L.audio.length - 1, i)); PL = { key, i };
+  saved[key] = i; LS.set("kitobim_aud", saved);
+  const a = L.audio[i], tj = x => esc(JSON.stringify(x));
+  const player = a.id ? `<iframe class="afr" src="${esc(fView(a))}" allow="autoplay"></iframe>` : `<audio id="aud" controls autoplay src="${esc(a.url)}" onended="openPlayer(${tj(key)},${i + 1})"></audio>`;
+  const html = `<div class="lhd"><button class="back" onclick="history.back()">${ic("x", 20)}</button><div class="lt"><b>${esc(L.title)}</b><small>Audio kitob · ${L.audio.length} qism</small></div></div>
+    <div class="pl"><div class="plc">${cover(L, "lg")}</div><h2>${esc(a.title)}</h2><p class="muted">${esc(L.author || "")} · ${i + 1}/${L.audio.length}</p>
+      ${player}
+      <div class="row" style="gap:12px;justify-content:center;margin-top:14px"><button class="ibtn" ${i ? "" : "disabled"} onclick="openPlayer(${tj(key)},${i - 1})">${ic("prev", 20)}</button>
+        <button class="ibtn" ${i < L.audio.length - 1 ? "" : "disabled"} onclick="openPlayer(${tj(key)},${i + 1})">${ic("next", 20)}</button></div>
+      <div class="pls">${L.audio.map((x, j) => `<button class="${j === i ? "on" : ""}" onclick="openPlayer(${tj(key)},${j})"><span>${j + 1}</span><b>${esc(x.title)}</b>${j === i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div></div>`;
+  if ($("#libov") && $("#libov").dataset.k === key) { $("#libov").innerHTML = html; } else { libOverlay(html); $("#libov").dataset.k = key; }
 }
 
 /* ---------- Davra ---------- */
@@ -2336,7 +2492,7 @@ async function vAdmin() {
   const table = list => `<div class="tblw"><table class="atbl"><tr><th>Kitobxon</th><th class="hm">Telefon</th><th>Hozir o'qiyapti</th><th>O'qigan</th><th class="hm">7 kun (bet)</th><th class="hm">Seriya</th><th class="hm">Faollik</th><th class="hm"></th></tr>${list.map(row).join("")}</table>${!list.length ? `<div class="aempty">Kitobxon topilmadi</div>` : ""}</div>`;
   const topKey = { readers: "readers", reading: "readingNow", done: "done" }[ADM.top];
   const tops = d.catalogAll.slice().sort((a, b) => b[topKey] - a[topKey] || b.readers - a.readers).filter(x => x[topKey] > 0).slice(0, 5);
-  const nav = [["dash", "Boshqaruv", "chart"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
+  const nav = [["dash", "Boshqaruv", "chart"], ["lib", "Kutubxona", "headph"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
   let body = "";
   if (ADM.tab === "dash") body = `
     <div class="ahd"><div><small>${ic("cal", 13)} Oxirgi ${P} kun</small><h2>Umumiy ko'rinish</h2></div>
@@ -2365,6 +2521,12 @@ async function vAdmin() {
   else if (ADM.tab === "users") body = `<div class="ahd"><div><small>${d.users.length} ta kitobxon</small><h2>Kitobxonlar</h2></div>
       <div class="row" style="gap:8px;flex-wrap:wrap">${[["active", "Faollik"], ["week", "7 kun"], ["ball", "Ball"], ["done", "O'qigan"]].map(([k, n]) => `<button class="apill ${ADM.sort === k ? "on" : ""}" onclick="ADM.sort='${k}';vAdmin()">${n}</button>`).join("")}<button class="apill" onclick="admCSV()">${ic("download", 15)} Excel</button></div></div>
     <div class="acard">${table(users)}</div>`;
+  else if (ADM.tab === "lib") { const L = (ADM.lib || []).filter(b => !q || (b.title + " " + b.author).toLowerCase().includes(q));
+    body = `<div class="ahd"><div><small>${(ADM.lib || []).length} ta kitob · ${(ADM.lib || []).filter(b => b.published).length} tasi chop etilgan</small><h2>Kutubxona</h2></div>
+      <button class="apill on" onclick="libEdit()">${ic("plus", 15)} Kitob qo'shish</button></div>
+      ${L.length ? `<div class="abooks">${L.map(b => `<div class="acard abk" style="cursor:pointer" onclick="libEdit('${b.id}')">${cover(b, "sm")}<div style="min-width:0"><b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small>
+        <div class="abst">${b.pdf ? `<span>${ic("book", 13)} PDF</span>` : ""}${b.audio.length ? `<span>${ic("headph", 13)} ${b.audio.length} qism</span>` : ""}<span style="color:${b.published ? "#3bd164" : "#f7a03a"}">${b.published ? "Chop etilgan" : "Qoralama"}</span></div></div></div>`).join("")}</div>`
+        : `<div class="acard aempty">${ic("book", 40)}<br><br>Hali kitob qo'shilmagan.<br><br><button class="apill on" onclick="libEdit()">${ic("plus", 15)} Birinchi kitobni qo'shish</button></div>`}`; }
   else if (ADM.tab === "books") body = `<div class="ahd"><div><small>${d.catalogAll.length} ta nom</small><h2>Kitoblar</h2></div></div>
     <div class="abooks">${d.catalogAll.filter(b => !q || (b.title + " " + b.author).toLowerCase().includes(q)).sort((a, b) => b.readers - a.readers).map(b => `<div class="acard abk">${cover(b, "sm")}<div><b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small>
       <div class="abst"><span>${ic("users", 13)} ${b.readers}</span><span>${ic("book", 13)} ${b.readingNow}</span><span>${ic("check", 13)} ${b.done}</span>${b.rating ? `<span style="color:#f7a03a">${ic("star", 13)} ${b.rating}</span>` : ""}</div></div></div>`).join("") || `<div class="aempty">Hali kitob yo'q</div>`}</div>`;
@@ -2388,7 +2550,7 @@ async function admLoad(refresh) {
   if (!refresh && $("#aKey")) ADM.key = $("#aKey").value;
   if (!ADM.key) return toast("Kalitni kiriting");
   const b = $("#aBtn"); if (b) { b.disabled = true; b.textContent = "Yuklanmoqda…"; }
-  try { const [r] = await rawCall([["admin", { key: ADM.key }]]); if (!r.ok) throw new Error(r.error); ADM.data = r; LS.set("kitobim_adm_key", ADM.key); vAdmin(); if (refresh) toast("Yangilandi"); }
+  try { const [r, lb] = await rawCall([["admin", { key: ADM.key }], ["library", { key: ADM.key }]]); if (!r.ok) throw new Error(r.error); ADM.data = r; ADM.lib = lb && lb.ok ? lb.library : []; LS.set("kitobim_adm_key", ADM.key); vAdmin(); if (refresh) toast("Yangilandi"); }
   catch (e) { toast(e.message); if (/kaliti/.test(e.message)) LS.del("kitobim_adm_key"); if (b) { b.disabled = false; b.textContent = "Kirish"; } }
 }
 
@@ -2406,6 +2568,95 @@ async function admResetPass(id) {
       <div class="row" style="gap:8px;margin-top:12px"><button class="btn pri" style="flex:1" onclick="navigator.clipboard&&navigator.clipboard.writeText(${esc(JSON.stringify(msg))});toast('Nusxa olindi')">${ic("file", 16)} Xabarni nusxalash</button>
       <a class="btn arp" style="flex:1" target="_blank" href="https://t.me/share/url?url=${encodeURIComponent(location.origin + location.pathname)}&text=${encodeURIComponent(msg)}">Telegram</a></div></div>`;
   } catch (e) { toast(e.message); box.innerHTML = `<button class="btn full arp" onclick="admResetPass('${id}')">${ic("key", 17)} Parolni tiklash</button>`; }
+}
+
+/* ---------- admin: kutubxona muharriri ---------- */
+let LE = null;
+const MAXUP = 30 * 1024 * 1024;
+function libEdit(id) {
+  const b = id ? (ADM.lib || []).find(x => x.id === id) : null;
+  LE = b ? JSON.parse(JSON.stringify(b)) : { title: "", author: "", genre: "", pages: "", desc: "", cover: null, pdf: null, audio: [], published: true };
+  drawLibEdit();
+}
+function fName(f) { return f ? (f.name || (f.id ? "Drive fayl" : f.url.slice(0, 40))) : ""; }
+function fSize(n) { return n ? (n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.round(n / 1024) + " KB") : ""; }
+function drawLibEdit() {
+  const b = LE, sc = $(".sheet") ? $(".sheet").scrollTop : 0;
+  const up = (kind, accept, label) => `<div class="upz" onclick="libPick('${kind}','${accept}')">${ic("upload", 20)}<span>${label}</span></div>`;
+  sheet(`<h2>${b.id ? "Kitobni tahrirlash" : "Kutubxonaga kitob qo'shish"}</h2><p class="sub">Muqova, PDF va audio fayllar ${DEMO ? "demo rejimda faqat shu sessiyada saqlanadi" : "Google Drive'dagi “Kitobim kutubxona” papkasiga yuklanadi"}.</p>
+    <div class="row" style="gap:16px;align-items:flex-start;margin-top:14px">
+      <div style="text-align:center;flex:0 0 auto"><div onclick="libPick('cover','image/*')" style="cursor:pointer">${b.cover ? `<div class="cover" style="background:#222 url('${esc(fThumb(b.cover))}') center/cover"></div>` : `<div class="upz" style="width:96px;height:138px;flex-direction:column">${ic("cam", 22)}<span>Muqova</span></div>`}</div>
+        ${b.cover ? `<a class="muted" style="font-size:12.5px;cursor:pointer" onclick="LE.cover=null;drawLibEdit()">O'chirish</a>` : ""}</div>
+      <div style="flex:1;min-width:0"><label style="margin-top:0">Kitob nomi *</label><input id="leT" value="${esc(b.title)}" placeholder="O'tkan kunlar">
+        <label>Muallif</label><input id="leA" value="${esc(b.author)}" placeholder="Abdulla Qodiriy"></div></div>
+    <div class="two"><div><label>Janr</label><select id="leG"><option value="">—</option>${GENRES.map(g => `<option ${b.genre === g ? "selected" : ""}>${g}</option>`).join("")}</select></div>
+      <div><label>Betlar soni</label><input id="leP" type="number" value="${esc(b.pages)}"></div></div>
+    <label>Qisqacha tavsif</label><textarea id="leD" placeholder="Kitob nima haqida…">${esc(b.desc)}</textarea>
+    <div class="fs"><h4>${ic("book", 14)} Elektron kitob (PDF)</h4>
+      ${b.pdf ? `<div class="frow">${ic("file", 18)}<span>${esc(fName(b.pdf))} <small class="muted">${fSize(b.pdf.size)}</small></span><button onclick="LE.pdf=null;drawLibEdit()">${ic("x", 16)}</button></div>` : up("pdf", "application/pdf", "PDF faylni yuklash")}
+      ${!b.pdf ? `<div class="row" style="gap:8px;margin-top:8px"><input id="lePL" placeholder="yoki Google Drive havolasini qo'ying"><button class="btn ghost sm" onclick="libLink('pdf',$('#lePL').value)">Qo'shish</button></div>` : ""}</div>
+    <div class="fs"><h4>${ic("headph", 14)} Audio kitob — qismlar (boblar)</h4>
+      ${b.audio.map((a, i) => `<div class="frow">${ic("headph", 18)}<input value="${esc(a.title)}" onchange="LE.audio[${i}].title=this.value" style="padding:8px 10px"><small class="muted">${fSize(a.size)}</small>
+        <button ${i ? "" : "disabled"} onclick="libMove(${i},-1)">${ic("up", 16)}</button><button ${i < b.audio.length - 1 ? "" : "disabled"} onclick="libMove(${i},1)">${ic("down", 16)}</button><button onclick="LE.audio.splice(${i},1);drawLibEdit()">${ic("x", 16)}</button></div>`).join("")}
+      ${up("audio", "audio/*", "Audio fayllarni yuklash (bir nechtasini birdan tanlash mumkin)")}
+      <div class="row" style="gap:8px;margin-top:8px"><input id="leAL" placeholder="yoki audio havolasi (Google Drive)"><button class="btn ghost sm" onclick="libLink('audio',$('#leAL').value)">Qo'shish</button></div>
+      <p class="muted" style="font-size:12.5px;margin:8px 0 0">Har bir fayl 30 MB gacha. Kattaroq bo'lsa, faylni Drive'ga o'zingiz yuklab, havolasini qo'ying ("Havolaga ega hamma ko'ra oladi" bo'lsin).</p></div>
+    <div class="switch" onclick="LE.published=!LE.published;libRead();drawLibEdit()"><span>Kitobxonlarga ko'rsatish (chop etish)</span><div class="tg ${b.published ? "on" : ""}"></div></div>
+    <div id="leSt" class="muted" style="font-size:13.5px;margin-top:12px"></div>
+    <div class="btns" style="margin-top:16px">${b.id ? `<button class="btn danger" style="flex:0 0 auto" onclick="libDel('${b.id}')">O'chirish</button>` : ""}<button class="btn pri" id="leSave" onclick="libSave()">Saqlash</button></div>`);
+  $(".sheet").classList.add("asheet"); $(".sheet").scrollTop = sc;
+}
+function libRead() { const v = id => ($("#" + id) || {}).value; if (!$("#leT")) return; Object.assign(LE, { title: v("leT").trim(), author: v("leA").trim(), genre: v("leG"), pages: v("leP"), desc: v("leD") }); }
+function libMove(i, d) { libRead(); const a = LE.audio; [a[i], a[i + d]] = [a[i + d], a[i]]; drawLibEdit(); }
+function libLink(kind, v) {
+  v = (v || "").trim(); if (!v) return toast("Havolani qo'ying");
+  const m = v.match(/\/d\/([\w-]{20,})/) || v.match(/[?&]id=([\w-]{20,})/);
+  const f = m ? { id: m[1], name: "Drive fayl" } : /^https?:\/\//.test(v) ? { url: v, name: v.split("/").pop().slice(0, 60) } : null;
+  if (!f) return toast("Havola noto'g'ri");
+  libRead(); if (kind === "pdf") LE.pdf = f; else LE.audio.push(Object.assign(f, { title: `${LE.audio.length + 1}-qism` }));
+  drawLibEdit();
+}
+function libPick(kind, accept) {
+  const i = document.createElement("input"); i.type = "file"; i.accept = accept; if (kind === "audio") i.multiple = true;
+  i.onchange = () => libUpload(kind, [...i.files]); i.click();
+}
+const b64 = file => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(",")[1]); r.onerror = () => no(new Error("Faylni o'qib bo'lmadi")); r.readAsDataURL(file); });
+async function upOne(file, kind) {
+  if (kind === "cover") {
+    const im = await loadImg(file), d = squeeze(im, 600, 864, 400000);
+    if (DEMO) return { url: d, name: file.name, size: d.length, mime: "image/jpeg" };
+    file = new File([await (await fetch(d)).blob()], file.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" });
+  }
+  if (file.size > MAXUP) throw new Error(`${file.name}: 30 MB dan katta. Drive havolasi orqali qo'shing`);
+  if (DEMO) return { url: URL.createObjectURL(file), name: file.name, size: file.size, mime: file.type };
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "adminUpload", key: ADM.key, name: file.name, mime: file.type, data: await b64(file) }) }).then(x => x.json());
+  if (!r.ok) throw new Error(r.error || "Yuklanmadi"); return r.file;
+}
+async function libUpload(kind, files) {
+  libRead(); const st = () => $("#leSt"), sv = $("#leSave"); if (sv) sv.disabled = true;
+  try {
+    for (let k = 0; k < files.length; k++) {
+      const f = files[k]; if (st()) st().innerHTML = `${ic("upload", 15)} Yuklanmoqda: <b>${esc(f.name)}</b> (${fSize(f.size)})${files.length > 1 ? ` — ${k + 1}/${files.length}` : ""}… katta fayllar bir necha daqiqa olishi mumkin`;
+      const res = await upOne(f, kind);
+      if (kind === "cover") LE.cover = res; else if (kind === "pdf") LE.pdf = res;
+      else LE.audio.push(Object.assign(res, { title: f.name.replace(/\.\w+$/, "").replace(/[_-]+/g, " ").slice(0, 80) }));
+    }
+    if (kind === "audio") LE.audio.sort((a, b) => a.title.localeCompare(b.title, "uz", { numeric: true }));
+    drawLibEdit(); toast("Yuklandi ✓");
+  } catch (e) { toast(e.message); drawLibEdit(); }
+}
+async function libSave() {
+  libRead(); if (!LE.title) return toast("Kitob nomini yozing");
+  if (!LE.pdf && !LE.audio.length) return toast("PDF yoki kamida bitta audio qo'shing");
+  $("#leSave").disabled = true;
+  try { const [r] = await rawCall([["adminSaveLib", { key: ADM.key, book: LE }]]); if (!r.ok) throw new Error(r.error);
+    ADM.lib = (ADM.lib || []).filter(x => x.id !== r.book.id).concat(r.book); setLib(ADM.lib.filter(x => x.published)); rcStale();
+    closeSheet(); ADM.tab = "lib"; vAdmin(); toast("Kutubxonaga saqlandi ✓"); }
+  catch (e) { toast(e.message); $("#leSave").disabled = false; }
+}
+async function libDel(id) {
+  if (!confirm("Kitob kutubxonadan o'chirilsinmi? (Drive'dagi fayllar o'chmaydi)")) return;
+  try { const [r] = await rawCall([["adminDeleteLib", { key: ADM.key, id }]]); if (!r.ok) throw new Error(r.error); ADM.lib = ADM.lib.filter(x => x.id !== id); setLib(ADM.lib.filter(x => x.published)); closeSheet(); vAdmin(); toast("O'chirildi"); } catch (e) { toast(e.message); }
 }
 async function admDelPost(id) {
   if (!confirm("Bu fikr Davradan o'chirilsinmi?")) return;
