@@ -1439,7 +1439,7 @@ async function render(keep) {
   if (route.name === "terms" && !S.token) { $("#app").innerHTML = `<div style="padding:30px 20px;max-width:880px;margin:auto">${vTerms()}</div>`; return; }
   if (route.name === "admin") { $("#app").innerHTML = ""; return vAdmin(); }
   document.body.classList.remove("admbody");
-  if (!S.token) { if (route.name === "login" || route.name === "register") { authMode = route.name === "register" ? "reg" : "login"; return vAuth(); } return vLanding(); }
+  if (!S.token) { if (route.name === "login" || route.name === "register" || isStandalone()) { authMode = route.name === "register" ? "reg" : "login"; return vAuth(); } return vLanding(); }
   if (!$("#view")) shell();
   paintChrome();
   if (route.name === "mood") return vMood();
@@ -1529,7 +1529,7 @@ function vLanding() {
 
   <section class="lsec lw"><div class="lapp rv"><div><h2>Telefoningizga o'rnating</h2><p class="lsub">${APP_NAME} brauzerda ochiladi va telefoningizga ilova bo'lib o'rnatiladi — bosh ekranda ikonkasi bilan, internetsiz ham ishlaydi.</p>
     <div class="lst"><div><b>Android</b><span>Chrome'da saytni oching → "O'rnatish"</span></div><div><b>iPhone</b><span>Safari → Ulashish ⬆ → "Bosh ekranga"</span></div></div>
-    <button class="btn dark lg" onclick="installApp()" style="margin-top:18px">${ic("phone",18)} Ilovani o'rnatish</button></div>
+    <a class="btn dark lg" href="app/" style="margin-top:18px">${ic("phone",18)} Telefonga o'rnatish</a></div>
     <div class="lappic"><img class="spin" src="icons/icon-512.png" alt=""></div></div></section>
 
   <section class="lsec lw" id="faq"><div class="lhead rv"><span class="lk">Savollar</span><h2>Ko'p beriladigan savollar</h2></div>
@@ -2305,6 +2305,7 @@ const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
 async function installApp() {
   if (deferredPrompt) { deferredPrompt.prompt(); const r = await deferredPrompt.userChoice; deferredPrompt = null; if (r.outcome === "accepted") toast(`${APP_NAME} o'rnatildi 🎉`); render(); return; }
   if (isStandalone()) return toast("Ilova allaqachon o'rnatilgan ✓");
+  if (!matchMedia("(pointer:fine)").matches || isIOS()) { location.href = "app/"; return; }
   sheet(isIOS() ? `<h2>iPhone'ga o'rnatish</h2><p class="sub">Safari brauzerida 3 qadam:</p><div class="menu"><div class="mi"><span class="ic" style="background:var(--or)">1</span><span>Pastdagi <b>Ulashish</b> ⬆︎ tugmasini bosing</span></div><div class="mi"><span class="ic" style="background:var(--or)">2</span><span><b>"Bosh ekranga"</b> ni tanlang</span></div><div class="mi"><span class="ic" style="background:var(--or)">3</span><span><b>Qo'shish</b> ni bosing</span></div></div>`
     : `<h2>Ilovani o'rnatish</h2><p class="sub">Chrome brauzerida:</p><div class="menu"><div class="mi"><span class="ic" style="background:var(--or)">1</span><span>Manzil qatoridagi yoki ⋮ menyudagi <b>"O'rnatish"</b> belgisini bosing</span></div><div class="mi"><span class="ic" style="background:var(--or)">2</span><span><b>"Ilovani o'rnatish"</b> ni tasdiqlang</span></div></div>`);
 }
