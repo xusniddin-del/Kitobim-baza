@@ -770,6 +770,13 @@ body.dark .tryweek b{background:#0f0f12}
 
 .lmarq h2{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin-top:10px}
 
+.arp{background:rgba(255,255,255,.06);color:inherit;border:1px solid rgba(255,255,255,.14);margin-top:14px}
+body:not(.admbody) .arp{background:var(--soft);border-color:var(--line)}
+.rpok{margin-top:14px;border-radius:18px;padding:16px;background:rgba(59,181,74,.12);border:1px solid rgba(59,181,74,.35);text-align:center}
+.rpok small{display:block;opacity:.75}
+.rpok b{display:block;font-size:30px;letter-spacing:.12em;margin:6px 0;font-family:ui-monospace,Menlo,monospace}
+.rpok span{font-size:13px;opacity:.8}
+
 </style>
 </head>
 <body>
@@ -839,7 +846,7 @@ var KitobimCore = (function () {
   }
   function self(db, u, today) {
     var p = pub(db, u, today);
-    p.phone = u.phone; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || "";
+    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || "";
     return {
       user: p, stats: stats(db, u.id, today),
       books: db.books.filter(function (b) { return b.userId === u.id; }),
@@ -915,7 +922,7 @@ var KitobimCore = (function () {
       ["bio", "region", "age", "gender", "job"].forEach(function (k) { if (p[k] != null) u[k] = clean(p[k], k === "bio" ? 300 : 60); });
       if (p.goal != null) u.goal = Math.max(1, Math.min(1000, int(p.goal) || 20));
       if (p.private != null) u.private = !!p.private;
-      if (p.newPass) { if (u.pass !== p.oldPass) fail("Joriy parol noto'g'ri"); u.pass = p.newPass; }
+      if (p.newPass) { if (u.pass !== p.oldPass) fail("Joriy parol noto'g'ri"); u.pass = p.newPass; u.mustChange = false; }
       return { touched: ["users"], res: { me: self(db, u, r.today) } };
     },
     saveBook: function (db, r) {
@@ -1046,6 +1053,14 @@ var KitobimCore = (function () {
     publicStats: function (db) {
       var pages = 0, done = 0; db.books.forEach(function (b) { pages += pagesRead(b); if (b.status === "done") done++; });
       return { touched: [], res: { readers: db.users.length, books: db.books.length, done: done, pages: pages, posts: db.posts.length } };
+    },
+    adminResetPass: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      var u = db.users.filter(function (x) { return x.id === r.userId; })[0];
+      if (!u) fail("Foydalanuvchi topilmadi");
+      if (!r.pass || String(r.pass).length < 20) fail("Parol noto'g'ri");
+      u.pass = r.pass; u.token = rid(32); u.mustChange = true;
+      return { touched: ["users"], res: { ok: true } };
     },
     adminDeletePost: function (db, r, cfg) {
       if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
@@ -1591,7 +1606,7 @@ function vAuth() {
     <label>Parol</label>${passField("aPass", authMode === "reg" ? "Kamida 6 ta belgi" : "Parolingiz", authMode === "reg" ? "new-password" : "current-password")}
     ${authMode === "reg" ? `<label>Parolni takrorlang</label>${passField("aPass2", "Parolni qayta kiriting", "new-password")}` : ""}
     <button class="btn pri full" style="margin-top:22px;padding:15px" id="aBtn" onclick="doAuth()">${authMode === "login" ? "Kirish" : "Akkaunt ochish"}</button>
-    ${authMode === "login" ? `<p class="muted" style="font-size:13px;margin-top:14px;text-align:center">Parolni unutdingizmi? Administratorga murojaat qiling.</p>` : ""}
+    ${authMode === "login" ? `<p style="font-size:13.5px;margin-top:14px;text-align:center"><a style="color:var(--or);font-weight:600;cursor:pointer" onclick="forgotPass()">Parolni unutdingizmi?</a></p>` : ""}
     ${DEMO ? `<div class="demo-note" style="margin-top:18px">Demo rejim: akkaunt va yozuvlar faqat shu brauzerda saqlanadi. Server ulanganda hamma qurilmada bir xil bo'ladi.</div>` : ""}
     <p class="muted" style="font-size:12.5px;margin-top:18px;text-align:center">Davom etish orqali siz <a style="text-decoration:underline" href="#/terms">foydalanish shartlari</a>ga rozilik bildirasiz.</p>
   </div></div>
@@ -1610,6 +1625,7 @@ async function doAuth() {
   try {
     const r = await api(authMode === "reg" ? "register" : "login", { phone, pass: passHash(phone, pass), name: authMode === "reg" ? $("#aName").value : undefined });
     S.token = r.token; LS.set("kitobim_token", r.token); setMe(r.me);
+    if (r.me.user.mustChange) { S.tmpPass = pass; setTimeout(forceNewPass, 600); }
     $("#app").innerHTML = ""; location.hash = "#/home"; render();
     toast(authMode === "reg" ? `Xush kelibsiz, ${r.me.user.name.split(" ")[0]}! 📖` : "Qaytganingizdan xursandmiz!");
   } catch (e) { toast(e.message); btn.disabled = false; btn.textContent = authMode === "login" ? "Kirish" : "Akkaunt ochish"; }
@@ -1620,6 +1636,26 @@ function passField(id, ph, ac) {
   return `<div class="pass"><input id="${id}" type="password" placeholder="${ph}" autocomplete="${ac}" onkeydown="if(event.key==='Enter')doAuth()"><button type="button" class="eye" aria-label="Parolni ko'rsatish" onclick="togglePass('${id}',this)">${EYE}</button></div>`;
 }
 function togglePass(id, btn) { const i = $("#" + id), show = i.type === "password"; i.type = show ? "text" : "password"; btn.innerHTML = show ? EYE_OFF : EYE; btn.classList.toggle("on", show); btn.setAttribute("aria-label", show ? "Parolni yashirish" : "Parolni ko'rsatish"); }
+
+function forgotPass() {
+  sheet(`<h2>Parolni tiklash</h2><p class="sub">Parolingizni administrator tiklab beradi.</p>
+    <div class="menu" style="margin-top:16px"><div class="mi"><span class="ic" style="background:var(--or)">1</span><span>Administratorga yozing: ismingiz va telefon raqamingiz</span></div>
+    <div class="mi"><span class="ic" style="background:var(--or)">2</span><span>U sizga vaqtinchalik parol yuboradi</span></div>
+    <div class="mi"><span class="ic" style="background:var(--or)">3</span><span>Shu parol bilan kiring va o'zingizga yangi parol qo'ying</span></div></div>
+    ${CONTACT_TG ? `<a class="btn pri full" style="margin-top:18px" target="_blank" href="https://t.me/${CONTACT_TG}">Administratorga yozish (Telegram)</a>` : ""}`);
+}
+
+function forceNewPass() {
+  sheet(`<h2>Yangi parol o'rnating</h2><p class="sub">Siz vaqtinchalik parol bilan kirdingiz. Xavfsizlik uchun o'zingizga yangi parol qo'ying.</p>
+    <label>Yangi parol</label><input id="fp1" type="password" placeholder="Kamida 6 ta belgi"><label>Yangi parolni takrorlang</label><input id="fp2" type="password">
+    <button class="btn pri full" style="margin-top:18px" onclick="saveForcedPass()">Saqlash</button>`);
+  $(".sheet .x").style.display = "none"; $("#ov").onclick = null;
+}
+async function saveForcedPass() {
+  const n = $("#fp1").value, ph = "+" + S.me.user.phone;
+  if (n.length < 6) return toast("Parol kamida 6 ta belgi bo'lsin"); if (n !== $("#fp2").value) return toast("Parollar bir xil emas");
+  try { await api("saveProfile", { profile: { oldPass: passHash(ph, S.tmpPass), newPass: passHash(ph, n) } }); S.tmpPass = null; closeSheet(); toast("Yangi parol saqlandi ✓"); } catch (e) { toast(e.message); }
+}
 function logout(silent) {
   S.token = null; S.me = null; LS.del("kitobim_token"); LS.del("kitobim_me"); RC = {}; LS.del("kitobim_rc");
   $("#app").innerHTML = ""; if (!silent) toast("Akkauntdan chiqdingiz"); location.hash = "#/home"; render();
@@ -2273,6 +2309,22 @@ async function admLoad(refresh) {
   try { const [r] = await rawCall([["admin", { key: ADM.key }]]); if (!r.ok) throw new Error(r.error); ADM.data = r; LS.set("kitobim_adm_key", ADM.key); vAdmin(); if (refresh) toast("Yangilandi"); }
   catch (e) { toast(e.message); if (/kaliti/.test(e.message)) LS.del("kitobim_adm_key"); if (b) { b.disabled = false; b.textContent = "Kirish"; } }
 }
+
+function tempPass() { const a = "abcdefghkmnpqrstuvxyz", d = "23456789"; let s = ""; for (let i = 0; i < 4; i++) s += a[Math.floor(Math.random() * a.length)]; for (let i = 0; i < 4; i++) s += d[Math.floor(Math.random() * d.length)]; return s; }
+async function admResetPass(id) {
+  const u = ADM.data.users.find(x => x.id === id);
+  if (!confirm(`${u.name} uchun yangi vaqtinchalik parol yaratilsinmi? Eski parol ishlamay qoladi.`)) return;
+  const tp = tempPass(), box = $("#rpBox");
+  box.innerHTML = `<button class="btn full arp" disabled>Kutilmoqda…</button>`;
+  try {
+    const [r] = await rawCall([["adminResetPass", { key: ADM.key, userId: id, pass: passHash("+" + u.phone, tp) }]]);
+    if (!r.ok) throw new Error(r.error);
+    const msg = `Assalomu alaykum, ${u.name.split(" ")[0]}! ${APP_NAME}ga kirish uchun vaqtinchalik parolingiz: ${tp}\nTelefon: +${u.phone}\nKirgach, ilova sizdan yangi parol o'rnatishni so'raydi.`;
+    box.innerHTML = `<div class="rpok"><small>Yangi vaqtinchalik parol</small><b>${tp}</b><span>Buni mijozga yuboring. Kirgach, u o'z parolini o'rnatadi.</span>
+      <div class="row" style="gap:8px;margin-top:12px"><button class="btn pri" style="flex:1" onclick="navigator.clipboard&&navigator.clipboard.writeText(${esc(JSON.stringify(msg))});toast('Nusxa olindi')">${ic("file", 16)} Xabarni nusxalash</button>
+      <a class="btn arp" style="flex:1" target="_blank" href="https://t.me/share/url?url=${encodeURIComponent(location.origin + location.pathname)}&text=${encodeURIComponent(msg)}">Telegram</a></div></div>`;
+  } catch (e) { toast(e.message); box.innerHTML = `<button class="btn full arp" onclick="admResetPass('${id}')">${ic("key", 17)} Parolni tiklash</button>`; }
+}
 async function admDelPost(id) {
   if (!confirm("Bu fikr Davradan o'chirilsinmi?")) return;
   try { const [r] = await rawCall([["adminDeletePost", { key: ADM.key, id }]]); if (!r.ok) throw new Error(r.error); ADM.data.recent = ADM.data.recent.filter(p => p.id !== id); ADM.data.posts--; $("#ap-" + id).remove(); toast("O'chirildi"); } catch (e) { toast(e.message); }
@@ -2287,6 +2339,7 @@ function admUser(id) {
   sheet(`<div class="row">${ava(u, 64)}<div><h2>${esc(u.name)}</h2><div class="muted">+${esc(u.phone)} · @${esc(u.username)}</div><div class="muted" style="font-size:13px">${esc(u.region || "")}${u.age ? " · " + esc(u.age) + " yosh" : ""}</div></div></div>
     <div class="glass"><div><small>O'qigan</small><b>${u.done}</b></div><div><small>Betlar</small><b>${num(u.pages)}</b></div><div><small>Seriya</small><b>${u.streak} kun</b></div></div>
     <p class="muted" style="font-size:13px;text-align:center">Ro'yxatdan o'tgan: ${fmtD(u.createdAt)} · Oxirgi faollik: ${ago(u.lastActive)}</p>
+    <div id="rpBox"><button class="btn full arp" onclick="admResetPass('${u.id}')">${ic("key", 17)} Parolni tiklash</button></div>
     ${g("reading").length ? `<h3 style="margin:16px 0 8px">O'qiyapti</h3>${g("reading").map(row).join("")}` : ""}${g("plan").length ? `<h3 style="margin:16px 0 8px">Rejada</h3>${g("plan").map(row).join("")}` : ""}
     ${g("done").length ? `<h3 style="margin:16px 0 8px">O'qib bo'lgan</h3>${g("done").map(row).join("")}` : ""}${!bs.length ? `<div class="empty">Hali kitob qo'shmagan</div>` : ""}`);
   $(".sheet").classList.add("asheet");
