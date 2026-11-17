@@ -1,25 +1,116 @@
 {
   "name": "Kitobim — kitobxon kundaligi",
   "short_name": "Kitobim",
-  "description": "Kitobxon daftaringiz endi telefonda: hozirgi kitob, betlar, o'qilganlar, rejalar va saboqlar.",
-  "id": "./",
-  "start_url": "./",
-  "scope": "./",
+  "description": "Kitobxon daftaringiz endi telefonda: qaysi kitobni o'qiyotganingiz, qaysi betga kelganingiz, o'qigan kitoblaringiz va saboqlaringiz — hammasi bir joyda.",
+  "id": "/Kitobim-baza/",
+  "start_url": "/Kitobim-baza/",
+  "scope": "/Kitobim-baza/",
   "display": "standalone",
-  "orientation": "any",
+  "orientation": "portrait",
   "background_color": "#F4F4F6",
   "theme_color": "#FF6B1A",
   "lang": "uz",
-  "categories": ["books", "education", "lifestyle"],
+  "categories": [
+    "books",
+    "education",
+    "lifestyle"
+  ],
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
   ],
   "shortcuts": [
-    { "name": "Betni yangilash", "short_name": "Bet", "url": "./?a=page", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Kitob qo'shish", "short_name": "Qo'shish", "url": "./?a=add", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    {
+      "name": "Betni yangilash",
+      "short_name": "Bet",
+      "url": "/Kitobim-baza/?a=page",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Kitob qo'shish",
+      "short_name": "Qo'shish",
+      "url": "/Kitobim-baza/?a=add",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "dir": "ltr",
+  "screenshots": [
+    {
+      "src": "img/home.jpg",
+      "sizes": "780x1688",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Bosh sahifa"
+    },
+    {
+      "src": "img/marra.jpg",
+      "sizes": "780x1688",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Marra"
+    },
+    {
+      "src": "img/davra.jpg",
+      "sizes": "780x1688",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Davra"
+    },
+    {
+      "src": "img/detail.jpg",
+      "sizes": "780x1688",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Kitob sahifasi"
+    },
+    {
+      "src": "img/admin.jpg",
+      "sizes": "1920x1140",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Admin panel"
+    }
   ]
 }
