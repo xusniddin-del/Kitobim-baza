@@ -807,6 +807,28 @@ body.dark .camav{box-shadow:0 0 0 4px #000}
 .libb b{display:flex;align-items:center;gap:6px;color:var(--or2)}
 .libb small{display:block;color:var(--muted);margin-top:3px}
 .libdesc{line-height:1.6;color:var(--ink2);margin:0 0 16px}
+.libsum{margin:0 0 16px;border-radius:16px;background:var(--soft);padding:0 16px}
+.libsum summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:14px 0;font-weight:700;color:var(--or2)}
+.libsum summary::-webkit-details-marker{display:none}
+.libsum summary small{color:var(--muted);font-weight:500}
+.libsum p{line-height:1.7;color:var(--ink2);margin:0 0 12px}
+.libsum .afr,.libsum audio{width:100%;margin-bottom:12px}
+.aibox{margin-top:14px;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,122,47,.35);background:linear-gradient(135deg,rgba(255,138,43,.16),rgba(240,78,28,.05))}
+.aih{display:flex;gap:10px;align-items:flex-start;color:var(--or)}
+.aih b{display:block;color:#fff;font-size:14.5px}
+.aih small{display:block;color:#b9ab9f;font-size:12.5px;line-height:1.45;margin-top:2px}
+.aist{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:8px;color:#d9cdc4;line-height:1.4}
+.aist span{flex:1;min-width:0}
+.aist.ok{color:#7fe08a}
+.aist.err{color:#ff8b7a}
+.aispin{width:14px;height:14px;flex:0 0 auto;border:2px solid rgba(255,122,47,.3);border-top-color:var(--or);border-radius:50%;animation:aispin .8s linear infinite}
+@keyframes aispin{to{transform:rotate(360deg)}}
+.rdy{margin-top:18px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.rdy b{font-size:13px;color:#a99d94;font-weight:600}
+.rdy div{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rdy span{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.06);color:#a99d94}
+.rdy span.ok{background:rgba(59,181,74,.16);color:#7fe08a}
+.asheet #leSave.ghost{background:rgba(255,255,255,.08);color:#f4ece6;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
 .libov{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;animation:fd .2s}
 .lhd{display:flex;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;border-bottom:1px solid var(--line);background:var(--card)}
 .lhd .lt{flex:1;min-width:0}.lhd .lt b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lhd .lt small{color:var(--muted)}
@@ -930,7 +952,7 @@ var KitobimCore = (function () {
         return { id: c.id, text: c.text, createdAt: c.createdAt, user: cu ? { id: cu.id, name: cu.name, username: cu.username, color: cu.color || 0, avatar: cu.avatar || "" } : { name: "?" } }; }) };
   }
   function libView(L) {
-    return { id: L.id, key: bkey(L.title, L.author), title: L.title, author: L.author, genre: L.genre || "", pages: int(L.pages), desc: L.desc || "",
+    return { id: L.id, key: bkey(L.title, L.author), title: L.title, author: L.author, genre: L.genre || "", pages: int(L.pages), desc: L.desc || "", summary: L.summary || "", summaryAudio: L.summaryAudio || null,
       cover: L.cover || null, pdf: L.pdf || null, audio: L.audio || [], published: !!L.published, createdAt: L.createdAt, updated: L.updated };
   }
   function cleanFile(f) {
@@ -1160,7 +1182,7 @@ var KitobimCore = (function () {
       var b = r.book || {}, title = clean(b.title, 160); if (!title) fail("Kitob nomini yozing");
       var old = db.library.filter(function (x) { return x.id === b.id; })[0], rec = old || { id: rid(10), createdAt: now() };
       var audio = (Array.isArray(b.audio) ? b.audio : []).slice(0, 200).map(function (a, i) { var f = cleanFile(a); if (!f) return null; f.title = clean(a.title, 120) || ((i + 1) + "-qism"); return f; }).filter(Boolean);
-      var f = { title: title, author: clean(b.author, 120), genre: clean(b.genre, 40), pages: int(b.pages), desc: clean(b.desc, 3000),
+      var f = { title: title, author: clean(b.author, 120), genre: clean(b.genre, 40), pages: int(b.pages), desc: clean(b.desc, 3000), summary: clean(b.summary, 20000), summaryAudio: cleanFile(b.summaryAudio),
         cover: cleanFile(b.cover), pdf: cleanFile(b.pdf), audio: audio, published: !!b.published, updated: now() };
       for (var k in f) rec[k] = f[k];
       if (!old) db.library.push(rec);
@@ -1311,6 +1333,8 @@ const ICP = {
   palette: '<circle cx="13.5" cy="6.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1.2" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1.2" fill="currentColor"/><path d="M12 2a10 10 0 0 0 0 20c1.4 0 2-1 2-2 0-1.5-1.5-1.6-1.5-3s1-2 2.5-2H17a5 5 0 0 0 5-5c0-4.4-4.5-8-10-8z"/>',
   trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>',
   ban: '<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>',
+  vol: '<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>',
+  rocket: '<path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0"/><path d="M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/>',
   sparkle: '<path d="M12 3c.5 4 2.5 6.3 7 7-4.5.7-6.5 3-7 7-.5-4-2.5-6.3-7-7 4.5-.7 6.5-3 7-7z"/><path d="M19 3v4M17 5h4"/>',
   crown: '<path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 12H5z"/>',
   pin: '<path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
@@ -2045,9 +2069,14 @@ function libTile(l) {
 function libBlock(bk) {
   const L = libOf(bk); if (!L) return "";
   const tj = x => esc(JSON.stringify(x));
-  return `<div class="libb"><div><b>${ic("sparkle", 16)} ${APP_NAME} kutubxonasida bor</b><small>${[L.pdf ? "Elektron kitob (PDF)" : "", L.audio.length ? `Audio · ${L.audio.length} qism` : ""].filter(Boolean).join(" · ")}</small></div>
+  return `<div class="libb"><div><b>${ic("sparkle", 16)} ${APP_NAME} kutubxonasida bor</b><small>${[L.pdf ? "Elektron kitob (PDF)" : "", L.audio.length ? `Audio · ${L.audio.length} qism` : "", L.summary ? "Kitob mag'zi" : ""].filter(Boolean).join(" · ")}</small></div>
     <div class="row" style="gap:10px;flex-wrap:wrap">${L.pdf ? `<button class="btn pri" onclick="openReader(${tj(L.key)})">${ic("book", 17)} O'qish</button>` : ""}${L.audio.length ? `<button class="btn dark" onclick="openPlayer(${tj(L.key)})">${ic("headph", 17)} Tinglash</button>` : ""}</div></div>
-    ${L.desc ? `<p class="libdesc">${esc(L.desc)}</p>` : ""}`;
+    ${L.desc ? `<p class="libdesc">${esc(L.desc)}</p>` : ""}${libSummary(L)}`;
+}
+function libSummary(L) {
+  if (!L.summary) return "";
+  const a = L.summaryAudio, pl = !a ? "" : a.id ? `<iframe class="afr" loading="lazy" src="${esc(fView(a))}" allow="autoplay"></iframe>` : `<audio controls preload="none" src="${esc(a.url)}"></audio>`;
+  return `<details class="libsum"><summary>${ic("sparkle", 16)} Kitob mag'zi <small>· ${a ? "o'qing yoki tinglang" : "qisqa xulosa"}</small></summary>${pl}${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}</details>`;
 }
 async function vLibrary(q) {
   const r = await api("library", {}); setLib(r.library);
@@ -2575,15 +2604,17 @@ let LE = null;
 const MAXUP = 30 * 1024 * 1024;
 function libEdit(id) {
   const b = id ? (ADM.lib || []).find(x => x.id === id) : null;
-  LE = b ? JSON.parse(JSON.stringify(b)) : { title: "", author: "", genre: "", pages: "", desc: "", cover: null, pdf: null, audio: [], published: true };
+  LE = b ? JSON.parse(JSON.stringify(b)) : { title: "", author: "", genre: "", pages: "", desc: "", summary: "", summaryAudio: null, cover: null, pdf: null, audio: [], published: false };
+  LEPDF = null; AIV = {}; if (LEAUD) URL.revokeObjectURL(LEAUD); LEAUD = null;
   drawLibEdit();
 }
 function fName(f) { return f ? (f.name || (f.id ? "Drive fayl" : f.url.slice(0, 40))) : ""; }
 function fSize(n) { return n ? (n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.round(n / 1024) + " KB") : ""; }
 function drawLibEdit() {
-  const b = LE, sc = $(".sheet") ? $(".sheet").scrollTop : 0;
+  const b = LE, sc = $(".sheet") ? $(".sheet").scrollTop : 0, rd = libReady(b), canPub = !b.published && rd.every(x => x[1]), sa = b.summaryAudio;
   const up = (kind, accept, label) => `<div class="upz" onclick="libPick('${kind}','${accept}')">${ic("upload", 20)}<span>${label}</span></div>`;
   sheet(`<h2>${b.id ? "Kitobni tahrirlash" : "Kutubxonaga kitob qo'shish"}</h2><p class="sub">Muqova, PDF va audio fayllar ${DEMO ? "demo rejimda faqat shu sessiyada saqlanadi" : "Google Drive'dagi “Kitobim kutubxona” papkasiga yuklanadi"}.</p>
+    <div id="leAI">${aiPanel()}</div>
     <div class="row" style="gap:16px;align-items:flex-start;margin-top:14px">
       <div style="text-align:center;flex:0 0 auto"><div onclick="libPick('cover','image/*')" style="cursor:pointer">${b.cover ? `<div class="cover" style="background:#222 url('${esc(fThumb(b.cover))}') center/cover"></div>` : `<div class="upz" style="width:96px;height:138px;flex-direction:column">${ic("cam", 22)}<span>Muqova</span></div>`}</div>
         ${b.cover ? `<a class="muted" style="font-size:12.5px;cursor:pointer" onclick="LE.cover=null;drawLibEdit()">O'chirish</a>` : ""}</div>
@@ -2592,8 +2623,16 @@ function drawLibEdit() {
     <div class="two"><div><label>Janr</label><select id="leG"><option value="">—</option>${GENRES.map(g => `<option ${b.genre === g ? "selected" : ""}>${g}</option>`).join("")}</select></div>
       <div><label>Betlar soni</label><input id="leP" type="number" value="${esc(b.pages)}"></div></div>
     <label>Qisqacha tavsif</label><textarea id="leD" placeholder="Kitob nima haqida…">${esc(b.desc)}</textarea>
+    <div class="fs"><h4>${ic("sparkle", 14)} Kitob mag'zi</h4>
+      <textarea id="leS" style="min-height:190px" placeholder="AI kitobni o'qib, uning mag'zini shu yerga yozadi. O'zingiz ham yozishingiz yoki tahrirlashingiz mumkin.">${esc(b.summary || "")}</textarea>
+      <div class="row" style="gap:8px;margin-top:10px"><select id="leV" style="flex:1;min-width:0">${AI_VOICES.map(([v, d]) => `<option value="${v}" ${(b.voice || "Charon") === v ? "selected" : ""}>${v} — ${d}</option>`).join("")}</select>
+        <button class="btn pri sm" style="flex:0 0 auto" id="leVB" onclick="aiVoice()" ${AIV.run ? "disabled" : ""}>${ic("vol", 15)} ${sa ? "Qayta ovozlashtirish" : "Ovozlashtirish"}</button></div>
+      <div id="leVS">${aiVoiceSt()}</div>
+      ${sa ? `<div class="frow">${ic("headph", 18)}<span>Kitob mag'zi — audio <small class="muted">${fSize(sa.size)}</small></span><button onclick="libRead();LE.summaryAudio=null;drawLibEdit()">${ic("x", 16)}</button></div>
+        ${LEAUD ? `<audio controls src="${LEAUD}" style="width:100%;margin-top:8px"></audio>` : `<iframe class="afr" style="margin-top:8px" src="${esc(fView(sa))}"></iframe>`}` : ""}
+      <p class="muted" style="font-size:12.5px;margin:8px 0 0">Ovoz Nevra.uz orqali yaratiladi va kitob sahifasidagi “Kitob mag'zi” bo'limida chiqadi.</p></div>
     <div class="fs"><h4>${ic("book", 14)} Elektron kitob (PDF)</h4>
-      ${b.pdf ? `<div class="frow">${ic("file", 18)}<span>${esc(fName(b.pdf))} <small class="muted">${fSize(b.pdf.size)}</small></span><button onclick="LE.pdf=null;drawLibEdit()">${ic("x", 16)}</button></div>` : up("pdf", "application/pdf", "PDF faylni yuklash")}
+      ${b.pdf ? `<div class="frow">${ic("file", 18)}<span>${esc(fName(b.pdf))} <small class="muted">${fSize(b.pdf.size)}</small></span><button onclick="libRead();LE.pdf=null;LEPDF=null;drawLibEdit()">${ic("x", 16)}</button></div>` : up("pdf", "application/pdf", "PDF faylni yuklash")}
       ${!b.pdf ? `<div class="row" style="gap:8px;margin-top:8px"><input id="lePL" placeholder="yoki Google Drive havolasini qo'ying"><button class="btn ghost sm" onclick="libLink('pdf',$('#lePL').value)">Qo'shish</button></div>` : ""}</div>
     <div class="fs"><h4>${ic("headph", 14)} Audio kitob — qismlar (boblar)</h4>
       ${b.audio.map((a, i) => `<div class="frow">${ic("headph", 18)}<input value="${esc(a.title)}" onchange="LE.audio[${i}].title=this.value" style="padding:8px 10px"><small class="muted">${fSize(a.size)}</small>
@@ -2603,18 +2642,154 @@ function drawLibEdit() {
       <p class="muted" style="font-size:12.5px;margin:8px 0 0">Har bir fayl 30 MB gacha. Kattaroq bo'lsa, faylni Drive'ga o'zingiz yuklab, havolasini qo'ying ("Havolaga ega hamma ko'ra oladi" bo'lsin).</p></div>
     <div class="switch" onclick="LE.published=!LE.published;libRead();drawLibEdit()"><span>Kitobxonlarga ko'rsatish (chop etish)</span><div class="tg ${b.published ? "on" : ""}"></div></div>
     <div id="leSt" class="muted" style="font-size:13.5px;margin-top:12px"></div>
-    <div class="btns" style="margin-top:16px">${b.id ? `<button class="btn danger" style="flex:0 0 auto" onclick="libDel('${b.id}')">O'chirish</button>` : ""}<button class="btn pri" id="leSave" onclick="libSave()">Saqlash</button></div>`);
+    ${b.published ? "" : `<div class="rdy"><b>Nashrga tayyorlik</b><div>${rd.map(([n, ok]) => `<span class="${ok ? "ok" : ""}">${ok ? ic("check", 13) : ""}${n}</span>`).join("")}</div></div>`}
+    <div class="btns" style="margin-top:16px">${b.id ? `<button class="btn danger" style="flex:0 0 auto" onclick="libDel('${b.id}')">O'chirish</button>` : ""}<button class="btn ${canPub ? "ghost" : "pri"}" id="leSave" onclick="libSave()">${b.published ? "Saqlash" : "Qoralama sifatida saqlash"}</button>${canPub ? `<button class="btn pri" id="lePub" onclick="libPublish()">${ic("rocket", 17)} Kitobni nashr etish</button>` : ""}</div>`);
   $(".sheet").classList.add("asheet"); $(".sheet").scrollTop = sc;
 }
-function libRead() { const v = id => ($("#" + id) || {}).value; if (!$("#leT")) return; Object.assign(LE, { title: v("leT").trim(), author: v("leA").trim(), genre: v("leG"), pages: v("leP"), desc: v("leD") }); }
+/* ---------- AI yordamchi: PDF → ma'lumotlar, kitob mag'zi, muqova va Nevra ovozi ---------- */
+let LEPDF = null, LEAUD = null, AIV = {}, PDFJS = null;
+const AI_VOICES = [["Charon", "erkak · axborotli"], ["Sulafat", "ayol · iliq"], ["Achernar", "ayol · mayin"], ["Iapetus", "erkak · aniq"], ["Schedar", "erkak · teng"], ["Kore", "ayol · qat'iy"], ["Orus", "erkak · qat'iy"], ["Leda", "ayol · yosh"]];
+function libReady(b) { return [["Nomi", !!b.title], ["Muallif", !!b.author], ["Muqova", !!b.cover], ["PDF", !!b.pdf], ["Mag'zi", (b.summary || "").trim().length > 50], ["Ovoz", !!b.summaryAudio]]; }
+async function aiPost(action, p) {
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(Object.assign({ action, key: ADM.key }, p)) })
+    .then(x => x.json()).catch(() => ({ ok: false, error: "Server bilan aloqa uzildi. Internetni tekshirib, qayta urinib ko'ring" }));
+  if (!r.ok) throw new Error(/Noma'lum amal/.test(r.error || "") ? "Serverga KitobimAI.gs hali ulanmagan (README'ga qarang)" : (r.error || "Xato"));
+  return r;
+}
+function aiPanel() {
+  const A = LE.ai || {}, st = A.steps || {}, ks = Object.keys(st);
+  const row = k => `<div class="aist ${st[k].s}">${st[k].s === "run" ? `<i class="aispin"></i>` : ic(st[k].s === "ok" ? "check" : "x", 15)}<span>${esc(st[k].t)}</span></div>`;
+  return `<div class="aibox"><div class="aih">${ic("sparkle", 18)}<div><b>AI yordamchi</b><small>${LE.pdf ? "Kitobni o'qib, nom, muallif, janr, betlar soni, tavsif, muqova va kitob mag'zini o'zi to'ldiradi" : "PDF yuklang — AI kitobni o'qib, quyidagi maydonlarni muqovasigacha o'zi to'ldiradi"}</small></div></div>
+    ${ks.map(row).join("")}${LE.pdf && !A.run ? `<button class="btn pri sm" style="margin-top:12px" onclick="aiFill(${ks.length ? "true" : "false"})">${ic("sparkle", 15)} ${ks.length ? "Qaytadan to'ldirish" : "AI bilan to'ldirish"}</button>` : ""}</div>`;
+}
+function aiStep(k, s, t) { const A = LE.ai = LE.ai || {}; (A.steps = A.steps || {})[k] = { s, t }; const el = $("#leAI"); if (el) el.innerHTML = aiPanel(); }
+async function pdfLib() {
+  if (PDFJS) return PDFJS;
+  const base = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/";
+  PDFJS = await import(base + "pdf.min.mjs"); PDFJS.GlobalWorkerOptions.workerSrc = base + "pdf.worker.min.mjs";
+  return PDFJS;
+}
+async function pdfInfo(file) {
+  const L = await pdfLib(), doc = await L.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise, pg = await doc.getPage(1);
+  const O = L.OPS, ops = await pg.getOperatorList(), want = [O.paintImageXObject, O.paintInlineImageXObject, O.paintImageXObjectRepeat, O.paintJpegXObject].filter(x => x != null);
+  return { pages: doc.numPages, img: ops.fnArray.some(f => want.includes(f)), pg };
+}
+async function pdfCover(pg) {
+  const vp = pg.getViewport({ scale: 1 }), v2 = pg.getViewport({ scale: 1000 / vp.width }), c = document.createElement("canvas");
+  c.width = Math.round(v2.width); c.height = Math.round(v2.height);
+  const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
+  await pg.render({ canvasContext: x, viewport: v2 }).promise;
+  return new File([await new Promise(ok => c.toBlob(ok, "image/jpeg", .92))], "muqova.jpg", { type: "image/jpeg" });
+}
+async function genCover(title, author) {
+  const W = 600, H = 864, c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
+  try { await Promise.all([document.fonts.load("700 60px Lora"), document.fonts.load("600 28px Inter")]); } catch (e) {}
+  const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#ff8a2b"); g.addColorStop(.45, "#ff6b1a"); g.addColorStop(1, "#c8380f"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = "rgba(255,255,255,.1)"; x.beginPath(); x.arc(W * .9, H * .1, 230, 0, 7); x.fill(); x.beginPath(); x.arc(W * .02, H * .98, 280, 0, 7); x.fill();
+  const sp = x.createLinearGradient(0, 0, 46, 0); sp.addColorStop(0, "rgba(0,0,0,.3)"); sp.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = sp; x.fillRect(0, 0, 46, H);
+  x.fillStyle = "rgba(255,255,255,.9)"; x.fillRect(70, 132, 64, 6);
+  const wrap = (t, f, mw) => { x.font = f; const out = []; let cur = ""; for (const w of String(t).split(/\s+/)) { const n = cur ? cur + " " + w : w; if (x.measureText(n).width > mw && cur) { out.push(cur); cur = w; } else cur = n; } if (cur) out.push(cur); return out; };
+  let fs = 80, lines; const tf = s => `700 ${s}px Lora, Georgia, serif`;
+  for (; fs > 30; fs -= 4) { lines = wrap(title, tf(fs), W - 140); x.font = tf(fs); if (lines.length <= 6 && lines.every(l => x.measureText(l).width <= W - 140)) break; }
+  x.fillStyle = "#fff"; x.textBaseline = "top"; x.font = tf(fs); lines.forEach((l, i) => x.fillText(l, 70, 168 + i * fs * 1.16));
+  if (author) { const al = wrap(author, "600 28px Inter, sans-serif", W - 140).slice(0, 2); x.fillStyle = "rgba(255,255,255,.95)"; al.forEach((l, i) => x.fillText(l, 70, H - 170 + i * 36)); }
+  x.font = "800 20px Inter, sans-serif"; x.fillStyle = "rgba(255,255,255,.7)"; x.fillText("K I T O B I M", 70, H - 78);
+  return new File([await new Promise(ok => c.toBlob(ok, "image/jpeg", .92))], "muqova.jpg", { type: "image/jpeg" });
+}
+async function aiFill(force) {
+  libRead(); if (!LE.pdf) return toast("Avval PDF yuklang");
+  if (DEMO) return toast("AI yordamchi faqat server ulangan saytda ishlaydi");
+  if (LE.ai && LE.ai.run) return;
+  const ed = LE; LE.ai = { run: true, steps: {} };
+  const local = LEPDF ? pdfInfo(LEPDF).catch(() => null) : Promise.resolve(null);
+  aiStep("read", "run", "AI kitobni o'qiyapti — kitob hajmiga qarab 1–3 daqiqa…");
+  let bk;
+  try { bk = (await aiPost("aiBook", { file: LE.pdf, genres: GENRES })).book || {}; }
+  catch (e) { LE.ai.run = false; aiStep("read", "err", e.message); return; }
+  if (LE !== ed) return;
+  const info = await local; libRead();
+  const put = (k, v) => { if (v && (force || !String(LE[k] || "").trim())) LE[k] = v; };
+  put("title", bk.title); put("author", bk.author); put("desc", bk.desc); put("summary", bk.summary);
+  if (GENRES.includes(bk.genre)) put("genre", bk.genre);
+  put("pages", String((info && info.pages) || bk.pages || ""));
+  aiStep("read", "ok", "Kitob o'qildi: ma'lumotlar va kitob mag'zi tayyor");
+  if (!LE.cover) {
+    aiStep("cover", "run", "Muqova tayyorlanmoqda…");
+    try {
+      let f = null, how = "";
+      const first = typeof bk.firstPageIsCover === "boolean" ? bk.firstPageIsCover : !!(info && info.img);
+      if (info && first) { f = await pdfCover(info.pg); how = "PDF'ning birinchi sahifasidan olindi"; }
+      if (!f) { aiStep("cover", "run", "PDF'da muqova rasmi yo'q — internetdan qidirilmoqda…");
+        const r = await aiPost("aiCover", { title: LE.title, author: LE.author, isbn: bk.isbn || "" }).catch(() => ({}));
+        if (r.file) { LE.cover = r.file; how = `internetdan topildi (${r.source})`; } }
+      if (!LE.cover && !f) { f = await genCover(LE.title || "Kitob", LE.author); how = "internetda topilmadi — Kitobim uslubida yaratildi"; }
+      if (f) LE.cover = await upOne(f, "cover");
+      aiStep("cover", "ok", "Muqova " + how);
+    } catch (e) { aiStep("cover", "err", "Muqova: " + e.message); }
+  }
+  LE.ai.run = false; drawLibEdit(); toast("AI to'ldirdi ✓ Endi “Ovozlashtirish”ni bosing");
+}
+function aiChunks(t, max = 1100) {
+  const sents = [], pieces = [], out = []; let cur = "";
+  String(t).split(/\n+/).forEach(p => { const ss = p.trim().split(/(?<=[.!?…])\s+/).filter(Boolean); ss.forEach((x, i) => sents.push(i === ss.length - 1 ? x + "\n" : x)); });
+  sents.forEach(x => { if (x.length <= max) return pieces.push(x); let c = ""; x.split(/\s+/).forEach(w => { if ((c + " " + w).length > max && c) { pieces.push(c); c = w; } else c = c ? c + " " + w : w; }); if (c) pieces.push(c); });
+  pieces.flatMap(x => x.length <= max ? [x] : x.match(new RegExp(".{1," + max + "}", "gs"))).forEach(x => { const sep = cur && !cur.endsWith("\n") ? " " : ""; if ((cur + sep + x).length > max && cur) { out.push(cur.trim()); cur = x; } else cur += sep + x; });
+  if (cur.trim()) out.push(cur.trim()); return out;
+}
+function wavParse(b64) {
+  const u = Uint8Array.from(atob(b64), c => c.charCodeAt(0)), dv = new DataView(u.buffer), tag = o => String.fromCharCode(...u.slice(o, o + 4));
+  if (tag(0) !== "RIFF") return { rate: 24000, data: u };
+  let o = 12, rate = 24000, data = null;
+  while (o + 8 <= u.length) { const id = tag(o), n = dv.getUint32(o + 4, true); if (id === "fmt ") rate = dv.getUint32(o + 12, true); if (id === "data") { data = u.slice(o + 8, Math.min(u.length, o + 8 + n)); break; } o += 8 + n + (n & 1); }
+  return { rate, data: data || u.slice(44) };
+}
+function wavBuild(parts, rate) {
+  const gap = new Uint8Array(Math.round(rate * .35) * 2), all = parts.flatMap((p, i) => i ? [gap, p] : [p]), n = all.reduce((a, p) => a + p.length, 0);
+  const b = new Uint8Array(44 + n), dv = new DataView(b.buffer), w = (o, s) => [...s].forEach((c, i) => b[o + i] = c.charCodeAt(0));
+  w(0, "RIFF"); dv.setUint32(4, 36 + n, true); w(8, "WAVE"); w(12, "fmt "); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+  dv.setUint32(24, rate, true); dv.setUint32(28, rate * 2, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); w(36, "data"); dv.setUint32(40, n, true);
+  let o = 44; all.forEach(p => { b.set(p, o); o += p.length; }); return { bytes: b, sec: n / 2 / rate };
+}
+function aiVoiceSt() {
+  const V = AIV; if (V.run) return `<div class="aist run"><i class="aispin"></i><span>${V.up ? "Audio Drive'ga yuklanmoqda…" : `Nevra ovozlashtirmoqda: ${V.i + 1}/${V.n}-bo'lak…`}</span></div>`;
+  if (V.err) return `<div class="aist err">${ic("x", 15)}<span>${esc(V.err)}</span></div>`;
+  if (V.done) return `<div class="aist ok">${ic("check", 15)}<span>Ovozlashtirildi — ${V.done}</span></div>`;
+  return "";
+}
+async function aiVoice() {
+  libRead(); const text = (LE.summary || "").trim();
+  if (text.length < 50) return toast("Avval kitob mag'zini tayyorlang");
+  if (DEMO) return toast("Ovozlashtirish faqat server ulangan saytda ishlaydi");
+  const parts = aiChunks(text), voice = LE.voice || "Charon", ed = LE, pcm = []; let rate = 24000;
+  const upd = () => { const s = $("#leVS"), b = $("#leVB"); if (s) s.innerHTML = aiVoiceSt(); if (b) b.disabled = !!AIV.run; };
+  AIV = { run: true, i: 0, n: parts.length }; upd();
+  try {
+    for (let i = 0; i < parts.length; i++) {
+      AIV.i = i; upd();
+      const r = await aiPost("aiVoice", { text: parts[i], voice });
+      const w = wavParse(r.audio); rate = w.rate; pcm.push(w.data);
+    }
+    const wv = wavBuild(pcm, rate); AIV.up = true; upd();
+    const name = (LE.title || "kitob").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "kitob";
+    const file = new File([wv.bytes], `${name}-magzi.wav`, { type: "audio/wav" });
+    const res = await upOne(file, "audio");
+    if (LE !== ed) return;
+    if (LEAUD) URL.revokeObjectURL(LEAUD); LEAUD = URL.createObjectURL(file);
+    libRead(); LE.summaryAudio = Object.assign(res, { title: "Kitob mag'zi" });
+    const m = Math.floor(wv.sec / 60), s = Math.round(wv.sec % 60);
+    AIV = { done: `${m ? m + " daq " : ""}${s} soniya` }; drawLibEdit(); toast("Ovozlashtirildi ✓");
+  } catch (e) { AIV = { err: "Ovozlashtirilmadi: " + e.message }; upd(); }
+}
+function libRead() { const v = id => ($("#" + id) || {}).value; if (!$("#leT")) return; Object.assign(LE, { title: v("leT").trim(), author: v("leA").trim(), genre: v("leG"), pages: v("leP"), desc: v("leD") });
+  if (v("leS") !== undefined) LE.summary = v("leS"); if (v("leV")) LE.voice = v("leV"); }
 function libMove(i, d) { libRead(); const a = LE.audio; [a[i], a[i + d]] = [a[i + d], a[i]]; drawLibEdit(); }
 function libLink(kind, v) {
   v = (v || "").trim(); if (!v) return toast("Havolani qo'ying");
   const m = v.match(/\/d\/([\w-]{20,})/) || v.match(/[?&]id=([\w-]{20,})/);
   const f = m ? { id: m[1], name: "Drive fayl" } : /^https?:\/\//.test(v) ? { url: v, name: v.split("/").pop().slice(0, 60) } : null;
   if (!f) return toast("Havola noto'g'ri");
-  libRead(); if (kind === "pdf") LE.pdf = f; else LE.audio.push(Object.assign(f, { title: `${LE.audio.length + 1}-qism` }));
-  drawLibEdit();
+  libRead(); if (kind === "pdf") { LE.pdf = f; LEPDF = null; } else LE.audio.push(Object.assign(f, { title: `${LE.audio.length + 1}-qism` }));
+  drawLibEdit(); if (kind === "pdf" && !DEMO) aiFill();
 }
 function libPick(kind, accept) {
   const i = document.createElement("input"); i.type = "file"; i.accept = accept; if (kind === "audio") i.multiple = true;
@@ -2638,22 +2813,26 @@ async function libUpload(kind, files) {
     for (let k = 0; k < files.length; k++) {
       const f = files[k]; if (st()) st().innerHTML = `${ic("upload", 15)} Yuklanmoqda: <b>${esc(f.name)}</b> (${fSize(f.size)})${files.length > 1 ? ` — ${k + 1}/${files.length}` : ""}… katta fayllar bir necha daqiqa olishi mumkin`;
       const res = await upOne(f, kind);
-      if (kind === "cover") LE.cover = res; else if (kind === "pdf") LE.pdf = res;
+      if (kind === "cover") LE.cover = res; else if (kind === "pdf") { LE.pdf = res; LEPDF = f; }
       else LE.audio.push(Object.assign(res, { title: f.name.replace(/\.\w+$/, "").replace(/[_-]+/g, " ").slice(0, 80) }));
     }
     if (kind === "audio") LE.audio.sort((a, b) => a.title.localeCompare(b.title, "uz", { numeric: true }));
     drawLibEdit(); toast("Yuklandi ✓");
+    if (kind === "pdf" && !DEMO) aiFill();
   } catch (e) { toast(e.message); drawLibEdit(); }
 }
 async function libSave() {
   libRead(); if (!LE.title) return toast("Kitob nomini yozing");
   if (!LE.pdf && !LE.audio.length) return toast("PDF yoki kamida bitta audio qo'shing");
-  $("#leSave").disabled = true;
-  try { const [r] = await rawCall([["adminSaveLib", { key: ADM.key, book: LE }]]); if (!r.ok) throw new Error(r.error);
+  const bs = ["#leSave", "#lePub"].map(x => $(x)).filter(Boolean); bs.forEach(x => x.disabled = true);
+  try { const book = Object.assign({}, LE); delete book.ai; delete book.voice;
+    const [r] = await rawCall([["adminSaveLib", { key: ADM.key, book }]]); if (!r.ok) throw new Error(r.error);
     ADM.lib = (ADM.lib || []).filter(x => x.id !== r.book.id).concat(r.book); setLib(ADM.lib.filter(x => x.published)); rcStale();
-    closeSheet(); ADM.tab = "lib"; vAdmin(); toast("Kutubxonaga saqlandi ✓"); }
-  catch (e) { toast(e.message); $("#leSave").disabled = false; }
+    const lost = (LE.summary || "").trim() && r.book.summary === undefined;
+    closeSheet(); ADM.tab = "lib"; vAdmin(); toast(lost ? "Diqqat: server kitob mag'zini saqlamadi — KitobimAI.gs ni ulang" : r.book.published ? "Kitob nashr etildi 🎉" : "Kutubxonaga saqlandi ✓"); return true; }
+  catch (e) { toast(e.message); bs.forEach(x => x.disabled = false); return false; }
 }
+async function libPublish() { libRead(); LE.published = true; if (!(await libSave())) { LE.published = false; drawLibEdit(); } }
 async function libDel(id) {
   if (!confirm("Kitob kutubxonadan o'chirilsinmi? (Drive'dagi fayllar o'chmaydi)")) return;
   try { const [r] = await rawCall([["adminDeleteLib", { key: ADM.key, id }]]); if (!r.ok) throw new Error(r.error); ADM.lib = ADM.lib.filter(x => x.id !== id); setLib(ADM.lib.filter(x => x.published)); closeSheet(); vAdmin(); toast("O'chirildi"); } catch (e) { toast(e.message); }
