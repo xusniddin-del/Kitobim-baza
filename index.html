@@ -2128,11 +2128,11 @@ async function render(keep) {
   const fn = pages[route.name] || (m ? vHomeM : vHome);
   setTimeout(miniPaint, 0);
   const html = fn(route.arg);
-  if (typeof html === "string") { view.innerHTML = html; if (!keep) window.scrollTo(0, 0); return; }
+  if (typeof html === "string") { view.innerHTML = html; if (!keep) window.scrollTo(0, 0); swipeIn(); return; }
   if (keep) { try { const out = await html; if (seq === renderSeq) { const y = scrollY; view.innerHTML = out; scrollTo(0, y); } } catch (e) {} return; }
   let shown = false; const sk = setTimeout(() => { if (seq === renderSeq && !shown) view.innerHTML = mtop("", true) + `<div class="skel" style="height:44px;width:40%;margin:10px 0 24px"></div><div class="skel" style="height:220px"></div><div class="skel" style="height:140px;margin-top:16px"></div>`; }, 120);
   window.scrollTo(0, 0);
-  try { const out = await html; shown = true; clearTimeout(sk); if (seq === renderSeq) { view.innerHTML = out; window.scrollTo(0, 0); } }
+  try { const out = await html; shown = true; clearTimeout(sk); if (seq === renderSeq) { view.innerHTML = out; window.scrollTo(0, 0); swipeIn(); } }
   catch (e) { shown = true; clearTimeout(sk); if (seq === renderSeq) view.innerHTML = mtop("", true) + `<div class="empty"><div class="ic">${ic("sad",44)}</div>${esc(e.message)}<br><br><button class="btn pri" onclick="render()">Qayta urinish</button></div>`; }
 }
 window.addEventListener("hashchange", () => render());
@@ -4085,6 +4085,43 @@ let wasM = isM(); addEventListener("resize", () => { if (isM() !== wasM) { wasM 
     finally { reset(); setTimeout(() => busy = false, 300); }
   });
 })();
+
+/* ---------- Chapga / o'ngga surib bo'limlar orasida o'tish ---------- */
+const TABS = ["home", "shelf", "library", "davra", "profile"];
+let SWD = 0;   // animatsiya yo'nalishi: 1 — keyingi, -1 — oldingi
+(function () {
+  let x0 = null, y0 = 0, t0 = 0, edge = false, dragging = false;
+  const skip = el => el && el.closest && el.closest(".mrow,.shelfrow,.chips,.tabs,.seg,input,textarea,select,[type=range],.lbm .podium,#mini,.ptiles,.pres,.thms");
+  const tabIdx = () => route.arg && route.name !== "davra" ? -1 : TABS.indexOf(route.name);
+  addEventListener("touchstart", e => {
+    x0 = null; if (!S.token || !isM() || e.touches.length !== 1 || $("#ov") || $("#libov") || $("#spl") || !$("#view")) return;
+    const t = e.touches[0]; edge = t.clientX < 28;
+    if (!edge && (tabIdx() < 0 || skip(e.target))) return;
+    x0 = t.clientX; y0 = t.clientY; t0 = Date.now(); dragging = false;
+  }, { passive: true });
+  addEventListener("touchmove", e => {
+    if (x0 == null) return; const t = e.touches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (!dragging) { if (Math.abs(dy) > 14 && Math.abs(dy) > Math.abs(dx)) { x0 = null; return; } if (Math.abs(dx) > 14) dragging = true; else return; }
+    const i = tabIdx(), can = edge ? dx > 0 : (dx < 0 ? i < TABS.length - 1 : i > 0);
+    const v = $("#view"); v.style.transition = "none"; v.style.transform = `translateX(${can ? dx * .35 : dx * .08}px)`; v.style.opacity = 1 - Math.min(.35, Math.abs(dx) / 900);
+  }, { passive: true });
+  addEventListener("touchend", e => {
+    if (x0 == null) return; const v = $("#view"), t = e.changedTouches[0], dx = t.clientX - x0, fast = Date.now() - t0 < 350;
+    x0 = null; if (!v) return;
+    const done = () => { v.style.transition = "transform .22s, opacity .22s"; v.style.transform = ""; v.style.opacity = ""; };
+    if (!dragging || Math.abs(dx) < (fast ? 45 : 90)) return done();
+    if (edge && route.name !== "home" && dx > 0 && (tabIdx() < 0 || route.arg)) { done(); return goBack(); }
+    const i = tabIdx(), j = i + (dx < 0 ? 1 : -1);
+    if (i < 0 || j < 0 || j >= TABS.length) return done();
+    if (navigator.vibrate) navigator.vibrate(6);
+    SWD = dx < 0 ? 1 : -1; v.style.transition = "transform .16s ease-in, opacity .16s"; v.style.transform = `translateX(${dx < 0 ? -60 : 60}px)`; v.style.opacity = 0;
+    setTimeout(() => { v.style.transition = "none"; v.style.transform = ""; v.style.opacity = ""; go("#/" + TABS[j]); }, 150);
+  });
+})();
+function swipeIn() {
+  const v = $("#view"); if (!SWD || !v) return; const d = SWD; SWD = 0;
+  v.animate([{ transform: `translateX(${d * 50}px)`, opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 230, easing: "cubic-bezier(.2,.8,.2,1)" });
+}
 /* ---------- Ilova ochilganda animatsiya ---------- */
 function splash() {
   if (!isM() || sessionStorage.getItem("kb_spl") || /^#\/admin/.test(location.hash)) return;
