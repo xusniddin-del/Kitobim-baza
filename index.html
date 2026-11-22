@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,700;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{
   --bg:#f4f4f6;--card:#fff;--soft:#f1f1f4;--ink:#16161a;--ink2:#4a4a52;--muted:#8b8b93;--line:#ececf0;
@@ -1282,6 +1282,39 @@ body.dark .pinfo.once{background:#16233f}
 .pmeth span{flex:1 1 40%;text-align:center;padding:13px 8px;border-radius:14px;background:var(--card);box-shadow:0 0 0 1.5px var(--line);font-weight:800;letter-spacing:-.02em}
 .tgauth{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 8px;margin-top:16px;padding:13px;border-radius:14px;background:#2aa3e0;color:#fff!important;font-weight:700;font-size:14.5px;text-align:center}
 .tgauth span{display:flex}.tgauth small{flex-basis:100%;font-weight:500;opacity:.85;font-size:12px}
+
+/* sertifikatlar */
+.cprog{background:var(--card);border-radius:20px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+.cprog small{color:var(--muted);font-size:13px}.cprog b{font-size:22px;display:block}
+.cprog .row>span{font-size:13.5px;color:var(--ink2);text-align:right;max-width:60%;line-height:1.35}.cprog .row>span b{font-size:inherit;display:inline;color:var(--or)}
+.cprog .pb{margin:12px 0 8px;height:8px}.cprog p{margin:0;color:var(--muted);font-size:12.5px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.ccard{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.ccard img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--soft);cursor:pointer}
+.ccard .cb{padding:12px 14px 14px}.ccard .cb b{display:block;font-size:16px}.ccard .cb small{color:var(--muted);font-size:12.5px}
+.ccard.lock .cl{aspect-ratio:3/2;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;opacity:.9}
+.ccard.lock .cl span{font-size:54px;font-weight:800;letter-spacing:-.04em;line-height:1}.ccard.lock .cl small{font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:11px;margin-top:4px}
+.ccard.t-faol .cl{background:linear-gradient(135deg,#ffd2b3,#ffb27f)}.ccard.t-dostona .cl{background:linear-gradient(135deg,#ff8a2b,#f04e1c)}
+.ccard.t-mehribon .cl{background:linear-gradient(135deg,#f7db93,#c9952e)}.ccard.t-fidoyi .cl{background:radial-gradient(circle at 70% 30%,#5a2a14,#130c09)}
+.ccard.lock{filter:saturate(.75)}
+.cpub{min-height:100vh;background:var(--bg);padding:0 16px 40px}
+.cpub-in{max-width:880px;margin:0 auto}
+.cpub-top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.cpub-top>a:first-child{display:flex;align-items:center;gap:9px;font-weight:800;font-size:24px;letter-spacing:-.04em}.cpub-top em{font-style:normal;color:var(--or)}
+.cstat{display:flex;align-items:center;gap:14px;border-radius:20px;padding:16px 18px;margin-bottom:16px}
+.cstat b{display:block;font-size:18px}.cstat small{opacity:.85;font-size:13.5px}
+.cstat.ok{background:#e9f8ec;color:#1f7a2e}.cstat.bad{background:#fdeceb;color:#c0392b}
+body.dark .cstat.ok{background:#173b20;color:#7fe08a}body.dark .cstat.bad{background:#3a1616;color:#ff8b7a}
+.cimg{display:block;width:100%;aspect-ratio:3/2;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.18);background:var(--soft)}
+.cinfo{background:var(--card);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.cinfo h2{font-size:22px}.cinfo small{color:var(--muted)}.cinfo h3{font-size:17px;margin:22px 0 10px}
+.cgrid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.cgrid3 div{background:var(--soft);border-radius:14px;padding:12px}.cgrid3 b{display:block;font-size:19px;margin-top:3px}
+.cbks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.cbk{display:flex;gap:12px;align-items:center;padding:8px;border-radius:14px;background:var(--soft)}.cbk b{display:block;font-size:14px}.cbk small{font-size:12px}
+.cfoot{text-align:center;color:var(--muted);font-size:13px;margin-top:24px}.cfoot a{color:var(--or)}
+@media (max-width:600px){.cgrid3{grid-template-columns:1fr 1fr}}
+.btn.line.on{box-shadow:inset 0 0 0 2px var(--or);color:var(--or)}
 </style>
 </head>
 <body>
@@ -1293,7 +1326,14 @@ body.dark .pinfo.once{background:#16233f}
    (haqiqiy server) ishlaydi. db = {users, books, posts, follows}
    ============================================================ */
 var KitobimCore = (function () {
-  var TABLES = ["users", "books", "posts", "follows", "media", "library", "payments", "promos"];
+  var TABLES = ["users", "books", "posts", "follows", "media", "library", "payments", "promos", "certs"];
+  /* Sertifikat darajalari: faol kunlar soni (ilovaga kirgan yoki kitob o'qigan kunlar) */
+  var CERTS = [
+    { id: "faol", days: 30, name: "Faol kitobxon", sub: "1 oy faol kitobxonlik uchun" },
+    { id: "dostona", days: 90, name: "Do'stona", sub: "3 oy faol kitobxonlik uchun" },
+    { id: "mehribon", days: 180, name: "Oltin Mehribon", sub: "6 oy faol kitobxonlik uchun" },
+    { id: "fidoyi", days: 365, name: "Fidoyi", sub: "1 yil faol kitobxonlik uchun" }];
+  var DAY_BALL = 2;   // har bir faol kun uchun ball
   var PLANS = { month: { days: 30, sum: 19000, name: "Oylik" }, year: { days: 365, sum: 149000, name: "Yillik" } };
   var MILESTONES = [[1, 10], [3, 30], [7, 70], [14, 150], [30, 300], [60, 600], [100, 1000], [365, 5000]];
 
@@ -1331,6 +1371,34 @@ var KitobimCore = (function () {
     return best;
   }
   function pagesRead(b) { return b.status === "done" ? int(b.pages) : b.status === "reading" ? int(b.current) : 0; }
+  /* Kunlik faollik: kuniga bir marta hisoblanadi */
+  function touchDay(u, today) {
+    var d = today || now().slice(0, 10);
+    if (u.actLast !== d) { u.act = (parseInt(u.act, 10) || 0) + 1; u.actLast = d; return true; }
+    return false;
+  }
+  function certNo(db) {
+    var y = now().slice(0, 4), mx = 0;
+    (db.certs || []).forEach(function (c) { var m = String(c.id).match(/-(\d+)$/); if (m) mx = Math.max(mx, parseInt(m[1], 10)); });
+    return "KTB-" + y + "-" + ("00000" + (mx + 1)).slice(-6);
+  }
+  function issueCert(db, u, tier, by) {
+    var t = CERTS.filter(function (x) { return x.id === tier; })[0]; if (!t) fail("Sertifikat turi noto'g'ri");
+    var has = (db.certs || []).filter(function (c) { return c.userId === u.id && c.tier === tier && !c.revoked; })[0];
+    if (has) return has;
+    var c = { id: certNo(db), userId: u.id, tier: tier, name: u.name, issuedAt: now(), by: by || "auto", act: parseInt(u.act, 10) || 0 };
+    db.certs.push(c); return c;
+  }
+  /* Faol kunlar yetganda sertifikatlarni avtomatik beradi; yangi berilganlar ro'yxatini qaytaradi */
+  function ensureCerts(db, u) {
+    var out = [], a = parseInt(u.act, 10) || 0;
+    CERTS.forEach(function (t) {
+      if (a < t.days) return;
+      var had = db.certs.some(function (c) { return c.userId === u.id && c.tier === t.id; });   // bekor qilingani ham qayta berilmaydi
+      if (!had) out.push(issueCert(db, u, t.id, "auto"));
+    });
+    return out;
+  }
   function stats(db, uid, today) {
     var bs = db.books.filter(function (b) { return b.userId === uid; });
     var m = dayMap(bs), week = 0, i;
@@ -1340,13 +1408,15 @@ var KitobimCore = (function () {
     var posts = db.posts.filter(function (p) { return p.userId === uid; }).length;
     var best = bestStreak(m), bonus = 0;
     MILESTONES.forEach(function (ms) { if (best >= ms[0]) bonus += ms[1]; });
+    var uu = (db.users || []).filter(function (x) { return x.id === uid; })[0], act = uu ? parseInt(uu.act, 10) || 0 : 0;
+    bonus += act * DAY_BALL;
     var vals = Object.keys(m).map(function (k) { return m[k]; }).filter(function (v) { return v > 0; });
     var reading = bs.filter(function (b) { return b.status === "reading"; });
     return {
       done: done, reading: reading.length, plan: bs.filter(function (b) { return b.status === "plan"; }).length,
       pages: pages, week: week, today: m[today] || 0, streak: streakOf(m, today), best: best, posts: posts,
       record: vals.length ? Math.max.apply(null, vals) : 0, avg: vals.length ? Math.round(vals.reduce(function (a, b) { return a + b; }, 0) / vals.length) : 0,
-      ball: pages + done * 50 + posts * 5 + bonus, days: m,
+      ball: pages + done * 50 + posts * 5 + bonus, days: m, act: act,
       current: reading.map(function (b) { return { title: b.title, current: int(b.current), pages: int(b.pages) }; })
     };
   }
@@ -1364,9 +1434,10 @@ var KitobimCore = (function () {
   }
   function self(db, u, today) {
     var p = pub(db, u, today);
-    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || ""; p.premiumUntil = u.premiumUntil || ""; p.tg = !!u.tg;
+    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || ""; p.premiumUntil = u.premiumUntil || ""; p.tg = !!u.tg; p.act = parseInt(u.act, 10) || 0;
     return {
       payments: (db.payments || []).filter(function (x) { return x.userId === u.id; }).slice(-8).reverse(),
+      certs: (db.certs || []).filter(function (c) { return c.userId === u.id && !c.revoked; }),
       user: p, stats: stats(db, u.id, today),
       books: db.books.filter(function (b) { return b.userId === u.id; }),
       following: db.follows.filter(function (f) { return f.a === u.id; }).map(function (f) { return f.b; })
@@ -1417,7 +1488,7 @@ var KitobimCore = (function () {
   function me(db, req) {
     var u = db.users.filter(function (x) { return x.token && x.token === req.token; })[0];
     if (!u) fail("Iltimos, akkauntingizga qayta kiring");
-    u.lastActive = now();
+    u.lastActive = now(); touchDay(u, req.today);
     return u;
   }
   var H = {
@@ -1615,6 +1686,33 @@ var KitobimCore = (function () {
         .sort(function (a, b) { return (b.createdAt || "") < (a.createdAt || "") ? -1 : 1; });
       return { touched: isAdm ? [] : ["users"], res: { library: list } };
     },
+    myCerts: function (db, r) {
+      var u = me(db, r), fresh = ensureCerts(db, u);
+      return { touched: ["certs", "users"], res: { fresh: fresh, me: self(db, u, r.today) } };
+    },
+    certVerify: function (db, r) {
+      var id = clean(r.id, 30).toUpperCase(), c = db.certs.filter(function (x) { return x.id === id; })[0];
+      if (!c) return { touched: [], res: { found: false } };
+      var u = db.users.filter(function (x) { return x.id === c.userId; })[0], t = CERTS.filter(function (x) { return x.id === c.tier; })[0] || {};
+      var out = { found: true, cert: { id: c.id, tier: c.tier, title: t.name, sub: t.sub, name: c.name, issuedAt: c.issuedAt, by: c.by, revoked: !!c.revoked, act: c.act } };
+      if (u) {
+        var st = stats(db, u.id, r.today), hide = !!u.private;
+        out.user = { name: u.name, username: u.username, createdAt: u.createdAt, region: u.region || "", avatar: u.avatar || "", color: u.color || 0, act: parseInt(u.act, 10) || 0,
+          done: st.done, pages: st.pages, best: st.best, ball: st.ball, private: hide,
+          books: hide ? [] : db.books.filter(function (b) { return b.userId === u.id && b.status === "done"; }).sort(function (a, b) { return (b.end || "") < (a.end || "") ? -1 : 1; }).slice(0, 60).map(function (b) { return { title: b.title, author: b.author || "", end: b.end || "", rating: b.rating || 0 }; }),
+          reading: hide ? [] : st.current.slice(0, 5) };
+      }
+      return { touched: [], res: out };
+    },
+    adminCert: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      if (r.sync) { var fr = []; db.users.forEach(function (u) { fr = fr.concat(ensureCerts(db, u)); }); return { touched: ["certs"], res: { issued: fr.length, fresh: fr } }; }
+      if (r.revoke) { var c = db.certs.filter(function (x) { return x.id === r.id; })[0]; if (!c) fail("Sertifikat topilmadi"); c.revoked = !r.restore; return { touched: ["certs"], res: { cert: c } }; }
+      var u = db.users.filter(function (x) { return x.id === r.userId; })[0]; if (!u) fail("Foydalanuvchi topilmadi");
+      var old = db.certs.filter(function (x) { return x.userId === u.id && x.tier === r.tier && x.revoked; })[0]; if (old) old.revoked = false;
+      var cert = old || issueCert(db, u, r.tier, "admin");
+      return { touched: ["certs"], res: { cert: cert } };
+    },
     payRequest: function (db, r) {
       var u = me(db, r), kind = r.kind === "donat" ? "donat" : "plan", plan = PLANS[r.plan] ? r.plan : "", sum;
       if (kind === "plan") { if (!plan) fail("Tarifni tanlang"); sum = PLANS[plan].sum; }
@@ -1704,10 +1802,10 @@ var KitobimCore = (function () {
       db.posts.forEach(function (p) { var x = byDay[String(p.createdAt || "").slice(0, 10)]; if (x) x.posts++; });
       daily.forEach(function (x) { x.active = Object.keys(x.active).length; });
       var recent = db.posts.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 40).map(function (p) { return postView(db, p, "", r.today); });
-      var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || ""; p.premiumUntil = x.premiumUntil || ""; p.plan = x.plan || ""; p.tg = !!x.tg;
+      var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || ""; p.premiumUntil = x.premiumUntil || ""; p.plan = x.plan || ""; p.tg = !!x.tg; p.act = parseInt(x.act, 10) || 0;
         p.current = s.current; p.plan = s.plan; p.reading = s.reading; return p; });
       var payments = db.payments.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 400);
-      return { touched: [], res: { payments: payments, promos: db.promos, users: users, books: db.books.map(function (b) { var o = publicBook(b); o.userId = b.userId; return o; }),
+      return { touched: [], res: { certs: db.certs.slice().reverse(), payments: payments, promos: db.promos, users: users, books: db.books.map(function (b) { var o = publicBook(b); o.userId = b.userId; return o; }),
         posts: db.posts.length, daily: daily, recent: recent, catalogAll: aggregate(db).map(function (a) { a.users = a.users.length; return a; }), catalog: aggregate(db).map(function (a) { a.users = a.users.length; return a; }).sort(function (a, b) { return b.readers - a.readers; }).slice(0, 20) } };
     }
   };
@@ -1725,7 +1823,7 @@ var KitobimCore = (function () {
       return { result: { ok: false, error: e.userMessage || ("Server xatosi: " + e.message) }, touched: [] };
     }
   }
-  return { handle: handle, stats: stats, isPrem: isPrem, extendPrem: extendPrem, normPhone: normPhone, PLANS: PLANS, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
+  return { handle: handle, stats: stats, isPrem: isPrem, extendPrem: extendPrem, touchDay: touchDay, ensureCerts: ensureCerts, CERTS: CERTS, normPhone: normPhone, PLANS: PLANS, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
 })();
 if (typeof module !== "undefined") module.exports = KitobimCore;
 
@@ -2112,6 +2210,7 @@ async function render(keep) {
   route = { name: h[0] || "home", arg: decodeURIComponent(h.slice(1).join("/") || "") };
   applyTheme();
   closeSheet();
+  if (route.name === "cert") return vCertPublic(route.arg);
   if (route.name === "terms" && !S.token) { $("#app").innerHTML = `<div style="padding:30px 20px;max-width:880px;margin:auto">${vTerms()}</div>`; return; }
   if (route.name === "admin") { $("#app").innerHTML = ""; return vAdmin(); }
   document.body.classList.remove("admbody");
@@ -2733,13 +2832,13 @@ async function vProfile(id) {
   const uid = own ? S.me.user.id : id;
   const [r, f] = await apiMany([["user", { userId: uid }], ["feed", { userId: uid, limit: 30 }]]);
   const u = r.user, st = r.stats;
-  const tabsHTML = `<div class="tabs" style="margin-top:20px"><button class="${profTab === "posts" ? "on" : ""}" onclick="profTab='posts';render()">Fikrlar</button><button class="${profTab === "shelf" ? "on" : ""}" onclick="profTab='shelf';render()">Javon</button></div>`;
+  const tabsHTML = `<div class="tabs" style="margin-top:20px"><button class="${profTab === "posts" ? "on" : ""}" onclick="profTab='posts';render()">Fikrlar</button><button class="${profTab === "shelf" ? "on" : ""}" onclick="profTab='shelf';render()">Javon</button>${own ? `<button class="${profTab === "certs" ? "on" : ""}" onclick="profTab='certs';render()">Sertifikatlar</button>` : ""}</div>`;
   const shelfHTML = !r.books.length ? `<div class="empty">Javon hali bo'sh</div>` :
     ["reading", "done", "plan"].map(s => { const L = r.books.filter(b => b.status === s); return L.length ? `<h3 style="margin:18px 0 10px;font-size:16px">${{ reading: ic("book",17) + " O'qiyapti", done: ic("check",17) + " O'qib bo'lgan", plan: ic("cal",17) + " Rejada" }[s]} <span class="muted">${L.length}</span></h3><div class="shelfrow">${L.map(b => tile(b)).join("")}</div>` : ""; }).join("");
   const body = r.hidden ? `<div class="empty"><div class="ic">${ic("lock",44)}</div>Bu profil yopiq</div>` : `
     <div class="sts"><div><small>Ball balansi</small><b class="row" style="gap:8px"><span class="sic" style="color:#f2a20f">${ic("coin",22)}</span>${num(u.ball)}</b></div><div><small>O'qilgan betlar</small><b class="row" style="gap:8px"><span class="sic" style="color:var(--or)">${ic("book",22)}</span>${num(st.pages)}</b></div><div><small>Oxirgi 7 kun</small><b class="row" style="gap:8px"><span class="sic" style="color:var(--blue)">${ic("cal",22)}</span>${st.week} bet</b></div></div>
     ${own ? `<div class="prem-strip" onclick="go('#/premium')"><div><b>${APP_NAME} Premium</b><small>O'zingiz uchun premium imkoniyatlarni kashf eting</small></div><span>Premium ›</span></div>` : ""}
-    ${tabsHTML}${profTab === "shelf" ? shelfHTML : (own ? `<div class="composer" onclick="openComposer()" style="cursor:text"><div class="row">${ava(u, 40)}<span class="muted">Fikringizni yozing…</span></div></div>` : "") + (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q</div>`)}`;
+    ${tabsHTML}${profTab === "certs" && own ? certsTab() : profTab === "shelf" ? shelfHTML : (own ? `<div class="composer" onclick="openComposer()" style="cursor:text"><div class="row">${ava(u, 40)}<span class="muted">Fikringizni yozing…</span></div></div>` : "") + (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q</div>`)}`;
   const main = `<div><div class="pcover" ${r.banner ? `style="background-image:url('${r.banner}')"` : ""}>${own ? `<button class="camb" onclick="pickImage('banner')">${ic("cam", 17)}<span>${r.banner ? "Bannerni o'zgartirish" : "Banner qo'shish"}</span></button>` : ""}</div>
     <div class="phead"><div class="pava">${ava(u, 128)}${own ? `<button class="camav" onclick="pickImage('avatar')" title="Rasm yuklash">${ic("cam", 18)}</button>` : ""}</div><div class="row pbtns" style="padding-bottom:8px">${own ? `<button class="btn ghost" onclick="openPersonal()">${ic("edit", 16)}<span>Profilni tahrirlash</span></button><button class="ibtn mob" onclick="go('#/settings')">${I.gear}</button>` : `<button class="btn ${r.iFollow ? "ghost" : "pri"}" onclick="follow('${u.id}')">${r.iFollow ? "Davradasiz ✓" : r.followsMe ? "+ Javoban davraga" : "+ Davraga qo'shish"}</button>`}
       <button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
@@ -3023,7 +3122,7 @@ async function vAdmin() {
   const table = list => `<div class="tblw"><table class="atbl"><tr><th>Kitobxon</th><th class="hm">Telefon</th><th>Hozir o'qiyapti</th><th>O'qigan</th><th class="hm">7 kun (bet)</th><th class="hm">Seriya</th><th class="hm">Faollik</th><th class="hm"></th></tr>${list.map(row).join("")}</table>${!list.length ? `<div class="aempty">Kitobxon topilmadi</div>` : ""}</div>`;
   const topKey = { readers: "readers", reading: "readingNow", done: "done" }[ADM.top];
   const tops = d.catalogAll.slice().sort((a, b) => b[topKey] - a[topKey] || b.readers - a.readers).filter(x => x[topKey] > 0).slice(0, 5);
-  const nav = [["dash", "Boshqaruv", "chart"], ["prem", "Premium va to'lovlar", "crown"], ["lib", "Kutubxona", "headph"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
+  const nav = [["dash", "Boshqaruv", "chart"], ["prem", "Premium va to'lovlar", "crown"], ["certs", "Sertifikatlar", "trophy"], ["lib", "Kutubxona", "headph"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
   const pendN = (d.payments || []).filter(p => p.status === "pending").length;
   let body = "";
   if (ADM.tab === "dash") body = `
@@ -3050,6 +3149,7 @@ async function vAdmin() {
         <div class="alist">${tops.length ? tops.map(b => `<div class="ali">${cover(b, "xs")}<div class="in"><b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small></div><div class="vr"><b>${b[topKey]}</b><small>kitobxon</small></div><span class="mu">${I.ch}</span></div>`).join("") : `<div class="aempty">Hali ma'lumot yo'q</div>`}</div></div>
     </div>
     <div class="acard" style="margin-top:18px"><div class="row between"><h3>So'nggi faol kitobxonlar</h3><button class="apill" onclick="ADM.tab='users';vAdmin()">Barchasi ${I.ch}</button></div>${table(users.slice(0, 6))}</div>`;
+  else if (ADM.tab === "certs") body = d.certs ? admCertTab(d, q) : `<div class="acard">${ic("refresh", 16)} Sertifikatlar uchun serverdagi Code.gs ni yangilang (Deploy → New version).</div>`;
   else if (ADM.tab === "prem") body = d.payments ? admPremTab(d, q) : `<div class="acard">${ic("refresh", 16)} Premium bo'limi uchun serverdagi Code.gs ni yangi versiyaga yangilang (Deploy → New version).</div>`;
   else if (ADM.tab === "users") body = `<div class="ahd"><div><small>${d.users.length} ta kitobxon</small><h2>Kitobxonlar</h2></div>
       <div class="row" style="gap:8px;flex-wrap:wrap">${[["active", "Faollik"], ["week", "7 kun"], ["ball", "Ball"], ["done", "O'qigan"]].map(([k, n]) => `<button class="apill ${ADM.sort === k ? "on" : ""}" onclick="ADM.sort='${k}';vAdmin()">${n}</button>`).join("")}<button class="apill" onclick="admCSV()">${ic("download", 15)} Excel</button></div></div>
@@ -3728,13 +3828,13 @@ async function vProfileM() {
   const uid = S.me.user.id;
   const [r, f, lb] = await apiMany([["user", { userId: uid }], ["feed", { userId: uid, limit: 30 }], ["leaderboard", { limit: 1 }]]);
   const u = r.user, st = r.stats, me = S.me.user;
-  const tab = ["posts", "shelf", "stats"].includes(profTab) ? profTab : "posts";
+  const tab = ["posts", "shelf", "stats", "certs"].includes(profTab) ? profTab : "posts";
   const shelf = !r.books.length ? `<div class="empty">Javon hali bo'sh</div>` : ["reading", "done", "plan"].map(s => { const L = r.books.filter(b => b.status === s); return L.length ? msec(`${{ reading: "O'qiyapman", done: "O'qib bo'lganlarim", plan: "Rejada" }[s]} <span class="muted">${L.length}</span>`, "#/shelf/" + s, L.map(b => mtile(Object.assign({}, b, myBooks().find(x => x.id === b.id) || {}), true)).join("")) : ""; }).join("");
   const sm = S.me.stats, gl = Object.keys(sm.days || {}).length;
   const statsT = `<div class="sgrid"><div><small>O'qilgan betlar</small><b>${num(st.pages)}</b></div><div><small>Tugatilgan kitoblar</small><b>${st.done}</b></div><div><small>Eng uzun seriya</small><b>${st.best} kun</b></div><div><small>Kunlik rekord</small><b>${st.record} bet</b></div><div><small>O'rtacha kuniga</small><b>${st.avg} bet</b></div><div><small>Faol kunlar</small><b>${gl}</b></div></div>`;
-  const tabs = `<div class="tabs mtabs" style="margin-top:22px">${[["posts", "Fikrlar"], ["shelf", "Javon"], ["stats", "Statistika"]].map(([k, t]) => `<button class="${tab === k ? "on" : ""}" onclick="profTab='${k}';render(true)">${t}</button>`).join("")}</div>`;
+  const tabs = `<div class="tabs mtabs" style="margin-top:22px">${[["posts", "Fikrlar"], ["certs", "Sertifikatlar"], ["shelf", "Javon"], ["stats", "Statistika"]].map(([k, t]) => `<button class="${tab === k ? "on" : ""}" onclick="profTab='${k}';render(true)">${t}</button>`).join("")}</div>`;
   const statsLock = `<div class="card empty" style="margin:0 16px"><div class="ic" style="color:var(--or)">${ic("chart", 40)}</div><b style="color:var(--ink)">Kengaytirilgan statistika</b><br>O'qish rekordlaringiz, o'rtacha tezlik va faol kunlaringiz — Premiumda.<br><br><button class="btn pri sm" onclick="go('#/premium')">Premiumni ko'rish</button></div>`;
-  const body = tab === "shelf" ? shelf : tab === "stats" ? (isPremU() ? statsT : statsLock) : (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q<br><br><button class="btn pri sm" onclick="openComposer()">Fikr yozish</button></div>`);
+  const body = tab === "certs" ? `<div style="margin:0 16px">${certsTab()}</div>` : tab === "shelf" ? shelf : tab === "stats" ? (isPremU() ? statsT : statsLock) : (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q<br><br><button class="btn pri sm" onclick="openComposer()">Fikr yozish</button></div>`);
   return `<div class="pm"><div class="pm-cv" ${r.banner ? `style="background-image:url('${r.banner}')"` : ""}><button class="pm-menu" onclick="go('#/menu')" title="Menyu">☰</button></div>
     <div class="pm-hd"><div class="pm-av" onclick="pickImage('avatar')">${ava(u, 104)}</div><div class="r"><button class="btn ghost" onclick="go('#/personal')">Profilni tahrirlash</button><button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
     <h1 class="pm-n">${esc(u.name)}${crownB(u)}</h1><div class="pm-id">@${esc(u.username)}${me.region ? ` <span>|</span> ${esc(me.region)}` : ""}</div>
@@ -4108,6 +4208,214 @@ let wasM = isM(); addEventListener("resize", () => { if (isM() !== wasM) { wasM 
     finally { reset(); setTimeout(() => busy = false, 300); }
   });
 })();
+
+
+/* =====================================================================
+   SERTIFIKATLAR: chizish (30×20 sm), QR, PDF, profil bo'limi, tekshirish sahifasi
+   Brendbuk: Inter (ExtraBold — sarlavha), Lora (kitob va iqtiboslar), to'q sariq #FF6B1A
+   ===================================================================== */
+const CERT_T = {
+  faol:     { bg: ["#FFFFFF", "#FFF1E8"], ink: "#16161A", mut: "#8B8B93", acc: "#FF6B1A", metal: ["#FFB066", "#FF6B1A", "#F04E1C"], frame: "rgba(255,107,26,.38)", logo: "light", wm: "rgba(255,107,26,.06)", qr: "#16161A", glow: "rgba(255,138,43,.16)" },
+  dostona:  { bg: ["#FF8A2B", "#F04E1C"], ink: "#FFFFFF", mut: "rgba(255,255,255,.82)", acc: "#FFF1E8", metal: ["#FFFFFF", "#FFF1E8", "#FFD9C2"], frame: "rgba(255,255,255,.55)", logo: "orange", wm: "rgba(255,255,255,.08)", qr: "#16161A", glow: "rgba(255,255,255,.14)", medalInk: "#F04E1C" },
+  mehribon: { bg: ["#FFFBF2", "#F8EBD2"], ink: "#2A1E0E", mut: "#8A785A", acc: "#B9862A", metal: ["#F7DB93", "#D9A441", "#9C6B12"], frame: "rgba(185,134,42,.5)", logo: "light", wm: "rgba(185,134,42,.07)", qr: "#2A1E0E", glow: "rgba(217,164,65,.18)" },
+  fidoyi:   { bg: ["#1E120C", "#130C09"], ink: "#FFFFFF", mut: "rgba(255,255,255,.62)", acc: "#F2C46B", metal: ["#FCE3A4", "#E0A94A", "#A8721A"], frame: "rgba(242,196,107,.55)", logo: "dark", wm: "rgba(255,107,26,.09)", qr: "#130C09", glow: "rgba(255,107,26,.32)" }
+};
+const CERT_ORDER = KitobimCore.CERTS.map(t => t.id);
+const certTier = id => KitobimCore.CERTS.find(t => t.id === id) || KitobimCore.CERTS[0];
+const certUrl = id => location.origin + location.pathname + "#/cert/" + encodeURIComponent(id);
+const MONTHS_G = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"];
+const fdLong = s => { const d = new Date(s); return `${d.getDate()}-${MONTHS_G[d.getMonth()]} ${d.getFullYear()}-yil`; };
+
+let QRLIB = null;
+function qrLib() {
+  if (window.qrcode) return Promise.resolve(window.qrcode);
+  if (!QRLIB) QRLIB = new Promise((ok, no) => { const s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"; s.onload = () => ok(window.qrcode); s.onerror = () => { QRLIB = null; no(new Error("QR kutubxonasi yuklanmadi")); }; document.head.appendChild(s); });
+  return QRLIB;
+}
+function rr(x, c, y, w, h, r) { x.beginPath(); x.moveTo(c + r, y); x.arcTo(c + w, y, c + w, y + h, r); x.arcTo(c + w, y + h, c, y + h, r); x.arcTo(c, y + h, c, y, r); x.arcTo(c, y, c + w, y, r); x.closePath(); }
+/* Logo belgisi (brendbuk: 100×100, radius 23) */
+function drawMark(x, X, Y, S, v) {
+  const sq = v === "orange" ? "#FFFFFF" : null, k = S / 100;
+  x.save(); x.translate(X, Y); x.scale(k, k);
+  if (sq) x.fillStyle = sq; else { const g = x.createLinearGradient(0, 0, 100, 100); g.addColorStop(0, "#FF8A2B"); g.addColorStop(.5, "#FF6B1A"); g.addColorStop(1, "#F04E1C"); x.fillStyle = g; }
+  rr(x, 0, 0, 100, 100, 23); x.fill();
+  x.fillStyle = v === "orange" ? "#FF6B1A" : "#FFFFFF"; x.fill(new Path2D("M25 14H41V86L33 78.5L25 86Z"));
+  x.fillStyle = "#16161A"; x.fill(new Path2D("M41 67C50 50 62 41 78 37V52.5C67 55.5 59 60.5 54.5 67C60 71 68 77.5 76.5 86H59C55 79 49 72.5 41 69Z"));
+  x.restore();
+}
+function drawLogo(x, X, Y, H, v) {
+  drawMark(x, X, Y, H, v);
+  x.save(); x.font = `800 ${H * .74}px Inter, sans-serif`; x.letterSpacing = `${-H * .74 * .035}px`; x.textBaseline = "middle";
+  const tx = X + H * 1.22, ty = Y + H * .53, a = v === "light" ? "#16161A" : "#FFFFFF";
+  x.fillStyle = a; x.fillText("kitob", tx, ty); const w = x.measureText("kitob").width;
+  x.fillStyle = v === "orange" ? "#FFFFFF" : "#FF6B1A"; x.fillText("im", tx + w, ty); x.restore();
+}
+function fitFont(x, text, weight, max, min, fam, width) { let s = max; for (; s > min; s -= 4) { x.font = `${weight} ${s}px ${fam}`; if (x.measureText(text).width <= width) break; } return s; }
+function wrapLines(x, text, width) { const out = []; let cur = ""; String(text).split(/\s+/).forEach(w => { const n = cur ? cur + " " + w : w; if (x.measureText(n).width > width && cur) { out.push(cur); cur = w; } else cur = n; }); if (cur) out.push(cur); return out; }
+
+/* d = { cert:{id,tier,name,issuedAt,act}, user:{done,pages,act} }  →  canvas 3000×2000 (30×20 sm, 254 dpi) */
+async function drawCert(d, scale = 1) {
+  const W = 3000, H = 2000, c = document.createElement("canvas"); c.width = W * scale; c.height = H * scale;
+  const x = c.getContext("2d"); x.scale(scale, scale);
+  try { await Promise.all(["800 100px Inter", "600 40px Inter", "500 40px Inter", "700 100px Lora"].map(f => document.fonts.load(f))); } catch (e) {}
+  const C = d.cert, P = CERT_T[C.tier] || CERT_T.faol, T = certTier(C.tier), U = d.user || {}, act = Math.max(U.act || 0, C.act || 0);
+  /* fon */
+  const bg = x.createLinearGradient(0, 0, W, H); bg.addColorStop(0, P.bg[0]); bg.addColorStop(1, P.bg[1]); x.fillStyle = bg; x.fillRect(0, 0, W, H);
+  const gl = x.createRadialGradient(W * .82, H * .28, 0, W * .82, H * .28, 1200); gl.addColorStop(0, P.glow); gl.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = gl; x.fillRect(0, 0, W, H);
+  if (C.tier === "fidoyi") { const g2 = x.createRadialGradient(W * .05, H * 1.05, 0, W * .05, H * 1.05, 1100); g2.addColorStop(0, "rgba(240,78,28,.28)"); g2.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = g2; x.fillRect(0, 0, W, H); }
+  /* xatcho'p suv belgisi (brend elementi) */
+  x.save(); x.fillStyle = P.wm; x.translate(1980, -120); x.scale(15, 15); x.fill(new Path2D("M25 14H41V86L33 78.5L25 86Z")); x.fill(new Path2D("M41 67C50 50 62 41 78 37V52.5C67 55.5 59 60.5 54.5 67C60 71 68 77.5 76.5 86H59C55 79 49 72.5 41 69Z")); x.restore();
+  /* ramka */
+  x.strokeStyle = P.frame; x.lineWidth = 6; rr(x, 70, 70, W - 140, H - 140, 46); x.stroke();
+  x.lineWidth = 2; rr(x, 100, 100, W - 200, H - 200, 32); x.stroke();
+  [[100, 100], [W - 100, 100], [100, H - 100], [W - 100, H - 100]].forEach(([a, b]) => { x.fillStyle = P.acc; x.beginPath(); x.arc(a, b, 9, 0, 7); x.fill(); });
+  /* logo va raqam */
+  drawLogo(x, 190, 190, 130, P.logo);
+  x.textAlign = "right"; x.textBaseline = "alphabetic"; x.fillStyle = P.mut; x.font = "600 38px Inter, sans-serif"; x.letterSpacing = "4px";
+  x.fillText("SERTIFIKAT RAQAMI", W - 190, 238); x.fillStyle = P.ink; x.font = "800 52px Inter, sans-serif"; x.letterSpacing = "2px"; x.fillText("№ " + C.id, W - 190, 305);
+  x.textAlign = "left";
+  /* sarlavha */
+  const L = 190; let y = 560;
+  x.fillStyle = P.acc; x.font = "800 50px Inter, sans-serif"; x.letterSpacing = "18px"; x.fillText("SERTIFIKAT", L, y);
+  x.letterSpacing = "0px"; y += 175; x.fillStyle = P.ink; x.font = `700 ${fitFont(x, T.name, 700, 170, 100, "Lora, Georgia, serif", 1900)}px Lora, Georgia, serif`; x.fillText(T.name, L, y);
+  y += 85; x.fillStyle = P.mut; x.font = "600 48px Inter, sans-serif"; x.fillText(T.sub, L, y);
+  y += 150; x.font = "500 46px Inter, sans-serif"; x.fillText("Ushbu sertifikat taqdim etiladi:", L, y);
+  y += 160; x.fillStyle = P.ink; const nm = C.name || U.name || "Kitobxon"; x.font = `800 ${fitFont(x, nm, 800, 150, 80, "Inter, sans-serif", 1850)}px Inter, sans-serif`; x.letterSpacing = "-3px"; x.fillText(nm, L, y); x.letterSpacing = "0px";
+  y += 46; const ug = x.createLinearGradient(L, 0, L + 260, 0); ug.addColorStop(0, P.metal[1]); ug.addColorStop(1, P.metal[2]); x.fillStyle = ug; rr(x, L, y, 260, 12, 6); x.fill();
+  y += 110; x.fillStyle = P.mut; x.font = "500 44px Inter, sans-serif";
+  wrapLines(x, `Kitobim ilovasida ${act} kun faol bo'lib, kitob o'qishni kundalik odatga aylantirgani va kitobxonlar davrasiga qo'shgan hissasi uchun.`, 1720).slice(0, 3).forEach((ln, i) => x.fillText(ln, L, y + i * 64));
+  /* medal */
+  const MX = 2400, MY = 820, R = 320, mg = x.createLinearGradient(MX - R, MY - R, MX + R, MY + R); P.metal.forEach((col, i) => mg.addColorStop(i / 2, col));
+  x.save(); x.shadowColor = "rgba(0,0,0,.22)"; x.shadowBlur = 60; x.shadowOffsetY = 26;
+  [[-1, -.32], [1, .32]].forEach(([s, rot]) => { x.save(); x.translate(MX + s * 120, MY + 200); x.rotate(rot); x.fillStyle = mg; x.beginPath(); x.moveTo(-80, 0); x.lineTo(80, 0); x.lineTo(80, 300); x.lineTo(0, 240); x.lineTo(-80, 300); x.closePath(); x.fill(); x.restore(); });
+  x.fillStyle = mg; x.beginPath(); x.arc(MX, MY, R, 0, 7); x.fill(); x.restore();
+  x.fillStyle = C.tier === "fidoyi" ? "#1E120C" : C.tier === "dostona" ? "#FFFFFF" : "#FFFFFF"; x.beginPath(); x.arc(MX, MY, R - 46, 0, 7); x.fill();
+  x.strokeStyle = mg; x.lineWidth = 5; x.setLineDash([2, 22]); x.lineCap = "round"; x.beginPath(); x.arc(MX, MY, R - 78, 0, 7); x.stroke(); x.setLineDash([]);
+  const mInk = C.tier === "fidoyi" ? "#F2C46B" : C.tier === "mehribon" ? "#9C6B12" : "#F04E1C";
+  drawMark(x, MX - 52, MY - 205, 104, "light");
+  x.textAlign = "center"; x.fillStyle = mInk; x.font = "800 190px Inter, sans-serif"; x.letterSpacing = "-6px"; x.fillText(String(T.days), MX, MY + 95); x.letterSpacing = "10px";
+  x.font = "800 46px Inter, sans-serif"; x.fillStyle = C.tier === "fidoyi" ? "#FFFFFF" : "#16161A"; x.fillText("FAOL KUN", MX + 5, MY + 175); x.letterSpacing = "0px"; x.textAlign = "left";
+  /* statistika */
+  const sy = 1655; [["Faol kunlar", num(act)], ["O'qilgan kitoblar", num(U.done || 0)], ["O'qilgan betlar", num(U.pages || 0)]].forEach(([l, v], i) => {
+    const sx = L + i * 470; if (i) { x.fillStyle = P.frame; x.fillRect(sx - 40, sy - 110, 3, 140); }
+    x.fillStyle = P.mut; x.font = "600 38px Inter, sans-serif"; x.fillText(l, sx, sy - 70); x.fillStyle = P.ink; x.font = "800 78px Inter, sans-serif"; x.fillText(v, sx, sy + 15);
+  });
+  /* imzo va sana */
+  const SX = 1660; x.strokeStyle = P.mut; x.lineWidth = 3; x.beginPath(); x.moveTo(SX, sy - 20); x.lineTo(SX + 480, sy - 20); x.stroke();
+  x.fillStyle = P.ink; x.font = "italic 700 64px Lora, Georgia, serif"; x.fillText("Kitobim", SX + 40, sy - 45);
+  x.fillStyle = P.mut; x.font = "600 36px Inter, sans-serif"; x.fillText("Kitobim jamoasi", SX, sy + 30); x.fillText(fdLong(C.issuedAt), SX, sy + 78);
+  /* QR */
+  const Q = await qrLib(), q = Q(0, "M"); q.addData(certUrl(C.id)); q.make();
+  const n = q.getModuleCount(), QS = 330, QX = W - 190 - QS - 40, QY = 1390, m = QS / n;
+  x.fillStyle = "#FFFFFF"; x.shadowColor = "rgba(0,0,0,.12)"; x.shadowBlur = 30; rr(x, QX - 30, QY - 30, QS + 60, QS + 60, 34); x.fill(); x.shadowBlur = 0;
+  x.fillStyle = P.qr; for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (q.isDark(r, k)) x.fillRect(QX + k * m, QY + r * m, m + .6, m + .6);
+  x.fillStyle = "#FFFFFF"; rr(x, QX + QS / 2 - 44, QY + QS / 2 - 44, 88, 88, 20); x.fill(); drawMark(x, QX + QS / 2 - 36, QY + QS / 2 - 36, 72, "light");
+  x.textAlign = "center"; x.fillStyle = P.mut; x.font = "600 30px Inter, sans-serif"; x.fillText("Tekshirish uchun skanerlang", QX + QS / 2, QY + QS + 82); x.textAlign = "left";
+  /* shior */
+  x.fillStyle = P.mut; x.font = "italic 700 34px Lora, Georgia, serif"; x.fillText("Har kuni bir varaq — umr bo'yi odat.", L, H - 150);
+  return c;
+}
+/* Minimal PDF: bitta sahifa 300×200 mm, ichida JPEG rasm */
+function pdfFromJpeg(jpg, w, h) {
+  const PW = 850.394, PH = 566.929, enc = new TextEncoder(), parts = [], offs = []; let len = 0;
+  const add = b => { const u = typeof b === "string" ? enc.encode(b) : b; parts.push(u); len += u.length; };
+  const obj = (i, body, stream) => { offs[i] = len; add(`${i} 0 obj\n${body}\n`); if (stream) { add("stream\n"); add(stream); add("\nendstream\n"); } add("endobj\n"); };
+  add("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n");
+  obj(1, "<< /Type /Catalog /Pages 2 0 R >>");
+  obj(2, "<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+  obj(3, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>`);
+  obj(4, `<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpg.length} >>`, jpg);
+  const cs = `q ${PW} 0 0 ${PH} 0 0 cm /Im0 Do Q`; obj(5, `<< /Length ${cs.length} >>`, enc.encode(cs));
+  obj(6, `<< /Title (Kitobim sertifikati) /Producer (Kitobim) >>`);
+  const xref = len; add(`xref\n0 7\n0000000000 65535 f \n${offs.slice(1).map(o => String(o).padStart(10, "0") + " 00000 n \n").join("")}trailer\n<< /Size 7 /Root 1 0 R /Info 6 0 R >>\nstartxref\n${xref}\n%%EOF`);
+  return new Blob(parts, { type: "application/pdf" });
+}
+async function certPdf(d, btn) {
+  const old = btn && btn.innerHTML; if (btn) { btn.disabled = true; btn.innerHTML = `<i class="aispin"></i> Tayyorlanmoqda…`; }
+  try {
+    const c = await drawCert(d), jpg = new Uint8Array(await (await new Promise(ok => c.toBlob(ok, "image/jpeg", .93))).arrayBuffer());
+    const blob = pdfFromJpeg(jpg, c.width, c.height), name = `Kitobim-sertifikat-${d.cert.id}.pdf`, file = new File([blob], name, { type: "application/pdf" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+    toast("PDF yuklab olindi ✓"); return file;
+  } catch (e) { toast("PDF tayyorlanmadi: " + e.message); }
+  finally { if (btn) { btn.disabled = false; btn.innerHTML = old; } }
+}
+const CPREV = {};
+async function certThumb(d, el) {
+  const k = d.cert.id + d.cert.tier + (d.user.done || 0) + (d.user.pages || 0);
+  try { if (!CPREV[k]) CPREV[k] = (await drawCert(d, .3)).toDataURL("image/jpeg", .85); if (el && el.isConnected) el.src = CPREV[k]; } catch (e) {}
+}
+function certShare(id) { const url = certUrl(id), t = `Men Kitobim'da sertifikat oldim! 📚 Tekshirish: ${url}`; if (navigator.share) navigator.share({ title: "Kitobim sertifikati", text: t, url }).catch(() => {}); else { navigator.clipboard && navigator.clipboard.writeText(url); toast("Havola nusxalandi"); } }
+
+/* ---------- Profil: Sertifikatlar bo'limi ---------- */
+const myCertData = c => ({ cert: c, user: { name: S.me.user.name, done: S.me.stats.done, pages: S.me.stats.pages, act: S.me.user.act || 0 } });
+let CERTSYNC = 0;
+function certsTab() {
+  if (Date.now() - CERTSYNC > 60000) { CERTSYNC = Date.now(); api("myCerts").then(r => { if (r.fresh && r.fresh.length) { render(true); setTimeout(() => certCongrats(r.fresh[r.fresh.length - 1]), 400); } }).catch(() => {}); }
+  const act = S.me.user.act || 0, mine = (S.me.certs || []), next = KitobimCore.CERTS.find(t => act < t.days), prev = KitobimCore.CERTS.filter(t => act >= t.days).pop();
+  const pct = next ? Math.round((act - (prev ? prev.days : 0)) / (next.days - (prev ? prev.days : 0)) * 100) : 100;
+  setTimeout(() => document.querySelectorAll("img[data-cert]").forEach(im => { const c = mine.find(z => z.id === im.dataset.cert); if (c) certThumb(myCertData(c), im); }), 30);
+  return `<div class="cprog"><div class="row between"><div><small>Faol kunlaringiz</small><b>${act} kun</b></div>${next ? `<span>${next.name} — yana <b>${next.days - act}</b> kun</span>` : `<span>Barcha sertifikatlar olingan 🏆</span>`}</div>
+      <div class="pb"><i style="width:${pct}%"></i></div><p>Ilovaga kirgan yoki kitob o'qigan har bir kun — 1 faol kun va +${2} ball.</p></div>
+    <div class="cgrid">${KitobimCore.CERTS.map(t => { const c = mine.find(z => z.tier === t.id);
+      return c ? `<div class="ccard on"><img data-cert="${esc(c.id)}" alt="" onclick="certView('${esc(c.id)}')"><div class="cb"><b>${t.name}</b><small>№ ${esc(c.id)} · ${fmtD(c.issuedAt)}</small>
+          <div class="row" style="gap:6px;margin-top:10px"><button class="btn pri sm" onclick="certPdf(myCertData((S.me.certs||[]).find(z=>z.id==='${esc(c.id)}')),this)">${ic("download", 15)} PDF</button><button class="btn ghost sm" onclick="certShare('${esc(c.id)}')">${I.share}</button></div></div></div>`
+        : `<div class="ccard lock t-${t.id}"><div class="cl"><span>${t.days}</span><small>faol kun</small></div><div class="cb"><b>${t.name}</b><small>${t.sub}</small><div class="pb" style="margin-top:10px"><i style="width:${Math.min(100, Math.round(act / t.days * 100))}%"></i></div><small>${Math.max(0, t.days - act)} kun qoldi</small></div></div>`; }).join("")}</div>`;
+}
+function certView(id) { location.hash = "#/cert/" + encodeURIComponent(id); }
+function certCongrats(c) {
+  const t = certTier(c.tier);
+  sheet(`<div class="intro"><div class="globe">${ic("trophy", 40)}</div><h2>Tabriklaymiz! 🎉</h2><p>Siz <b>«${t.name}»</b> sertifikatiga ega bo'ldingiz — ${t.sub.toLowerCase()}. Uni PDF qilib yuklab oling va do'stlaringizga ulashing!</p>
+    <button class="btn pri full" onclick="closeSheet();certPdf(myCertData((S.me.certs||[]).find(z=>z.id==='${esc(c.id)}')||{id:'${esc(c.id)}',tier:'${c.tier}',name:S.me.user.name,issuedAt:'${c.issuedAt}'}),null)">${ic("download", 17)} PDF yuklab olish</button>
+    <button class="btn ghost full" style="margin-top:8px" onclick="closeSheet();certShare('${esc(c.id)}')">Ulashish</button></div>`);
+}
+
+/* ---------- Ochiq tekshirish sahifasi: #/cert/KTB-2026-000001 ---------- */
+let CVD = null;
+async function vCertPublic(id) {
+  document.body.classList.remove("admbody");
+  const app = $("#app"); app.innerHTML = `<div class="cpub"><div class="cpub-in"><div class="skel" style="height:420px;border-radius:24px"></div></div></div>`;
+  let r; try { [r] = await rawCall([["certVerify", { id }]]); } catch (e) { r = { ok: false, error: e.message }; }
+  const head = `<div class="cpub-top"><a class="logo" style="padding:0" href="${S.token ? "#/home" : "#/"}"><i>${I.logo}</i><span>${brand()}</span></a><a class="btn ghost sm" href="${S.token ? "#/home" : "#/register"}">${S.token ? "Ilovaga qaytish" : "Kitobim'ga qo'shilish"}</a></div>`;
+  if (!r.ok || !r.found) { app.innerHTML = `<div class="cpub"><div class="cpub-in">${head}<div class="cstat bad">${ic("x", 28)}<div><b>Sertifikat topilmadi</b><small>№ ${esc(id)} raqamli sertifikat Kitobim bazasida yo'q. Raqamni tekshiring.</small></div></div></div></div>`; return; }
+  CVD = r; const c = r.cert, u = r.user || {}, t = certTier(c.tier);
+  app.innerHTML = `<div class="cpub"><div class="cpub-in">${head}
+    <div class="cstat ${c.revoked ? "bad" : "ok"}">${ic(c.revoked ? "x" : "check", 28)}<div><b>${c.revoked ? "Sertifikat bekor qilingan" : "Sertifikat haqiqiy"}</b><small>№ ${esc(c.id)} · ${fdLong(c.issuedAt)} · Kitobim tomonidan ${c.by === "admin" ? "taqdim etilgan" : "avtomatik berilgan"}</small></div></div>
+    <img class="cimg" id="cvImg" alt="Sertifikat">
+    <div class="row" style="gap:10px;margin:16px 0 26px;flex-wrap:wrap"><button class="btn pri" onclick="certPdf(CVD,this)">${ic("download", 17)} PDF yuklab olish</button><button class="btn ghost" onclick="certShare('${esc(c.id)}')">${I.share} Ulashish</button></div>
+    <div class="cinfo"><div class="row" style="gap:14px">${ava(u, 64)}<div><h2>${esc(c.name)}</h2><small>${u.username ? "@" + esc(u.username) : ""}${u.region ? " · " + esc(u.region) : ""}${u.createdAt ? " · " + new Date(u.createdAt).getFullYear() + "-yildan beri" : ""}</small></div></div>
+      <div class="cgrid3"><div><small>Sertifikat</small><b>${t.name}</b></div><div><small>Faol kunlar</small><b>${num(u.act || c.act || 0)}</b></div><div><small>O'qilgan kitoblar</small><b>${num(u.done || 0)}</b></div><div><small>O'qilgan betlar</small><b>${num(u.pages || 0)}</b></div><div><small>Eng uzun seriya</small><b>${num(u.best || 0)} kun</b></div><div><small>Ball</small><b>${num(u.ball || 0)}</b></div></div>
+      ${u.private ? `<p class="muted" style="margin-top:16px">${ic("lock", 15)} Kitobxon profilini yopiq qilgan — o'qigan kitoblari ko'rsatilmaydi.</p>` : `
+      ${(u.reading || []).length ? `<h3>Hozir o'qiyapti</h3>${u.reading.map(b => `<div class="cbk">${cover(b, "xs")}<div><b>${esc(b.title)}</b><small>${b.current}/${b.pages || "?"} bet</small></div></div>`).join("")}` : ""}
+      <h3>O'qigan kitoblari <span class="muted">${(u.books || []).length}</span></h3>${(u.books || []).length ? `<div class="cbks">${u.books.map(b => `<div class="cbk">${cover(b, "xs")}<div><b>${esc(b.title)}</b><small>${esc(b.author || "")}${b.end ? " · " + fmtD(b.end) : ""}</small>${b.rating ? `<div>${stars(b.rating)}</div>` : ""}</div></div>`).join("")}</div>` : `<p class="muted">Hali kitob tugatilmagan</p>`}`}</div>
+    <p class="cfoot">Kitobim — kitobxon kundaligi va kutubxona · <a href="${location.origin + location.pathname}">${location.host}</a></p></div></div>`;
+  try { const cv = await drawCert(r, .5); const im = $("#cvImg"); if (im) im.src = cv.toDataURL("image/jpeg", .9); } catch (e) {}
+}
+
+/* ---------- Admin: Sertifikatlar ---------- */
+function admCertTab(d, q) {
+  const certs = d.certs || [], U = d.users, uById = id => U.find(u => u.id === id) || { name: "O'chirilgan", phone: "", username: "" };
+  const L = certs.filter(c => !q || [c.id, c.name, uById(c.userId).phone].join(" ").toLowerCase().includes(q));
+  const near = U.map(u => { const t = KitobimCore.CERTS.find(t => (u.act || 0) < t.days); return t ? { u, t, left: t.days - (u.act || 0) } : null; }).filter(x => x && x.left <= 7).sort((a, b) => a.left - b.left).slice(0, 8);
+  const kpi = KitobimCore.CERTS.map(t => `<div class="acard"><div class="row"><span class="aic" style="background:linear-gradient(135deg,${t.id === "dostona" ? "#FF8A2B,#F04E1C" : CERT_T[t.id].metal[0] + "," + CERT_T[t.id].metal[2]})">${ic("trophy", 22)}</span><div><small>${t.days} faol kun</small><b class="al">${t.name}</b></div></div><div class="abig" style="margin-top:14px">${certs.filter(c => c.tier === t.id && !c.revoked).length}</div></div>`).join("");
+  return `<div class="ahd"><div><small>${certs.filter(c => !c.revoked).length} ta faol sertifikat</small><h2>Sertifikatlar</h2></div>
+      <div class="row" style="gap:8px"><button class="apill" onclick="admCall('adminCert',{sync:true},'Tekshirildi ✓')">${ic("refresh", 15)} Avtomatik berish</button><button class="apill on" onclick="admCertSheet()">${ic("plus", 15)} Sertifikat berish</button></div></div>
+    <div class="ag4">${kpi}</div>
+    ${near.length ? `<h3 class="ah3">${ic("flameF", 18)} Sertifikatga yaqinlashganlar</h3><div class="acard"><div class="alist">${near.map(({ u, t, left }) => `<div class="ali">${ava(u, 36)}<div class="in"><b>${esc(u.name)}</b><small>${u.act || 0} faol kun → ${t.name}</small></div><div class="vr"><b>${left}</b><small>kun qoldi</small></div><button class="apill" onclick="admCertSheet('${u.id}','${t.id}')">Hozir berish</button></div>`).join("")}</div></div>` : ""}
+    <div class="acard" style="margin-top:18px"><h3>Berilgan sertifikatlar</h3><div class="tblw"><table class="atbl"><tr><th>Raqam</th><th>Kitobxon</th><th>Daraja</th><th class="hm">Sana</th><th class="hm">Kim bergan</th><th></th></tr>
+      ${L.map(c => `<tr style="${c.revoked ? "opacity:.5" : ""}"><td><b>${esc(c.id)}</b>${c.revoked ? `<small style="color:#ff8b7a">Bekor qilingan</small>` : ""}</td><td><b>${esc(c.name)}</b><small>+${esc(uById(c.userId).phone)}</small></td><td><span class="aptag on" style="background:${CERT_T[c.tier].metal[1]}33;color:${c.tier === "fidoyi" || c.tier === "mehribon" ? "#f2c46b" : "#ff9a5c"}">${certTier(c.tier).name}</span></td><td class="hm">${fmtD(c.issuedAt)}</td><td class="hm">${c.by === "admin" ? "Admin" : "Avtomatik"}</td>
+        <td style="text-align:right;white-space:nowrap"><button class="apill" onclick="admCertPdf('${esc(c.id)}',this)">${ic("download", 14)} PDF</button> <a class="apill" target="_blank" href="${certUrl(c.id)}">Tekshirish</a> <button class="apill ${c.revoked ? "" : "danger"}" onclick="admCall('adminCert',{revoke:true,restore:${!!c.revoked},id:'${esc(c.id)}'},'${c.revoked ? "Tiklandi" : "Bekor qilindi"}')">${c.revoked ? "Tiklash" : "Bekor qilish"}</button></td></tr>`).join("")}</table>${!L.length ? `<div class="aempty">Hali sertifikat berilmagan</div>` : ""}</div></div>`;
+}
+function admCertSheet(uid, tier) {
+  const U = ADM.data.users.slice().sort((a, b) => (b.act || 0) - (a.act || 0));
+  sheet(`<h2>Sertifikat berish</h2><label>Kitobxon</label><select id="acU">${U.map(u => `<option value="${u.id}" ${u.id === uid ? "selected" : ""}>${esc(u.name)} · +${esc(u.phone)} · ${u.act || 0} faol kun</option>`).join("")}</select>
+    <label>Sertifikat</label><div class="two" id="acT">${KitobimCore.CERTS.map(t => `<button class="btn line ${t.id === (tier || "faol") ? "on" : ""}" data-t="${t.id}" onclick="this.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===this))">${t.name}<small style="display:block;opacity:.7;font-weight:500">${t.days} kun</small></button>`).join("")}</div>
+    <button class="btn pri full" style="margin-top:18px" onclick="admCertIssue()">${ic("trophy", 17)} Berish</button>
+    <p class="muted" style="font-size:12.5px;margin-top:10px">Sertifikat raqami va QR kod avtomatik yaratiladi. Kitobxonga Telegram bot orqali xabar boradi.</p>`);
+  $(".sheet").classList.add("asheet");
+}
+async function admCertIssue() { const t = $("#acT .on"); const u = $("#acU").value; closeSheet(); await admCall("adminCert", { userId: u, tier: t ? t.dataset.t : "faol" }, "Sertifikat berildi ✓"); }
+async function admCertPdf(id, btn) { try { const [r] = await rawCall([["certVerify", { id }]]); if (!r.found) throw new Error("Topilmadi"); await certPdf(r, btn); } catch (e) { toast(e.message); } }
 
 /* ---------- Chapga / o'ngga surib bo'limlar orasida o'tish ---------- */
 const TABS = ["home", "shelf", "library", "davra", "profile"];
