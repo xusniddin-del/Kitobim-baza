@@ -4253,7 +4253,7 @@ function drawLogo(x, X, Y, H, v) {
 function fitFont(x, text, weight, max, min, fam, width) { let s = max; for (; s > min; s -= 4) { x.font = `${weight} ${s}px ${fam}`; if (x.measureText(text).width <= width) break; } return s; }
 function wrapLines(x, text, width) { const out = []; let cur = ""; String(text).split(/\s+/).forEach(w => { const n = cur ? cur + " " + w : w; if (x.measureText(n).width > width && cur) { out.push(cur); cur = w; } else cur = n; }); if (cur) out.push(cur); return out; }
 
-/* d = { cert:{id,tier,name,issuedAt,act}, user:{done,pages,act} }  →  canvas 3000×2000 (30×20 sm, 254 dpi). Uslub: diagonal lentalar + oltin muhr */
+/* d = { cert:{id,tier,name,issuedAt,act}, user:{done,pages,act} }  →  canvas 3000×2000 (30×20 sm, 254 dpi). Uslub: diagonal lentalar, logo, yozma ism */
 const IMG_C = {};
 function loadImg(src) { return IMG_C[src] || (IMG_C[src] = new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => { delete IMG_C[src]; no(new Error("img")); }; i.src = src; })); }
 function tint(img, color) { const c = document.createElement("canvas"); c.width = img.width; c.height = img.height; const x = c.getContext("2d"); x.fillStyle = color; x.fillRect(0, 0, c.width, c.height); x.globalCompositeOperation = "destination-in"; x.drawImage(img, 0, 0); return c; }
@@ -4292,8 +4292,8 @@ async function drawCert(d, scale = 1) {
   /* fon */
   const bg = x.createLinearGradient(0, 0, W, H); bg.addColorStop(0, P.bg[0]); bg.addColorStop(1, P.bg[1]); x.fillStyle = bg; x.fillRect(0, 0, W, H);
   const gl = x.createRadialGradient(CX, 900, 0, CX, 900, 1500); gl.addColorStop(0, C.tier === "fidoyi" ? "rgba(255,107,26,.14)" : "rgba(255,255,255,.14)"); gl.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = gl; x.fillRect(0, 0, W, H);
-  certBands(x, W, H, P, 0, [1000, 880, 760, 620]); certBands(x, W, H, P, 1, [880, 770, 660, 540]);
-  certSeal(x, 360, 360, 165, P, T);
+  certBands(x, W, H, P, 0, [470, 400, 330, 250]); certBands(x, W, H, P, 1, [880, 770, 660, 540]);
+  drawLogo(x, 300, 250, 165, P.logo);
   /* sarlavha (o'ng tepada) */
   const R = W - 230; x.textAlign = "right"; x.fillStyle = P.ink; x.font = "800 150px Inter, sans-serif"; spaced(x, "SERTIFIKAT", R, 330, 16);
   x.fillStyle = P.acc; x.font = "500 62px Inter, sans-serif"; spaced(x, T.name.toUpperCase(), R, 430, 20);
