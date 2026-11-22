@@ -3174,7 +3174,7 @@ async function vAdmin() {
       <div class="anav"><button onclick="admCSV()">${ic("download", 18)}Excel'ga yuklash</button><button onclick="location.hash='#/home'">${ic("phone", 18)}Ilovaga o'tish</button><button onclick="ADM.data=null;LS.del('kitobim_adm_key');ADM.key='';vAdmin()">${ic("logout", 18)}Chiqish</button></div>
       <div class="ahelp"><span class="q">?</span><b>Kitobxonlarni rag'batlantiring</b><small>Eng faol kitobxonlarni Davrada e'lon qiling — bu boshqalarni ham ilhomlantiradi.</small><button onclick="ADM.tab='users';ADM.sort='week';vAdmin()">Eng faollar</button></div>
     </aside><main class="amain">
-      <div class="atop"><div class="asearch">${I.search}<input placeholder="Ism, telefon, kitob bo'yicha izlash…" value="${esc(ADM.q)}" oninput="ADM.q=this.value;const p=this.selectionStart;vAdmin();const i=$('.asearch input');i.focus();i.setSelectionRange(p,p)"></div>
+      <div class="atop"><div class="asearch">${I.search}<input placeholder="Ism, telefon, kitob bo'yicha izlash…" value="${esc(ADM.q)}" oninput="ADM.q=this.value;clearTimeout(window._aqT);window._aqT=setTimeout(()=>{const p=this.selectionStart;vAdmin();const i=$('.asearch input');if(i){i.focus();i.setSelectionRange(p,p)}},220)"></div>
         <div class="row" style="gap:10px"><button class="aib" title="Yangilash" onclick="admLoad(true)">${ic("refresh",19)}</button>
         <div class="ame"><span class="aic sm" style="background:var(--grad)">${ic("user", 16)}</span><div><b>Administrator</b><small>${APP_NAME}</small></div></div></div></div>
       ${d.old ? `<div class="acard" style="margin-bottom:16px;border-color:rgba(255,122,47,.5)">${ic("refresh", 16)} Grafiklar uchun serverdagi Code.gs ni yangi versiyaga yangilang (Deploy → New version).</div>` : ""}${body}</main></div>`;
@@ -4149,7 +4149,11 @@ function admPremTab(d, q) {
         ${promos.map(x => `<div class="apromo"><b>${esc(x.id)}</b><span>${x.days} kun</span><span>${(x.users || []).length}${x.max ? " / " + x.max : ""} ta ishlatilgan</span><button class="apill danger" onclick="admPromoDel('${esc(x.id)}')">O'chirish</button></div>`).join("") || `<div class="aempty" style="padding:14px">Hali promokod yo'q</div>`}</div></div>`;
 }
 async function admCall(action, p, okMsg) {
-  try { const [r] = await rawCall([[action, Object.assign({ key: ADM.key }, p)]]); if (!r.ok) throw new Error(r.error); rcStale(); await admLoad(true); if (okMsg) toast(okMsg); return r; }
+  try {   // amal + yangilangan admin ma'lumoti bitta so'rovda (ikki marta kutmaslik uchun)
+    const [r, a, lb] = await rawCall([[action, Object.assign({ key: ADM.key }, p)], ["admin", { key: ADM.key }], ["library", { key: ADM.key }]]);
+    if (!r.ok) throw new Error(r.error); rcStale();
+    if (a && a.ok) { ADM.data = a; if (lb && lb.ok) ADM.lib = lb.library; if (route.name === "admin") vAdmin(); } else await admLoad(true);
+    if (okMsg) toast(okMsg); return r; }
   catch (e) { toast(e.message); }
 }
 async function admPay(id, ok, btn) {
