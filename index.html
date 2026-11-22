@@ -1182,7 +1182,7 @@ var KitobimCore = (function () {
       var b = r.book || {}, title = clean(b.title, 160); if (!title) fail("Kitob nomini yozing");
       var old = db.library.filter(function (x) { return x.id === b.id; })[0], rec = old || { id: rid(10), createdAt: now() };
       var audio = (Array.isArray(b.audio) ? b.audio : []).slice(0, 200).map(function (a, i) { var f = cleanFile(a); if (!f) return null; f.title = clean(a.title, 120) || ((i + 1) + "-qism"); return f; }).filter(Boolean);
-      var f = { title: title, author: clean(b.author, 120), genre: clean(b.genre, 40), pages: int(b.pages), desc: clean(b.desc, 3000), summary: clean(b.summary, 20000), summaryAudio: cleanFile(b.summaryAudio),
+      var f = { title: title, author: clean(b.author, 120), genre: clean(b.genre, 40), pages: int(b.pages), desc: clean(b.desc, 3000), summary: clean(b.summary, 40000), summaryAudio: cleanFile(b.summaryAudio),
         cover: cleanFile(b.cover), pdf: cleanFile(b.pdf), audio: audio, published: !!b.published, updated: now() };
       for (var k in f) rec[k] = f[k];
       if (!old) db.library.push(rec);
@@ -2614,7 +2614,6 @@ function drawLibEdit() {
   const b = LE, sc = $(".sheet") ? $(".sheet").scrollTop : 0, rd = libReady(b), canPub = !b.published && rd.every(x => x[1]), sa = b.summaryAudio;
   const up = (kind, accept, label) => `<div class="upz" onclick="libPick('${kind}','${accept}')">${ic("upload", 20)}<span>${label}</span></div>`;
   sheet(`<h2>${b.id ? "Kitobni tahrirlash" : "Kutubxonaga kitob qo'shish"}</h2><p class="sub">Muqova, PDF va audio fayllar ${DEMO ? "demo rejimda faqat shu sessiyada saqlanadi" : "Google Drive'dagi “Kitobim kutubxona” papkasiga yuklanadi"}.</p>
-    <div id="leAI">${aiPanel()}</div>
     <div class="row" style="gap:16px;align-items:flex-start;margin-top:14px">
       <div style="text-align:center;flex:0 0 auto"><div onclick="libPick('cover','image/*')" style="cursor:pointer">${b.cover ? `<div class="cover" style="background:#222 url('${esc(fThumb(b.cover))}') center/cover"></div>` : `<div class="upz" style="width:96px;height:138px;flex-direction:column">${ic("cam", 22)}<span>Muqova</span></div>`}</div>
         ${b.cover ? `<a class="muted" style="font-size:12.5px;cursor:pointer" onclick="LE.cover=null;drawLibEdit()">O'chirish</a>` : ""}</div>
@@ -2623,14 +2622,15 @@ function drawLibEdit() {
     <div class="two"><div><label>Janr</label><select id="leG"><option value="">—</option>${GENRES.map(g => `<option ${b.genre === g ? "selected" : ""}>${g}</option>`).join("")}</select></div>
       <div><label>Betlar soni</label><input id="leP" type="number" value="${esc(b.pages)}"></div></div>
     <label>Qisqacha tavsif</label><textarea id="leD" placeholder="Kitob nima haqida…">${esc(b.desc)}</textarea>
-    <div class="fs"><h4>${ic("sparkle", 14)} Kitob mag'zi</h4>
-      <textarea id="leS" style="min-height:190px" placeholder="AI kitobni o'qib, uning mag'zini shu yerga yozadi. O'zingiz ham yozishingiz yoki tahrirlashingiz mumkin.">${esc(b.summary || "")}</textarea>
+    <div class="fs"><h4>${ic("sparkle", 14)} Kitob mag'zi — matn</h4>
+      <textarea id="leS" maxlength="${SUM_MAX}" style="min-height:380px;font-size:15px;line-height:1.6" oninput="sumCount()" placeholder="Kitob mag'zi matnini shu yerga tashlang. Keyin “Ovozlashtirish” tugmasini bosing — Nevra uni ovozga aylantiradi.">${esc(b.summary || "")}</textarea>
+      <div id="leSC" class="muted" style="font-size:12.5px;margin-top:6px;text-align:right">${sumInfo(b.summary)}</div>
       <div class="row" style="gap:8px;margin-top:10px"><select id="leV" style="flex:1;min-width:0">${AI_VOICES.map(([v, d]) => `<option value="${v}" ${(b.voice || "Charon") === v ? "selected" : ""}>${v} — ${d}</option>`).join("")}</select>
         <button class="btn pri sm" style="flex:0 0 auto" id="leVB" onclick="aiVoice()" ${AIV.run ? "disabled" : ""}>${ic("vol", 15)} ${sa ? "Qayta ovozlashtirish" : "Ovozlashtirish"}</button></div>
       <div id="leVS">${aiVoiceSt()}</div>
       ${sa ? `<div class="frow">${ic("headph", 18)}<span>Kitob mag'zi — audio <small class="muted">${fSize(sa.size)}</small></span><button onclick="libRead();LE.summaryAudio=null;drawLibEdit()">${ic("x", 16)}</button></div>
         ${LEAUD ? `<audio controls src="${LEAUD}" style="width:100%;margin-top:8px"></audio>` : `<iframe class="afr" style="margin-top:8px" src="${esc(fView(sa))}"></iframe>`}` : ""}
-      <p class="muted" style="font-size:12.5px;margin:8px 0 0">Ovoz Nevra.uz orqali yaratiladi va kitob sahifasidagi “Kitob mag'zi” bo'limida chiqadi.</p></div>
+      <p class="muted" style="font-size:12.5px;margin:8px 0 0">Ovoz Nevra.uz orqali yaratiladi. Uzun matn bo'laklarga bo'linib ovozlanadi va bitta MP3 bo'lib yig'iladi — jarayon tugaguncha sahifani yopmang.</p></div>
     <div class="fs"><h4>${ic("book", 14)} Elektron kitob (PDF)</h4>
       ${b.pdf ? `<div class="frow">${ic("file", 18)}<span>${esc(fName(b.pdf))} <small class="muted">${fSize(b.pdf.size)}</small></span><button onclick="libRead();LE.pdf=null;LEPDF=null;drawLibEdit()">${ic("x", 16)}</button></div>` : up("pdf", "application/pdf", "PDF faylni yuklash")}
       ${!b.pdf ? `<div class="row" style="gap:8px;margin-top:8px"><input id="lePL" placeholder="yoki Google Drive havolasini qo'ying"><button class="btn ghost sm" onclick="libLink('pdf',$('#lePL').value)">Qo'shish</button></div>` : ""}</div>
@@ -2647,94 +2647,15 @@ function drawLibEdit() {
   $(".sheet").classList.add("asheet"); $(".sheet").scrollTop = sc;
 }
 /* ---------- AI yordamchi: PDF → ma'lumotlar, kitob mag'zi, muqova va Nevra ovozi ---------- */
-let LEPDF = null, LEAUD = null, AIV = {}, PDFJS = null;
+let LEPDF = null, LEAUD = null, AIV = {}, LAME = null;
+const SUM_MAX = 40000, SUM_CPM = 850;   // belgi chegarasi; daqiqasiga taxminan o'qiladigan belgi
 const AI_VOICES = [["Charon", "erkak · axborotli"], ["Sulafat", "ayol · iliq"], ["Achernar", "ayol · mayin"], ["Iapetus", "erkak · aniq"], ["Schedar", "erkak · teng"], ["Kore", "ayol · qat'iy"], ["Orus", "erkak · qat'iy"], ["Leda", "ayol · yosh"]];
-function libReady(b) { return [["Nomi", !!b.title], ["Muallif", !!b.author], ["Muqova", !!b.cover], ["PDF", !!b.pdf], ["Mag'zi", (b.summary || "").trim().length > 50], ["Ovoz", !!b.summaryAudio]]; }
+function libReady(b) { return [["Nomi", !!b.title], ["Muqova", !!b.cover], ["PDF", !!b.pdf], ["Mag'zi matni", (b.summary || "").trim().length > 20], ["Ovoz", !!b.summaryAudio]]; }
 async function aiPost(action, p) {
   const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(Object.assign({ action, key: ADM.key }, p)) })
     .then(x => x.json()).catch(() => ({ ok: false, error: "BAND: Server javobi kechikdi. Qayta urinib ko'ring" }));
   if (!r.ok) throw new Error(/Noma'lum amal/.test(r.error || "") ? "Serverga KitobimAI.gs hali ulanmagan (README'ga qarang)" : (r.error || "Xato"));
   return r;
-}
-function aiPanel() {
-  const A = LE.ai || {}, st = A.steps || {}, ks = Object.keys(st);
-  const row = k => `<div class="aist ${st[k].s}">${st[k].s === "run" ? `<i class="aispin"></i>` : ic(st[k].s === "ok" ? "check" : "x", 15)}<span>${esc(st[k].t)}</span></div>`;
-  return `<div class="aibox"><div class="aih">${ic("sparkle", 18)}<div><b>AI yordamchi</b><small>${LE.pdf ? "Kitobni o'qib, nom, muallif, janr, betlar soni, tavsif, muqova va kitob mag'zini o'zi to'ldiradi" : "PDF yuklang — AI kitobni o'qib, quyidagi maydonlarni muqovasigacha o'zi to'ldiradi"}</small></div></div>
-    ${ks.map(row).join("")}${LE.pdf && !A.run ? `<button class="btn pri sm" style="margin-top:12px" onclick="aiFill(${ks.length ? "true" : "false"})">${ic("sparkle", 15)} ${ks.length ? "Qaytadan to'ldirish" : "AI bilan to'ldirish"}</button>` : ""}</div>`;
-}
-function aiStep(k, s, t) { const A = LE.ai = LE.ai || {}; (A.steps = A.steps || {})[k] = { s, t }; const el = $("#leAI"); if (el) el.innerHTML = aiPanel(); }
-async function pdfLib() {
-  if (PDFJS) return PDFJS;
-  const base = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/";
-  PDFJS = await import(base + "pdf.min.mjs"); PDFJS.GlobalWorkerOptions.workerSrc = base + "pdf.worker.min.mjs";
-  return PDFJS;
-}
-async function pdfInfo(file) {
-  const L = await pdfLib(), doc = await L.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise, pg = await doc.getPage(1);
-  const O = L.OPS, ops = await pg.getOperatorList(), want = [O.paintImageXObject, O.paintInlineImageXObject, O.paintImageXObjectRepeat, O.paintJpegXObject].filter(x => x != null);
-  return { pages: doc.numPages, img: ops.fnArray.some(f => want.includes(f)), pg };
-}
-async function pdfCover(pg) {
-  const vp = pg.getViewport({ scale: 1 }), v2 = pg.getViewport({ scale: 1000 / vp.width }), c = document.createElement("canvas");
-  c.width = Math.round(v2.width); c.height = Math.round(v2.height);
-  const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
-  await pg.render({ canvasContext: x, viewport: v2 }).promise;
-  return new File([await new Promise(ok => c.toBlob(ok, "image/jpeg", .92))], "muqova.jpg", { type: "image/jpeg" });
-}
-async function genCover(title, author) {
-  const W = 600, H = 864, c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
-  try { await Promise.all([document.fonts.load("700 60px Lora"), document.fonts.load("600 28px Inter")]); } catch (e) {}
-  const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#ff8a2b"); g.addColorStop(.45, "#ff6b1a"); g.addColorStop(1, "#c8380f"); x.fillStyle = g; x.fillRect(0, 0, W, H);
-  x.fillStyle = "rgba(255,255,255,.1)"; x.beginPath(); x.arc(W * .9, H * .1, 230, 0, 7); x.fill(); x.beginPath(); x.arc(W * .02, H * .98, 280, 0, 7); x.fill();
-  const sp = x.createLinearGradient(0, 0, 46, 0); sp.addColorStop(0, "rgba(0,0,0,.3)"); sp.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = sp; x.fillRect(0, 0, 46, H);
-  x.fillStyle = "rgba(255,255,255,.9)"; x.fillRect(70, 132, 64, 6);
-  const wrap = (t, f, mw) => { x.font = f; const out = []; let cur = ""; for (const w of String(t).split(/\s+/)) { const n = cur ? cur + " " + w : w; if (x.measureText(n).width > mw && cur) { out.push(cur); cur = w; } else cur = n; } if (cur) out.push(cur); return out; };
-  let fs = 80, lines; const tf = s => `700 ${s}px Lora, Georgia, serif`;
-  for (; fs > 30; fs -= 4) { lines = wrap(title, tf(fs), W - 140); x.font = tf(fs); if (lines.length <= 6 && lines.every(l => x.measureText(l).width <= W - 140)) break; }
-  x.fillStyle = "#fff"; x.textBaseline = "top"; x.font = tf(fs); lines.forEach((l, i) => x.fillText(l, 70, 168 + i * fs * 1.16));
-  if (author) { const al = wrap(author, "600 28px Inter, sans-serif", W - 140).slice(0, 2); x.fillStyle = "rgba(255,255,255,.95)"; al.forEach((l, i) => x.fillText(l, 70, H - 170 + i * 36)); }
-  x.font = "800 20px Inter, sans-serif"; x.fillStyle = "rgba(255,255,255,.7)"; x.fillText("K I T O B I M", 70, H - 78);
-  return new File([await new Promise(ok => c.toBlob(ok, "image/jpeg", .92))], "muqova.jpg", { type: "image/jpeg" });
-}
-async function aiFill(force) {
-  libRead(); if (!LE.pdf) return toast("Avval PDF yuklang");
-  if (DEMO) return toast("AI yordamchi faqat server ulangan saytda ishlaydi");
-  if (LE.ai && LE.ai.run) return;
-  const ed = LE; LE.ai = { run: true, steps: {} };
-  const local = LEPDF ? pdfInfo(LEPDF).catch(() => null) : Promise.resolve(null);
-  aiStep("read", "run", "AI kitobni o'qiyapti — kitob hajmiga qarab 1–3 daqiqa…");
-  let bk;
-  for (let k = 1; ; k++) {
-    try { bk = (await aiPost("aiBook", { file: LE.pdf, genres: GENRES })).book || {}; break; }
-    catch (e) {
-      const busy = /^BAND:/.test(e.message), msg = e.message.replace(/^BAND:\s*/, "");
-      if (!busy || k >= 3 || LE !== ed) { LE.ai.run = false; aiStep("read", "err", msg); return; }
-      for (let t = 40; t > 0; t -= 5) { aiStep("read", "run", `Gemini hozir band — ${t} soniyadan keyin o'zi qayta urinadi (${k + 1}/3)…`); await new Promise(r => setTimeout(r, 5000)); }
-      aiStep("read", "run", "AI kitobni o'qiyapti — qayta urinish…");
-    }
-  }
-  if (LE !== ed) return;
-  const info = await local; libRead();
-  const put = (k, v) => { if (v && (force || !String(LE[k] || "").trim())) LE[k] = v; };
-  put("title", bk.title); put("author", bk.author); put("desc", bk.desc); put("summary", bk.summary);
-  if (GENRES.includes(bk.genre)) put("genre", bk.genre);
-  put("pages", String((info && info.pages) || bk.pages || ""));
-  aiStep("read", "ok", "Kitob o'qildi: ma'lumotlar va kitob mag'zi tayyor");
-  if (!LE.cover) {
-    aiStep("cover", "run", "Muqova tayyorlanmoqda…");
-    try {
-      let f = null, how = "";
-      const first = typeof bk.firstPageIsCover === "boolean" ? bk.firstPageIsCover : !!(info && info.img);
-      if (info && first) { f = await pdfCover(info.pg); how = "PDF'ning birinchi sahifasidan olindi"; }
-      if (!f) { aiStep("cover", "run", "PDF'da muqova rasmi yo'q — internetdan qidirilmoqda…");
-        const r = await aiPost("aiCover", { title: LE.title, author: LE.author, isbn: bk.isbn || "" }).catch(() => ({}));
-        if (r.file) { LE.cover = r.file; how = `internetdan topildi (${r.source})`; } }
-      if (!LE.cover && !f) { f = await genCover(LE.title || "Kitob", LE.author); how = "internetda topilmadi — Kitobim uslubida yaratildi"; }
-      if (f) LE.cover = await upOne(f, "cover");
-      aiStep("cover", "ok", "Muqova " + how);
-    } catch (e) { aiStep("cover", "err", "Muqova: " + e.message.replace(/^BAND:\s*/, "")); }
-  }
-  LE.ai.run = false; drawLibEdit(); toast("AI to'ldirdi ✓ Endi “Ovozlashtirish”ni bosing");
 }
 function aiChunks(t, max = 1100) {
   const sents = [], pieces = [], out = []; let cur = "";
@@ -2757,34 +2678,64 @@ function wavBuild(parts, rate) {
   dv.setUint32(24, rate, true); dv.setUint32(28, rate * 2, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); w(36, "data"); dv.setUint32(40, n, true);
   let o = 44; all.forEach(p => { b.set(p, o); o += p.length; }); return { bytes: b, sec: n / 2 / rate };
 }
+function sumInfo(t) { const n = (t || "").length; return n ? `${n.toLocaleString("ru")} / ${SUM_MAX.toLocaleString("ru")} belgi · taxminan ${Math.max(1, Math.round(n / SUM_CPM))} daqiqalik audio` : `${SUM_MAX.toLocaleString("ru")} belgigacha`; }
+function sumCount() { const t = $("#leS"), c = $("#leSC"); if (t && c) c.textContent = sumInfo(t.value); }
 function aiVoiceSt() {
-  const V = AIV; if (V.run) return `<div class="aist run"><i class="aispin"></i><span>${V.up ? "Audio Drive'ga yuklanmoqda…" : `Nevra ovozlashtirmoqda: ${V.i + 1}/${V.n}-bo'lak…`}</span></div>`;
+  const V = AIV;
+  if (V.run) return `<div class="aist run"><i class="aispin"></i><span>${V.up === "enc" ? "Audio MP3 ga siqilmoqda…" : V.up ? "Audio Drive'ga yuklanmoqda…" : `Nevra ovozlashtirmoqda: ${V.i + 1}/${V.n}-bo'lak${V.eta ? ` · ~${V.eta} daqiqa qoldi` : ""}${V.retry ? " · qayta urinilmoqda…" : ""}`} — sahifani yopmang</span></div>`;
   if (V.err) return `<div class="aist err">${ic("x", 15)}<span>${esc(V.err)}</span></div>`;
   if (V.done) return `<div class="aist ok">${ic("check", 15)}<span>Ovozlashtirildi — ${V.done}</span></div>`;
   return "";
 }
+function lameLib() {
+  if (window.lamejs) return Promise.resolve(window.lamejs);
+  if (!LAME) LAME = new Promise((ok, no) => { const sc = document.createElement("script"); sc.src = "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"; sc.onload = () => ok(window.lamejs); sc.onerror = () => { LAME = null; no(new Error("MP3 kutubxonasi yuklanmadi")); }; document.head.appendChild(sc); });
+  return LAME;
+}
+async function toMp3(parts, rate) {
+  const L = await lameLib(), enc = new L.Mp3Encoder(1, rate, 48), out = [], gap = new Int16Array(Math.round(rate * .35));
+  let n = 0, frames = 0;
+  for (let p = 0; p < parts.length; p++) {
+    const u = parts[p], pcm = new Int16Array(u.buffer.slice(u.byteOffset, u.byteOffset + (u.length & ~1)));
+    for (const src of p ? [gap, pcm] : [pcm]) {
+      n += src.length;
+      for (let i = 0; i < src.length; i += 1152) { const b = enc.encodeBuffer(src.subarray(i, i + 1152)); if (b.length) out.push(new Uint8Array(b)); if (++frames % 400 === 0) await new Promise(r => setTimeout(r)); }
+    }
+  }
+  const f = enc.flush(); if (f.length) out.push(new Uint8Array(f));
+  return { blob: new Blob(out, { type: "audio/mpeg" }), sec: n / rate };
+}
 async function aiVoice() {
   libRead(); const text = (LE.summary || "").trim();
-  if (text.length < 50) return toast("Avval kitob mag'zini tayyorlang");
+  if (text.length < 20) return toast("Avval kitob mag'zi matnini tashlang");
   if (DEMO) return toast("Ovozlashtirish faqat server ulangan saytda ishlaydi");
-  const parts = aiChunks(text), voice = LE.voice || "Charon", ed = LE, pcm = []; let rate = 24000;
+  const parts = aiChunks(text), voice = LE.voice || "Charon", ed = LE, pcm = [], t0 = Date.now(); let rate = 24000;
   const upd = () => { const s = $("#leVS"), b = $("#leVB"); if (s) s.innerHTML = aiVoiceSt(); if (b) b.disabled = !!AIV.run; };
+  const wait = ms => new Promise(r => setTimeout(r, ms));
   AIV = { run: true, i: 0, n: parts.length }; upd();
   try {
     for (let i = 0; i < parts.length; i++) {
-      AIV.i = i; upd();
-      const r = await aiPost("aiVoice", { text: parts[i], voice });
+      AIV.i = i; AIV.eta = i ? Math.max(1, Math.round((Date.now() - t0) / i * (parts.length - i) / 60000)) : 0; upd();
+      let r;
+      for (let k = 1; ; k++) {
+        try { r = await aiPost("aiVoice", { text: parts[i], voice }); break; }
+        catch (e) { if (k >= 4 || LE !== ed) throw new Error(`${i + 1}-bo'lakda: ${e.message.replace(/^BAND:\s*/, "")}`); AIV.retry = 1; upd(); await wait(8000 * k); AIV.retry = 0; upd(); }
+      }
       const w = wavParse(r.audio); rate = w.rate; pcm.push(w.data);
     }
-    const wv = wavBuild(pcm, rate); AIV.up = true; upd();
+    if (LE !== ed) return;
+    AIV.up = "enc"; upd();
     const name = (LE.title || "kitob").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "kitob";
-    const file = new File([wv.bytes], `${name}-magzi.wav`, { type: "audio/wav" });
+    let file, sec;
+    try { const m = await toMp3(pcm, rate); sec = m.sec; file = new File([m.blob], `${name}-magzi.mp3`, { type: "audio/mpeg" }); }
+    catch (e) { const wv = wavBuild(pcm, rate); sec = wv.sec; file = new File([wv.bytes], `${name}-magzi.wav`, { type: "audio/wav" }); }
+    AIV.up = "up"; upd();
     const res = await upOne(file, "audio");
     if (LE !== ed) return;
     if (LEAUD) URL.revokeObjectURL(LEAUD); LEAUD = URL.createObjectURL(file);
     libRead(); LE.summaryAudio = Object.assign(res, { title: "Kitob mag'zi" });
-    const m = Math.floor(wv.sec / 60), s = Math.round(wv.sec % 60);
-    AIV = { done: `${m ? m + " daq " : ""}${s} soniya` }; drawLibEdit(); toast("Ovozlashtirildi ✓");
+    const m = Math.floor(sec / 60), s2 = Math.round(sec % 60);
+    AIV = { done: `${m ? m + " daq " : ""}${s2} soniya, ${fSize(file.size)}` }; drawLibEdit(); toast("Ovozlashtirildi ✓ Endi chop etishingiz mumkin");
   } catch (e) { AIV = { err: "Ovozlashtirilmadi: " + e.message.replace(/^BAND:\s*/, "") }; upd(); }
 }
 function libRead() { const v = id => ($("#" + id) || {}).value; if (!$("#leT")) return; Object.assign(LE, { title: v("leT").trim(), author: v("leA").trim(), genre: v("leG"), pages: v("leP"), desc: v("leD") });
@@ -2796,7 +2747,7 @@ function libLink(kind, v) {
   const f = m ? { id: m[1], name: "Drive fayl" } : /^https?:\/\//.test(v) ? { url: v, name: v.split("/").pop().slice(0, 60) } : null;
   if (!f) return toast("Havola noto'g'ri");
   libRead(); if (kind === "pdf") { LE.pdf = f; LEPDF = null; } else LE.audio.push(Object.assign(f, { title: `${LE.audio.length + 1}-qism` }));
-  drawLibEdit(); if (kind === "pdf" && !DEMO) aiFill();
+  drawLibEdit();
 }
 function libPick(kind, accept) {
   const i = document.createElement("input"); i.type = "file"; i.accept = accept; if (kind === "audio") i.multiple = true;
@@ -2825,7 +2776,6 @@ async function libUpload(kind, files) {
     }
     if (kind === "audio") LE.audio.sort((a, b) => a.title.localeCompare(b.title, "uz", { numeric: true }));
     drawLibEdit(); toast("Yuklandi ✓");
-    if (kind === "pdf" && !DEMO) aiFill();
   } catch (e) { toast(e.message); drawLibEdit(); }
 }
 async function libSave() {
