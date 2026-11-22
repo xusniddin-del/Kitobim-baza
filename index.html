@@ -3873,8 +3873,8 @@ function vPay(plan) {
   return mbar("To'lov ma'lumotlari") + `<div class="pinfo sub">${ic("cal", 22)}<div><b>Siz ${t} tarifni ${isPremU() ? "uzaytiryapsiz" : "sotib olyapsiz"}</b><small>Premium amal qiladi — <b>${d}</b> gacha. Avtomatik yechib olinmaydi.</small></div></div>
     <div class="psum"><div><span>Tarif</span><i></i><b>${t}</b></div><div><span>Muddat</span><i></i><b>${KitobimCore.PLANS[plan].days} kun</b></div><div class="tot"><span>Jami to'lovga:</span><b>${num(sum)} so'm</b></div></div>
     <h3 class="bkm-h">To'lov usullari</h3><div class="pmeth">${PAY_METHODS.map(([k, n]) => `<span class="pm-${k}">${n}</span>`).join("")}</div>
-    <p class="muted" style="font-size:13px;margin:8px 2px 0">Keyingi sahifada qulay usulni tanlaysiz. To'lov tushishi bilan Premium o'zi yoqiladi.</p>
-    <button class="btn grad full big fixb" onclick="payStart(PLAN.plan,${sum},'online')">To'lovga o'tish</button>`;
+    <p class="muted" style="font-size:13px;margin:8px 2px 0">To'lov <b>@${BOT}</b> Telegram boti orqali bo'ladi — u yerda qulay usulni tanlaysiz. To'lov tushishi bilan Premium o'zi yoqiladi.</p>
+    <button class="btn grad full big fixb" onclick="payStart(PLAN.plan,${sum},'online')">${ic("msg", 18)} Telegram orqali to'lash</button>`;
 }
 /* To'lov: Payme / Click kalitlari berilgach shu funksiya haqiqiy to'lovga ulanadi */
 
@@ -3919,6 +3919,7 @@ let PAYW = null;
 async function payStart(kind, sum, method) {
   if (kind === "promo") return redeemPromo(method);
   if (kind === "donat" && !(sum >= 1000)) return toast("Miqdorni kiriting (kamida 1 000 so'm)");
+  if (method === "online" && !DEMO && BOT) return payViaBot(kind, sum);
   if (method === "online" && !DEMO) {
     sheet(`<div class="intro"><div class="globe"><i class="aispin" style="width:34px;height:34px;border-width:3px;border-color:rgba(255,255,255,.35);border-top-color:#fff"></i></div><h2>To'lov tayyorlanmoqda…</h2></div>`);
     const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "payCreate", token: S.token, kind: kind === "donat" ? "donat" : "plan", plan: kind === "donat" ? "" : kind, sum, ret: location.origin + location.pathname + "#/premium" }) })
@@ -3939,6 +3940,28 @@ async function payStart(kind, sum, method) {
     <button class="btn pri full big" id="payB" style="margin-top:16px" onclick="paySend('${kind === "donat" ? "donat" : "plan"}','${plan}',${sum},'${method}')">To'ladim</button>
     ${CONTACT_TG ? `<a class="btn ghost full" style="margin-top:10px" target="_blank" href="https://t.me/${CONTACT_TG}">Savol bo'lsa — Telegram</a>` : ""}`);
 }
+/* To'lov Telegram bot orqali: tanlangan tarif/summa bilan botga o'tadi, bot to'lov havolasini beradi */
+function payViaBot(kind, sum) {
+  const pl = kind === "donat" ? "donat_" + Math.floor(sum) : "buy_" + kind, url = botUrl(pl);
+  const what = kind === "donat" ? `Qo'llab-quvvatlash — ${num(sum)} so'm` : `Premium · ${KitobimCore.PLANS[kind].name} — ${num(sum)} so'm`;
+  LS.set("kb_tgpay", { t: Date.now(), until: (S.me && S.me.user.premiumUntil) || "", kind });
+  sheet(`<div class="intro"><div class="globe" style="background:linear-gradient(135deg,#5cc2f2,#2aa3e0)">${ic("msg", 40)}</div><h2>To'lov Telegram bot orqali</h2><p><b>${what}</b><br>Botda «💳 To'lash» tugmasini bosib, Click, Payme, Uzum yoki karta orqali to'laysiz. Premium o'zi yoqiladi.</p>
+    <a class="btn full big" style="background:#2aa3e0;color:#fff" href="${url}" target="_blank" rel="noopener" onclick="setTimeout(closeSheet,600)">${ic("msg", 18)} @${BOT} ni ochish</a>
+    ${S.me && !S.me.user.tg ? `<p class="muted" style="font-size:12.5px;margin-top:12px">Bot birinchi marta raqamingizni so'raydi — ilovadagi raqamingizni yuboring, keyin to'lov havolasi o'zi keladi.</p>` : ""}</div>`);
+  try { window.open(url, "_blank", "noopener"); } catch (e) {}
+}
+/* Botdan qaytganda Premium holatini yangilaymiz */
+async function tgPayResume() {
+  const p = LS.get("kb_tgpay", null); if (!p || !S.token || DEMO) return;
+  if (Date.now() - p.t > 3 * 864e5) return LS.del("kb_tgpay");
+  rcStale(); await api("me").catch(() => {}); const u = S.me && S.me.user;
+  if (p.kind !== "donat" && u && u.premiumUntil && u.premiumUntil !== p.until && isPremU()) {
+    LS.del("kb_tgpay"); await render(true);
+    sheet(`<div class="intro"><div class="globe">${I.crown.replace("<svg", '<svg width="40" height="40"')}</div><h2>Premium yoqildi! 🎉</h2><p>Premium ${fmtDot(u.premiumUntil)} gacha faol. Barcha audio qismlar va kitob mag'zlari ochiq.</p><button class="btn pri full" onclick="closeSheet();go('#/library')">Kutubxonaga o'tish</button></div>`);
+  }
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(tgPayResume, 1200); });
+setTimeout(tgPayResume, 3000);
 function payOpen(r) {
   sheet(`<div class="intro"><div class="globe">${ic("coin", 40)}</div><h2>To'lov sahifasi tayyor</h2><p><b>${num(r.sum)} so'm</b> — Click, Payme, Uzum yoki karta orqali to'lang. To'lov tushishi bilan ${S.me ? "Premium o'zi yoqiladi" : ""}.</p>
     <a class="btn pri full big" href="${esc(r.url)}" target="_blank" rel="noopener" onclick="payWatch('${esc(r.bill)}')">💳 To'lash</a>
