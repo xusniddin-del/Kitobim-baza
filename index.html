@@ -1277,6 +1277,11 @@ body.dark .pinfo.once{background:#16233f}
 .apromo-f input{padding:10px 12px}
 .apromo{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.07);font-size:13.5px}
 .apromo b{flex:1;letter-spacing:.05em}.apromo span{color:#a99d94}
+
+.pmeth{display:flex;flex-wrap:wrap;gap:8px}
+.pmeth span{flex:1 1 40%;text-align:center;padding:13px 8px;border-radius:14px;background:var(--card);box-shadow:0 0 0 1.5px var(--line);font-weight:800;letter-spacing:-.02em}
+.tgauth{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 8px;margin-top:16px;padding:13px;border-radius:14px;background:#2aa3e0;color:#fff!important;font-weight:700;font-size:14.5px;text-align:center}
+.tgauth span{display:flex}.tgauth small{flex-basis:100%;font-weight:500;opacity:.85;font-size:12px}
 </style>
 </head>
 <body>
@@ -1359,7 +1364,7 @@ var KitobimCore = (function () {
   }
   function self(db, u, today) {
     var p = pub(db, u, today);
-    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || ""; p.premiumUntil = u.premiumUntil || "";
+    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || ""; p.premiumUntil = u.premiumUntil || ""; p.tg = !!u.tg;
     return {
       payments: (db.payments || []).filter(function (x) { return x.userId === u.id; }).slice(-8).reverse(),
       user: p, stats: stats(db, u.id, today),
@@ -1717,7 +1722,7 @@ var KitobimCore = (function () {
       return { result: { ok: false, error: e.userMessage || ("Server xatosi: " + e.message) }, touched: [] };
     }
   }
-  return { handle: handle, stats: stats, isPrem: isPrem, PLANS: PLANS, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
+  return { handle: handle, stats: stats, isPrem: isPrem, extendPrem: extendPrem, normPhone: normPhone, PLANS: PLANS, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
 })();
 if (typeof module !== "undefined") module.exports = KitobimCore;
 
@@ -1731,6 +1736,8 @@ if (typeof module !== "undefined") module.exports = KitobimCore;
 const APP_NAME = "Kitobim";
 const API_URL = "https://script.google.com/macros/s/AKfycbzEHr59fvr7PCXlESS5LWfXEHFfOMbWbYdT6cHLkejnJVW06QN826UXQC0QrnquXPjfug/exec";
 const PRICES = { month: KitobimCore.PLANS.month.sum, year: KitobimCore.PLANS.year.sum };   // narxlar yadrodagi PLANS dan olinadi
+const BOT = "kitobimapp_bot";   // Telegram bot: ro'yxatdan o'tish, parolni tiklash, to'lov va yangiliklar
+const botUrl = (start = "") => `https://t.me/${BOT}${start ? "?start=" + start : ""}`;
 const PAY_CARD = { number: "", owner: "" };   // qo'lda to'lov uchun karta: { number: "8600 1234 5678 9012", owner: "X. Sharofiddinov" }. Payme/Click ulanguncha shu ishlatiladi
 const CONTACT_TG = "";   // maktab/markazlar uchun aloqa: Telegram username (masalan "kitobim_admin"). Bo'sh bo'lsa tugma ko'rinmaydi
 /* ============================================== */
@@ -2263,6 +2270,7 @@ function vAuth() {
     ${authMode === "reg" ? `<label>Parolni takrorlang</label>${passField("aPass2", "Parolni qayta kiriting", "new-password")}` : ""}
     <button class="btn pri full" style="margin-top:22px;padding:15px" id="aBtn" onclick="doAuth()">${authMode === "login" ? "Kirish" : "Akkaunt ochish"}</button>
     ${authMode === "login" ? `<p style="font-size:13.5px;margin-top:14px;text-align:center"><a style="color:var(--or);font-weight:600;cursor:pointer" onclick="forgotPass()">Parolni unutdingizmi?</a></p>` : ""}
+    <a class="tgauth" target="_blank" href="${botUrl("register")}"><span>${ic("msg", 18)}</span>Telegram orqali ${authMode === "login" ? "kirish / ro'yxatdan o'tish" : "ro'yxatdan o'tish"}<small>parol bot orqali keladi</small></a>
     ${DEMO ? `<div class="demo-note" style="margin-top:18px">Demo rejim: akkaunt va yozuvlar faqat shu brauzerda saqlanadi. Server ulanganda hamma qurilmada bir xil bo'ladi.</div>` : ""}
     <p class="muted" style="font-size:12.5px;margin-top:18px;text-align:center">Davom etish orqali siz <a style="text-decoration:underline" href="#/terms">foydalanish shartlari</a>ga rozilik bildirasiz.</p>
   </div></div>
@@ -2294,11 +2302,11 @@ function passField(id, ph, ac) {
 function togglePass(id, btn) { const i = $("#" + id), show = i.type === "password"; i.type = show ? "text" : "password"; btn.innerHTML = show ? EYE_OFF : EYE; btn.classList.toggle("on", show); btn.setAttribute("aria-label", show ? "Parolni yashirish" : "Parolni ko'rsatish"); }
 
 function forgotPass() {
-  sheet(`<h2>Parolni tiklash</h2><p class="sub">Parolingizni administrator tiklab beradi.</p>
-    <div class="menu" style="margin-top:16px"><div class="mi"><span class="ic" style="background:var(--or)">1</span><span>Administratorga yozing: ismingiz va telefon raqamingiz</span></div>
-    <div class="mi"><span class="ic" style="background:var(--or)">2</span><span>U sizga vaqtinchalik parol yuboradi</span></div>
-    <div class="mi"><span class="ic" style="background:var(--or)">3</span><span>Shu parol bilan kiring va o'zingizga yangi parol qo'ying</span></div></div>
-    ${CONTACT_TG ? `<a class="btn pri full" style="margin-top:18px" target="_blank" href="https://t.me/${CONTACT_TG}">Administratorga yozish (Telegram)</a>` : ""}`);
+  sheet(`<div class="intro"><div class="globe">${ic("key", 40)}</div><h2>Parolni tiklash</h2><p>Yangi parol Telegram botimiz orqali bir zumda keladi.</p></div>
+    <div class="menu" style="margin-top:4px"><div class="mi"><span class="ic" style="background:var(--or)">1</span><span>Pastdagi tugma orqali <b>@${BOT}</b> ni oching</span></div>
+    <div class="mi"><span class="ic" style="background:var(--or)">2</span><span>«📲 Raqamni yuborish» tugmasini bosing</span></div>
+    <div class="mi"><span class="ic" style="background:var(--or)">3</span><span>Bot yuborgan vaqtinchalik parol bilan kiring va yangisini qo'ying</span></div></div>
+    <a class="btn pri full big" style="margin-top:18px" target="_blank" href="${botUrl("reset")}">${ic("msg", 18)} Telegram botni ochish</a>`);
 }
 
 function forceNewPass() {
@@ -3740,12 +3748,12 @@ function vMenu() {
   const grp = (t, body) => `<div class="mgrp"><div class="mlabel">${t}</div><div class="menu">${body}</div></div>`;
   const tl = { system: "Tizim", light: "Yorug'", dark: "Qorong'i" }[themePref()];
   return mbar("Menyu") + `<div class="sbox msrch">${I.search}<input placeholder="Qidirish" oninput="menuFilter(this.value)"></div><div id="mnu">
-    ${grp("Shaxsiy hisob", it(ic("user", 18), "#3bb54a", "Shaxsiy ma'lumotlar", "go('#/personal')") + it(ic("target", 18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`) + it(I.heart, "#e0475a", "Donat", "go('#/donat')") + it(ic("coin", 18), "#f2a20f", "To'lovlarim", "go('#/payments')") + it(ic("gift", 18), "#14a89a", "Bonuslarim", "go('#/bonus')") + it(ic("key", 18), "#5f6b7a", "Parolni o'zgartirish", "openPass()"))}
+    ${grp("Shaxsiy hisob", it(ic("user", 18), "#3bb54a", "Shaxsiy ma'lumotlar", "go('#/personal')") + it(ic("target", 18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`) + it(I.heart, "#e0475a", "Donat", "go('#/donat')") + it(ic("msg", 18), "#2aa3e0", "Telegram bot", `window.open('${botUrl(S.me.user.tg ? "" : "link")}','_blank')`, `<em>${S.me.user.tg ? "Ulangan ✓" : "Ulash"}</em>`) + it(ic("coin", 18), "#f2a20f", "To'lovlarim", "go('#/payments')") + it(ic("gift", 18), "#14a89a", "Bonuslarim", "go('#/bonus')") + it(ic("key", 18), "#5f6b7a", "Parolni o'zgartirish", "openPass()"))}
     ${grp("Obuna", it(I.crown.replace("<svg", '<svg width="17" height="17"'), "#ff8a2b", "Premium", "go('#/premium')", isPremU() ? `<em>${fmtDot(S.me.user.premiumUntil)} gacha</em>` : ""))}
     ${grp("Sozlamalar", it(ic("moon", 18), "#2a9a6a", "Displey sozlamalari", "go('#/display')", `<em>${tl}</em>`) + it(ic("msg", 18), "#3d7bf0", "Ilova tili", "openLang()", "<em>O'zbekcha</em>")
       + `<button class="mi" data-t="yopiq profil" onclick="saveProfile({private:${!S.me.user.private}},'${S.me.user.private ? "Profil ochildi" : "Profil yopildi"}')"><span class="ic" style="background:#8a4fc0">${ic("lock", 18)}</span><span>Yopiq profil</span><div class="tg ${S.me.user.private ? "on" : ""}"></div></button>`
       + it(ic("phone", 18), "#0f8a9a", "Ilovani o'rnatish", "installApp()") + it(ic("download", 18), "#5f6b7a", "Ma'lumotlarimni yuklab olish", "exportData()"))}
-    ${grp("Yordam", it(ic("sparkle", 18), "#e0478a", "Ilova haqida", "go('#/about')") + it(ic("file", 18), "#3d7bf0", "Foydalanish qoidalari", "go('#/terms')") + (CONTACT_TG ? it(ic("msg", 18), "#2a9a6a", "Jonli suhbat", `window.open('https://t.me/${CONTACT_TG}','_blank')`) : ""))}
+    ${grp("Yordam", it(ic("sparkle", 18), "#e0478a", "Ilova haqida", "go('#/about')") + it(ic("file", 18), "#3d7bf0", "Foydalanish qoidalari", "go('#/terms')") + it(ic("msg", 18), "#2a9a6a", "Jonli suhbat (Telegram)", `window.open('${botUrl()}','_blank')`))}
     ${grp("Chiqish", it(ic("logout", 18), "#e5484d", "Sahifadan chiqish", "if(confirm('Akkauntdan chiqasizmi?'))logout()"))}</div>`;
 }
 function menuFilter(q) {
@@ -3808,8 +3816,8 @@ function vDonat() {
     <label>To'liq ism</label><input id="dnN" value="${esc(S.me.user.name)}" placeholder="Ismingizni kiriting">
     <label>Miqdor</label><div class="sumin"><input id="dnS" type="number" inputmode="numeric" placeholder="0" value="${DON.sum || ""}" oninput="DON.sum=+this.value||0;donPaint()"><span>so'm</span></div>
     <div class="pres">${pres.map(p => `<button class="${DON.sum === p ? "on" : ""}" onclick="DON.sum=${p};$('#dnS').value=${p};donPaint()">${num(p)} so'm</button>`).join("")}</div>
-    <label>To'lov turi</label>${payTiles("DON")}
-    <button class="btn pri full big fixb" id="dnB" onclick="payStart('donat',DON.sum,DON.method)">Qo'llab-quvvatlash</button>`;
+    <div class="pmeth" style="margin-top:16px">${PAY_METHODS.map(([k, n]) => `<span class="pm-${k}">${n}</span>`).join("")}</div>
+    <button class="btn pri full big fixb" id="dnB" onclick="payStart('donat',DON.sum,'online')">Qo'llab-quvvatlash</button>`;
 }
 function donPaint() { document.querySelectorAll(".pres button").forEach(b => b.classList.toggle("on", b.textContent.replace(/\D/g, "") == DON.sum)); }
 function payTiles(st) {
@@ -3853,13 +3861,13 @@ function vPlans() {
 }
 function vPay(plan) {
   plan = plan === "month" ? "month" : "year"; PLAN.plan = plan;
-  const sum = PRICES[plan], end = new Date(); end.setMonth(end.getMonth() + (plan === "year" ? 12 : 1));
+  const sum = PRICES[plan], end = new Date(isPremU() ? S.me.user.premiumUntil : today()); end.setDate(end.getDate() + KitobimCore.PLANS[plan].days);
   const d = `${String(end.getDate()).padStart(2, "0")}.${String(end.getMonth() + 1).padStart(2, "0")}.${end.getFullYear()}`, t = plan === "year" ? "Yillik" : "Oylik";
-  return mbar("To'lov ma'lumotlari") + `<div class="seg"><button class="${PLAN.mode === "sub" ? "on" : ""}" onclick="PLAN.mode='sub';render(true)">Obuna bo'lish</button><button class="${PLAN.mode === "once" ? "on" : ""}" onclick="PLAN.mode='once';render(true)">Bir marta to'lash</button></div>
-    <div class="pinfo ${PLAN.mode}">${ic("cal", 22)}<div><b>${PLAN.mode === "sub" ? `Siz ${t} tarifga obuna bo'lyapsiz` : `Siz ${t} tarif sotib olyapsiz`}</b><small>${PLAN.mode === "sub" ? "Keyingi to'lov sanasi" : "Tarif amal qilish muddati"} — <b>${d}</b></small></div></div>
-    <div class="psum"><div><span>Obuna turi</span><i></i><b>${t}</b></div><div><span>To'lov summasi</span><i></i><b>${num(sum)} so'm</b></div><div class="tot"><span>Jami to'lovga:</span><b>${num(sum)} so'm</b></div></div>
-    <h3 class="bkm-h">To'lov usulini tanlang</h3>${payTiles("PLAN")}
-    <button class="btn grad full big fixb" onclick="payStart(PLAN.plan,${sum},PLAN.method)">${PLAN.mode === "sub" ? "Obuna bo'lish" : "To'lov qilish"}</button>`;
+  return mbar("To'lov ma'lumotlari") + `<div class="pinfo sub">${ic("cal", 22)}<div><b>Siz ${t} tarifni ${isPremU() ? "uzaytiryapsiz" : "sotib olyapsiz"}</b><small>Premium amal qiladi — <b>${d}</b> gacha. Avtomatik yechib olinmaydi.</small></div></div>
+    <div class="psum"><div><span>Tarif</span><i></i><b>${t}</b></div><div><span>Muddat</span><i></i><b>${KitobimCore.PLANS[plan].days} kun</b></div><div class="tot"><span>Jami to'lovga:</span><b>${num(sum)} so'm</b></div></div>
+    <h3 class="bkm-h">To'lov usullari</h3><div class="pmeth">${PAY_METHODS.map(([k, n]) => `<span class="pm-${k}">${n}</span>`).join("")}</div>
+    <p class="muted" style="font-size:13px;margin:8px 2px 0">Keyingi sahifada qulay usulni tanlaysiz. To'lov tushishi bilan Premium o'zi yoqiladi.</p>
+    <button class="btn grad full big fixb" onclick="payStart(PLAN.plan,${sum},'online')">To'lovga o'tish</button>`;
 }
 /* To'lov: Payme / Click kalitlari berilgach shu funksiya haqiqiy to'lovga ulanadi */
 
@@ -3899,9 +3907,19 @@ function premStatus() {
   return "";
 }
 /* To'lov so'rovi */
-function payStart(kind, sum, method) {
+/* Onlayn to'lov (TezCheck: Click, Payme, Uzum, karta). Server ulanmagan bo'lsa — qo'lda to'lov */
+let PAYW = null;
+async function payStart(kind, sum, method) {
   if (kind === "promo") return redeemPromo(method);
   if (kind === "donat" && !(sum >= 1000)) return toast("Miqdorni kiriting (kamida 1 000 so'm)");
+  if (method === "online" && !DEMO) {
+    sheet(`<div class="intro"><div class="globe"><i class="aispin" style="width:34px;height:34px;border-width:3px;border-color:rgba(255,255,255,.35);border-top-color:#fff"></i></div><h2>To'lov tayyorlanmoqda…</h2></div>`);
+    const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "payCreate", token: S.token, kind: kind === "donat" ? "donat" : "plan", plan: kind === "donat" ? "" : kind, sum, ret: location.origin + location.pathname + "#/premium" }) })
+      .then(x => x.json()).catch(() => ({ ok: false, error: "Internet bilan aloqa yo'q" }));
+    if (r.ok) { LS.set("kb_bill", { bill: r.bill, kind, t: Date.now() }); return payOpen(r); }
+    if (!r.offline && r.error !== "Noma'lum amal") { closeSheet(); return toast(r.error); }
+    method = "card";   // onlayn to'lov hali ulanmagan — qo'lda to'lovga o'tamiz
+  }
   if (!method) return toast("To'lov usulini tanlang");
   const plan = kind === "donat" ? "" : kind, mName = (PAY_METHODS.find(x => x[0] === method) || [, method])[1];
   const card = PAY_CARD.number ? `<div class="pcardn"><small>Karta raqami</small><b>${esc(PAY_CARD.number)}</b>${PAY_CARD.owner ? `<small>${esc(PAY_CARD.owner)}</small>` : ""}
@@ -3914,6 +3932,27 @@ function payStart(kind, sum, method) {
     <button class="btn pri full big" id="payB" style="margin-top:16px" onclick="paySend('${kind === "donat" ? "donat" : "plan"}','${plan}',${sum},'${method}')">To'ladim</button>
     ${CONTACT_TG ? `<a class="btn ghost full" style="margin-top:10px" target="_blank" href="https://t.me/${CONTACT_TG}">Savol bo'lsa — Telegram</a>` : ""}`);
 }
+function payOpen(r) {
+  sheet(`<div class="intro"><div class="globe">${ic("coin", 40)}</div><h2>To'lov sahifasi tayyor</h2><p><b>${num(r.sum)} so'm</b> — Click, Payme, Uzum yoki karta orqali to'lang. To'lov tushishi bilan ${S.me ? "Premium o'zi yoqiladi" : ""}.</p>
+    <a class="btn pri full big" href="${esc(r.url)}" target="_blank" rel="noopener" onclick="payWatch('${esc(r.bill)}')">💳 To'lash</a>
+    <button class="btn ghost full" style="margin-top:10px" id="pcB" onclick="payCheck('${esc(r.bill)}',true)">To'ladim — tekshirish</button>
+    <div id="pcS" class="muted" style="font-size:13px;margin-top:10px"></div></div>`);
+}
+function payWatch(bill) { clearInterval(PAYW); let n = 0; PAYW = setInterval(() => { if (++n > 120 || !$("#pcB")) return clearInterval(PAYW); if (!document.hidden) payCheck(bill, false); }, 5000); }
+async function payCheck(bill, manual) {
+  const st = $("#pcS"); if (manual && st) st.textContent = "Tekshirilmoqda…";
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "payCheck", token: S.token, bill }) }).then(x => x.json()).catch(() => ({ ok: false }));
+  if (!r.ok) { if (manual && st) st.textContent = r.error || "Tekshirib bo'lmadi, qayta urinib ko'ring"; return false; }
+  if (!r.paid) { if (manual && st) st.textContent = "To'lov hali tushmadi. To'lagan bo'lsangiz, bir necha soniyadan keyin qayta bosing."; return false; }
+  clearInterval(PAYW); LS.del("kb_bill"); rcStale(); await api("me").catch(() => {}); await render(true);
+  sheet(`<div class="intro"><div class="globe">${I.crown.replace("<svg", '<svg width="40" height="40"')}</div><h2>${r.kind === "donat" ? "Rahmat! 🧡" : "Premium yoqildi! 🎉"}</h2><p>${r.kind === "donat" ? "Qo'llab-quvvatlaganingiz uchun katta rahmat!" : `Premium ${fmtDot(r.until)} gacha faol. Barcha audio qismlar va kitob mag'zlari ochiq.`}</p>
+    <button class="btn pri full" onclick="closeSheet();go('${r.kind === "donat" ? "#/home" : "#/library"}')">${r.kind === "donat" ? "Yaxshi" : "Kutubxonaga o'tish"}</button></div>`);
+  return true;
+}
+/* Ilovaga qaytganda to'lanmagan to'lovni tekshirib qo'yamiz */
+function payResume() { const b = LS.get("kb_bill", null); if (!b || !S.token || DEMO) return; if (Date.now() - b.t > 864e5) return LS.del("kb_bill"); payCheck(b.bill, false); }
+document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(payResume, 800); });
+setTimeout(payResume, 2500);
 async function paySend(kind, plan, sum, method) {
   const b = $("#payB"); if (b) b.disabled = true;
   await safe(async () => {
