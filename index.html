@@ -861,6 +861,343 @@ body:not(.admbody) .frow{background:var(--soft);border-color:var(--line)}
 
 @media (max-width:980px){.dsk{display:none!important}}
 
+
+/* ================= MOBIL ILOVA v2 ================= */
+.mbar{display:flex;align-items:center;gap:12px;margin:0 0 16px;min-height:44px}
+.mbar h1{flex:1;font-size:24px;font-weight:800;letter-spacing:-.02em;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar .r{display:flex;gap:8px}
+.mbar .davh{display:flex;align-items:center;gap:6px;font-size:27px;letter-spacing:-.03em}
+.mbar .davh svg{color:var(--or);width:26px;height:26px}
+.msec{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:26px 0 12px}
+.msec h2{font-size:19px;font-weight:800;display:flex;align-items:center;gap:7px}
+.msec h2 svg{color:var(--or)}
+.msec small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.msec a{font-size:14px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:2px;cursor:pointer;white-space:nowrap}
+.msec a svg{width:16px;height:16px}
+.mrow{display:flex;gap:14px;overflow-x:auto;margin:0 -16px;padding:2px 16px 8px;scrollbar-width:none;scroll-snap-type:x proximity}
+.mrow::-webkit-scrollbar{display:none}
+.mt{flex:0 0 140px;scroll-snap-align:start;cursor:pointer;text-align:center}
+.mtc{position:relative;display:flex;justify-content:center;margin-bottom:10px}
+.mt .cover{width:140px;height:204px;border-radius:5px 12px 12px 5px;padding:14px 11px 12px 16px}
+.mt .cover .ct{font-size:16px;-webkit-line-clamp:5}.mt .cover .ca{font-size:9px}
+.mpct{position:absolute;right:8px;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:700;padding:3px 7px;border-radius:8px;z-index:2}
+.mt b{display:block;font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mt small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mpills{display:flex;margin:10px auto 0;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--line);overflow:hidden;width:fit-content}
+.mpills button{padding:8px 12px;color:var(--muted);display:flex}
+.mpills button+button{border-left:1.5px solid var(--line)}
+.mpills button:not([disabled]){color:var(--ink2)}
+.mpills button:not([disabled]):nth-child(3){color:var(--or)}
+.mpills button[disabled]{opacity:.35}
+/* premium banner */
+.mprem{position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(120deg,#ff7a2a 0%,#ff9a4d 70%,#ffb26b 100%);color:#fff;padding:20px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;margin:6px 0 16px;box-shadow:0 12px 28px rgba(255,107,26,.28)}
+.mprem .tx{flex:1;position:relative;z-index:1}
+.mprem b{display:block;font-size:20px;font-weight:800;letter-spacing:-.02em}
+.mprem span{display:block;font-size:14px;opacity:.95;margin:4px 0 14px;line-height:1.35;max-width:220px}
+.mprem em{font-style:normal;display:inline-flex;align-items:center;gap:4px;background:#fff;color:var(--or2);font-weight:700;font-size:14.5px;padding:10px 16px;border-radius:999px}
+.mprem em svg{width:16px;height:16px}
+.mprem .art{position:relative;width:110px;height:100px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;filter:drop-shadow(0 10px 16px rgba(160,50,0,.35))}
+.mprem .art svg{transform:rotate(-10deg)}
+.mprem .art i,.prm-hero .st{position:absolute;font-style:normal;color:#fff;opacity:.85;font-size:14px}
+.mprem .art .s1{top:2px;right:6px}.mprem .art .s2{bottom:10px;left:0;font-size:10px}
+/* hozir o'qiyotgan */
+.mcur{display:flex;gap:16px;align-items:center;padding:6px 0 4px;cursor:pointer}
+.mcur .cover.sm{width:86px;height:124px}
+.mcur .in{flex:1;min-width:0}
+.mcur h3{font-size:18px;font-weight:700;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mcur small{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+.mcur .pb{height:5px;margin:12px 0 10px}
+.pill{display:inline-flex;align-items:center;gap:4px;background:var(--soft);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14.5px;color:var(--ink)}
+.pill span{color:var(--muted);font-weight:500}
+.pill svg{width:16px;height:16px}
+.mcur.empty-c{background:var(--card);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+.mcur.empty-c .ic{width:56px;height:56px;border-radius:16px;background:var(--or-soft);color:var(--or);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.mcur.empty-c b{display:block;font-size:16px}.mcur.empty-c small{font-size:13px;line-height:1.4}
+/* marra mini */
+.mmarra{display:flex;align-items:center;gap:14px;background:var(--card);border-radius:20px;padding:12px 16px;margin-top:14px;cursor:pointer;box-shadow:var(--shadow)}
+.mmarra .ring{position:relative;width:66px;height:66px;flex:0 0 auto}
+.mmarra .ring .lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.mmarra .ring .lbl b{font-size:14px}
+.mmarra .in{flex:1;min-width:0}.mmarra .in b{display:block;font-size:15px}
+.mmarra .in small{display:flex;align-items:center;gap:4px;color:var(--muted);font-size:12.5px;margin-top:4px}
+.mmarra .in small svg{color:var(--or)}
+.mmarra .go{color:var(--muted)}
+/* qorong'i lenta */
+.mband{background:linear-gradient(180deg,#2b130a,#5a2a10 55%,#8a4418);color:#fff;margin:24px -16px 0;padding:2px 16px 18px;border-radius:26px}
+.mband .msec small,.mband .msec a,.mband .mt small{color:rgba(255,255,255,.7)}
+.mband .msec h2 svg{color:#ffb26b}
+.mband .mpills{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)}.mband .mpills button{color:#fff!important}.mband .mpills button+button{border-color:rgba(255,255,255,.25)}
+.mmood{display:flex;align-items:center;gap:14px;border-radius:20px;padding:18px;margin-top:22px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#6d5dfc,#a55ce8 60%,#e46aa8)}
+.mmood div{flex:1}.mmood b{display:block;font-size:17px}.mmood small{opacity:.9;font-size:13.5px}
+/* intro / modal ichi */
+.intro{text-align:center;padding:4px 4px 0}
+.intro .art{position:relative;width:170px;height:150px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;border-radius:28px;background:radial-gradient(circle,#fff1e8,transparent 70%)}
+.intro .art span{position:absolute;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.15)}
+.intro .d1{background:var(--or);top:8px;right:4px}.intro .d2{background:var(--green);bottom:12px;left:6px}
+.intro h2{font-size:22px;margin:10px 0 8px}
+.intro p{color:var(--muted);line-height:1.5;margin:0 0 20px;font-size:15px}
+.intro .globe{width:84px;height:84px;margin:6px auto 8px;border-radius:26px;background:linear-gradient(135deg,#ffb26b,#ff6b1a);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 28px rgba(255,107,26,.35)}
+.shead{color:var(--muted);font-size:15px;margin:0 0 6px}
+.srow{display:flex;align-items:center;gap:14px;width:100%;padding:16px 2px;font-size:16px;font-weight:500;text-align:left}
+.srow+.srow{border-top:1px solid var(--line)}
+.srow svg{width:21px;height:21px;color:var(--ink2)}
+.srow.red,.srow.red svg{color:var(--red)}
+.langs button{display:flex;align-items:center;gap:12px;width:100%;padding:15px 2px;font-size:16px;text-align:left}
+.langs button+button{border-top:1px solid var(--line)}
+.langs span{flex:1}.langs svg{color:#fff;background:var(--or);border-radius:50%;padding:3px;width:22px;height:22px}
+.langs em{font-style:normal;font-size:12px;color:var(--muted)}
+.langs button[disabled]{opacity:.55}
+.langs+.btn{margin-top:14px}
+/* javonim */
+.hrow{display:flex;align-items:center;gap:14px;padding:14px 2px;cursor:pointer}
+.hrow+.hrow{border-top:1px solid var(--line)}
+.hrow .hi{width:48px;height:48px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:var(--ink2)}
+.hrow .hi svg{width:21px;height:21px}
+.hrow .tx{flex:1;min-width:0}.hrow b{display:block;font-size:16px;font-weight:600}.hrow small{color:var(--muted);font-size:13.5px}
+.hrow>svg{color:var(--muted);width:18px;height:18px}
+.hrow.flat{padding-top:0;cursor:default}
+.hlist{margin-top:14px;background:var(--card);border-radius:20px;padding:0 14px;box-shadow:var(--shadow)}
+/* kitob sahifasi */
+.bkm{margin:0 -16px;padding:0 16px}
+.bkm-top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;margin:0 -16px;background:var(--bg)}
+.bkm-top .r{display:flex;gap:8px}
+.bkm-top .ibtn{background:var(--card);font-size:20px;font-weight:800}
+.bkm-top .ibtn.on{color:var(--or)}
+.bkm-hero{display:flex;justify-content:center;padding:20px 0 26px;margin:0 -16px;background:radial-gradient(circle at 50% 45%,var(--gl),transparent 68%)}
+.bkm-hero .cover.lg{width:200px;height:290px}
+.bkm h1{font-size:24px;font-weight:800;text-align:center;letter-spacing:-.02em}
+.bkm .au{color:var(--muted);text-align:center;margin-top:6px;font-size:15.5px}
+.bkm-st{display:grid;grid-template-columns:repeat(3,1fr);background:var(--card);border-radius:18px;padding:14px 4px;margin:20px 0 16px;box-shadow:var(--shadow)}
+.bkm-st div{padding:0 12px}.bkm-st div+div{border-left:1px solid var(--line)}
+.bkm-st small{display:block;color:var(--muted);font-size:13px}
+.bkm-st b{display:flex;align-items:center;gap:5px;font-size:17px;margin-top:5px;white-space:nowrap}
+.bkm-st b svg{color:var(--or)}
+.split{display:flex;border-radius:999px;overflow:hidden;background:var(--or);box-shadow:0 10px 22px rgba(255,107,26,.3)}
+.split button{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;font-size:16px;padding:17px 8px}
+.split button+button{border-left:1px solid rgba(255,255,255,.35)}
+.split button[disabled]{opacity:.45}
+.btn.big{padding:17px;font-size:16px;border-radius:999px}
+.btn.grad{background:linear-gradient(90deg,#f04e1c,#ff8a2b 60%,#f6a623);color:#fff}
+.bkm-sum{background:var(--card);border-radius:20px;padding:16px;margin-top:16px;box-shadow:var(--shadow)}
+.bkm-sum .h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.bkm-sum .h b{display:flex;align-items:center;gap:6px;color:var(--or2)}
+.bkm-sum .pill{background:var(--or-soft);color:var(--or2);padding:7px 12px;font-size:13.5px}
+.bkm-sum .t p{margin:0 0 10px;line-height:1.65;color:var(--ink2)}
+.bkm-sum .t.clamp{max-height:7.4em;overflow:hidden;-webkit-mask-image:linear-gradient(#000 60%,transparent)}
+.bkm-sum .more{color:var(--or);font-weight:700;margin-top:4px}
+.bkm-desc{line-height:1.65;color:var(--ink2);margin:18px 2px}
+.bkm-mine{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}
+.bkm-mine span:not(.tag){color:var(--muted);font-size:13.5px;flex:1}
+.bkm-h{font-size:18px;margin:24px 0 12px}
+/* pleyer */
+.libov.plov{background:#1c1c20}
+.plm{flex:1;overflow-y:auto;color:#fff;text-align:center;padding:calc(10px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 75%,#000) 0%,#1c1c20 70%);max-width:100%}
+.plm .pt{display:flex;justify-content:space-between;align-items:center;max-width:520px;margin:0 auto}
+.plm .pt button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#fff}
+.plm .pt span{font-size:14px;opacity:.75;font-weight:600}
+.plm .pcv{display:flex;justify-content:center;margin:22px 0 26px}
+.plm .pcv .cover.lg{width:210px;height:304px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.plm h2{font-size:22px;font-weight:800}
+.plm p{opacity:.7;margin:8px 0 22px;font-size:14.5px}
+.plm #plWrap{max-width:520px;margin:0 auto}
+.plm input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;padding:0;border:0;border-radius:4px;background:linear-gradient(90deg,#fff var(--p,0%),rgba(255,255,255,.25) var(--p,0%))}
+.plm input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.plm input[type=range]::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:#fff}
+.plm .tm{display:flex;justify-content:space-between;font-size:12.5px;opacity:.75;margin-top:8px;font-variant-numeric:tabular-nums}
+.plm .ctl{display:flex;align-items:center;justify-content:space-between;margin:24px 0 8px}
+.plm .ctl button{position:relative;width:52px;height:52px;display:flex;align-items:center;justify-content:center;color:#fff}
+.plm .ctl button i{position:absolute;bottom:4px;font-style:normal;font-size:10px;font-weight:700}
+.plm .ctl .pp{width:78px;height:78px;border-radius:50%;background:#fff;color:#16161a;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.plm .ctl .sp{font-weight:700;font-size:15px;opacity:.9}
+.plm .ctl .sp.on{color:var(--or);opacity:1}
+.plm .pls{background:rgba(255,255,255,.08);max-width:520px;margin:22px auto 0}
+.plm .pls button{border-color:rgba(255,255,255,.08);color:#fff}
+.plm .pls button span{color:rgba(255,255,255,.55)}
+.plm .pls button.on{background:rgba(255,255,255,.12)}
+.plm .afr{background:rgba(255,255,255,.1)}
+#mini{position:fixed;left:10px;right:10px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:39;background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.18);display:flex;align-items:center;gap:6px;padding:8px 8px 8px 10px;overflow:hidden}
+body.dark #mini{background:#26262b}
+#mini .mb{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--line)}#mini .mb i{display:block;height:100%;background:var(--or)}
+#mini .mi2{flex:1;display:flex;align-items:center;gap:10px;min-width:0;cursor:pointer}
+#mini .cover.xs{width:34px;height:48px}
+#mini b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#mini small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mini button{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+@media (min-width:981px){#mini{left:auto;right:30px;bottom:24px;width:380px}}
+body.hasmini .main{padding-bottom:calc(160px + env(safe-area-inset-bottom))}
+/* davra */
+.mtabs{margin:0 -16px 0;padding:0 8px}
+.mtabs button{font-size:16px}
+.mcomp{display:flex;align-items:center;gap:12px;padding:14px 2px;border-bottom:1.5px solid var(--line);margin-bottom:14px;cursor:pointer}
+.mcomp>div:not(.ava){flex:1;min-width:0}.mcomp b{display:block;font-size:15.5px}.mcomp small{color:var(--muted);font-size:14px}
+.mcomp>svg{color:var(--muted)}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:18px 0 10px}
+.podium a{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;max-width:120px;position:relative}
+.podium b{font-size:13.5px}.podium small{color:var(--muted);font-size:12px}
+.podium span{display:flex;align-items:center;justify-content:center;width:100%;border-radius:14px 14px 0 0;color:#fff;font-weight:800;font-size:22px;margin-top:6px;background:var(--grad)}
+.podium .p1 span{height:92px}.podium .p2 span{height:68px;background:#b8bec7}.podium .p3 span{height:52px;background:#d48a4f}
+/* sahifam */
+.pm{margin:0 -16px}
+.pm-cv{height:170px;background:var(--grad) center/cover;position:relative;margin-top:calc(-1 * env(safe-area-inset-top))}
+.pm-cv.sm{height:130px;border-radius:0}
+.pm-menu{position:absolute;top:calc(12px + env(safe-area-inset-top));right:14px;width:42px;height:42px;border-radius:12px;background:rgba(0,0,0,.35);color:#fff;font-size:20px;backdrop-filter:blur(6px)}
+.camb2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(0,0,0,.2)}
+.pm-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:0 16px;margin-top:-52px;position:relative}
+.pm-av{position:relative;cursor:pointer}.pm-av .ava{box-shadow:0 0 0 4px var(--bg)}
+.pm-av .cam{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,.35);color:#fff;display:flex;align-items:center;justify-content:center}
+.pm-hd .r{display:flex;gap:8px;padding-bottom:6px}
+.pm-hd .btn{padding:11px 16px;border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
+.pm-hd .ibtn{background:var(--card);box-shadow:var(--shadow);border-radius:12px}
+.pm-n{font-size:23px;font-weight:800;padding:12px 16px 0}
+.pm-id{color:var(--muted);font-size:14px;padding:4px 16px 0}.pm-id span{margin:0 6px;opacity:.5}
+.pm-bio{white-space:pre-line;line-height:1.5;padding:0 16px;margin:12px 0 0}
+.pm-meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px;padding:12px 16px 0}
+.pm-meta span{display:flex;align-items:center;gap:6px}.pm-meta svg{width:17px;height:17px}
+.pm-fol{padding:10px 16px 0;font-size:14.5px;color:var(--muted)}.pm-fol b{color:var(--ink)}.pm-fol span{margin:0 6px;opacity:.5}
+.pm-prem{display:flex;align-items:center;gap:12px;margin:16px 16px 0;padding:16px;border-radius:20px;background:linear-gradient(100deg,#ff7a2a,#f04e1c);color:#fff;cursor:pointer;box-shadow:0 10px 24px rgba(240,78,28,.28)}
+.pm-prem div{flex:1}.pm-prem b{display:block;font-size:17px}.pm-prem small{opacity:.9;font-size:13px}
+.pm-prem>span{display:flex;align-items:center;gap:2px;border:1.5px solid rgba(255,255,255,.5);border-radius:999px;padding:8px 12px;font-weight:700;font-size:14px;white-space:nowrap}
+.pm-prem>span svg{width:15px;height:15px}
+.pm-st{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 16px 0}
+.pm-st div{position:relative;background:var(--card);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);cursor:default}
+.pm-st div[onclick]{cursor:pointer}
+.pm-st small{color:var(--muted);font-size:13px}
+.pm-st b{display:flex;align-items:center;gap:7px;font-size:17px;margin-top:5px}
+.pm-st b i{width:22px;height:22px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center}
+.pm-st em{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.pm .tabs,.pm>.post,.pm>.empty,.pm>.sgrid,.pm>.msec,.pm>.mrow{margin-left:16px;margin-right:16px}
+.pm>.mrow{margin-left:0;margin-right:0}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sgrid div{background:var(--card);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+.sgrid small{color:var(--muted);font-size:13px}.sgrid b{display:block;font-size:20px;margin-top:4px}
+/* menyu va sozlamalar */
+.msrch input{background:var(--soft)!important;border-radius:14px}
+.mgrp .mlabel{margin:14px 4px 8px}
+.mgrp .menu{margin-top:0;background:var(--card);box-shadow:var(--shadow)}
+.mi em{font-style:normal;color:var(--muted);font-weight:500;font-size:14px;margin-left:auto}
+.mi span:nth-child(2){flex:1}
+.mi .ch{color:var(--muted);display:flex}.mi .ch svg{width:17px;height:17px}
+.mi .ch,.mi>em{flex:0 0 auto!important}
+.btn>svg:not([width]){width:18px;height:18px;flex:0 0 auto}
+.mgrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:20px 12px;margin-top:6px}.mgrid2 .mt{flex:none}
+.lchips{margin-top:2px}
+.pcard2{background:var(--card);border-radius:20px;padding:6px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.pcard2 .ttl{font-weight:700;font-size:15px;padding:12px 0 4px}
+.pcard2 .h{display:flex;justify-content:space-between;align-items:center;color:var(--muted);padding:12px 0 4px}
+.pcard2 .h button{color:var(--muted)}
+.pcard2>p{white-space:pre-line;line-height:1.5;margin:4px 0 14px}
+.pcard2.tg-row{display:flex;justify-content:space-between;align-items:center;padding:16px;cursor:pointer}
+.prow{display:flex;align-items:center;gap:10px;width:100%;padding:14px 0;text-align:left;font-size:15px}
+.prow+.prow,.ttl+.prow{border-top:1px solid var(--line)}
+.ttl+.prow{border-top:0}
+.prow span{color:var(--muted);flex:0 0 auto}
+.prow b{flex:1;text-align:right;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow b i{color:var(--muted);font-weight:500}
+.prow>svg{color:var(--muted);width:16px;height:16px;flex:0 0 auto}
+.prow .sdot{width:30px;height:30px;border-radius:50%}
+.pers{margin:0 -16px;padding:0}
+.pers .pcard2{margin-left:16px;margin-right:16px}
+.pers .pm-hd{margin-bottom:14px}
+.thms{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:6px 0 12px}
+.thm{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+.thm .pv{width:100%;aspect-ratio:.8;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1.5px var(--line);display:flex;flex-direction:column;gap:5px;padding:0 8px 8px;background:#fff}
+.thm.on .pv{box-shadow:0 0 0 2.5px var(--or)}
+.thm .pv i{display:block;border-radius:6px;background:#eceef2}
+.thm .pv i:first-child{height:34%;margin:0 -8px 4px;border-radius:0;background:linear-gradient(90deg,#f04e1c,#ffb26b)}
+.thm .pv i:nth-child(2),.thm .pv i:nth-child(3){flex:1}
+.thm .pv.dark{background:#111}.thm .pv.dark i:not(:first-child){background:#2a2a30}
+.thm .pv.system{background:linear-gradient(90deg,#fff 50%,#111 50%)}.thm .pv.system i:not(:first-child){background:linear-gradient(90deg,#eceef2 50%,#2a2a30 50%)}
+.thm .rd{position:absolute;left:8px;bottom:36px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--line);display:none}
+.thm.on .rd{display:block;box-shadow:inset 0 0 0 6px var(--or)}
+.thm b{font-size:14px;font-weight:600}
+.about{text-align:center;padding:10px 0 18px}
+.about img{width:110px;height:110px;border-radius:28px;box-shadow:0 14px 30px rgba(0,0,0,.12)}
+.about h2{font-size:22px;margin-top:14px}.about small{color:var(--muted)}
+.about p{color:var(--muted);line-height:1.5;margin:10px auto 0;max-width:320px}
+.fixb{margin-top:22px}
+/* donat, bonus, to'lov */
+.dhero{border-radius:22px;padding:22px 20px;color:#fff;background:linear-gradient(120deg,#ff5a1f,#e5307a 55%,#ff8a2b);margin-bottom:6px}
+.dhero h2{font-size:21px;margin:10px 0 6px}.dhero p{margin:0;opacity:.95;line-height:1.45;font-size:14.5px}
+.sumin{position:relative}.sumin span{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted)}
+.pres{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.pres button,.ptiles button{background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600;box-shadow:0 0 0 1.5px var(--line)}
+.pres button.on,.ptiles button.on{box-shadow:0 0 0 2px var(--or);background:var(--or-soft)}
+.ptiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ptiles b{font-size:17px;font-weight:800;letter-spacing:-.02em}
+.pm-payme{color:#33cccc}.pm-click{color:#1c9bd8}.pm-uzum{color:#7b2ff7}.pm-card{color:var(--ink)}
+.bcard{position:relative;overflow:hidden;border-radius:20px;padding:20px;color:#fff;margin-bottom:12px;min-height:118px;display:flex;align-items:center}
+.bcard.r1{background:linear-gradient(120deg,#ff3d3d,#ff7a59)}.bcard.r2{background:linear-gradient(120deg,#5b2bd6,#a77bf3)}
+.bcard h3{font-size:20px}.bcard span:not(.g){display:inline-block;margin-top:10px;background:rgba(255,255,255,.22);padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.bcard .g{position:absolute;right:14px;opacity:.95}
+.binfo{background:#eaf2ff;border-radius:18px;padding:16px;margin:18px 0 12px}
+body.dark .binfo{background:#16233f}
+.binfo b{display:flex;align-items:center;gap:6px;font-size:17px}.binfo b svg{color:var(--blue)}
+.binfo p{margin:8px 0 0;line-height:1.5;font-size:14.5px}
+.bcode{display:flex;align-items:center;justify-content:space-between;background:var(--soft);border-radius:14px;padding:14px 16px}
+.bcode b{font-size:16px}.bcode button{color:var(--ink2)}
+.prm{position:relative;margin:0 -16px;padding:0 16px 150px;background:linear-gradient(180deg,#ff8a2b 0,#ffd2b0 240px,var(--bg) 380px)}
+body.dark .prm{background:linear-gradient(180deg,#a8400f 0,#3a1f12 240px,var(--bg) 380px)}
+.prm-x{position:absolute;right:16px;top:calc(14px + env(safe-area-inset-top));width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.3);color:#fff;z-index:2}
+.prm-hero{position:relative;text-align:center;padding:calc(46px + env(safe-area-inset-top)) 6px 20px}
+.prm-hero .crown{display:inline-flex;align-items:center;justify-content:center;width:118px;height:118px;border-radius:36px;color:#fff;background:linear-gradient(145deg,#ffc07a,#ff7a2a 55%,#e5481a);box-shadow:0 18px 34px rgba(200,70,10,.4),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -6px 14px rgba(160,40,0,.35);transform:rotate(-6deg)}
+.prm-hero .crown svg{width:64px;height:64px}
+.prm-hero .s1{top:30px;left:30px;font-size:18px}.prm-hero .s2{top:70px;right:40px;font-size:13px}.prm-hero .s3{top:120px;left:70px;font-size:11px}
+.prm-hero h1{font-size:28px;font-weight:800;margin-top:12px}
+.prm-hero p{color:var(--ink2);line-height:1.45;margin:8px auto 0;max-width:340px}
+.prm-band{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:18px;padding:18px;color:#fff;margin-bottom:14px;background:linear-gradient(100deg,#f6a623,#f04e1c)}
+.prm-band b{font-size:16px;line-height:1.3;max-width:230px}.prm-band svg{opacity:.9;flex:0 0 auto}
+.prm-f{padding:4px 16px}
+.pf{display:flex;align-items:center;gap:14px;padding:13px 0}.pf+.pf{border-top:1px solid var(--line)}
+.pf span{width:44px;height:44px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.pf b{display:block;font-size:16px;font-weight:600}.pf small{color:var(--muted);font-size:13.5px}
+.fixb2{position:fixed;left:0;right:0;bottom:0;z-index:41;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:var(--bg);border-radius:22px 22px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:10px}
+@media (min-width:981px){.fixb2{position:static;box-shadow:none;background:none;padding:14px 0}.prm{margin:-30px -34px;padding:0 34px 40px;border-radius:28px}}
+.plc{position:relative;display:block;width:100%;text-align:left;background:var(--card);border-radius:20px;padding:18px;margin:0 0 14px;box-shadow:0 0 0 1.5px var(--line)}
+.plc.on{box-shadow:0 0 0 2px var(--or)}
+.plc .h{display:flex;align-items:center;gap:10px}.plc .h b{font-size:22px;font-weight:800}
+.plc .sv{background:var(--green-soft);color:#23863a;font-size:13px;font-weight:700;padding:4px 9px;border-radius:8px}
+.plc .rd{margin-left:auto;width:24px;height:24px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--line)}
+.plc.on .rd{box-shadow:inset 0 0 0 7px var(--or)}
+.plc ul{margin:12px 0 14px;padding:0 0 0 18px;color:var(--ink2);line-height:1.55;font-size:14.5px}
+.plc li::marker{color:var(--or)}
+.plc .pr{display:flex;align-items:center;justify-content:space-between;gap:10px}.plc .pr b{font-size:19px}
+.plc .pr span{background:var(--soft);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600}
+.plc .bdg{position:absolute;right:16px;top:-13px;display:flex;align-items:center;gap:4px;background:var(--grad);color:#fff;font-style:normal;font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:999px}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;margin-bottom:14px}
+.seg button{flex:1;padding:11px;border-radius:11px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.pinfo{display:flex;gap:12px;align-items:flex-start;border-radius:16px;padding:14px;margin-bottom:12px}
+.pinfo.sub{background:var(--or-soft)}.pinfo.sub>svg{color:var(--or)}
+.pinfo.once{background:#eaf2ff}.pinfo.once>svg{color:var(--blue)}
+body.dark .pinfo.once{background:#16233f}
+.pinfo b{display:block;font-size:15px}.pinfo small{color:var(--ink2);font-size:13.5px}
+.psum{background:var(--card);border-radius:18px;padding:6px 16px;box-shadow:0 0 0 1.5px var(--line)}
+.psum div{display:flex;align-items:flex-end;gap:6px;padding:10px 0;font-size:14px}
+.psum i{flex:1;border-bottom:1.5px dashed var(--line);margin-bottom:4px}
+.psum .tot{border-top:1.5px solid var(--line);padding:14px 0 10px;font-size:16px}
+.psum .tot span{flex:1}.psum .tot b{font-size:22px}
+/* telefon qobig'i */
+@media (max-width:980px){
+  .mtop .ring-s{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:50%}
+  .mtop .ring-s svg.rg{position:absolute;inset:0;transform:rotate(-90deg)}
+  .mtop .ring-s b{font-size:13px;position:relative}
+  .bnav{padding:6px 2px calc(6px + env(safe-area-inset-bottom));align-items:stretch}
+  .bnav a{min-width:0;flex:1;font-size:10.5px;gap:3px;padding:4px 2px}
+  .bnav a svg{width:25px;height:25px}
+  .bnav a .ava{width:25px;height:25px;font-size:11px}
+  .bnav a.on .ava{box-shadow:0 0 0 2px var(--or)}
+  body.sub .bnav,body.sub .mtop,body.sub #mini{display:none}
+  body.sub .main{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+  body.sub .main-in{padding-top:calc(8px + env(safe-area-inset-top))}
+  body.r-book .main-in,body.r-premium .main-in{padding-top:0}
+  .btn.fixb{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));width:auto;z-index:41;margin:0;box-shadow:0 10px 24px rgba(255,107,26,.3)}
+  .mbar{margin-top:6px}
+}
+@media (min-width:981px){
+  .pm,.pers,.bkm,.mrow{margin-left:0;margin-right:0}.mrow{padding-left:0}
+  .pm-cv{border-radius:24px;margin-top:0}.pm-cv.sm{border-radius:20px}
+  .bkm-top{position:static;margin:0;padding:0 0 8px}
+  .mband{margin:24px 0 0;padding:2px 22px 20px}
+}
 </style>
 </head>
 <body>
@@ -1584,19 +1921,23 @@ function shell() {
   <main class="main"><div class="main-in" id="view"></div></main>
   <nav class="bnav">
     <a href="#/home" data-k="home">${I.home}Asosiy</a><a href="#/shelf" data-k="shelf">${I.shelf}Javonim</a>
-    <a class="add" onclick="openForm()">${I.plus}</a>
-    <a href="#/marra" data-k="marra">${I.marra}Marra</a><a href="#/davra" data-k="davra">${I.davra}Davra</a>
+    <a href="#/library" data-k="library">${ic("headph", 24)}Kutubxona</a><a href="#/davra" data-k="davra">${I.davra}Davra</a>
+    <a href="#/profile" data-k="profile" id="bnMe">${I.user}Sahifam</a>
   </nav>`;
   paintChrome();
 }
 function paintChrome() {
   if (!S.me || !$("#meName")) return;
   $("#meName").textContent = S.me.user.name; $("#meAva").innerHTML = ava(S.me.user, 38);
+  const bm = $("#bnMe"); if (bm) bm.innerHTML = ava(S.me.user, 25) + "Sahifam";
   document.querySelectorAll("[data-k]").forEach(a => a.classList.toggle("on", a.dataset.k === route.name || (route.name === "user" && a.dataset.k === "profile" && route.arg === S.me.user.id)));
   const t = $("#dkT"); if (t) t.classList.toggle("on", S.dark);
 }
 function mtop(title, back) {
   const st = S.me ? S.me.stats.streak : 0;
+  if (!back) { const g = S.me ? S.me.user.goal : 20, td = S.me ? S.me.stats.today : 0;
+    return `<div class="mtop"><a class="logo" href="#/home"><i>${I.logo}</i><span>${brand()}</span></a>
+    <div class="r"><a class="ring-s" href="#/marra" title="Bugungi marra">${ring(td, g, 40, 3.5).replace("<svg", '<svg class="rg"')}<b style="color:${st ? "var(--or)" : "var(--muted)"}">${st}</b></a><a class="ibtn" href="#/search/">${I.search}</a><a class="ibtn" href="#/notifs">${I.bell}</a></div></div>`; }
   return `<div class="mtop">${back ? `<div class="row"><button class="back" onclick="history.back()">${I.back}</button><b style="font-size:18px">${esc(title || "")}</b></div>` : `<a class="logo" href="#/home"><i>${I.logo}</i><span>${brand()}</span></a>`}
     <div class="r"><a class="ibtn" href="#/search/">${I.search}</a><a class="ibtn" href="#/marra" title="Seriya"><b style="font-size:14px;color:${st ? "var(--or)" : "var(--muted)"};display:flex;align-items:center;gap:2px">${ic("flameF",15)}${st}</b></a>
     <a href="#/profile">${S.me ? ava(S.me.user, 40) : ""}</a></div></div>`;
@@ -1613,7 +1954,7 @@ let renderSeq = 0;
 async function render(keep) {
   const h = location.hash.replace(/^#\/?/, "").split("/");
   route = { name: h[0] || "home", arg: decodeURIComponent(h.slice(1).join("/") || "") };
-  document.body.classList.toggle("dark", !!S.dark);
+  applyTheme();
   closeSheet();
   if (route.name === "terms" && !S.token) { $("#app").innerHTML = `<div style="padding:30px 20px;max-width:880px;margin:auto">${vTerms()}</div>`; return; }
   if (route.name === "admin") { $("#app").innerHTML = ""; return vAdmin(); }
@@ -1623,8 +1964,13 @@ async function render(keep) {
   paintChrome();
   if (route.name === "mood") return vMood();
   const seq = ++renderSeq, view = $("#view");
-  const pages = { library: vLibrary, home: vHome, shelf: vShelf, book: vBook, marra: vMarra, davra: vDavra, profile: vProfile, user: vProfile, settings: vSettings, premium: vPremium, search: vSearch, terms: vTerms, notifs: vNotifs };
-  const fn = pages[route.name] || vHome;
+  const m = isM(), SUB = ["menu", "personal", "donat", "bonus", "display", "about", "plans", "pay", "premium", "book"];
+  document.body.className = document.body.className.replace(/\br-\S+/g, "").trim() + " r-" + route.name;
+  document.body.classList.toggle("sub", SUB.includes(route.name));
+  const pages = { library: vLibrary, home: m ? vHomeM : vHome, shelf: m && !route.arg ? vShelfHub : vShelf, book: vBook, marra: vMarra, davra: m ? vDavraM : vDavra, profile: m ? vProfileM : vProfile, user: vProfile, settings: m ? vMenu : vSettings, premium: m ? vPremiumM : vPremium, search: vSearch, terms: vTerms, notifs: vNotifs,
+    menu: vMenu, personal: vPersonal, donat: vDonat, bonus: vBonus, display: vDisplay, about: vAbout, plans: vPlans, pay: vPay };
+  const fn = pages[route.name] || (m ? vHomeM : vHome);
+  setTimeout(miniPaint, 0);
   const html = fn(route.arg);
   if (typeof html === "string") { view.innerHTML = html; if (!keep) window.scrollTo(0, 0); return; }
   if (keep) { try { const out = await html; if (seq === renderSeq) { const y = scrollY; view.innerHTML = out; scrollTo(0, y); } } catch (e) {} return; }
@@ -1824,7 +2170,7 @@ function logout(silent) {
   S.token = null; S.me = null; LS.del("kitobim_token"); LS.del("kitobim_me"); RC = {}; LS.del("kitobim_rc");
   $("#app").innerHTML = ""; if (!silent) toast("Akkauntdan chiqdingiz"); location.hash = "#/home"; render();
 }
-function toggleDark() { S.dark = !S.dark; LS.set("kitobim_dark", S.dark); document.body.classList.toggle("dark", S.dark); if (!S.token) return; paintChrome(); const t = $("#dkS"); if (t) t.classList.toggle("on", S.dark); }
+function toggleDark() { setTheme(S.dark ? "light" : "dark"); const t = $("#dkS"); if (t) t.classList.toggle("on", S.dark); }
 
 /* ---------- Asosiy ---------- */
 async function vHome() {
@@ -1878,13 +2224,14 @@ function installBanner() {
 /* ---------- Javonim (kundalik) ---------- */
 let shelfQ = "";
 function vShelf(f) {
-  const filter = ["reading", "done", "plan"].includes(f) ? f : "all";
-  const q = shelfQ.toLowerCase();
-  const list = myBooks().filter(b => (filter === "all" || b.status === filter) && (!q || (b.title + " " + b.author).toLowerCase().includes(q))).sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
+  const filter = ["reading", "done", "plan", "lib", "audio"].includes(f) ? f : "all";
+  const q = shelfQ.toLowerCase(), okF = b => filter === "all" || b.status === filter || (filter === "lib" && libOf(b)) || (filter === "audio" && libOf(b) && libOf(b).audio.length);
+  const list = myBooks().filter(b => okF(b) && (!q || (b.title + " " + b.author).toLowerCase().includes(q))).sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
   const cnt = k => k === "all" ? myBooks().length : myBooks().filter(b => b.status === k).length;
   const chip = (k, t) => `<a class="chip ${filter === k ? "on" : ""}" href="#/shelf/${k}">${t}<span>${cnt(k)}</span></a>`;
-  return mtop() + ph("Javonim", "Kitobxon kundaligim", false, `<button class="btn pri" onclick="openForm()">+ Kitob qo'shish</button>`) +
-    `<h1 class="mob" style="font-size:26px;margin:4px 0 14px">Javonim</h1>
+  const ttl = { all: "Barcha kitoblarim", reading: "O'qiyotganlarim", done: "O'qib bo'lganlarim", plan: "Rejadagilar", lib: "Kutubxonadan", audio: "Audio kitoblarim" }[filter];
+  return mtop(isM() ? ttl : "", isM()) + ph("Javonim", "Kitobxon kundaligim", false, `<button class="btn pri" onclick="openForm()">+ Kitob qo'shish</button>`) +
+    `
     <div class="sbox">${I.search}<input placeholder="Javonimdan izlash" value="${esc(shelfQ)}" oninput="shelfQ=this.value;const p=this.selectionStart;render();const i=$('#view .sbox input');i.focus();i.setSelectionRange(p,p)"></div>
     <div class="chips">${chip("all", "Hammasi")}${chip("reading", ic("book",15) + " O'qiyapman")}${chip("done", ic("check",15) + " O'qidim")}${chip("plan", ic("cal",15) + " Rejada")}</div>
     ${list.length ? `<div class="shelf-grid">${list.map(bookRow).join("")}</div>` : `<div class="card empty"><div class="ic">${ic("shelf",44)}</div>Bu yerda hali kitob yo'q.<br><br><button class="btn pri sm" onclick="openForm(null,'${filter === "all" ? "reading" : filter}')">+ Kitob qo'shish</button></div>`}`;
@@ -2038,6 +2385,7 @@ async function vBook(key) {
   const cur = CURATED.find(c => c.key === key);
   const bk = r.book || (cur ? { key, title: cur.title, author: cur.author, genre: cur.genre, readers: 0, readingNow: 0, done: 0, rating: 0 } : null);
   if (!bk) return mtop("Kitob", true) + `<div class="empty"><div class="ic">${ic("book",44)}</div>Kitob topilmadi</div>`;
+  if (isM()) return bookM(key, r, bk);
   const mine = myBookByKey(key), [a] = palFor(bk.title);
   const tj = s => esc(JSON.stringify(s || ""));
   return mtop("Kitob", true) + ph("Ortga", "", true) +
@@ -2079,9 +2427,17 @@ function libSummary(L) {
   const a = L.summaryAudio, pl = !a ? "" : a.id ? `<iframe class="afr" loading="lazy" src="${esc(fView(a))}" allow="autoplay"></iframe>` : `<audio controls preload="none" src="${esc(a.url)}"></audio>`;
   return `<details class="libsum"><summary>${ic("sparkle", 16)} Kitob mag'zi <small>· ${a ? "o'qing yoki tinglang" : "qisqa xulosa"}</small></summary>${pl}${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}</details>`;
 }
+let LIBF = "all";
 async function vLibrary(q) {
   const r = await api("library", {}); setLib(r.library);
   const f = (q || "").toLowerCase(), list = r.library.filter(l => !f || (l.title + " " + l.author).toLowerCase().includes(f));
+  if (isM()) {
+    const okF = l => LIBF === "all" || (LIBF === "pdf" && l.pdf) || (LIBF === "audio" && l.audio.length) || (LIBF === "sum" && l.summary), L2 = list.filter(okF);
+    const chip = (k, t, n) => `<button class="chip ${LIBF === k ? "on" : ""}" onclick="LIBF='${k}';render(true)">${t}<span>${n}</span></button>`;
+    return mbar("Kutubxona", `<a class="ibtn" href="#/notifs">${I.bell}</a>`, false) + `<div class="sbox msrch">${I.search}<input placeholder="Kitob yoki muallif" value="${esc(q || "")}" onkeydown="if(event.key==='Enter')go('#/library/'+encodeURIComponent(this.value))"></div>
+      <div class="chips lchips">${chip("all", "Hammasi", list.length)}${chip("pdf", ic("book", 15) + " Elektron", list.filter(l => l.pdf).length)}${chip("audio", ic("headph", 15) + " Audio", list.filter(l => l.audio.length).length)}${chip("sum", ic("sparkle", 15) + " Mag'zi", list.filter(l => l.summary).length)}</div>
+      ${L2.length ? `<div class="mgrid2">${L2.map(l => mtile(l)).join("")}</div>` : `<div class="card empty"><div class="ic">${ic("book", 44)}</div>${f ? "Topilmadi" : "Bu bo'limda hali kitob yo'q"}</div>`}`;
+  }
   return mtop("Kutubxona", true) + ph("Kutubxona", "O'qing va tinglang", false) + `<h1 class="mob" style="font-size:26px;margin:4px 0 14px">Kutubxona</h1>
     <div class="sbox">${I.search}<input placeholder="Kutubxonadan izlash" value="${esc(q || "")}" onkeydown="if(event.key==='Enter')go('#/library/'+encodeURIComponent(this.value))"></div>
     ${list.length ? `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px">${list.map(libTile).join("")}</div>` : `<div class="card empty"><div class="ic">${ic("book", 44)}</div>${f ? "Topilmadi" : "Kutubxona tez orada to'ldiriladi"}</div>`}` + footer();
@@ -2103,22 +2459,6 @@ function openReader(key) {
     ${mine ? `<button class="btn pri sm" onclick="openProgress('${mine.id}')">${ic("pin", 15)} Bet</button>` : ""}<a class="btn ghost sm" href="${esc(fDown(L.pdf))}" target="_blank" rel="noopener">${ic("download", 15)}</a></div>
     <iframe class="lfr" src="${esc(fView(L.pdf))}" allow="autoplay" loading="lazy"></iframe>`);
 }
-let PL = { key: "", i: 0 };
-function openPlayer(key, i) {
-  const L = LIBMAP[key]; if (!L || !L.audio.length) return; ensureOnShelf(L);
-  const saved = LS.get("kitobim_aud", {}); i = i ?? saved[key] ?? 0; i = Math.max(0, Math.min(L.audio.length - 1, i)); PL = { key, i };
-  saved[key] = i; LS.set("kitobim_aud", saved);
-  const a = L.audio[i], tj = x => esc(JSON.stringify(x));
-  const player = a.id ? `<iframe class="afr" src="${esc(fView(a))}" allow="autoplay"></iframe>` : `<audio id="aud" controls autoplay src="${esc(a.url)}" onended="openPlayer(${tj(key)},${i + 1})"></audio>`;
-  const html = `<div class="lhd"><button class="back" onclick="history.back()">${ic("x", 20)}</button><div class="lt"><b>${esc(L.title)}</b><small>Audio kitob · ${L.audio.length} qism</small></div></div>
-    <div class="pl"><div class="plc">${cover(L, "lg")}</div><h2>${esc(a.title)}</h2><p class="muted">${esc(L.author || "")} · ${i + 1}/${L.audio.length}</p>
-      ${player}
-      <div class="row" style="gap:12px;justify-content:center;margin-top:14px"><button class="ibtn" ${i ? "" : "disabled"} onclick="openPlayer(${tj(key)},${i - 1})">${ic("prev", 20)}</button>
-        <button class="ibtn" ${i < L.audio.length - 1 ? "" : "disabled"} onclick="openPlayer(${tj(key)},${i + 1})">${ic("next", 20)}</button></div>
-      <div class="pls">${L.audio.map((x, j) => `<button class="${j === i ? "on" : ""}" onclick="openPlayer(${tj(key)},${j})"><span>${j + 1}</span><b>${esc(x.title)}</b>${j === i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div></div>`;
-  if ($("#libov") && $("#libov").dataset.k === key) { $("#libov").innerHTML = html; } else { libOverlay(html); $("#libov").dataset.k = key; }
-}
-
 /* ---------- Davra ---------- */
 const PC = {};
 function postCard(p) {
@@ -2260,13 +2600,13 @@ function settingsMenu() {
   return `${c.pct < 100 ? `<div class="prog">${ic("sparkle",20)} To'liq profil 3 barobar ko'proq fikrdosh jalb qiladi. Bir necha qadam qoldi!</div>
     <div class="row between" style="margin:12px 4px 6px;font-weight:700"><span>Deyarli tayyor!</span><span style="color:var(--or)">${c.pct}%</span></div><div class="pb" style="margin:0 4px"><i style="width:${c.pct}%"></i></div>` : ""}
     <div class="mlabel">Shaxsiy hisob</div>
-    <div class="menu">${mi(ic("user",18), "#3bb54a", "Shaxsiy ma'lumotlar", "openPersonal()")}${mi(ic("target",18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`)}${mi(ic("gift",18), "#e0475a", "Do'stni taklif qilish", "inviteFriend()")}${mi(ic("key",18), "#5f6b7a", "Parolni o'zgartirish", "openPass()")}</div>
+    <div class="menu">${mi(ic("user",18), "#3bb54a", "Shaxsiy ma'lumotlar", "openPersonal()")}${mi(ic("target",18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`)}${mi(ic("gift",18), "#e0475a", "Do'stni taklif qilish", "inviteFriend()")}${mi(ic("key",18), "#5f6b7a", "Parolni o'zgartirish", "openPass()")}${mi(I.heart, "#e0475a", "Donat", "go('#/donat')")}${mi(ic("gift",18), "#14a89a", "Bonuslarim", "go('#/bonus')")}</div>
     <div class="mlabel">Obuna</div>
     <div class="menu">${mi(I.crown.replace("<svg", '<svg width="17" height="17"'), "#ff8a2b", "Premium", "go('#/premium')")}</div>
     <div class="mlabel">Sozlamalar</div>
     <div class="menu"><button class="mi" onclick="toggleDark()"><span class="ic" style="background:#2a9a6a">${ic("moon",18)}</span><span>Tungi rejim</span><div class="tg ${S.dark ? "on" : ""}" id="dkS"></div></button>
       <button class="mi" onclick="saveProfile({private:${!S.me.user.private}},'${S.me.user.private ? "Profil ochiq" : "Profil yopildi"}')"><span class="ic" style="background:#3d7bf0">${ic("lock",18)}</span><span>Yopiq profil</span><div class="tg ${S.me.user.private ? "on" : ""}"></div></button>
-      ${mi(ic("phone",18), "#8a4fc0", "Ilovani o'rnatish", "installApp()")}${mi(ic("download",18), "#0f8a9a", "Ma'lumotlarimni yuklab olish", "exportData()")}${mi(ic("file",18), "#5f6b7a", "Foydalanish shartlari", "go('#/terms')")}</div>
+      ${mi(ic("phone",18), "#8a4fc0", "Ilovani o'rnatish", "installApp()")}${mi(ic("download",18), "#0f8a9a", "Ma'lumotlarimni yuklab olish", "exportData()")}${mi(ic("file",18), "#5f6b7a", "Foydalanish shartlari", "go('#/terms')")}${mi(ic("moon",18), "#2a9a6a", "Displey sozlamalari", "go('#/display')")}${mi(ic("sparkle",18), "#e0478a", "Ilova haqida", "go('#/about')")}</div>
     <div class="menu">${mi("↩", "#e5484d", "Chiqish", "if(confirm('Akkauntdan chiqasizmi?'))logout()")}</div>`;
 }
 function vSettings() { return mtop("Sozlamalar", true) + ph("Sozlamalar", "", true) + `<div style="max-width:560px">${settingsMenu()}</div>`; }
@@ -2835,8 +3175,451 @@ async function installApp() {
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; if (route.name === "home" && S.token && !$("#ov")) render(); });
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 
+
+/* =====================================================================
+   MOBIL ILOVA (v2) — telefon uchun ekranlar: Asosiy, Javonim, Kitob,
+   Pleyer, Davra, Sahifam, Menyu, Shaxsiy ma'lumotlar, Donat, Bonuslar,
+   Displey, Til, Ilova haqida, Premium, Tariflar, To'lov
+   ===================================================================== */
+const APP_VERSION = "2.0.0";
+const SOCIALS = { telegram: "", instagram: "", youtube: "", facebook: "" };   // Kitobim sahifalari (username). Bo'sh bo'lsa ko'rinmaydi
+const PAY_METHODS = [["payme", "Payme"], ["click", "Click"], ["uzum", "Uzum Bank"], ["card", "Bank kartasi"]];
+const isM = () => matchMedia("(max-width:980px)").matches;
+const tjs = x => esc(JSON.stringify(x == null ? "" : x));
+function goBack(fb) { if (history.length > 1) history.back(); else go(fb || "#/home"); }
+function mbar(title, right = "", back = true) {
+  return `<div class="mbar">${back ? `<button class="back" onclick="goBack()">${I.back}</button>` : ""}<h1>${title}</h1><div class="r">${right}</div></div>`;
+}
+
+/* ---------- Mavzu: Tizim / Yorug' / Qorong'i ---------- */
+function themePref() { return LS.get("kitobim_theme", LS.get("kitobim_dark", false) ? "dark" : "light"); }
+function applyTheme() {
+  const t = themePref();
+  S.dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.body.classList.toggle("dark", S.dark);
+  const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = S.dark ? "#0b0b0d" : "#FF6B1A";
+}
+function setTheme(t) { LS.set("kitobim_theme", t); LS.set("kitobim_dark", t === "dark"); applyTheme(); if (S.token) { paintChrome(); render(true); } }
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { if (themePref() === "system") { applyTheme(); paintChrome(); } });
+
+/* ---------- Kitob kartasi (gorizontal ro'yxat uchun) ---------- */
+function mtile(b, mine) {
+  const k = b.key || KitobimCore.bkey(b.title, b.author), L = libOf(b);
+  const pills = L ? `<div class="mpills" onclick="event.stopPropagation()">
+      <button ${L.pdf ? "" : "disabled"} onclick="openReader(${tjs(L.key)})" title="O'qish">${ic("book", 17)}</button>
+      <button ${L.audio.length ? "" : "disabled"} onclick="openPlayer(${tjs(L.key)})" title="Tinglash">${ic("headph", 17)}</button>
+      <button ${L.summary ? "" : "disabled"} onclick="go('#/book/${encKey(L.key)}')" title="Kitob mag'zi">${ic("sparkle", 17)}</button></div>` : "";
+  const pct = mine && b.status === "reading" && b.pages ? Math.round((b.current || 0) / b.pages * 100) : -1;
+  return `<div class="mt" onclick="${mine ? `openEntry('${b.id}')` : `go('#/book/${encKey(k)}')`}"><div class="mtc">${cover(b)}${pct >= 0 ? `<span class="mpct">${pct}%</span>` : ""}</div>
+    <b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small>${pills}</div>`;
+}
+function msec(title, href, body, sub = "") {
+  return `<div class="msec"><div><h2>${title}</h2>${sub ? `<small>${sub}</small>` : ""}</div>${href ? `<a onclick="go('${href}')">Barchasi ${I.ch}</a>` : ""}</div><div class="mrow">${body}</div>`;
+}
+/* Hozir o'qiyotgan kitob kartasi */
+function curCard(cur) {
+  if (!cur) return `<div class="mcur empty-c"><div class="ic">${ic("book", 30)}</div><div><b>Kitobxonlikni boshlang</b><small>Hozir o'qiyotgan kitobingizni qo'shing va har kuni qaysi betga kelganingizni yozing.</small>
+    <button class="btn pri sm" style="margin-top:10px" onclick="openForm()">+ Kitob qo'shish</button></div></div>`;
+  const pct = cur.pages ? Math.min(100, Math.round((cur.current || 0) / cur.pages * 100)) : 0, L = libOf(cur), k = KitobimCore.bkey(cur.title, cur.author);
+  const act = L && L.pdf ? `openReader(${tjs(k)})` : L && L.audio.length ? `openPlayer(${tjs(k)})` : `openProgress('${cur.id}')`;
+  const lbl = L && L.pdf ? "O'qish" : L && L.audio.length ? "Tinglash" : "Betni belgilash";
+  return `<div class="mcur" onclick="openEntry('${cur.id}')">${cover(cur, "sm")}<div class="in"><h3>${esc(cur.title)}</h3><small>${esc(cur.author || "")}</small>
+    <div class="pb"><i style="width:${pct}%"></i></div><button class="pill" onclick="event.stopPropagation();${act}">${lbl} <span>(${pct}%)</span> ${I.ch}</button></div></div>`;
+}
+
+/* ---------- Asosiy (telefon) ---------- */
+async function vHomeM() {
+  const st = S.me.stats, u = S.me.user;
+  const reading = myBooks().filter(b => b.status === "reading").sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
+  const plan = myBooks().filter(b => b.status === "plan"), done = myBooks().filter(b => b.status === "done").sort((a, b) => (b.end || "").localeCompare(a.end || ""));
+  const [cat, feed, lb] = await apiMany([["catalog", { limit: 14 }], ["feed", { limit: 3 }], ["library", {}]]).catch(() => [{ books: [] }, { posts: [] }, { library: [] }]);
+  if (lb && lb.library) setLib(lb.library);
+  setTimeout(prefetch, 1200); setTimeout(marraIntro, 900);
+  const libList = Object.values(LIBMAP).filter(l => l.published);
+  const fresh = libList.slice().sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || "")).slice(0, 12);
+  const popular = cat.books.length >= 6 ? cat.books : cat.books.concat(CURATED.filter(c => !cat.books.some(b => b.key === c.key))).slice(0, 14);
+  const pctGoal = Math.min(100, Math.round(st.today / Math.max(1, u.goal) * 100));
+  return mtop() + installBanner() + `
+    <div class="mprem" onclick="go('#/premium')"><div class="tx"><b>${APP_NAME} Premium</b><span>Kitobxonligingizni yangi bosqichga olib chiqing</span><em>Premiumga o'tish ${I.ch}</em></div>
+      <div class="art"><i class="s1">✦</i><i class="s2">✦</i>${ic("crown", 74, 'fill="#fff" stroke="none"')}</div></div>
+    ${curCard(reading[0])}
+    <div class="mmarra" onclick="go('#/marra')"><div class="ring">${ring(st.today, u.goal, 66, 7)}<div class="lbl"><b>${pctGoal}%</b></div></div>
+      <div class="in"><b>Bugungi marra: ${st.today}/${u.goal} bet</b><small>${ic("flameF", 13)} ${st.streak} kun ketma-ket · keyingi marra ${nextMs(st.streak)} kun</small></div><span class="go">${I.ch}</span></div>
+    ${libList.length ? msec(`${ic("sparkle", 18)} Kutubxonada`, "#/library", libList.slice(0, 14).map(l => mtile(l)).join(""), "O'qing, tinglang, mag'zini bilib oling") : ""}
+    ${reading.length > 1 ? msec("O'qiyotgan kitoblarim", "#/shelf/reading", reading.map(b => mtile(b, true)).join("")) : ""}
+    <div class="mband"><div class="msec"><div><h2>${ic("users", 18)} Mashhur kitoblar</h2><small>${num(popular.reduce((a, b) => a + (b.readers || 0), 0))} ta kitobxon javonida</small></div><a onclick="go('#/search/')">Barchasi ${I.ch}</a></div>
+      <div class="mrow">${popular.map(b => mtile(b)).join("")}</div></div>
+    ${fresh.length > 3 ? msec("Yangi qo'shilganlar", "#/library", fresh.map(l => mtile(l)).join("")) : ""}
+    <div class="mmood" onclick="go('#/mood')"><div><b>Bugun nima o'qiy?</b><small>Kayfiyatingizni tanlang — mos kitoblarni topamiz</small></div><span>${ic("sparkle", 26)}</span></div>
+    ${plan.length ? msec("Keyingi o'qiyman", "#/shelf/plan", plan.map(b => mtile(b, true)).join("")) : ""}
+    ${done.length ? msec("O'qib bo'lganlarim", "#/shelf/done", done.map(b => mtile(b, true)).join("")) : ""}
+    <div class="msec"><div><h2>Davrada nima gap?</h2></div><a onclick="go('#/davra')">Davraga ${I.ch}</a></div>
+    ${feed.posts.length ? feed.posts.map(postCard).join("") : `<div class="card empty">Hali fikrlar yo'q. Birinchi bo'lib yozing!</div>`}`;
+}
+/* Birinchi kirishda Marra haqida qisqa tanishtiruv */
+function marraIntro() {
+  if (LS.get("kb_marra_intro", 0) || !isM() || route.name !== "home" || $("#ov")) return;
+  LS.set("kb_marra_intro", 1);
+  sheet(`<div class="intro"><div class="art">${plant(3, 120)}<span class="d1">${ic("flameF", 22)}</span><span class="d2">${ic("check", 18)}</span></div>
+    <h2>Marra bilan kitobxonlik osonroq!</h2><p>Har kuni ozgina o'qing — kunlik marrangizni bajaring, daraxtingizni o'stiring va reytingda ko'tariling.</p>
+    <button class="btn pri full" onclick="closeSheet();go('#/marra')">Ko'rish</button></div>`);
+}
+
+/* ---------- Javonim (telefon) ---------- */
+function vShelfHub() {
+  const B = myBooks(), cnt = s => B.filter(b => b.status === s).length;
+  const lib = B.filter(b => libOf(b)), aud = lib.filter(b => libOf(b).audio.length);
+  const cur = B.filter(b => b.status === "reading").sort((a, b) => (b.updated || "").localeCompare(a.updated || ""))[0];
+  const row = (icn, t, n, href, unit = "kitob") => `<a class="hrow" href="${href}"><span class="hi">${icn}</span><span class="tx"><b>${t}</b><small>${n} ${unit}</small></span>${I.ch}</a>`;
+  return mbar("Javonim", `<button class="ibtn" onclick="openForm()" title="Kitob qo'shish">${I.plus}</button>`, false) + `
+    ${cur ? `<div class="hrow flat"><span class="hi">${ic("book", 20)}</span><span class="tx"><b>Hozir o'qiyotgan kitobim</b></span></div>${curCard(cur)}` : curCard(null)}
+    <div class="hlist">
+      ${row(I.heart, "O'qiyotgan kitoblarim", cnt("reading"), "#/shelf/reading")}
+      ${row(ic("cal", 20), "Rejadagi kitoblarim", cnt("plan"), "#/shelf/plan")}
+      ${row(ic("check", 20), "O'qib bo'lgan kitoblarim", cnt("done"), "#/shelf/done")}
+      ${row(ic("book", 20), "Kutubxonadan olganlarim", lib.length, "#/shelf/lib")}
+      ${row(ic("headph", 20), "Audio kitoblarim", aud.length, "#/shelf/audio")}
+      ${row(I.shelf, "Barcha kitoblarim", B.length, "#/shelf/all")}
+    </div>
+    <button class="btn pri full" style="margin-top:18px" onclick="openForm()">${I.plus} Javonga kitob qo'shish</button>`;
+}
+
+/* ---------- Kitob sahifasi (telefon) ---------- */
+let BKC = null;
+function bookM(key, r, bk) {
+  const L = libOf(bk), mine = myBookByKey(key), [a] = palFor(bk.title);
+  BKC = { key, title: bk.title, author: bk.author || "", genre: bk.genre || "" };
+  const desc = L && L.desc ? L.desc : "";
+  return `<div class="bkm">
+    <div class="bkm-top"><button class="back" onclick="goBack()">${I.back}</button><div class="r">
+      <button class="ibtn" onclick="shareBook()">${I.share}</button>
+      <button class="ibtn ${mine ? "on" : ""}" onclick="${mine ? `openEntry('${mine.id}')` : "bookAdd('plan')"}" title="Javonga">${ic(mine ? "check" : "pin", 19)}</button>
+      <button class="ibtn" onclick="bookMore()">⋯</button></div></div>
+    <div class="bkm-hero" style="--gl:${a}55">${cover(bk, "lg")}</div>
+    <h1>${esc(bk.title)}</h1><div class="au">${esc(bk.author || "Muallif ko'rsatilmagan")}</div>
+    <div class="bkm-st"><div><small>Reyting</small><b>${ic("star", 15, 'fill="#f2a20f" stroke="none"')} ${bk.rating || "—"}</b></div>
+      <div><small>${L && L.audio.length && !bk.pages ? "Audio" : "Betlar"}</small><b>${ic("book", 15)} ${bk.pages || (L ? L.audio.length + " qism" : "—")}</b></div>
+      <div><small>O'qimoqda</small><b>${ic("users", 15)} ${num(bk.readingNow || 0)}</b></div></div>
+    ${L ? `<div class="split"><button ${L.pdf ? "" : "disabled"} onclick="openReader(${tjs(L.key)})">${ic("book", 18)} O'qish</button><button ${L.audio.length ? "" : "disabled"} onclick="openPlayer(${tjs(L.key)})">${ic("headph", 18)} Tinglash</button></div>`
+      : mine ? `<button class="btn pri full big" onclick="openEntry('${mine.id}')">Kundaligimni ochish</button>` : `<div class="split"><button onclick="bookAdd('reading')">${ic("book", 18)} O'qiyapman</button><button onclick="bookAdd('plan')">${ic("cal", 18)} Rejaga</button></div>`}
+    ${L && L.summary ? `<div class="bkm-sum"><div class="h"><b>${ic("sparkle", 17)} Kitob mag'zi</b>${L.summaryAudio ? `<button class="pill" onclick="openPlayer(${tjs(L.key)},0,'sum')">${ic("headph", 15)} Tinglash</button>` : ""}</div>
+      <div class="t clamp" onclick="this.classList.toggle('clamp')">${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}</div><button class="more" onclick="this.previousElementSibling.classList.toggle('clamp');this.textContent=this.textContent==='Batafsil'?'Yopish':'Batafsil'">Batafsil</button></div>` : ""}
+    ${desc ? `<p class="bkm-desc">${esc(desc)}</p>` : ""}
+    ${mine ? `<div class="bkm-mine"><span class="tag t-${mine.status}">Javonimda: ${STATUS[mine.status]}</span>${mine.status === "reading" && mine.pages ? `<span>${mine.current}/${mine.pages} bet</span>` : ""}<button class="btn ghost sm" onclick="openEntry('${mine.id}')">Kundalik</button></div>` : ""}
+    <div class="facts">${bk.genre ? `<div><span>Janr</span><b>${esc(bk.genre)}</b></div>` : ""}<div><span>Javonida</span><b>${bk.readers || 0}</b></div><div><span>O'qib bo'lgan</span><b>${bk.done || 0}</b></div><div><span>Rejaga qo'shgan</span><b>${bk.plan || 0}</b></div></div>
+    ${r.readers.length ? `<h3 class="bkm-h">Javoniga qo'shganlar</h3><div class="row" style="flex-wrap:wrap;gap:8px">${r.readers.map(x => `<a href="#/user/${x.id}" title="${esc(x.name)}">${ava(x, 40)}</a>`).join("")}</div>` : ""}
+    ${r.reviews.length ? `<h3 class="bkm-h">Kitobxonlar saboqlari</h3>${r.reviews.map(v => `<div class="post"><div class="hd">${ava(v.user)}<div class="nm"><a href="#/user/${v.user.id}"><b>${esc(v.user.name)}</b></a><div>${stars(v.rating)}</div></div><small>${fmtD(v.date)}</small></div><div class="tx">${esc(v.text)}</div></div>`).join("")}` : ""}
+    <h3 class="bkm-h">Fikrlar <span class="muted">${r.posts.length}</span></h3>
+    <div class="composer" onclick="openComposer({title:${tjs(bk.title)},author:${tjs(bk.author)}})" style="cursor:text"><div class="row">${ava(S.me.user, 38)}<span class="muted">Kitob haqida fikringiz qanday?</span></div></div>
+    ${r.posts.length ? r.posts.map(postCard).join("") : `<div class="empty">Hali fikr yo'q. Birinchi bo'lib yozing!</div>`}
+    ${r.same.length ? msec("Muallifning boshqa kitoblari", "", r.same.map(x => mtile(x)).join("")) : ""}</div>`;
+}
+function bookAdd(status) { if (!BKC) return; quickAdd(BKC.title, BKC.author, status, BKC.genre); }
+function shareBook() {
+  if (!BKC) return; const url = location.origin + location.pathname + "#/book/" + encKey(BKC.key), t = `«${BKC.title}» — ${BKC.author}\n${APP_NAME}da o'qing:`;
+  if (navigator.share) navigator.share({ title: BKC.title, text: t, url }).catch(() => {}); else { navigator.clipboard && navigator.clipboard.writeText(t + " " + url); toast("Havola nusxalandi"); }
+}
+function bookMore() {
+  if (!BKC) return; const mine = myBookByKey(BKC.key);
+  const it = (icn, t, fn) => `<button class="srow" onclick="closeSheet();${fn}">${icn}<span>${t}</span></button>`;
+  sheet(`<div class="shead">${esc(BKC.title)}</div>
+    ${mine ? it(ic("book", 20), "Kundalikni ochish", `openEntry('${mine.id}')`) : it(I.shelf, "Javonga qo'shish (o'qiyapman)", "bookAdd('reading')")}
+    ${mine ? "" : it(ic("cal", 20), "Rejaga qo'shish", "bookAdd('plan')")}
+    ${it(ic("check", 20), "O'qilgan deb belgilash", mine ? `openForm('${mine.id}','done')` : "openForm(null,'done',{title:BKC.title,author:BKC.author,genre:BKC.genre})")}
+    ${it(I.share, "Ulashish", "shareBook()")}`);
+}
+
+/* ---------- Audio pleyer (telefon va kompyuter) ---------- */
+const AUD = { el: null, key: "", i: 0, tracks: [], L: null, mode: "", speed: LS.get("kitobim_speed", 1), sleepT: 0, sleepEnd: false };
+const dUrl = f => f ? (f.id ? `https://drive.google.com/uc?export=download&id=${f.id}` : f.url) : "";
+const tfmt = s => { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ":" + String(m).padStart(2, "0") : String(m).padStart(2, "0")) + ":" + String(x).padStart(2, "0"); };
+function audEl() {
+  if (AUD.el) return AUD.el;
+  const a = AUD.el = document.createElement("audio"); a.preload = "metadata"; document.body.appendChild(a);
+  a.addEventListener("timeupdate", () => { plPaint(); if (a.currentTime > 2) { const P = LS.get("kitobim_pos", {}); P[AUD.key + "|" + AUD.mode] = { i: AUD.i, t: Math.floor(a.currentTime) }; if (Math.floor(a.currentTime) % 5 === 0) LS.set("kitobim_pos", P); } });
+  a.addEventListener("play", plPaint); a.addEventListener("pause", plPaint); a.addEventListener("loadedmetadata", plPaint);
+  a.addEventListener("ended", () => { if (AUD.sleepEnd) { AUD.sleepEnd = false; plPaint(); return; } if (AUD.i < AUD.tracks.length - 1) plTrack(AUD.i + 1, true); });
+  a.addEventListener("error", () => { if (!a.src) return; const f = AUD.tracks[AUD.i]; if (f && f.id && $("#plWrap")) { $("#plWrap").innerHTML = `<iframe class="afr" style="height:120px" src="${esc(fView(f))}" allow="autoplay"></iframe><p class="muted" style="font-size:12.5px;margin-top:8px">Fayl Google Drive pleyerida ochildi</p>`; } });
+  return a;
+}
+function openPlayer(key, i, mode) {
+  const L = LIBMAP[key]; if (!L) return;
+  const tracks = mode === "sum" ? (L.summaryAudio ? [Object.assign({ title: "Kitob mag'zi" }, L.summaryAudio)] : []) : L.audio;
+  if (!tracks.length) return;
+  if (mode !== "sum") ensureOnShelf(L);
+  const a = audEl(), same = AUD.key === key && AUD.mode === (mode || "");
+  Object.assign(AUD, { key, L, tracks, mode: mode || "" });
+  const saved = LS.get("kitobim_pos", {})[key + "|" + AUD.mode];
+  if (!same || i != null) plTrack(i != null ? i : saved ? saved.i : 0, false, i == null && saved ? saved.t : 0);
+  plOpen();
+}
+function plTrack(i, autoplay, at) {
+  const a = audEl(); AUD.i = Math.max(0, Math.min(AUD.tracks.length - 1, i || 0));
+  const f = AUD.tracks[AUD.i]; a.src = dUrl(f); a.playbackRate = AUD.speed;
+  if (at) a.addEventListener("loadedmetadata", () => { try { a.currentTime = at; } catch (e) {} }, { once: true });
+  if (autoplay) a.play().catch(() => {});
+  if ("mediaSession" in navigator) {
+    const L = AUD.L, img = L.cover ? fThumb(L.cover) : location.origin + location.pathname.replace(/[^/]*$/, "") + "icons/icon-512.png";
+    navigator.mediaSession.metadata = new MediaMetadata({ title: f.title || L.title, artist: L.author || APP_NAME, album: L.title, artwork: [{ src: img, sizes: "512x512" }] });
+    [["play", () => a.play()], ["pause", () => a.pause()], ["seekbackward", () => plSkip(-10)], ["seekforward", () => plSkip(10)],
+     ["previoustrack", () => AUD.i && plTrack(AUD.i - 1, true)], ["nexttrack", () => AUD.i < AUD.tracks.length - 1 && plTrack(AUD.i + 1, true)]].forEach(([k, fn]) => { try { navigator.mediaSession.setActionHandler(k, fn); } catch (e) {} });
+  }
+  plRender();
+}
+function plOpen() {
+  libOverlay(`<div class="plm" id="plm"></div>`); $("#libov").classList.add("plov"); plRender();
+}
+function plRender() {
+  const el = $("#plm"); if (el && AUD.L) {
+    const L = AUD.L, f = AUD.tracks[AUD.i] || {}, [c] = palFor(L.title);
+    el.style.setProperty("--pc", c);
+    el.innerHTML = `<div class="pt"><button onclick="history.back()" title="Yopish">${ic("down", 26)}</button><span>${AUD.mode === "sum" ? "Kitob mag'zi" : "Audio kitob"}</span><button onclick="BKC={key:AUD.key,title:AUD.L.title,author:AUD.L.author||''};shareBook()">${I.share}</button></div>
+      <div class="pcv">${cover(L, "lg")}</div>
+      <h2>${esc(f.title || L.title)}</h2><p>${esc(L.title)} · ${esc(L.author || "")}</p>
+      <div id="plWrap"><input type="range" id="plR" min="0" max="1000" value="0" oninput="plSeek(this.value)"><div class="tm"><span id="plC">00:00</span><span id="plD">--:--</span></div>
+      <div class="ctl"><button class="sp" onclick="plSpeed()" id="plS">${AUD.speed}x</button><button onclick="plSkip(-10)">${ic("prev", 26)}<i>10</i></button>
+        <button class="pp" onclick="plToggle()" id="plP"></button><button onclick="plSkip(10)">${ic("next", 26)}<i>10</i></button><button class="sp" onclick="plSleep()" id="plT">${ic("cal", 20)}</button></div></div>
+      ${AUD.tracks.length > 1 ? `<div class="pls">${AUD.tracks.map((x, j) => `<button class="${j === AUD.i ? "on" : ""}" onclick="plTrack(${j},true)"><span>${j + 1}</span><b>${esc(x.title || (j + 1) + "-qism")}</b>${j === AUD.i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div>` : ""}`;
+  }
+  plPaint(); miniPaint();
+}
+function plPaint() {
+  const a = AUD.el; if (!a) return;
+  const d = a.duration || 0, c = a.currentTime || 0;
+  const r = $("#plR"); if (r && !r.matches(":active")) r.value = d ? Math.round(c / d * 1000) : 0;
+  if (r) r.style.setProperty("--p", (d ? c / d * 100 : 0) + "%");
+  const C = $("#plC"), D = $("#plD"), P = $("#plP"), T = $("#plT");
+  if (C) C.textContent = tfmt(c); if (D) D.textContent = d && isFinite(d) ? "-" + tfmt(d - c) : "--:--";
+  if (P) P.innerHTML = a.paused ? ic("play", 30, 'fill="currentColor"') : `<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`;
+  if (T) T.classList.toggle("on", !!(AUD.sleepT || AUD.sleepEnd));
+  const mp = $("#miniP"); if (mp) mp.innerHTML = a.paused ? ic("play", 20, 'fill="currentColor"') : `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`;
+  const mb = $("#miniB"); if (mb) mb.style.width = (d ? c / d * 100 : 0) + "%";
+}
+function plToggle() { const a = audEl(); if (a.paused) a.play().catch(() => toast("Audio ochilmadi. Internetni tekshiring")); else a.pause(); }
+function plSkip(s) { const a = audEl(); a.currentTime = Math.max(0, Math.min((a.duration || 1e9) - 1, a.currentTime + s)); }
+function plSeek(v) { const a = audEl(); if (a.duration) a.currentTime = a.duration * v / 1000; }
+function plSpeed() { const L = [1, 1.25, 1.5, 1.75, 2, 0.75], a = audEl(); AUD.speed = L[(L.indexOf(AUD.speed) + 1) % L.length]; a.playbackRate = AUD.speed; LS.set("kitobim_speed", AUD.speed); const b = $("#plS"); if (b) b.textContent = AUD.speed + "x"; }
+function plSleep() {
+  const set = m => `closeSheet();plSleepSet(${m})`;
+  sheet(`<div class="shead">Uyqu taymeri</div>${[15, 30, 45, 60].map(m => `<button class="srow" onclick="${set(m)}">${ic("cal", 19)}<span>${m} daqiqadan keyin</span></button>`).join("")}
+    <button class="srow" onclick="${set(-1)}">${ic("book", 19)}<span>Shu qism oxirida</span></button>${AUD.sleepT || AUD.sleepEnd ? `<button class="srow red" onclick="${set(0)}">${ic("x", 19)}<span>Taymerni o'chirish</span></button>` : ""}`);
+}
+function plSleepSet(m) {
+  clearTimeout(AUD.sleepT); AUD.sleepT = 0; AUD.sleepEnd = m === -1;
+  if (m > 0) AUD.sleepT = setTimeout(() => { audEl().pause(); AUD.sleepT = 0; plPaint(); toast("Uyqu taymeri: pleyer to'xtatildi"); }, m * 60000);
+  plPaint(); toast(m === 0 ? "Taymer o'chirildi" : m === -1 ? "Qism oxirida to'xtaydi" : `${m} daqiqadan keyin to'xtaydi`);
+}
+/* Mini-pleyer: pleyer yopilganda ham audio davom etadi */
+function miniPaint() {
+  let m = $("#mini"); const show = AUD.el && AUD.el.src && AUD.L && !$("#plm") && S.token && $("#view");
+  if (!show) { if (m) m.remove(); document.body.classList.remove("hasmini"); return; }
+  if (!m) { m = document.createElement("div"); m.id = "mini"; document.body.appendChild(m); }
+  const f = AUD.tracks[AUD.i] || {};
+  m.innerHTML = `<div class="mb"><i id="miniB"></i></div><div class="mi2" onclick="plOpen()">${cover(AUD.L, "xs")}<div><b>${esc(f.title || AUD.L.title)}</b><small>${esc(AUD.L.title)}</small></div></div>
+    <button id="miniP" onclick="plToggle()"></button><button onclick="audEl().pause();audEl().removeAttribute('src');AUD.L=null;miniPaint()">${ic("x", 18)}</button>`;
+  document.body.classList.add("hasmini"); plPaint();
+}
+
+/* ---------- Davra (telefon) ---------- */
+async function vDavraM(mode) {
+  mode = ["following", "marra"].includes(mode) ? mode : "all";
+  const u = S.me.user;
+  const tabs = `<div class="tabs mtabs"><button class="${mode === "all" ? "on" : ""}" onclick="go('#/davra')">Fikrlar</button><button class="${mode === "marra" ? "on" : ""}" onclick="go('#/davra/marra')">Marralar</button><button class="${mode === "following" ? "on" : ""}" onclick="go('#/davra/following')">Davram</button></div>`;
+  const head = `<div class="mbar"><h1 class="davh">${ic("msg", 24)} davra</h1><div class="r"><a class="ibtn" href="#/search/">${I.search}</a><a class="ibtn" href="#/notifs">${I.bell}</a></div></div>` + tabs;
+  if (mode === "marra") {
+    const lb = await api("leaderboard", { limit: 30 });
+    return head + `<div class="lbm">${lb.top.slice(0, 3).length >= 3 ? `<div class="podium">${[1, 0, 2].map(j => { const x = lb.top[j]; return `<a href="#/user/${x.id}" class="p${j + 1}">${ava(x, j ? 54 : 68)}<b>${esc(x.name.split(" ")[0])}</b><small>${x.week} bet</small><span>${j + 1}</span></a>`; }).join("")}</div>` : ""}
+      <p class="muted" style="font-size:13.5px;margin:6px 2px 8px">Oxirgi 7 kunda o'qilgan betlar bo'yicha. Sizning o'rningiz: <b style="color:var(--or)">${lb.myRank || "—"}</b> / ${lb.total}</p>
+      <div class="lb">${lb.top.map(x => `<a class="urow ${x.id === u.id ? "me" : ""}" href="#/user/${x.id}"><span class="rk">${x.rank <= 3 ? medal(x.rank) : x.rank}</span>${ava(x, 38)}<span class="info"><b>${esc(x.name)}</b><small>${x.streak} kun seriya · ${x.done} kitob</small></span><b>${x.week} bet</b></a>`).join("")}</div>
+      <button class="btn ghost full" style="margin-top:14px" onclick="go('#/marra')">Mening marram ${I.ch}</button></div>`;
+  }
+  const [f, ppl] = await apiMany([["feed", { mode, limit: 40 }], ["people", { limit: 8 }]]);
+  return head + `<div class="mcomp" onclick="openComposer()">${ava(u, 44)}<div><b>${esc(u.name)}</b><small>O'z fikrlaringizni ulashing…</small></div>${I.ch}</div>
+    ${f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty"><div class="ic">${ic("msg", 44)}</div>${mode === "following" ? "Davrangizdagi kitobxonlar hali fikr yozmagan." : "Hali fikrlar yo'q. Birinchi bo'lib yozing!"}</div>`}
+    ${ppl.people.length ? `<div class="msec"><div><h2>Faol kitobxonlar</h2></div></div>${ppl.people.map(personRow).join("")}` : ""}`;
+}
+
+/* ---------- Sahifam (telefon) ---------- */
+async function vProfileM() {
+  const uid = S.me.user.id;
+  const [r, f, lb] = await apiMany([["user", { userId: uid }], ["feed", { userId: uid, limit: 30 }], ["leaderboard", { limit: 1 }]]);
+  const u = r.user, st = r.stats, me = S.me.user;
+  const tab = ["posts", "shelf", "stats"].includes(profTab) ? profTab : "posts";
+  const shelf = !r.books.length ? `<div class="empty">Javon hali bo'sh</div>` : ["reading", "done", "plan"].map(s => { const L = r.books.filter(b => b.status === s); return L.length ? msec(`${{ reading: "O'qiyapman", done: "O'qib bo'lganlarim", plan: "Rejada" }[s]} <span class="muted">${L.length}</span>`, "#/shelf/" + s, L.map(b => mtile(Object.assign({}, b, myBooks().find(x => x.id === b.id) || {}), true)).join("")) : ""; }).join("");
+  const sm = S.me.stats, gl = Object.keys(sm.days || {}).length;
+  const statsT = `<div class="sgrid"><div><small>O'qilgan betlar</small><b>${num(st.pages)}</b></div><div><small>Tugatilgan kitoblar</small><b>${st.done}</b></div><div><small>Eng uzun seriya</small><b>${st.best} kun</b></div><div><small>Kunlik rekord</small><b>${st.record} bet</b></div><div><small>O'rtacha kuniga</small><b>${st.avg} bet</b></div><div><small>Faol kunlar</small><b>${gl}</b></div></div>`;
+  const tabs = `<div class="tabs mtabs" style="margin-top:22px">${[["posts", "Fikrlar"], ["shelf", "Javon"], ["stats", "Statistika"]].map(([k, t]) => `<button class="${tab === k ? "on" : ""}" onclick="profTab='${k}';render(true)">${t}</button>`).join("")}</div>`;
+  const body = tab === "shelf" ? shelf : tab === "stats" ? statsT : (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q<br><br><button class="btn pri sm" onclick="openComposer()">Fikr yozish</button></div>`);
+  return `<div class="pm"><div class="pm-cv" ${r.banner ? `style="background-image:url('${r.banner}')"` : ""}><button class="pm-menu" onclick="go('#/menu')" title="Menyu">☰</button></div>
+    <div class="pm-hd"><div class="pm-av" onclick="pickImage('avatar')">${ava(u, 104)}</div><div class="r"><button class="btn ghost" onclick="go('#/personal')">Profilni tahrirlash</button><button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
+    <h1 class="pm-n">${esc(u.name)}</h1><div class="pm-id">@${esc(u.username)}${me.region ? ` <span>|</span> ${esc(me.region)}` : ""}</div>
+    ${u.bio ? `<p class="pm-bio">${esc(u.bio)}</p>` : `<p class="pm-bio muted" onclick="go('#/personal')">+ O'zingiz haqingizda yozing</p>`}
+    <div class="pm-meta">${me.job ? `<span>${ic("user", 15)} ${esc(me.job)}</span>` : ""}<span>${I.cal} ${new Date(u.createdAt).getFullYear()}-yilda qo'shilgan</span></div>
+    <div class="pm-fol"><b>${u.followers}</b> fikrdosh <span>|</span> <b>${u.following}</b> davradosh</div>
+    <div class="pm-prem" onclick="go('#/premium')">${ic("sparkle", 30)}<div><b>${APP_NAME} Premium</b><small>Premium imkoniyatlarni kashf eting</small></div><span>Premium ${I.ch}</span></div>
+    <div class="pm-st"><div><small>Ball balansi</small><b><i style="background:#f2a20f">${ic("coin", 13)}</i>${num(u.ball)}</b></div>
+      <div><small>Umumiy o'qish</small><b><i style="background:var(--blue)">${ic("book", 13)}</i>${num(st.pages)} bet</b></div>
+      <div onclick="go('#/davra/marra')"><small>Marra reytingi</small><b><i style="background:var(--or)">${ic("trophy", 13)}</i>${lb.myRank ? lb.myRank + "-o'rin" : "—"}</b><em>${I.ch}</em></div>
+      <div onclick="go('#/marra')"><small>Oxirgi 7 kun</small><b><i style="background:#8a4fc0">${ic("cal", 13)}</i>${st.week} bet</b><em>${I.ch}</em></div></div>
+    ${tabs}${body}</div>`;
+}
+
+/* ---------- Menyu ---------- */
+function vMenu() {
+  const it = (icn, bg, t, fn, extra = "") => `<button class="mi" data-t="${esc(t.toLowerCase())}" onclick="${fn}"><span class="ic" style="background:${bg}">${icn}</span><span>${t}</span>${extra}<span class="ch">${I.ch}</span></button>`;
+  const grp = (t, body) => `<div class="mgrp"><div class="mlabel">${t}</div><div class="menu">${body}</div></div>`;
+  const tl = { system: "Tizim", light: "Yorug'", dark: "Qorong'i" }[themePref()];
+  return mbar("Menyu") + `<div class="sbox msrch">${I.search}<input placeholder="Qidirish" oninput="menuFilter(this.value)"></div><div id="mnu">
+    ${grp("Shaxsiy hisob", it(ic("user", 18), "#3bb54a", "Shaxsiy ma'lumotlar", "go('#/personal')") + it(ic("target", 18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`) + it(I.heart, "#e0475a", "Donat", "go('#/donat')") + it(ic("gift", 18), "#14a89a", "Bonuslarim", "go('#/bonus')") + it(ic("key", 18), "#5f6b7a", "Parolni o'zgartirish", "openPass()"))}
+    ${grp("Obuna", it(I.crown.replace("<svg", '<svg width="17" height="17"'), "#ff8a2b", "Premium", "go('#/premium')"))}
+    ${grp("Sozlamalar", it(ic("moon", 18), "#2a9a6a", "Displey sozlamalari", "go('#/display')", `<em>${tl}</em>`) + it(ic("msg", 18), "#3d7bf0", "Ilova tili", "openLang()", "<em>O'zbekcha</em>")
+      + `<button class="mi" data-t="yopiq profil" onclick="saveProfile({private:${!S.me.user.private}},'${S.me.user.private ? "Profil ochildi" : "Profil yopildi"}')"><span class="ic" style="background:#8a4fc0">${ic("lock", 18)}</span><span>Yopiq profil</span><div class="tg ${S.me.user.private ? "on" : ""}"></div></button>`
+      + it(ic("phone", 18), "#0f8a9a", "Ilovani o'rnatish", "installApp()") + it(ic("download", 18), "#5f6b7a", "Ma'lumotlarimni yuklab olish", "exportData()"))}
+    ${grp("Yordam", it(ic("sparkle", 18), "#e0478a", "Ilova haqida", "go('#/about')") + it(ic("file", 18), "#3d7bf0", "Foydalanish qoidalari", "go('#/terms')") + (CONTACT_TG ? it(ic("msg", 18), "#2a9a6a", "Jonli suhbat", `window.open('https://t.me/${CONTACT_TG}','_blank')`) : ""))}
+    ${grp("Chiqish", it(ic("logout", 18), "#e5484d", "Sahifadan chiqish", "if(confirm('Akkauntdan chiqasizmi?'))logout()"))}</div>`;
+}
+function menuFilter(q) {
+  q = q.trim().toLowerCase();
+  document.querySelectorAll("#mnu .mi").forEach(b => b.classList.toggle("hidden", !!q && !b.dataset.t.includes(q)));
+  document.querySelectorAll("#mnu .mgrp").forEach(g => g.classList.toggle("hidden", !g.querySelector(".mi:not(.hidden)")));
+}
+
+/* ---------- Shaxsiy ma'lumotlar ---------- */
+const PF = { name: ["To'liq ism", 60], username: ["Taxallus", 24], age: ["Yosh", 3], gender: ["Jins", 10], region: ["Hudud (shahar, tuman)", 60], job: ["Kasb", 60], bio: ["Qisqacha men haqimda", 300] };
+async function vPersonal() {
+  const pr = await api("user", { userId: S.me.user.id }).catch(() => ({}));
+  const u = S.me.user, row = (k, v) => `<button class="prow" onclick="editField('${k}')"><span>${PF[k][0]}</span><b>${v ? esc(k === "username" ? "@" + v : v) : `<i>Kiritilmagan</i>`}</b>${I.ch}</button>`;
+  return mbar("Shaxsiy ma'lumotlar") + `<div class="pers">
+    <div class="pm-cv sm" ${pr.banner ? `style="background-image:url('${pr.banner}')"` : ""}><button class="camb2" onclick="pickImage('banner')">${ic("cam", 22)}</button></div>
+    <div class="pm-hd"><div class="pm-av" onclick="pickImage('avatar')">${ava(u, 96)}<span class="cam">${ic("cam", 18)}</span></div></div>
+    <div class="pcard2"><div class="h"><span>Qisqacha men haqimda</span><button onclick="editField('bio')">${ic("edit", 18)}</button></div><p>${u.bio ? esc(u.bio) : `<span class="muted">O'zingiz, sevimli kitoblaringiz haqida yozing</span>`}</p></div>
+    <div class="pcard2 tg-row" onclick="saveProfile({private:${!u.private}},'${u.private ? "Profil ochildi" : "Profil yopildi"}')"><b>Yopiq profil</b><div class="tg ${u.private ? "on" : ""}"></div></div>
+    <div class="pcard2"><div class="ttl">Shaxsiy ma'lumotlar</div>${row("name", u.name)}${row("username", u.username)}${row("age", u.age)}${row("gender", u.gender)}</div>
+    <div class="pcard2"><div class="ttl">Aloqa ma'lumotlari</div><div class="prow"><span>Telefon raqam</span><b>+${esc(u.phone)}</b></div><button class="prow" onclick="openPass()"><span>Parol</span><b>••••••</b>${I.ch}</button></div>
+    <div class="pcard2"><div class="ttl">Manzil va kasb</div>${row("region", u.region)}${row("job", u.job)}</div>
+    <div class="pcard2"><div class="ttl">Kitobxonlik</div><button class="prow" onclick="openGoal()"><span>Kunlik maqsad</span><b>${u.goal} bet</b>${I.ch}</button></div></div>`;
+}
+function editField(k) {
+  const u = S.me.user, [t, max] = PF[k], v = u[k] || "";
+  const inp = k === "bio" ? `<textarea id="ef" maxlength="${max}">${esc(v)}</textarea>`
+    : k === "gender" ? `<div class="chips" style="margin-top:6px">${["Erkak", "Ayol"].map(g => `<button class="chip ${v === g ? "on" : ""}" onclick="saveProfile({gender:'${g}'})">${g}</button>`).join("")}</div>`
+    : `<input id="ef" maxlength="${max}" value="${esc(v)}" ${k === "age" ? 'type="number" inputmode="numeric"' : ""} ${k === "username" ? 'placeholder="lotin harflari va raqam"' : ""}>`;
+  sheet(`<h2>${t}</h2>${inp}${k === "gender" ? "" : `<button class="btn pri full" style="margin-top:18px" onclick="saveProfile({${k}:$('#ef').value})">Saqlash</button>`}`);
+  setTimeout(() => { const e = $("#ef"); if (e) e.focus(); }, 250);
+}
+
+/* ---------- Displey sozlamalari ---------- */
+function vDisplay() {
+  const t = themePref(), card = (k, n) => `<button class="thm ${t === k ? "on" : ""}" onclick="setTheme('${k}')"><span class="pv ${k}"><i></i><i></i><i></i></span><span class="rd"></span><b>${n}</b></button>`;
+  return mbar("Displey sozlamalari") + `<div class="pcard2"><div class="ttl">Ilova mavzusi</div><div class="thms">${card("system", "Tizim")}${card("light", "Yorug'")}${card("dark", "Qorong'i")}</div>
+    <p class="muted" style="font-size:13px;margin:12px 2px 0">“Tizim” — telefoningiz sozlamasiga qarab avtomatik yorug' yoki qorong'i bo'ladi.</p></div>`;
+}
+function openLang() {
+  sheet(`<div class="intro"><div class="globe">${ic("msg", 40)}</div><h2>Ilova tilini tanlang</h2><p>Ilovadan qulay foydalanish uchun tilni tanlang</p></div>
+    <div class="langs"><button class="on">🇺🇿 <span>O'zbekcha</span>${ic("check", 18)}</button><button disabled>🇺🇿 <span>Qaraqalpaqsha</span><em>tez orada</em></button><button disabled>🇷🇺 <span>Русский</span><em>скоро</em></button></div>
+    <button class="btn pri full" onclick="closeSheet()">Tasdiqlash</button>`);
+}
+
+/* ---------- Ilova haqida ---------- */
+function vAbout() {
+  const S2 = [["telegram", "Telegram", "#2aa3e0", "https://t.me/"], ["instagram", "Instagram", "#e1306c", "https://instagram.com/"], ["youtube", "YouTube", "#ff0000", "https://youtube.com/@"], ["facebook", "Facebook", "#1877f2", "https://facebook.com/"]].filter(x => SOCIALS[x[0]]);
+  return mbar("Ilova haqida") + `<div class="about"><img src="icons/icon-192.png" alt=""><h2>${APP_NAME}</h2><small>${APP_VERSION}</small><p>Kitobxon kundaligi, kutubxona va kitobxonlar davrasi — hammasi bir joyda.</p></div>
+    ${S2.length ? `<div class="pcard2">${S2.map(([k, n, c, u]) => `<a class="prow" href="${u}${esc(SOCIALS[k])}" target="_blank" rel="noopener"><span class="sdot" style="background:${c}"></span><b style="text-align:left;flex:1">${n}</b>${I.ch}</a>`).join("")}</div>` : ""}
+    <div class="pcard2"><button class="prow" onclick="go('#/terms')"><b style="text-align:left;flex:1">Foydalanish shartlari</b>${I.ch}</button><button class="prow" onclick="go('#/terms/privacy')"><b style="text-align:left;flex:1">Maxfiylik siyosati</b>${I.ch}</button></div>
+    <button class="btn pri full big fixb" onclick="shareApp()">Do'stlarga ulashish ${ic("sparkle", 17)}</button>`;
+}
+function shareApp() { const t = `${APP_NAME} — kitobxon kundaligi va kutubxona. Men shu yerda o'qiyman, sen ham qo'shil!`, url = location.origin + location.pathname; if (navigator.share) navigator.share({ title: APP_NAME, text: t, url }).catch(() => {}); else { navigator.clipboard && navigator.clipboard.writeText(t + " " + url); toast("Havola nusxalandi"); } }
+
+/* ---------- Donat ---------- */
+let DON = { sum: 0, method: "" };
+function vDonat() {
+  const pres = [10000, 20000, 30000, 50000, 100000, 200000];
+  return mbar("Donat") + `<div class="dhero">${I.heart.replace("<svg", '<svg width="34" height="34"')}<h2>Qo'llab-quvvatlash</h2><p>${APP_NAME} loyihasini qo'llab-quvvatlang — kutubxonaga yangi kitoblar, audio va kitob mag'zlari qo'shishimizga yordam bering.</p></div>
+    <label>To'liq ism</label><input id="dnN" value="${esc(S.me.user.name)}" placeholder="Ismingizni kiriting">
+    <label>Miqdor</label><div class="sumin"><input id="dnS" type="number" inputmode="numeric" placeholder="0" value="${DON.sum || ""}" oninput="DON.sum=+this.value||0;donPaint()"><span>so'm</span></div>
+    <div class="pres">${pres.map(p => `<button class="${DON.sum === p ? "on" : ""}" onclick="DON.sum=${p};$('#dnS').value=${p};donPaint()">${num(p)} so'm</button>`).join("")}</div>
+    <label>To'lov turi</label>${payTiles("DON")}
+    <button class="btn pri full big fixb" id="dnB" onclick="payStart('donat',DON.sum,DON.method)">Qo'llab-quvvatlash</button>`;
+}
+function donPaint() { document.querySelectorAll(".pres button").forEach(b => b.classList.toggle("on", b.textContent.replace(/\D/g, "") == DON.sum)); }
+function payTiles(st) {
+  const cur = window[st] ? window[st].method : "";
+  return `<div class="ptiles">${PAY_METHODS.map(([k, n]) => `<button class="${cur === k ? "on" : ""}" onclick="${st}.method='${k}';this.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===this))"><b class="pm-${k}">${n}</b></button>`).join("")}</div>`;
+}
+window.DON = DON;
+
+/* ---------- Bonuslarim ---------- */
+function vBonus() {
+  const code = "#" + S.me.user.username, link = location.origin + location.pathname + "?ref=" + encodeURIComponent(S.me.user.username);
+  return mbar("Bonuslarim") + `<div class="bcard r1"><div><h3>Do'stingizni taklif qiling</h3><span>Har bir faol do'st — bonus ball</span></div><span class="g">${ic("gift", 54)}</span></div>
+    <div class="bcard r2"><div><h3>5 ta do'st — Premium</h3><span>Premium ishga tushganda sovg'a qilinadi</span></div><span class="g">${I.crown.replace("<svg", '<svg width="54" height="54"')}</span></div>
+    <div class="binfo"><b>${ic("sparkle", 18)} Bonuslar haqida</b><p>Taklif havolangiz orqali ${APP_NAME}ga qo'shilgan har bir do'stingiz uchun sizga bonus beriladi. Bonuslar Premium va to'lov tizimi ishga tushgach hisobingizga qo'shiladi.</p></div>
+    <div class="bcode"><b>${esc(code)}</b><button onclick="navigator.clipboard&&navigator.clipboard.writeText(${tjs(link)});toast('Havola nusxalandi')">${ic("file", 19)}</button></div>
+    <button class="btn pri full big fixb" onclick="inviteFriend()">Taklif havolasini ulashish ${I.share}</button>`;
+}
+
+/* ---------- Premium oqimi ---------- */
+const PREM_FEATS = [["headph", "#ff6b1a", "Audio kitoblar", "Kutubxonadagi audio kitoblarni cheklovsiz tinglang"], ["sparkle", "#8a4fc0", "Kitob mag'zi", "Har bir kitobning asosiy g'oyalarini o'qing va tinglang"],
+  ["download", "#2a9a6a", "Oflayn tinglash", "Kitobni yuklab olib, internetsiz tinglang"], ["chart", "#3d7bf0", "Kengaytirilgan statistika", "Oylik va yillik hisobotlar, o'qish tezligi"],
+  ["trophy", "#f2a20f", "Tanlov va sertifikatlar", "Kitobxonlik tanlovlarida qatnashing"], ["palette", "#e0475a", "Maxsus mavzular", "Javon va profil uchun premium dizaynlar"]];
+function vPremiumM() {
+  return `<div class="prm"><button class="prm-x" onclick="goBack()">${ic("x", 22)}</button>
+    <div class="prm-hero"><i class="st s1">✦</i><i class="st s2">✦</i><i class="st s3">✦</i><span class="crown">${I.crown}</span>
+      <h1>${APP_NAME} Premium</h1><p>Premium sizga cheksiz imkoniyatlar, eksklyuziv funksiyalar va qulayroq tajriba beradi.</p></div>
+    <div class="prm-band"><b>Kutubxonadagi barcha kitoblarni cheksiz o'qing va tinglang!</b>${ic("book", 46)}</div>
+    <div class="pcard2 prm-f">${PREM_FEATS.map(([i, c, t, d]) => `<div class="pf"><span style="background:${c}">${ic(i, 20)}</span><div><b>${t}</b><small>${d}</small></div></div>`).join("")}</div>
+    <div class="fixb2"><button class="btn grad full big" onclick="go('#/plans')">Obuna bo'lish</button><button class="btn ghost full" onclick="openPromo()">${ic("gift", 17)} Sovg'a promokodini faollashtirish</button></div></div>`;
+}
+function openPromo() {
+  sheet(`<h2>Promokod qo'shish</h2><label>Promokod</label><input id="prc" placeholder="Masalan: KITOB2026" oninput="$('#prcB').disabled=!this.value.trim()">
+    <button class="btn pri full" id="prcB" disabled style="margin-top:14px" onclick="payStart('promo',0,$('#prc').value.trim())">Tasdiqlash</button>`);
+}
+let PLAN = { plan: "year", method: "", mode: "sub" };
+window.PLAN = PLAN;
+function vPlans() {
+  const save = Math.round((1 - PRICES.year / (PRICES.month * 12)) * 100);
+  const card = (k, t, pts, price, sub, badge) => `<button class="plc ${PLAN.plan === k ? "on" : ""}" onclick="PLAN.plan='${k}';render(true)">${badge ? `<em class="bdg">${ic("rocket", 13)} ${badge}</em>` : ""}
+    <div class="h"><b>${t}</b>${k === "year" ? `<span class="sv">${save}% tejash</span>` : ""}<span class="rd"></span></div>
+    <ul>${pts.map(p => `<li>${p}</li>`).join("")}</ul><div class="pr"><b>${price}</b>${sub ? `<span>${sub}</span>` : ""}</div></button>`;
+  return mbar("Qulay muddatni tanlang") + card("month", "Oylik", ["Juda oddiy — har oyda to'lov", "Premiumni sinab ko'rish uchun qulay"], `${num(PRICES.month)} so'm/oy`, "")
+    + card("year", "Yillik", ["Bir marta to'lab, oyma-oy to'lashni unuting", "Premium imkoniyatlari yil davomida", `Oylik tarifga qaraganda ${save}% tejaysiz`], `${num(Math.round(PRICES.year / 12))} so'm/oy`, `jami ${num(PRICES.year)} so'm`, "Eng yaxshi taklif")
+    + `<button class="btn grad full big fixb" onclick="go('#/pay/'+PLAN.plan)">Davom etish</button>`;
+}
+function vPay(plan) {
+  plan = plan === "month" ? "month" : "year"; PLAN.plan = plan;
+  const sum = PRICES[plan], end = new Date(); end.setMonth(end.getMonth() + (plan === "year" ? 12 : 1));
+  const d = `${String(end.getDate()).padStart(2, "0")}.${String(end.getMonth() + 1).padStart(2, "0")}.${end.getFullYear()}`, t = plan === "year" ? "Yillik" : "Oylik";
+  return mbar("To'lov ma'lumotlari") + `<div class="seg"><button class="${PLAN.mode === "sub" ? "on" : ""}" onclick="PLAN.mode='sub';render(true)">Obuna bo'lish</button><button class="${PLAN.mode === "once" ? "on" : ""}" onclick="PLAN.mode='once';render(true)">Bir marta to'lash</button></div>
+    <div class="pinfo ${PLAN.mode}">${ic("cal", 22)}<div><b>${PLAN.mode === "sub" ? `Siz ${t} tarifga obuna bo'lyapsiz` : `Siz ${t} tarif sotib olyapsiz`}</b><small>${PLAN.mode === "sub" ? "Keyingi to'lov sanasi" : "Tarif amal qilish muddati"} — <b>${d}</b></small></div></div>
+    <div class="psum"><div><span>Obuna turi</span><i></i><b>${t}</b></div><div><span>To'lov summasi</span><i></i><b>${num(sum)} so'm</b></div><div class="tot"><span>Jami to'lovga:</span><b>${num(sum)} so'm</b></div></div>
+    <h3 class="bkm-h">To'lov usulini tanlang</h3>${payTiles("PLAN")}
+    <button class="btn grad full big fixb" onclick="payStart(PLAN.plan,${sum},PLAN.method)">${PLAN.mode === "sub" ? "Obuna bo'lish" : "To'lov qilish"}</button>`;
+}
+/* To'lov: Payme / Click kalitlari berilgach shu funksiya haqiqiy to'lovga ulanadi */
+function payStart(kind, sum, method) {
+  if (kind === "promo") return sheet(`<div class="intro"><div class="globe">${ic("gift", 40)}</div><h2>Promokodlar tez orada</h2><p>Promokod tizimi to'lovlar bilan birga ishga tushadi. Kodingizni saqlab qo'ying!</p><button class="btn pri full" onclick="closeSheet()">Tushunarli</button></div>`);
+  if (kind === "donat" && !(sum >= 1000)) return toast("Miqdorni kiriting (kamida 1 000 so'm)");
+  if (!method) return toast("To'lov usulini tanlang");
+  sheet(`<div class="intro"><div class="globe">${ic("coin", 40)}</div><h2>To'lov tizimi ulanmoqda</h2><p>${PAY_METHODS.find(x => x[0] === method)[1]} orqali to'lov tez orada ishga tushadi. ${kind === "donat" ? "Qo'llab-quvvatlashga tayyorligingiz uchun rahmat!" : "Premium ishga tushganda sizga birinchi bo'lib xabar beramiz."}</p>
+    ${CONTACT_TG ? `<a class="btn ghost full" style="margin-bottom:10px" target="_blank" href="https://t.me/${CONTACT_TG}">Telegram orqali bog'lanish</a>` : ""}<button class="btn pri full" onclick="closeSheet()">Yaxshi</button></div>`);
+}
+
+/* ---------- Yangilanish oynasi (yangi versiya chiqqanda) ---------- */
+function showUpdate() {
+  if (sessionStorage.getItem("kb_upd")) return; sessionStorage.setItem("kb_upd", "1");
+  sheet(`<div class="intro upd"><div class="globe">${ic("refresh", 40)}</div><h2>Yangilanish tayyor</h2><p>Ilovani yangilab, so'nggi imkoniyatlar va yaxshilanishlardan foydalaning.</p>
+    <button class="btn grad full" onclick="location.reload()">Hozir yangilash</button></div>`);
+}
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  let hadCtl = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener("controllerchange", () => { if (hadCtl) showUpdate(); hadCtl = true; });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) navigator.serviceWorker.getRegistration().then(r => r && r.update()).catch(() => {}); });
+}
+/* Ekran kengligi telefon/kompyuter chegarasidan o'tsa qayta chizamiz */
+let wasM = isM(); addEventListener("resize", () => { if (isM() !== wasM) { wasM = isM(); if (S.token && $("#view")) render(true); } });
+
 /* ---------- start ---------- */
-document.body.classList.toggle("dark", !!S.dark);
+applyTheme();
 if (location.search.includes("a=add")) { history.replaceState(null, "", location.pathname + "#/shelf"); setTimeout(() => S.token && openForm(), 400); }
 if (location.search.includes("a=page")) { history.replaceState(null, "", location.pathname + "#/home"); setTimeout(() => S.token && openProgress(), 400); }
 render();
