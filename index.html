@@ -1581,8 +1581,11 @@ var KitobimCore = (function () {
         (p.comments || []).forEach(function (c) { if (c.userId !== u.id) out.push({ type: "comment", at: c.createdAt, by: c.userId, postId: p.id, text: c.text }); });
       });
       db.follows.filter(function (f) { return f.b === u.id; }).forEach(function (f) { out.push({ type: "follow", at: f.t, by: f.a }); });
+      (db.payments || []).filter(function (p) { return p.userId === u.id && p.status !== "pending"; }).forEach(function (p) {
+        out.push({ type: "pay", at: p.confirmedAt || p.createdAt, kind: p.kind, plan: p.plan || "", sum: p.sum || 0, status: p.status, until: p.until || "", reason: p.reason || "", note: p.note || "" });
+      });
       out.sort(function (a, b) { return b.at < a.at ? -1 : 1; });
-      out = out.slice(0, 40).map(function (n) { var bu = db.users.filter(function (x) { return x.id === n.by; })[0]; n.user = bu ? { id: bu.id, name: bu.name, color: bu.color || 0, avatar: bu.avatar || "" } : { name: "?" }; return n; });
+      out = out.slice(0, 40).map(function (n) { if (n.type === "pay") return n; var bu = db.users.filter(function (x) { return x.id === n.by; })[0]; n.user = bu ? { id: bu.id, name: bu.name, color: bu.color || 0, avatar: bu.avatar || "" } : { name: "?" }; return n; });
       return { touched: ["users"], res: { notifs: out } };
     },
     publicStats: function (db) {
@@ -1701,7 +1704,7 @@ var KitobimCore = (function () {
       db.posts.forEach(function (p) { var x = byDay[String(p.createdAt || "").slice(0, 10)]; if (x) x.posts++; });
       daily.forEach(function (x) { x.active = Object.keys(x.active).length; });
       var recent = db.posts.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 40).map(function (p) { return postView(db, p, "", r.today); });
-      var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || ""; p.premiumUntil = x.premiumUntil || ""; p.plan = x.plan || "";
+      var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || ""; p.premiumUntil = x.premiumUntil || ""; p.plan = x.plan || ""; p.tg = !!x.tg;
         p.current = s.current; p.plan = s.plan; p.reading = s.reading; return p; });
       var payments = db.payments.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 400);
       return { touched: [], res: { payments: payments, promos: db.promos, users: users, books: db.books.map(function (b) { var o = publicBook(b); o.userId = b.userId; return o; }),
@@ -2839,7 +2842,11 @@ async function saveImage(kind, data) {
 /* ---------- Bildirishnomalar ---------- */
 async function vNotifs() {
   const r = await api("notifs");
-  return mtop("Bildirishnomalar", true) + ph("Bildirishnomalar", "", true) + `<div style="max-width:640px">${r.notifs.length ? r.notifs.map(n => `<a class="urow" href="#/user/${n.user.id}" style="border-bottom:1px solid var(--line)">${ava(n.user, 42)}<span class="info"><b>${esc(n.user.name)}</b><small>${n.type === "follow" ? "sizni davrasiga qo'shdi" : "fikringizga izoh qoldirdi: " + esc(n.text.slice(0, 60))}</small></span><small class="muted">${ago(n.at)}</small></a>`).join("") : `<div class="empty"><div class="ic">${ic("bell",44)}</div>Hozircha yangilik yo'q</div>`}</div>`;
+  const payN = n => { const ok = n.status === "paid", t = n.kind === "plan" ? (ok ? `To'lov qabul qilindi — Premium yoqildi${n.until ? " (" + fmtDot(n.until) + " gacha)" : ""}` : "To'lov so'rovingiz rad etildi" + (n.reason ? ": " + esc(n.reason) : ""))
+      : n.kind === "donat" ? (ok ? `Qo'llab-quvvatlash qabul qilindi — ${num(n.sum)} so'm. Rahmat! 🧡` : "To'lov rad etildi" + (n.reason ? ": " + esc(n.reason) : "")) : n.kind === "promo" ? `Promokod faollashtirildi: ${esc(n.note)}` : `Sizga Premium sovg'a qilindi: ${esc(n.note)}`;
+    return `<a class="urow" href="#/premium" style="border-bottom:1px solid var(--line)"><span class="ava" style="background:${ok ? "var(--grad)" : "var(--red)"}">${ok ? I.crown.replace("<svg", '<svg width="20" height="20" fill="#fff" stroke="none"') : ic("x", 20)}</span><span class="info"><b>${n.kind === "donat" ? "Donat" : "Premium"}</b><small style="white-space:normal">${t}</small></span><small class="muted">${ago(n.at)}</small></a>`; };
+  if (!S.me.user.tg) r.notifs.unshift({ type: "tglink" });
+  return mtop("Bildirishnomalar", true) + ph("Bildirishnomalar", "", true) + `<div style="max-width:640px">${r.notifs.length ? r.notifs.map(n => n.type === "tglink" ? `<a class="tgauth" style="margin:4px 0 12px" target="_blank" href="${botUrl("link")}"><span>${ic("msg", 18)}</span>To'lov va yangiliklar haqida Telegram'da xabar olish<small>@${BOT} ga ulaning — 1 daqiqa</small></a>` : n.type === "pay" ? payN(n) : `<a class="urow" href="#/user/${n.user.id}" style="border-bottom:1px solid var(--line)">${ava(n.user, 42)}<span class="info"><b>${esc(n.user.name)}</b><small>${n.type === "follow" ? "sizni davrasiga qo'shdi" : "fikringizga izoh qoldirdi: " + esc(n.text.slice(0, 60))}</small></span><small class="muted">${ago(n.at)}</small></a>`).join("") : `<div class="empty"><div class="ic">${ic("bell",44)}</div>Hozircha yangilik yo'q</div>`}</div>`;
 }
 
 /* ---------- Qidiruv ---------- */
@@ -3936,7 +3943,8 @@ function payOpen(r) {
   sheet(`<div class="intro"><div class="globe">${ic("coin", 40)}</div><h2>To'lov sahifasi tayyor</h2><p><b>${num(r.sum)} so'm</b> — Click, Payme, Uzum yoki karta orqali to'lang. To'lov tushishi bilan ${S.me ? "Premium o'zi yoqiladi" : ""}.</p>
     <a class="btn pri full big" href="${esc(r.url)}" target="_blank" rel="noopener" onclick="payWatch('${esc(r.bill)}')">💳 To'lash</a>
     <button class="btn ghost full" style="margin-top:10px" id="pcB" onclick="payCheck('${esc(r.bill)}',true)">To'ladim — tekshirish</button>
-    <div id="pcS" class="muted" style="font-size:13px;margin-top:10px"></div></div>`);
+    <div id="pcS" class="muted" style="font-size:13px;margin-top:10px"></div>
+    ${S.me && !S.me.user.tg ? `<p class="muted" style="font-size:12.5px;margin-top:12px">To'lov haqidagi xabar Telegram'da kelishi uchun <a style="color:#2aa3e0;font-weight:700" target="_blank" href="${botUrl("link")}">@${BOT}</a> ga ulaning.</p>` : ""}</div>`);
 }
 function payWatch(bill) { clearInterval(PAYW); let n = 0; PAYW = setInterval(() => { if (++n > 120 || !$("#pcB")) return clearInterval(PAYW); if (!document.hidden) payCheck(bill, false); }, 5000); }
 async function payCheck(bill, manual) {
@@ -3946,7 +3954,8 @@ async function payCheck(bill, manual) {
   if (!r.paid) { if (manual && st) st.textContent = "To'lov hali tushmadi. To'lagan bo'lsangiz, bir necha soniyadan keyin qayta bosing."; return false; }
   clearInterval(PAYW); LS.del("kb_bill"); rcStale(); await api("me").catch(() => {}); await render(true);
   sheet(`<div class="intro"><div class="globe">${I.crown.replace("<svg", '<svg width="40" height="40"')}</div><h2>${r.kind === "donat" ? "Rahmat! 🧡" : "Premium yoqildi! 🎉"}</h2><p>${r.kind === "donat" ? "Qo'llab-quvvatlaganingiz uchun katta rahmat!" : `Premium ${fmtDot(r.until)} gacha faol. Barcha audio qismlar va kitob mag'zlari ochiq.`}</p>
-    <button class="btn pri full" onclick="closeSheet();go('${r.kind === "donat" ? "#/home" : "#/library"}')">${r.kind === "donat" ? "Yaxshi" : "Kutubxonaga o'tish"}</button></div>`);
+    <button class="btn pri full" onclick="closeSheet();go('${r.kind === "donat" ? "#/home" : "#/library"}')">${r.kind === "donat" ? "Yaxshi" : "Kutubxonaga o'tish"}</button>
+    ${S.me && !S.me.user.tg ? `<a class="tgauth" target="_blank" href="${botUrl("link")}"><span>${ic("msg", 18)}</span>To'lov va yangiliklarni Telegram'da olish<small>@${BOT} ga ulaning</small></a>` : ""}</div>`);
   return true;
 }
 /* Ilovaga qaytganda to'lanmagan to'lovni tekshirib qo'yamiz */
@@ -3997,7 +4006,7 @@ function admPremTab(d, q) {
       ${p.note ? `<div class="apnote">${ic("msg", 14)} ${esc(p.note)}</div>` : ""}
       <div class="row" style="gap:8px;margin-top:12px"><button class="apill on" onclick="admPay('${p.id}',true,this)">${ic("check", 15)} Tasdiqlash${p.kind === "plan" ? ` (+${KitobimCore.PLANS[p.plan].days} kun)` : ""}</button><button class="apill danger" onclick="admPay('${p.id}',false,this)">Rad etish</button></div></div>`; };
   const st = u => u.premiumUntil && u.premiumUntil >= T ? `<span class="aptag on">${I.crown.replace("<svg", '<svg width="12" height="12"')} ${fmtDot(u.premiumUntil)} gacha</span>` : u.premiumUntil ? `<span class="aptag exp">Tugagan ${fmtDot(u.premiumUntil)}</span>` : `<span class="aptag">Bepul</span>`;
-  const urow = u => `<tr><td><div class="row">${ava(u, 34)}<div><b>${esc(u.name)}</b><small>@${esc(u.username)}</small></div></div></td><td class="hm">+${esc(u.phone)}</td><td>${st(u)}</td><td class="hm">${(P.filter(p => p.userId === u.id && p.status === "paid" && p.sum > 0).reduce((a, p) => a + p.sum, 0) && num(P.filter(p => p.userId === u.id && p.status === "paid").reduce((a, p) => a + p.sum, 0)) + " so'm") || '<span class="mu">—</span>'}</td>
+  const urow = u => `<tr><td><div class="row">${ava(u, 34)}<div><b>${esc(u.name)}</b><small>@${esc(u.username)}</small></div></div></td><td class="hm">+${esc(u.phone)}${u.tg ? ` <span title="Telegram botga ulangan" style="color:#2aa3e0">●</span>` : ""}</td><td>${st(u)}</td><td class="hm">${(P.filter(p => p.userId === u.id && p.status === "paid" && p.sum > 0).reduce((a, p) => a + p.sum, 0) && num(P.filter(p => p.userId === u.id && p.status === "paid").reduce((a, p) => a + p.sum, 0)) + " so'm") || '<span class="mu">—</span>'}</td>
     <td style="text-align:right"><button class="apill" onclick="admPremSheet('${u.id}')">${u.premiumUntil && u.premiumUntil >= T ? "Boshqarish" : "Premium berish"}</button></td></tr>`;
   const hrow = p => { const u = uById(p.userId), [t, c] = PAY_ST[p.status] || [p.status, "#888"]; return `<tr><td><b>${esc(u.name)}</b><small>+${esc(u.phone)}</small></td><td>${PAY_KIND(p)}${p.note ? `<small>${esc(p.note)}</small>` : ""}</td><td><b>${p.sum ? num(p.sum) + " so'm" : "—"}</b></td><td class="hm">${esc(p.method || "")}</td><td><span style="color:${c};font-weight:700">${t}</span>${p.until ? `<small>${fmtDot(p.until)} gacha</small>` : ""}</td><td class="hm mu">${fmtD(p.createdAt)}</td></tr>`; };
   const promos = d.promos || [];
