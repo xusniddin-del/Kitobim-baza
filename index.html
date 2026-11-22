@@ -4253,66 +4253,52 @@ function drawLogo(x, X, Y, H, v) {
 function fitFont(x, text, weight, max, min, fam, width) { let s = max; for (; s > min; s -= 4) { x.font = `${weight} ${s}px ${fam}`; if (x.measureText(text).width <= width) break; } return s; }
 function wrapLines(x, text, width) { const out = []; let cur = ""; String(text).split(/\s+/).forEach(w => { const n = cur ? cur + " " + w : w; if (x.measureText(n).width > width && cur) { out.push(cur); cur = w; } else cur = n; }); if (cur) out.push(cur); return out; }
 
-/* d = { cert:{id,tier,name,issuedAt,act}, user:{done,pages,act} }  →  canvas 3000×2000 (30×20 sm, 254 dpi) */
+/* d = { cert:{id,tier,name,issuedAt,act}, user:{done,pages,act} }  →  canvas 3000×2000 (30×20 sm, 254 dpi). Uslub: premium minimal */
 async function drawCert(d, scale = 1) {
   const W = 3000, H = 2000, c = document.createElement("canvas"); c.width = W * scale; c.height = H * scale;
   const x = c.getContext("2d"); x.scale(scale, scale);
-  try { await Promise.all(["800 100px Inter", "600 40px Inter", "500 40px Inter", "700 100px Lora"].map(f => document.fonts.load(f))); } catch (e) {}
-  const C = d.cert, P = CERT_T[C.tier] || CERT_T.faol, T = certTier(C.tier), U = d.user || {}, act = Math.max(U.act || 0, C.act || 0);
-  /* fon */
-  const bg = x.createLinearGradient(0, 0, W, H); bg.addColorStop(0, P.bg[0]); bg.addColorStop(1, P.bg[1]); x.fillStyle = bg; x.fillRect(0, 0, W, H);
-  const gl = x.createRadialGradient(W * .82, H * .28, 0, W * .82, H * .28, 1200); gl.addColorStop(0, P.glow); gl.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = gl; x.fillRect(0, 0, W, H);
-  if (C.tier === "fidoyi") { const g2 = x.createRadialGradient(W * .05, H * 1.05, 0, W * .05, H * 1.05, 1100); g2.addColorStop(0, "rgba(240,78,28,.28)"); g2.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = g2; x.fillRect(0, 0, W, H); }
-  /* xatcho'p suv belgisi (brend elementi) */
-  x.save(); x.fillStyle = P.wm; x.translate(1980, -120); x.scale(15, 15); x.fill(new Path2D("M25 14H41V86L33 78.5L25 86Z")); x.fill(new Path2D("M41 67C50 50 62 41 78 37V52.5C67 55.5 59 60.5 54.5 67C60 71 68 77.5 76.5 86H59C55 79 49 72.5 41 69Z")); x.restore();
-  /* ramka */
-  x.strokeStyle = P.frame; x.lineWidth = 6; rr(x, 70, 70, W - 140, H - 140, 46); x.stroke();
-  x.lineWidth = 2; rr(x, 100, 100, W - 200, H - 200, 32); x.stroke();
-  [[100, 100], [W - 100, 100], [100, H - 100], [W - 100, H - 100]].forEach(([a, b]) => { x.fillStyle = P.acc; x.beginPath(); x.arc(a, b, 9, 0, 7); x.fill(); });
-  /* logo va raqam */
-  drawLogo(x, 190, 190, 130, P.logo);
-  x.textAlign = "right"; x.textBaseline = "alphabetic"; x.fillStyle = P.mut; x.font = "600 38px Inter, sans-serif"; x.letterSpacing = "4px";
-  x.fillText("SERTIFIKAT RAQAMI", W - 190, 238); x.fillStyle = P.ink; x.font = "800 52px Inter, sans-serif"; x.letterSpacing = "2px"; x.fillText("№ " + C.id, W - 190, 305);
-  x.textAlign = "left";
+  try { await Promise.all(["800 100px Inter", "700 100px Inter", "600 40px Inter", "500 40px Inter", "700 100px Lora", "italic 700 100px Lora"].map(f => document.fonts.load(f))); } catch (e) {}
+  const C = d.cert, P = CERT_T[C.tier] || CERT_T.faol, T = certTier(C.tier), U = d.user || {}, act = Math.max(U.act || 0, C.act || 0), CX = W / 2;
+  const line = P.frame, gold = C.tier === "mehribon" || C.tier === "fidoyi";
+  /* fon: tekis, juda nozik o'tish */
+  const bg = x.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, P.bg[0]); bg.addColorStop(1, P.bg[1]); x.fillStyle = bg; x.fillRect(0, 0, W, H);
+  if (C.tier === "fidoyi") { const g = x.createRadialGradient(CX, -200, 0, CX, -200, 1500); g.addColorStop(0, "rgba(255,107,26,.20)"); g.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H); }
+  if (C.tier === "dostona") { const g = x.createRadialGradient(CX, H * .45, 0, CX, H * .45, 1600); g.addColorStop(0, "rgba(255,255,255,.10)"); g.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H); }
+  /* nozik ramka va burchak belgilari */
+  x.strokeStyle = line; x.lineWidth = 2.5; x.strokeRect(120, 120, W - 240, H - 240);
+  x.lineWidth = 5; [[120, 120, 1, 1], [W - 120, 120, -1, 1], [120, H - 120, 1, -1], [W - 120, H - 120, -1, -1]].forEach(([a, b, sx, sy]) => { x.beginPath(); x.moveTo(a, b + sy * 90); x.lineTo(a, b); x.lineTo(a + sx * 90, b); x.stroke(); });
+  x.textAlign = "center"; x.textBaseline = "alphabetic";
+  /* muhr: ikki nozik doira ichida belgi */
+  const SY = 330; x.strokeStyle = P.acc; x.lineWidth = 3; x.beginPath(); x.arc(CX, SY, 104, 0, 7); x.stroke(); x.lineWidth = 1.5; x.beginPath(); x.arc(CX, SY, 118, 0, 7); x.stroke();
+  drawMark(x, CX - 52, SY - 52, 104, P.logo === "orange" ? "orange" : "light");
   /* sarlavha */
-  const L = 190; let y = 560;
-  x.fillStyle = P.acc; x.font = "800 50px Inter, sans-serif"; x.letterSpacing = "18px"; x.fillText("SERTIFIKAT", L, y);
-  x.letterSpacing = "0px"; y += 175; x.fillStyle = P.ink; x.font = `700 ${fitFont(x, T.name, 700, 170, 100, "Lora, Georgia, serif", 1900)}px Lora, Georgia, serif`; x.fillText(T.name, L, y);
-  y += 85; x.fillStyle = P.mut; x.font = "600 48px Inter, sans-serif"; x.fillText(T.sub, L, y);
-  y += 150; x.font = "500 46px Inter, sans-serif"; x.fillText("Ushbu sertifikat taqdim etiladi:", L, y);
-  y += 160; x.fillStyle = P.ink; const nm = C.name || U.name || "Kitobxon"; x.font = `800 ${fitFont(x, nm, 800, 150, 80, "Inter, sans-serif", 1850)}px Inter, sans-serif`; x.letterSpacing = "-3px"; x.fillText(nm, L, y); x.letterSpacing = "0px";
-  y += 46; const ug = x.createLinearGradient(L, 0, L + 260, 0); ug.addColorStop(0, P.metal[1]); ug.addColorStop(1, P.metal[2]); x.fillStyle = ug; rr(x, L, y, 260, 12, 6); x.fill();
-  y += 110; x.fillStyle = P.mut; x.font = "500 44px Inter, sans-serif";
-  wrapLines(x, `Kitobim ilovasida ${act} kun faol bo'lib, kitob o'qishni kundalik odatga aylantirgani va kitobxonlar davrasiga qo'shgan hissasi uchun.`, 1720).slice(0, 3).forEach((ln, i) => x.fillText(ln, L, y + i * 64));
-  /* medal */
-  const MX = 2400, MY = 820, R = 320, mg = x.createLinearGradient(MX - R, MY - R, MX + R, MY + R); P.metal.forEach((col, i) => mg.addColorStop(i / 2, col));
-  x.save(); x.shadowColor = "rgba(0,0,0,.22)"; x.shadowBlur = 60; x.shadowOffsetY = 26;
-  [[-1, -.32], [1, .32]].forEach(([s, rot]) => { x.save(); x.translate(MX + s * 120, MY + 200); x.rotate(rot); x.fillStyle = mg; x.beginPath(); x.moveTo(-80, 0); x.lineTo(80, 0); x.lineTo(80, 300); x.lineTo(0, 240); x.lineTo(-80, 300); x.closePath(); x.fill(); x.restore(); });
-  x.fillStyle = mg; x.beginPath(); x.arc(MX, MY, R, 0, 7); x.fill(); x.restore();
-  x.fillStyle = C.tier === "fidoyi" ? "#1E120C" : C.tier === "dostona" ? "#FFFFFF" : "#FFFFFF"; x.beginPath(); x.arc(MX, MY, R - 46, 0, 7); x.fill();
-  x.strokeStyle = mg; x.lineWidth = 5; x.setLineDash([2, 22]); x.lineCap = "round"; x.beginPath(); x.arc(MX, MY, R - 78, 0, 7); x.stroke(); x.setLineDash([]);
-  const mInk = C.tier === "fidoyi" ? "#F2C46B" : C.tier === "mehribon" ? "#9C6B12" : "#F04E1C";
-  drawMark(x, MX - 52, MY - 205, 104, "light");
-  x.textAlign = "center"; x.fillStyle = mInk; x.font = "800 190px Inter, sans-serif"; x.letterSpacing = "-6px"; x.fillText(String(T.days), MX, MY + 95); x.letterSpacing = "10px";
-  x.font = "800 46px Inter, sans-serif"; x.fillStyle = C.tier === "fidoyi" ? "#FFFFFF" : "#16161A"; x.fillText("FAOL KUN", MX + 5, MY + 175); x.letterSpacing = "0px"; x.textAlign = "left";
-  /* statistika */
-  const sy = 1655; [["Faol kunlar", num(act)], ["O'qilgan kitoblar", num(U.done || 0)], ["O'qilgan betlar", num(U.pages || 0)]].forEach(([l, v], i) => {
-    const sx = L + i * 470; if (i) { x.fillStyle = P.frame; x.fillRect(sx - 40, sy - 110, 3, 140); }
-    x.fillStyle = P.mut; x.font = "600 38px Inter, sans-serif"; x.fillText(l, sx, sy - 70); x.fillStyle = P.ink; x.font = "800 78px Inter, sans-serif"; x.fillText(v, sx, sy + 15);
-  });
-  /* imzo va sana */
-  const SX = 1660; x.strokeStyle = P.mut; x.lineWidth = 3; x.beginPath(); x.moveTo(SX, sy - 20); x.lineTo(SX + 480, sy - 20); x.stroke();
-  x.fillStyle = P.ink; x.font = "italic 700 64px Lora, Georgia, serif"; x.fillText("Kitobim", SX + 40, sy - 45);
-  x.fillStyle = P.mut; x.font = "600 36px Inter, sans-serif"; x.fillText("Kitobim jamoasi", SX, sy + 30); x.fillText(fdLong(C.issuedAt), SX, sy + 78);
-  /* QR */
+  x.fillStyle = P.acc; x.font = "700 40px Inter, sans-serif"; x.letterSpacing = "26px"; x.fillText("SERTIFIKAT", CX + 13, 580);
+  x.letterSpacing = "0px"; x.fillStyle = P.ink; x.font = "italic 700 104px Lora, Georgia, serif"; x.fillText(T.name, CX, 730);
+  x.fillStyle = P.acc; x.fillRect(CX - 60, 790, 120, 4);
+  x.fillStyle = P.mut; x.font = "500 40px Inter, sans-serif"; x.letterSpacing = "1px"; x.fillText("Ushbu sertifikat taqdim etiladi", CX, 900); x.letterSpacing = "0px";
+  /* ism */
+  const nm = C.name || U.name || "Kitobxon"; x.fillStyle = P.ink; x.font = `700 ${fitFont(x, nm, 700, 190, 90, "Lora, Georgia, serif", 2300)}px Lora, Georgia, serif`; x.fillText(nm, CX, 1095);
+  x.strokeStyle = line; x.lineWidth = 2; x.beginPath(); x.moveTo(CX - 520, 1160); x.lineTo(CX + 520, 1160); x.stroke();
+  /* tavsif */
+  x.fillStyle = P.mut; x.font = "500 42px Inter, sans-serif";
+  wrapLines(x, `${T.sub.charAt(0).toUpperCase() + T.sub.slice(1)} — Kitobim ilovasida ${act} kun faol bo'lib, kitob o'qishni kundalik odatga aylantirgani uchun.`, 1900).slice(0, 2).forEach((ln, k) => x.fillText(ln, CX, 1260 + k * 62));
+  /* statistika: uchta raqam, ingichka ajratgichlar bilan */
+  const st = [[num(act), "FAOL KUN"], [num(U.done || 0), "KITOB"], [num(U.pages || 0), "BET"]], gap = 380, sy = 1500;
+  st.forEach(([v, l], k) => { const sx = CX + (k - 1) * gap; if (k) { x.fillStyle = line; x.fillRect(sx - gap / 2 - 1, sy - 70, 2, 110); }
+    x.fillStyle = P.ink; x.font = "700 74px Inter, sans-serif"; x.letterSpacing = "-2px"; x.fillText(v, sx, sy); x.letterSpacing = "6px"; x.fillStyle = P.mut; x.font = "600 26px Inter, sans-serif"; x.fillText(l, sx + 3, sy + 52); x.letterSpacing = "0px"; });
+  /* pastki qator: chapda raqam va sana, o'rtada imzo, o'ngda QR */
+  const by = 1780, L = 260, R = W - 260;
+  x.textAlign = "left"; x.fillStyle = P.mut; x.font = "600 26px Inter, sans-serif"; x.letterSpacing = "5px"; x.fillText("SERTIFIKAT RAQAMI", L, by - 120); x.fillText("BERILGAN SANA", L, by - 10);
+  x.letterSpacing = "1px"; x.fillStyle = P.ink; x.font = "700 40px Inter, sans-serif"; x.fillText(C.id, L, by - 70); x.fillText(fdLong(C.issuedAt), L, by + 40); x.letterSpacing = "0px";
+  x.textAlign = "center"; x.fillStyle = P.ink; x.font = "italic 700 70px Lora, Georgia, serif"; x.fillText("Kitobim", CX, by - 40);
+  x.strokeStyle = line; x.lineWidth = 2; x.beginPath(); x.moveTo(CX - 230, by - 10); x.lineTo(CX + 230, by - 10); x.stroke();
+  x.fillStyle = P.mut; x.font = "600 26px Inter, sans-serif"; x.letterSpacing = "5px"; x.fillText("KITOBIM JAMOASI", CX + 2, by + 40); x.letterSpacing = "0px";
   const Q = await qrLib(), q = Q(0, "M"); q.addData(certUrl(C.id)); q.make();
-  const n = q.getModuleCount(), QS = 330, QX = W - 190 - QS - 40, QY = 1390, m = QS / n;
-  x.fillStyle = "#FFFFFF"; x.shadowColor = "rgba(0,0,0,.12)"; x.shadowBlur = 30; rr(x, QX - 30, QY - 30, QS + 60, QS + 60, 34); x.fill(); x.shadowBlur = 0;
-  x.fillStyle = P.qr; for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (q.isDark(r, k)) x.fillRect(QX + k * m, QY + r * m, m + .6, m + .6);
-  x.fillStyle = "#FFFFFF"; rr(x, QX + QS / 2 - 44, QY + QS / 2 - 44, 88, 88, 20); x.fill(); drawMark(x, QX + QS / 2 - 36, QY + QS / 2 - 36, 72, "light");
-  x.textAlign = "center"; x.fillStyle = P.mut; x.font = "600 30px Inter, sans-serif"; x.fillText("Tekshirish uchun skanerlang", QX + QS / 2, QY + QS + 82); x.textAlign = "left";
-  /* shior */
-  x.fillStyle = P.mut; x.font = "italic 700 34px Lora, Georgia, serif"; x.fillText("Har kuni bir varaq — umr bo'yi odat.", L, H - 150);
+  const n = q.getModuleCount(), QS = 220, QX = R - QS, QY = by - 230, m = QS / n, dark = C.tier === "fidoyi" || C.tier === "dostona";
+  if (dark) { x.fillStyle = "#FFFFFF"; rr(x, QX - 18, QY - 18, QS + 36, QS + 36, 14); x.fill(); }
+  x.fillStyle = dark ? "#16161A" : P.ink; for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (q.isDark(r, k)) x.fillRect(QX + k * m, QY + r * m, m + .6, m + .6);
+  x.textAlign = "right"; x.fillStyle = P.mut; x.font = "600 24px Inter, sans-serif"; x.letterSpacing = "4px"; x.fillText("TEKSHIRISH", R + 4, QY + QS + (dark ? 66 : 52)); x.letterSpacing = "0px";
+  x.textAlign = "left";
   return c;
 }
 /* Minimal PDF: bitta sahifa 300×200 mm, ichida JPEG rasm */
