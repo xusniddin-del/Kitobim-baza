@@ -991,12 +991,16 @@ body:not(.admbody) .frow{background:var(--soft);border-color:var(--line)}
 .bkm-h{font-size:18px;margin:24px 0 12px}
 /* pleyer */
 .libov.plov{background:#1c1c20}
-.plm{flex:1;overflow-y:auto;color:#fff;text-align:center;padding:calc(10px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 75%,#000) 0%,#1c1c20 70%);max-width:100%}
+.plm{position:relative;isolation:isolate}
+.plm::before{content:"";position:fixed;inset:-60px;z-index:-1;background:var(--pimg) center/cover no-repeat;filter:blur(50px) saturate(1.1);opacity:.55}
+.plm .cbadge{display:none}
+.plst{min-height:20px;font-size:13px;opacity:.8;margin-bottom:10px}.plst.err{color:#ffb4a6;opacity:1}
+.plm{flex:1;overflow-y:auto;color:#fff;text-align:center;padding:calc(10px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(60,58,62,.55) 0%,rgba(28,28,32,.92) 75%);max-width:100%}
 .plm .pt{display:flex;justify-content:space-between;align-items:center;max-width:520px;margin:0 auto}
 .plm .pt button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#fff}
 .plm .pt span{font-size:14px;opacity:.75;font-weight:600}
 .plm .pcv{display:flex;justify-content:center;margin:22px 0 26px}
-.plm .pcv .cover.lg{width:210px;height:304px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.plm .pcv .cover.lg{width:210px;height:304px;box-shadow:0 30px 60px rgba(0,0,0,.5);border-radius:6px}
 .plm h2{font-size:22px;font-weight:800}
 .plm p{opacity:.7;margin:8px 0 22px;font-size:14.5px}
 .plm #plWrap{max-width:520px;margin:0 auto}
@@ -1006,7 +1010,8 @@ body:not(.admbody) .frow{background:var(--soft);border-color:var(--line)}
 .plm .tm{display:flex;justify-content:space-between;font-size:12.5px;opacity:.75;margin-top:8px;font-variant-numeric:tabular-nums}
 .plm .ctl{display:flex;align-items:center;justify-content:space-between;margin:24px 0 8px}
 .plm .ctl button{position:relative;width:52px;height:52px;display:flex;align-items:center;justify-content:center;color:#fff}
-.plm .ctl button i{position:absolute;bottom:4px;font-style:normal;font-size:10px;font-weight:700}
+.plm .ctl button i{position:absolute;font-style:normal;font-size:10.5px;font-weight:800}
+.plm .ctl .sk i{top:50%;left:50%;transform:translate(-50%,-38%)}
 .plm .ctl .pp{width:78px;height:78px;border-radius:50%;background:#fff;color:#16161a;box-shadow:0 12px 30px rgba(0,0,0,.35)}
 .plm .ctl .sp{font-weight:700;font-size:15px;opacity:.9}
 .plm .ctl .sp.on{color:var(--or);opacity:1}
@@ -1015,14 +1020,14 @@ body:not(.admbody) .frow{background:var(--soft);border-color:var(--line)}
 .plm .pls button span{color:rgba(255,255,255,.55)}
 .plm .pls button.on{background:rgba(255,255,255,.12)}
 .plm .afr{background:rgba(255,255,255,.1)}
-#mini{position:fixed;left:10px;right:10px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:39;background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.18);display:flex;align-items:center;gap:6px;padding:8px 8px 8px 10px;overflow:hidden}
-body.dark #mini{background:#26262b}
-#mini .mb{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--line)}#mini .mb i{display:block;height:100%;background:var(--or)}
-#mini .mi2{flex:1;display:flex;align-items:center;gap:10px;min-width:0;cursor:pointer}
-#mini .cover.xs{width:34px;height:48px}
-#mini b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#mini small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#mini button{width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-@media (min-width:981px){#mini{left:auto;right:30px;bottom:24px;width:380px}}
+#mini{position:fixed;left:0;right:0;bottom:0;z-index:39;background:var(--card);border-top:1px solid var(--line);display:flex;align-items:center;gap:2px;padding:10px 10px 10px 16px}
+body.dark #mini{background:#1c1c20}
+#mini .mb{position:absolute;left:0;right:0;top:0;height:2.5px;background:var(--line)}#mini .mb i{display:block;height:100%;background:var(--or);transition:width .3s}
+#mini .mi2{flex:1;min-width:0;cursor:pointer;padding-right:6px}
+#mini b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#mini small{display:block;color:var(--muted);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mini button{width:42px;height:42px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:var(--ink)}
+#mini button[disabled]{opacity:.3}
+@media (min-width:981px){#mini{left:auto;right:30px;bottom:24px!important;width:420px;border:0;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.18)}}
 body.hasmini .main{padding-bottom:calc(160px + env(safe-area-inset-bottom))}
 /* davra */
 .mtabs{margin:0 -16px 0;padding:0 8px}
@@ -1671,6 +1676,9 @@ const ICP = {
   palette: '<circle cx="13.5" cy="6.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="8.5" cy="7.5" r="1.2" fill="currentColor"/><circle cx="6.5" cy="12.5" r="1.2" fill="currentColor"/><path d="M12 2a10 10 0 0 0 0 20c1.4 0 2-1 2-2 0-1.5-1.5-1.6-1.5-3s1-2 2.5-2H17a5 5 0 0 0 5-5c0-4.4-4.5-8-10-8z"/>',
   trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>',
   ban: '<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>',
+  rew: '<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/>',
+  fwd: '<path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/>',
+  timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9.5 2h5"/>',
   vol: '<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>',
   rocket: '<path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0"/><path d="M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/>',
   sparkle: '<path d="M12 3c.5 4 2.5 6.3 7 7-4.5.7-6.5 3-7 7-.5-4-2.5-6.3-7-7 4.5-.7 6.5-3 7-7z"/><path d="M19 3v4M17 5h4"/>',
@@ -2451,7 +2459,7 @@ function libOverlay(html) {
   closeLib(); const el = document.createElement("div"); el.className = "libov"; el.id = "libov"; el.innerHTML = html; document.body.appendChild(el); document.body.style.overflow = "hidden";
   history.pushState({ libov: 1 }, ""); window.addEventListener("popstate", closeLib, { once: true });
 }
-function closeLib() { const o = $("#libov"); if (o) { o.remove(); document.body.style.overflow = ""; } }
+function closeLib() { const o = $("#libov"); if (o) { o.remove(); document.body.style.overflow = ""; } if (typeof miniPaint === "function") setTimeout(miniPaint); }
 function openReader(key) {
   const L = LIBMAP[key]; if (!L || !L.pdf) return; ensureOnShelf(L);
   const mine = myBookByKey(key);
@@ -3332,6 +3340,28 @@ function bookMore() {
 /* ---------- Audio pleyer (telefon va kompyuter) ---------- */
 const AUD = { el: null, key: "", i: 0, tracks: [], L: null, mode: "", speed: LS.get("kitobim_speed", 1), sleepT: 0, sleepEnd: false };
 const dUrl = f => f ? (f.id ? `https://drive.google.com/uc?export=download&id=${f.id}` : f.url) : "";
+/* Audio fayl server orqali olinadi (Drive oynasisiz) va telefonda saqlanadi — keyingi safar internetsiz ham ochiladi */
+const MEDIA = {};
+const trackTitle = (f, i) => { const t = String((f && f.title) || "").replace(/\.(mp3|wav|m4a|ogg|aac|opus)$/i, "").trim(); return !t || /^[0-9a-f]{6,}([\s_-]+[0-9a-f]{3,}){2,}$/i.test(t) || /^[0-9a-f-]{20,}$/i.test(t) ? `${i + 1}-qism` : t; };
+async function mediaPart(id, part) {
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "media", token: S.token, id, part }) }).then(x => x.json()).catch(() => ({ ok: false, error: "Internet bilan aloqa yo'q" }));
+  if (!r.ok) throw new Error(r.error === "Noma'lum amal" ? "Serverni yangilash kerak (Code.gs)" : r.error || "Fayl ochilmadi");
+  return r;
+}
+async function mediaUrl(f, onp) {
+  if (!f.id || DEMO) return dUrl(f);
+  if (MEDIA[f.id]) return MEDIA[f.id];
+  const ck = "media/" + f.id; let cache = null;
+  try { cache = await caches.open("kitobim-media"); const hit = await cache.match(ck); if (hit) return MEDIA[f.id] = URL.createObjectURL(await hit.blob()); } catch (e) {}
+  const first = await mediaPart(f.id, 0), n = first.parts, out = new Array(n); let done = 1;
+  const dec = d => fetch("data:application/octet-stream;base64," + d).then(x => x.arrayBuffer());
+  out[0] = await dec(first.data); onp && onp(done / n);
+  let next = 1; const worker = async () => { while (next < n) { const i = next++; const r = await mediaPart(f.id, i); out[i] = await dec(r.data); onp && onp(++done / n); } };
+  await Promise.all([worker(), worker(), worker()]);
+  const blob = new Blob(out, { type: first.mime || f.mime || "audio/mpeg" });
+  try { cache && await cache.put(ck, new Response(blob)); } catch (e) {}
+  return MEDIA[f.id] = URL.createObjectURL(blob);
+}
 const tfmt = s => { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ":" + String(m).padStart(2, "0") : String(m).padStart(2, "0")) + ":" + String(x).padStart(2, "0"); };
 function audEl() {
   if (AUD.el) return AUD.el;
@@ -3339,7 +3369,8 @@ function audEl() {
   a.addEventListener("timeupdate", () => { plPaint(); if (a.currentTime > 2) { const P = LS.get("kitobim_pos", {}); P[AUD.key + "|" + AUD.mode] = { i: AUD.i, t: Math.floor(a.currentTime) }; if (Math.floor(a.currentTime) % 5 === 0) LS.set("kitobim_pos", P); } });
   a.addEventListener("play", plPaint); a.addEventListener("pause", plPaint); a.addEventListener("loadedmetadata", plPaint);
   a.addEventListener("ended", () => { if (AUD.sleepEnd) { AUD.sleepEnd = false; plPaint(); return; } if (AUD.i < AUD.tracks.length - 1) plTrack(AUD.i + 1, true); });
-  a.addEventListener("error", () => { if (!a.src) return; const f = AUD.tracks[AUD.i]; if (f && f.id && $("#plWrap")) { $("#plWrap").innerHTML = `<iframe class="afr" style="height:120px" src="${esc(fView(f))}" allow="autoplay"></iframe><p class="muted" style="font-size:12.5px;margin-top:8px">Fayl Google Drive pleyerida ochildi</p>`; } });
+  a.addEventListener("error", () => { if (!a.getAttribute("src")) return; AUD.err = "Audio ochilmadi. Qayta urinib ko'ring"; plPaint(); });
+  a.addEventListener("waiting", plPaint); a.addEventListener("playing", plPaint);
   return a;
 }
 function openPlayer(key, i, mode) {
@@ -3350,17 +3381,23 @@ function openPlayer(key, i, mode) {
   const a = audEl(), same = AUD.key === key && AUD.mode === (mode || "");
   Object.assign(AUD, { key, L, tracks, mode: mode || "" });
   const saved = LS.get("kitobim_pos", {})[key + "|" + AUD.mode];
-  if (!same || i != null) plTrack(i != null ? i : saved ? saved.i : 0, false, i == null && saved ? saved.t : 0);
   plOpen();
+  if (!same || i != null) plTrack(i != null ? i : saved ? saved.i : 0, true, i == null && saved ? saved.t : 0);
 }
-function plTrack(i, autoplay, at) {
+async function plTrack(i, autoplay, at) {
   const a = audEl(); AUD.i = Math.max(0, Math.min(AUD.tracks.length - 1, i || 0));
-  const f = AUD.tracks[AUD.i]; a.src = dUrl(f); a.playbackRate = AUD.speed;
+  const f = AUD.tracks[AUD.i], tok = AUD.tok = Math.random();
+  a.pause(); a.removeAttribute("src"); AUD.err = ""; AUD.load = 0; AUD.loading = true; plRender();
+  let url;
+  try { url = await mediaUrl(f, p => { if (AUD.tok === tok) { AUD.load = p; plPaint(); } }); }
+  catch (e) { if (AUD.tok === tok) { AUD.loading = false; AUD.err = e.message; plPaint(); } return; }
+  if (AUD.tok !== tok) return;
+  AUD.loading = false; a.src = url; a.playbackRate = AUD.speed;
   if (at) a.addEventListener("loadedmetadata", () => { try { a.currentTime = at; } catch (e) {} }, { once: true });
-  if (autoplay) a.play().catch(() => {});
+  if (autoplay || AUD.autoplay) a.play().catch(() => {}); AUD.autoplay = false;
   if ("mediaSession" in navigator) {
     const L = AUD.L, img = L.cover ? fThumb(L.cover) : location.origin + location.pathname.replace(/[^/]*$/, "") + "icons/icon-512.png";
-    navigator.mediaSession.metadata = new MediaMetadata({ title: f.title || L.title, artist: L.author || APP_NAME, album: L.title, artwork: [{ src: img, sizes: "512x512" }] });
+    navigator.mediaSession.metadata = new MediaMetadata({ title: trackTitle(f, AUD.i), artist: L.author || APP_NAME, album: L.title, artwork: [{ src: img, sizes: "512x512" }] });
     [["play", () => a.play()], ["pause", () => a.pause()], ["seekbackward", () => plSkip(-10)], ["seekforward", () => plSkip(10)],
      ["previoustrack", () => AUD.i && plTrack(AUD.i - 1, true)], ["nexttrack", () => AUD.i < AUD.tracks.length - 1 && plTrack(AUD.i + 1, true)]].forEach(([k, fn]) => { try { navigator.mediaSession.setActionHandler(k, fn); } catch (e) {} });
   }
@@ -3372,14 +3409,14 @@ function plOpen() {
 function plRender() {
   const el = $("#plm"); if (el && AUD.L) {
     const L = AUD.L, f = AUD.tracks[AUD.i] || {}, [c] = palFor(L.title);
-    el.style.setProperty("--pc", c);
+    el.style.setProperty("--pc", c); el.style.setProperty("--pimg", L.cover ? `url('${fThumb(L.cover)}')` : "none");
     el.innerHTML = `<div class="pt"><button onclick="history.back()" title="Yopish">${ic("down", 26)}</button><span>${AUD.mode === "sum" ? "Kitob mag'zi" : "Audio kitob"}</span><button onclick="BKC={key:AUD.key,title:AUD.L.title,author:AUD.L.author||''};shareBook()">${I.share}</button></div>
       <div class="pcv">${cover(L, "lg")}</div>
-      <h2>${esc(f.title || L.title)}</h2><p>${esc(L.title)} · ${esc(L.author || "")}</p>
-      <div id="plWrap"><input type="range" id="plR" min="0" max="1000" value="0" oninput="plSeek(this.value)"><div class="tm"><span id="plC">00:00</span><span id="plD">--:--</span></div>
-      <div class="ctl"><button class="sp" onclick="plSpeed()" id="plS">${AUD.speed}x</button><button onclick="plSkip(-10)">${ic("prev", 26)}<i>10</i></button>
-        <button class="pp" onclick="plToggle()" id="plP"></button><button onclick="plSkip(10)">${ic("next", 26)}<i>10</i></button><button class="sp" onclick="plSleep()" id="plT">${ic("cal", 20)}</button></div></div>
-      ${AUD.tracks.length > 1 ? `<div class="pls">${AUD.tracks.map((x, j) => `<button class="${j === AUD.i ? "on" : ""}" onclick="plTrack(${j},true)"><span>${j + 1}</span><b>${esc(x.title || (j + 1) + "-qism")}</b>${j === AUD.i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div>` : ""}`;
+      <h2>${esc(AUD.mode === "sum" ? "Kitob mag'zi" : trackTitle(f, AUD.i))}</h2><p>${esc(L.title)} · ${esc(L.author || "")}</p>
+      <div id="plWrap"><div class="plst" id="plSt"></div><input type="range" id="plR" min="0" max="1000" value="0" oninput="plSeek(this.value)"><div class="tm"><span id="plC">00:00</span><span id="plD">--:--</span></div>
+      <div class="ctl"><button class="sp" onclick="plSpeed()" id="plS">${AUD.speed}x</button><button class="sk" onclick="plSkip(-10)">${ic("rew", 34, 'stroke-width="1.6"')}<i>10</i></button>
+        <button class="pp" onclick="plToggle()" id="plP"></button><button class="sk" onclick="plSkip(10)">${ic("fwd", 34, 'stroke-width="1.6"')}<i>10</i></button><button class="sp" onclick="plSleep()" id="plT">${ic("timer", 24)}</button></div></div>
+      ${AUD.tracks.length > 1 ? `<div class="pls">${AUD.tracks.map((x, j) => `<button class="${j === AUD.i ? "on" : ""}" onclick="plTrack(${j},true)"><span>${j + 1}</span><b>${esc(trackTitle(x, j))}</b>${j === AUD.i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div>` : ""}`;
   }
   plPaint(); miniPaint();
 }
@@ -3390,12 +3427,14 @@ function plPaint() {
   if (r) r.style.setProperty("--p", (d ? c / d * 100 : 0) + "%");
   const C = $("#plC"), D = $("#plD"), P = $("#plP"), T = $("#plT");
   if (C) C.textContent = tfmt(c); if (D) D.textContent = d && isFinite(d) ? "-" + tfmt(d - c) : "--:--";
-  if (P) P.innerHTML = a.paused ? ic("play", 30, 'fill="currentColor"') : `<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`;
+  const St = $("#plSt"); if (St) { St.textContent = AUD.err || (AUD.loading ? `Audio yuklanmoqda… ${Math.round((AUD.load || 0) * 100)}%` : ""); St.classList.toggle("err", !!AUD.err); }
+  if (P && (AUD.loading || (!a.paused && a.readyState < 3))) P.innerHTML = `<i class="aispin" style="width:28px;height:28px;border-width:3px"></i>`;
+  else if (P) P.innerHTML = a.paused ? ic("play", 30, 'fill="currentColor"') : `<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`;
   if (T) T.classList.toggle("on", !!(AUD.sleepT || AUD.sleepEnd));
-  const mp = $("#miniP"); if (mp) mp.innerHTML = a.paused ? ic("play", 20, 'fill="currentColor"') : `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`;
+  const mp = $("#miniP"); if (mp) mp.innerHTML = AUD.loading ? `<i class="aispin" style="width:20px;height:20px"></i>` : a.paused ? ic("play", 22, 'fill="currentColor"') : `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>`;
   const mb = $("#miniB"); if (mb) mb.style.width = (d ? c / d * 100 : 0) + "%";
 }
-function plToggle() { const a = audEl(); if (a.paused) a.play().catch(() => toast("Audio ochilmadi. Internetni tekshiring")); else a.pause(); }
+function plToggle() { const a = audEl(); if (AUD.loading) return; if (AUD.err) return plTrack(AUD.i, true); if (a.paused) a.play().catch(() => toast("Audio ochilmadi. Internetni tekshiring")); else a.pause(); }
 function plSkip(s) { const a = audEl(); a.currentTime = Math.max(0, Math.min((a.duration || 1e9) - 1, a.currentTime + s)); }
 function plSeek(v) { const a = audEl(); if (a.duration) a.currentTime = a.duration * v / 1000; }
 function plSpeed() { const L = [1, 1.25, 1.5, 1.75, 2, 0.75], a = audEl(); AUD.speed = L[(L.indexOf(AUD.speed) + 1) % L.length]; a.playbackRate = AUD.speed; LS.set("kitobim_speed", AUD.speed); const b = $("#plS"); if (b) b.textContent = AUD.speed + "x"; }
@@ -3411,12 +3450,14 @@ function plSleepSet(m) {
 }
 /* Mini-pleyer: pleyer yopilganda ham audio davom etadi */
 function miniPaint() {
-  let m = $("#mini"); const show = AUD.el && AUD.el.src && AUD.L && !$("#plm") && S.token && $("#view");
+  let m = $("#mini"); const show = AUD.el && AUD.L && (AUD.el.getAttribute("src") || AUD.loading) && !$("#plm") && S.token && $("#view");
   if (!show) { if (m) m.remove(); document.body.classList.remove("hasmini"); return; }
   if (!m) { m = document.createElement("div"); m.id = "mini"; document.body.appendChild(m); }
-  const f = AUD.tracks[AUD.i] || {};
-  m.innerHTML = `<div class="mb"><i id="miniB"></i></div><div class="mi2" onclick="plOpen()">${cover(AUD.L, "xs")}<div><b>${esc(f.title || AUD.L.title)}</b><small>${esc(AUD.L.title)}</small></div></div>
-    <button id="miniP" onclick="plToggle()"></button><button onclick="audEl().pause();audEl().removeAttribute('src');AUD.L=null;miniPaint()">${ic("x", 18)}</button>`;
+  const f = AUD.tracks[AUD.i] || {}, n = AUD.tracks.length;
+  m.innerHTML = `<div class="mb"><i id="miniB"></i></div><div class="mi2" onclick="plOpen()"><b>${esc(AUD.L.title)}</b><small>${esc(AUD.mode === "sum" ? "Kitob mag'zi" : trackTitle(f, AUD.i))}</small></div>
+    <button ${AUD.i ? "" : "disabled"} onclick="plTrack(AUD.i-1,true)">${ic("prev", 22, 'fill="currentColor"')}</button><button id="miniP" class="pp" onclick="plToggle()"></button><button ${AUD.i < n - 1 ? "" : "disabled"} onclick="plTrack(AUD.i+1,true)">${ic("next", 22, 'fill="currentColor"')}</button>
+    <button onclick="audEl().pause();audEl().removeAttribute('src');AUD.L=null;AUD.loading=false;miniPaint()">${ic("x", 20)}</button>`;
+  const bn = document.querySelector(".bnav"); m.style.bottom = bn && bn.offsetHeight && getComputedStyle(bn).display !== "none" ? bn.offsetHeight + "px" : "0px";
   document.body.classList.add("hasmini"); plPaint();
 }
 
