@@ -2652,7 +2652,7 @@ const AI_VOICES = [["Charon", "erkak · axborotli"], ["Sulafat", "ayol · iliq"]
 function libReady(b) { return [["Nomi", !!b.title], ["Muallif", !!b.author], ["Muqova", !!b.cover], ["PDF", !!b.pdf], ["Mag'zi", (b.summary || "").trim().length > 50], ["Ovoz", !!b.summaryAudio]]; }
 async function aiPost(action, p) {
   const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(Object.assign({ action, key: ADM.key }, p)) })
-    .then(x => x.json()).catch(() => ({ ok: false, error: "Server bilan aloqa uzildi. Internetni tekshirib, qayta urinib ko'ring" }));
+    .then(x => x.json()).catch(() => ({ ok: false, error: "BAND: Server javobi kechikdi. Qayta urinib ko'ring" }));
   if (!r.ok) throw new Error(/Noma'lum amal/.test(r.error || "") ? "Serverga KitobimAI.gs hali ulanmagan (README'ga qarang)" : (r.error || "Xato"));
   return r;
 }
@@ -2704,8 +2704,15 @@ async function aiFill(force) {
   const local = LEPDF ? pdfInfo(LEPDF).catch(() => null) : Promise.resolve(null);
   aiStep("read", "run", "AI kitobni o'qiyapti — kitob hajmiga qarab 1–3 daqiqa…");
   let bk;
-  try { bk = (await aiPost("aiBook", { file: LE.pdf, genres: GENRES })).book || {}; }
-  catch (e) { LE.ai.run = false; aiStep("read", "err", e.message); return; }
+  for (let k = 1; ; k++) {
+    try { bk = (await aiPost("aiBook", { file: LE.pdf, genres: GENRES })).book || {}; break; }
+    catch (e) {
+      const busy = /^BAND:/.test(e.message), msg = e.message.replace(/^BAND:\s*/, "");
+      if (!busy || k >= 3 || LE !== ed) { LE.ai.run = false; aiStep("read", "err", msg); return; }
+      for (let t = 40; t > 0; t -= 5) { aiStep("read", "run", `Gemini hozir band — ${t} soniyadan keyin o'zi qayta urinadi (${k + 1}/3)…`); await new Promise(r => setTimeout(r, 5000)); }
+      aiStep("read", "run", "AI kitobni o'qiyapti — qayta urinish…");
+    }
+  }
   if (LE !== ed) return;
   const info = await local; libRead();
   const put = (k, v) => { if (v && (force || !String(LE[k] || "").trim())) LE[k] = v; };
@@ -2725,7 +2732,7 @@ async function aiFill(force) {
       if (!LE.cover && !f) { f = await genCover(LE.title || "Kitob", LE.author); how = "internetda topilmadi — Kitobim uslubida yaratildi"; }
       if (f) LE.cover = await upOne(f, "cover");
       aiStep("cover", "ok", "Muqova " + how);
-    } catch (e) { aiStep("cover", "err", "Muqova: " + e.message); }
+    } catch (e) { aiStep("cover", "err", "Muqova: " + e.message.replace(/^BAND:\s*/, "")); }
   }
   LE.ai.run = false; drawLibEdit(); toast("AI to'ldirdi ✓ Endi “Ovozlashtirish”ni bosing");
 }
@@ -2778,7 +2785,7 @@ async function aiVoice() {
     libRead(); LE.summaryAudio = Object.assign(res, { title: "Kitob mag'zi" });
     const m = Math.floor(wv.sec / 60), s = Math.round(wv.sec % 60);
     AIV = { done: `${m ? m + " daq " : ""}${s} soniya` }; drawLibEdit(); toast("Ovozlashtirildi ✓");
-  } catch (e) { AIV = { err: "Ovozlashtirilmadi: " + e.message }; upd(); }
+  } catch (e) { AIV = { err: "Ovozlashtirilmadi: " + e.message.replace(/^BAND:\s*/, "") }; upd(); }
 }
 function libRead() { const v = id => ($("#" + id) || {}).value; if (!$("#leT")) return; Object.assign(LE, { title: v("leT").trim(), author: v("leA").trim(), genre: v("leG"), pages: v("leP"), desc: v("leD") });
   if (v("leS") !== undefined) LE.summary = v("leS"); if (v("leV")) LE.voice = v("leV"); }
