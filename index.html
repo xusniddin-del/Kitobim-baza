@@ -1243,6 +1243,40 @@ body.dark .pinfo.once{background:#16233f}
 @keyframes spUp{0%{transform:translateY(34px)}100%{transform:none}}
 @keyframes spL{0%{transform:translateY(18px);opacity:0}100%{transform:none;opacity:1}}
 @keyframes spF{0%{opacity:0}100%{opacity:1}}
+
+.pbadge{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;background:var(--grad);color:#fff;margin-left:5px;vertical-align:-3px}
+.pbadge svg{fill:#fff;stroke:none}
+.pgate .pg-art{position:relative;height:150px;margin:0 -20px 6px;background:linear-gradient(100deg,transparent,rgba(255,138,43,.12) 30%,rgba(138,79,192,.12) 70%,transparent)}
+.pgate .pg-art span{position:absolute;width:86px;height:86px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 12px 26px rgba(0,0,0,.15)}
+.pgate .c1{left:calc(50% - 90px);top:18px;background:linear-gradient(135deg,#ffb04a,#ff6b1a)}.pgate .c1 svg{fill:#fff;stroke:none}
+.pgate .c2{left:calc(50% + 4px);top:52px;background:linear-gradient(135deg,#b38cf5,#7a4fe0)}
+.pgate i{position:absolute;font-style:normal;color:var(--or)}.pgate .s1{left:22%;top:10px}.pgate .s2{right:22%;top:40px;color:#8a4fc0}
+.pgate h2{font-size:21px}
+.pstat{display:flex;align-items:center;gap:12px;border-radius:18px;padding:14px 16px;margin:0 0 14px}
+.pstat b{display:block;font-size:16px}.pstat small{font-size:13px;opacity:.85}
+.pstat.on{background:linear-gradient(100deg,#ff7a2a,#f04e1c);color:#fff}.pstat.on svg{fill:#fff;stroke:none}
+.pstat.wait{background:#fff6e5;color:#8a5a00}body.dark .pstat.wait{background:#3a2a10;color:#ffd38a}
+.bkm-sum .t.fade{max-height:9em;overflow:hidden;-webkit-mask-image:linear-gradient(#000 45%,transparent)}
+.sumlock{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:6px;padding:13px;border-radius:14px;background:var(--or-soft);color:var(--or2);font-weight:700}
+.pcardn{margin-top:12px;border-radius:16px;padding:14px 16px;background:var(--grad);color:#fff;display:grid;gap:2px}
+.pcardn b{font-size:21px;letter-spacing:.08em;font-variant-numeric:tabular-nums}.pcardn small{opacity:.85}
+.pcardn .btn{justify-self:start;margin-top:8px;background:rgba(255,255,255,.22);color:#fff}
+/* admin premium */
+.ag4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:1100px){.ag4{grid-template-columns:1fr 1fr}}
+.anum{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--or);color:#fff;font-size:11.5px;font-weight:800;margin-left:auto}
+.ah3{display:flex;align-items:center;gap:8px;margin:22px 0 12px;font-size:17px}.ah3 .anum{margin-left:4px}
+.apays{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.apay{border-color:rgba(247,160,58,.45)!important}
+.apnote{margin-top:10px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.05);font-size:13.5px;display:flex;gap:8px;align-items:center}
+.aptag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:8px;font-size:12.5px;font-weight:700;background:rgba(255,255,255,.07);color:#a99d94}
+.aptag.on{background:rgba(255,107,26,.18);color:#ff9a5c}.aptag.on svg{fill:currentColor;stroke:none}.aptag.exp{background:rgba(229,72,77,.15);color:#ff8b7a}
+.atbl td small{display:block;color:#8d8079;font-size:12px;margin-top:2px}
+.apromo-f{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:12px}.apromo-f input:first-child{grid-column:1/-1}.apromo-f input::placeholder{font-size:13px}
+.apay .apill{white-space:nowrap}.apay .row.between>div:last-child{flex:0 0 auto}
+.apromo-f input{padding:10px 12px}
+.apromo{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.07);font-size:13.5px}
+.apromo b{flex:1;letter-spacing:.05em}.apromo span{color:#a99d94}
 </style>
 </head>
 <body>
@@ -1254,7 +1288,8 @@ body.dark .pinfo.once{background:#16233f}
    (haqiqiy server) ishlaydi. db = {users, books, posts, follows}
    ============================================================ */
 var KitobimCore = (function () {
-  var TABLES = ["users", "books", "posts", "follows", "media", "library"];
+  var TABLES = ["users", "books", "posts", "follows", "media", "library", "payments", "promos"];
+  var PLANS = { month: { days: 30, sum: 19000, name: "Oylik" }, year: { days: 365, sum: 149000, name: "Yillik" } };
   var MILESTONES = [[1, 10], [3, 30], [7, 70], [14, 150], [30, 300], [60, 600], [100, 1000], [365, 5000]];
 
   function now() { return new Date().toISOString(); }
@@ -1265,6 +1300,18 @@ var KitobimCore = (function () {
   function addDays(iso, n) { var d = new Date(iso + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
   function fail(m) { var e = new Error(m); e.userMessage = m; throw e; }
   function int(v) { var n = parseInt(v, 10); return isNaN(n) || n < 0 ? 0 : n; }
+  function isPrem(u, today) { return !!(u && u.premiumUntil && u.premiumUntil >= (today || now().slice(0, 10))); }
+  function extendPrem(u, days, today) { var from = isPrem(u, today) ? u.premiumUntil : addDays(today, -1); u.premiumUntil = addDays(from, days); return u.premiumUntil; }
+  /* Premium bo'lmaganlarga: 1-qismdan keyingi audio, mag'zi audiosi va to'liq mag'zi matni berilmaydi */
+  function lockLib(L, prem) {
+    if (!L || prem) return L;
+    var o = {}; for (var k in L) o[k] = L[k];
+    o.audio = (L.audio || []).map(function (a, i) { return i === 0 ? a : { title: a.title, size: a.size, locked: true }; });
+    if (L.summaryAudio) o.summaryAudio = { locked: true, size: L.summaryAudio.size };
+    var sm = String(L.summary || "");
+    if (sm.length > 700) { var cut = sm.lastIndexOf("\n", 700); o.summary = sm.slice(0, cut > 250 ? cut : 600).trim(); o.summaryLocked = true; }
+    return o;
+  }
 
   /* ---------- hisob-kitob ---------- */
   function dayMap(books) {
@@ -1308,12 +1355,13 @@ var KitobimCore = (function () {
     var c = counts(db, u.id), st = stats(db, u.id, today);
     return { id: u.id, name: u.name, username: u.username, bio: u.bio || "", createdAt: u.createdAt, lastActive: u.lastActive,
       private: !!u.private, followers: c.followers, following: c.following,
-      ball: st.ball, done: st.done, pages: st.pages, week: st.week, streak: st.streak, color: u.color || 0, avatar: u.avatar || "" };
+      ball: st.ball, done: st.done, pages: st.pages, week: st.week, streak: st.streak, color: u.color || 0, avatar: u.avatar || "", premium: isPrem(u, today) };
   }
   function self(db, u, today) {
     var p = pub(db, u, today);
-    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || "";
+    p.phone = u.phone; p.mustChange = !!u.mustChange; p.goal = u.goal || 20; p.region = u.region || ""; p.age = u.age || ""; p.gender = u.gender || ""; p.job = u.job || ""; p.premiumUntil = u.premiumUntil || "";
     return {
+      payments: (db.payments || []).filter(function (x) { return x.userId === u.id; }).slice(-8).reverse(),
       user: p, stats: stats(db, u.id, today),
       books: db.books.filter(function (b) { return b.userId === u.id; }),
       following: db.follows.filter(function (f) { return f.a === u.id; }).map(function (f) { return f.b; })
@@ -1490,7 +1538,8 @@ var KitobimCore = (function () {
       return { touched: ["users"], res: { people: list } };
     },
     catalog: function (db, r) {
-      me(db, r); var q = clean(r.q, 80).toLowerCase(), list = aggregate(db);
+      var prem = isPrem(me(db, r), r.today), q = clean(r.q, 80).toLowerCase(), list = aggregate(db);
+      list.forEach(function (a) { if (a.lib) a.lib = lockLib(a.lib, prem); });
       if (q) list = list.filter(function (a) { return (a.title + " " + a.author).toLowerCase().indexOf(q) >= 0; });
       list.forEach(function (a) { a.users = a.users.length; });
       list.sort(function (a, b) { return b.readers - a.readers || b.rating - a.rating; });
@@ -1505,7 +1554,7 @@ var KitobimCore = (function () {
         reviews = db.books.filter(function (b) { return bkey(b.title, b.author) === r.key && b.experience && b.status !== "plan"; })
           .map(function (b) { var bu = db.users.filter(function (x) { return x.id === b.userId; })[0]; return bu && !bu.private ? { user: pub(db, bu, r.today), text: b.experience, rating: b.rating || 0, recTo: b.recTo || "", date: b.end || b.updated } : null; })
           .filter(Boolean);
-        a = JSON.parse(JSON.stringify(a)); a.users = a.users.length;
+        a = JSON.parse(JSON.stringify(a)); a.users = a.users.length; if (a.lib) a.lib = lockLib(a.lib, isPrem(u, r.today));
       }
       var posts = db.posts.filter(function (p) { return p.bookKey === r.key; }).sort(function (x, y) { return y.createdAt < x.createdAt ? -1 : 1; })
         .slice(0, 50).map(function (p) { return postView(db, p, u.id, r.today); });
@@ -1553,11 +1602,58 @@ var KitobimCore = (function () {
       fail("Noma'lum rasm turi");
     },
     library: function (db, r, cfg) {
-      var isAdm = cfg && cfg.adminKey && r.key === cfg.adminKey;
-      if (!isAdm) me(db, r);
-      var list = (db.library || []).filter(function (L) { return isAdm || L.published; }).map(libView)
+      var isAdm = cfg && cfg.adminKey && r.key === cfg.adminKey, prem = isAdm || isPrem(me(db, r), r.today);
+      var list = (db.library || []).filter(function (L) { return isAdm || L.published; }).map(function (L) { return lockLib(libView(L), prem); })
         .sort(function (a, b) { return (b.createdAt || "") < (a.createdAt || "") ? -1 : 1; });
       return { touched: isAdm ? [] : ["users"], res: { library: list } };
+    },
+    payRequest: function (db, r) {
+      var u = me(db, r), kind = r.kind === "donat" ? "donat" : "plan", plan = PLANS[r.plan] ? r.plan : "", sum;
+      if (kind === "plan") { if (!plan) fail("Tarifni tanlang"); sum = PLANS[plan].sum; }
+      else { sum = int(r.sum); if (sum < 1000) fail("Miqdor kamida 1 000 so'm bo'lsin"); }
+      var pend = db.payments.filter(function (x) { return x.userId === u.id && x.status === "pending"; });
+      if (pend.length >= 3) fail("Sizda tekshirilayotgan to'lovlar bor. Admin tasdiqlashini kuting");
+      var pay = { id: rid(10), userId: u.id, kind: kind, plan: plan, sum: sum, method: clean(r.method, 20), note: clean(r.note, 200), status: "pending", createdAt: now() };
+      db.payments.push(pay);
+      return { touched: ["payments", "users"], res: { payment: pay, me: self(db, u, r.today) } };
+    },
+    redeemPromo: function (db, r) {
+      var u = me(db, r), code = clean(r.code, 30).toUpperCase().replace(/\s+/g, ""), P = db.promos.filter(function (x) { return x.id === code; })[0];
+      if (!P || P.active === false) fail("Promokod topilmadi yoki muddati tugagan");
+      P.users = P.users || [];
+      if (P.users.indexOf(u.id) >= 0) fail("Siz bu promokoddan foydalangansiz");
+      if (P.max && P.users.length >= P.max) fail("Bu promokodning limiti tugagan");
+      P.users.push(u.id); var until = extendPrem(u, int(P.days) || 7, r.today);
+      db.payments.push({ id: rid(10), userId: u.id, kind: "promo", plan: "", sum: 0, method: "promo", note: code + " · " + (int(P.days) || 7) + " kun", status: "paid", createdAt: now(), confirmedAt: now() });
+      return { touched: ["promos", "users", "payments"], res: { until: until, days: int(P.days) || 7, me: self(db, u, r.today) } };
+    },
+    adminPay: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      var p = db.payments.filter(function (x) { return x.id === r.id; })[0]; if (!p) fail("To'lov topilmadi");
+      if (p.status !== "pending") fail("Bu to'lov allaqachon ko'rib chiqilgan");
+      if (r.ok) {
+        p.status = "paid"; p.confirmedAt = now();
+        if (p.kind === "plan" && PLANS[p.plan]) { var u = db.users.filter(function (x) { return x.id === p.userId; })[0]; if (u) { p.until = extendPrem(u, PLANS[p.plan].days, r.today); u.plan = p.plan; } }
+      } else { p.status = "rejected"; p.reason = clean(r.reason, 200); p.confirmedAt = now(); }
+      return { touched: ["payments", "users"], res: { payment: p } };
+    },
+    adminPremium: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      var u = db.users.filter(function (x) { return x.id === r.userId; })[0]; if (!u) fail("Foydalanuvchi topilmadi");
+      var days = parseInt(r.days, 10) || 0;
+      if (days > 0) extendPrem(u, Math.min(days, 3650), r.today); else u.premiumUntil = "";
+      db.payments.push({ id: rid(10), userId: u.id, kind: "grant", plan: "", sum: 0, method: "admin", note: days > 0 ? days + " kun sovg'a" : "Premium bekor qilindi", status: "paid", createdAt: now(), confirmedAt: now() });
+      return { touched: ["users", "payments"], res: { premiumUntil: u.premiumUntil || "" } };
+    },
+    adminPromo: function (db, r, cfg) {
+      if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
+      var code = clean(r.code, 30).toUpperCase().replace(/[^A-Z0-9_-]/g, "");
+      if (r.remove) { db.promos = db.promos.filter(function (x) { return x.id !== code; }); return { touched: ["promos"], res: { ok: true } }; }
+      if (code.length < 3) fail("Kod kamida 3 ta belgi bo'lsin (lotin harf va raqam)");
+      var P = db.promos.filter(function (x) { return x.id === code; })[0];
+      if (!P) { P = { id: code, users: [], createdAt: now() }; db.promos.push(P); }
+      P.days = Math.max(1, Math.min(365, int(r.days) || 7)); P.max = int(r.max); P.active = r.active !== false;
+      return { touched: ["promos"], res: { promo: P } };
     },
     adminSaveLib: function (db, r, cfg) {
       if (!cfg || !cfg.adminKey || r.key !== cfg.adminKey) fail("Admin kaliti noto'g'ri");
@@ -1600,9 +1696,10 @@ var KitobimCore = (function () {
       db.posts.forEach(function (p) { var x = byDay[String(p.createdAt || "").slice(0, 10)]; if (x) x.posts++; });
       daily.forEach(function (x) { x.active = Object.keys(x.active).length; });
       var recent = db.posts.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 40).map(function (p) { return postView(db, p, "", r.today); });
-      var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || "";
+      var users = db.users.map(function (x) { var p = pub(db, x, r.today), s = stats(db, x.id, r.today); p.phone = x.phone; p.region = x.region || ""; p.age = x.age || ""; p.premiumUntil = x.premiumUntil || ""; p.plan = x.plan || "";
         p.current = s.current; p.plan = s.plan; p.reading = s.reading; return p; });
-      return { touched: [], res: { users: users, books: db.books.map(function (b) { var o = publicBook(b); o.userId = b.userId; return o; }),
+      var payments = db.payments.slice().sort(function (a, b) { return b.createdAt < a.createdAt ? -1 : 1; }).slice(0, 400);
+      return { touched: [], res: { payments: payments, promos: db.promos, users: users, books: db.books.map(function (b) { var o = publicBook(b); o.userId = b.userId; return o; }),
         posts: db.posts.length, daily: daily, recent: recent, catalogAll: aggregate(db).map(function (a) { a.users = a.users.length; return a; }), catalog: aggregate(db).map(function (a) { a.users = a.users.length; return a; }).sort(function (a, b) { return b.readers - a.readers; }).slice(0, 20) } };
     }
   };
@@ -1620,7 +1717,7 @@ var KitobimCore = (function () {
       return { result: { ok: false, error: e.userMessage || ("Server xatosi: " + e.message) }, touched: [] };
     }
   }
-  return { handle: handle, stats: stats, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
+  return { handle: handle, stats: stats, isPrem: isPrem, PLANS: PLANS, TABLES: TABLES, MILESTONES: MILESTONES, bkey: bkey, addDays: addDays, rid: rid };
 })();
 if (typeof module !== "undefined") module.exports = KitobimCore;
 
@@ -1633,7 +1730,8 @@ if (typeof module !== "undefined") module.exports = KitobimCore;
    PRICES   — Premium narxlari (so'm). To'lov tizimi ulangach ishlaydi. */
 const APP_NAME = "Kitobim";
 const API_URL = "https://script.google.com/macros/s/AKfycbzEHr59fvr7PCXlESS5LWfXEHFfOMbWbYdT6cHLkejnJVW06QN826UXQC0QrnquXPjfug/exec";
-const PRICES = { month: 19000, year: 149000 };
+const PRICES = { month: KitobimCore.PLANS.month.sum, year: KitobimCore.PLANS.year.sum };   // narxlar yadrodagi PLANS dan olinadi
+const PAY_CARD = { number: "", owner: "" };   // qo'lda to'lov uchun karta: { number: "8600 1234 5678 9012", owner: "X. Sharofiddinov" }. Payme/Click ulanguncha shu ishlatiladi
 const CONTACT_TG = "";   // maktab/markazlar uchun aloqa: Telegram username (masalan "kitobim_admin"). Bo'sh bo'lsa tugma ko'rinmaydi
 /* ============================================== */
 
@@ -2012,11 +2110,11 @@ async function render(keep) {
   paintChrome();
   if (route.name === "mood") return vMood();
   const seq = ++renderSeq, view = $("#view");
-  const m = isM(), SUB = ["menu", "personal", "donat", "bonus", "display", "about", "plans", "pay", "premium", "book"];
+  const m = isM(), SUB = ["menu", "personal", "donat", "bonus", "display", "about", "plans", "pay", "premium", "book", "payments"];
   document.body.className = document.body.className.replace(/\br-\S+/g, "").trim() + " r-" + route.name;
   document.body.classList.toggle("sub", SUB.includes(route.name));
   const pages = { library: vLibrary, home: m ? vHomeM : vHome, shelf: m && !route.arg ? vShelfHub : vShelf, book: vBook, marra: vMarra, davra: m ? vDavraM : vDavra, profile: m ? vProfileM : vProfile, user: vProfile, settings: m ? vMenu : vSettings, premium: m ? vPremiumM : vPremium, search: vSearch, terms: vTerms, notifs: vNotifs,
-    menu: vMenu, personal: vPersonal, donat: vDonat, bonus: vBonus, display: vDisplay, about: vAbout, plans: vPlans, pay: vPay };
+    menu: vMenu, personal: vPersonal, donat: vDonat, bonus: vBonus, display: vDisplay, about: vAbout, plans: vPlans, pay: vPay, payments: vPayments };
   const fn = pages[route.name] || (m ? vHomeM : vHome);
   setTimeout(miniPaint, 0);
   const html = fn(route.arg);
@@ -2472,8 +2570,8 @@ function libBlock(bk) {
 }
 function libSummary(L) {
   if (!L.summary) return "";
-  const a = L.summaryAudio, pl = !a ? "" : a.id ? `<iframe class="afr" loading="lazy" src="${esc(fView(a))}" allow="autoplay"></iframe>` : `<audio controls preload="none" src="${esc(a.url)}"></audio>`;
-  return `<details class="libsum"><summary>${ic("sparkle", 16)} Kitob mag'zi <small>· ${a ? "o'qing yoki tinglang" : "qisqa xulosa"}</small></summary>${pl}${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}</details>`;
+  const a = L.summaryAudio, pl = !a ? "" : a.locked ? `<button class="btn ghost sm" style="margin-bottom:10px" onclick="premGate('Kitob magʼzini tinglash')">${ic("lock", 15)} Tinglash — Premium</button>` : a.id ? `<iframe class="afr" loading="lazy" src="${esc(fView(a))}" allow="autoplay"></iframe>` : `<audio controls preload="none" src="${esc(a.url)}"></audio>`;
+  return `<details class="libsum"><summary>${ic("sparkle", 16)} Kitob mag'zi <small>· ${a ? "o'qing yoki tinglang" : "qisqa xulosa"}</small></summary>${pl}${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}${L.summaryLocked ? `<button class="btn pri sm" style="margin-bottom:14px" onclick="premGate('Kitob magʼzini toʼliq oʼqish')">${ic("lock", 15)} Davomini Premiumda o'qing</button>` : ""}</details>`;
 }
 let LIBF = "all";
 async function vLibrary(q) {
@@ -2513,7 +2611,7 @@ function postCard(p) {
   PC[p.id] = p;
   const long = p.text.length > 280 || p.text.split("\n").length > 5;
   const mine = S.me && p.user.id === S.me.user.id;
-  return `<div class="post" id="p-${p.id}"><div class="hd"><a href="#/user/${p.user.id}">${ava(p.user)}</a><div class="nm"><a href="#/user/${p.user.id}"><b>${esc(p.user.name)}</b></a> <small>@${esc(p.user.username)} · ${ago(p.createdAt)}</small>${p.rating ? `<div>${stars(p.rating)}</div>` : ""}</div>
+  return `<div class="post" id="p-${p.id}"><div class="hd"><a href="#/user/${p.user.id}">${ava(p.user)}</a><div class="nm"><a href="#/user/${p.user.id}"><b>${esc(p.user.name)}</b>${crownB(p.user)}</a> <small>@${esc(p.user.username)} · ${ago(p.createdAt)}</small>${p.rating ? `<div>${stars(p.rating)}</div>` : ""}</div>
       ${mine ? `<button class="muted" title="O'chirish" onclick="delPost('${p.id}')">⋯</button>` : ""}</div>
     <div class="tx ${long ? "clamp" : ""}">${esc(p.text)}</div>${long ? `<a class="more" onclick="this.previousElementSibling.classList.remove('clamp');this.remove()">Ko'proq ▾</a>` : ""}
     ${p.book ? `<div class="att" onclick="go('#/book/${encKey(p.book.key)}')">${cover(p.book, "xs")}<div><h4>${esc(p.book.title)}</h4><small>${esc(p.book.author || "")}</small><em>${ic("users",13)} ${p.book.readers} kitobxon javonida</em></div></div>` : ""}
@@ -2634,7 +2732,7 @@ async function vProfile(id) {
   const main = `<div><div class="pcover" ${r.banner ? `style="background-image:url('${r.banner}')"` : ""}>${own ? `<button class="camb" onclick="pickImage('banner')">${ic("cam", 17)}<span>${r.banner ? "Bannerni o'zgartirish" : "Banner qo'shish"}</span></button>` : ""}</div>
     <div class="phead"><div class="pava">${ava(u, 128)}${own ? `<button class="camav" onclick="pickImage('avatar')" title="Rasm yuklash">${ic("cam", 18)}</button>` : ""}</div><div class="row pbtns" style="padding-bottom:8px">${own ? `<button class="btn ghost" onclick="openPersonal()">${ic("edit", 16)}<span>Profilni tahrirlash</span></button><button class="ibtn mob" onclick="go('#/settings')">${I.gear}</button>` : `<button class="btn ${r.iFollow ? "ghost" : "pri"}" onclick="follow('${u.id}')">${r.iFollow ? "Davradasiz ✓" : r.followsMe ? "+ Javoban davraga" : "+ Davraga qo'shish"}</button>`}
       <button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
-    <div class="pname"><h1>${esc(u.name)}</h1><div class="sub"><span>@${esc(u.username)}</span><span class="row" style="gap:6px">${I.cal}${new Date(u.createdAt).getFullYear()}-yil qo'shilgan</span>${st ? `<span class="row" style="gap:5px;color:var(--or)">${ic("flameF",16)}<span style="color:var(--muted)">${st.streak} kun seriya</span></span>` : ""}</div>
+    <div class="pname"><h1>${esc(u.name)}${crownB(u)}</h1><div class="sub"><span>@${esc(u.username)}</span><span class="row" style="gap:6px">${I.cal}${new Date(u.createdAt).getFullYear()}-yil qo'shilgan</span>${st ? `<span class="row" style="gap:5px;color:var(--or)">${ic("flameF",16)}<span style="color:var(--muted)">${st.streak} kun seriya</span></span>` : ""}</div>
       ${u.bio ? `<p style="margin:12px 0 0;line-height:1.5">${esc(u.bio)}</p>` : ""}
       <div class="fol"><span><b>${u.followers}</b> <span class="muted">fikrdosh</span></span><span><b>${u.following}</b> <span class="muted">davradosh</span></span>${st ? `<span><b>${st.done}</b> <span class="muted">kitob o'qigan</span></span>` : ""}</div></div>
     ${body}</div>`;
@@ -2786,11 +2884,11 @@ function vMood() {
 /* ---------- Premium ---------- */
 function vPremium() {
   const c3 = [["Ikki eshik orasi", "O'tkir Hoshimov"], ["Kecha va kunduz", "Cho'lpon"], ["O'tkan kunlar", "Abdulla Qodiriy"], ["Kichkina shahzoda", "Antuan de Sent-Ekzyuperi"], ["Boburnoma", "Bobur"]].map(([title, author]) => ({ title, author }));
-  return mtop("Premium", true) + `<div class="phero"><span class="ic">${ic("crown",34,'fill="#fff" stroke="none"')}</span><h1>Bilim — eng yaxshi<br>sarmoya.</h1><p>${APP_NAME} Premium bilan kitobxonligingizni yangi bosqichga olib chiqing.</p>
+  return mtop("Premium", true) + premStatus() + `<div class="phero"><span class="ic">${ic("crown",34,'fill="#fff" stroke="none"')}</span><h1>Bilim — eng yaxshi<br>sarmoya.</h1><p>${APP_NAME} Premium bilan kitobxonligingizni yangi bosqichga olib chiqing.</p>
     <button class="btn pri" onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">Premiumga o'tish</button>
     <div class="covers">${cover(c3[0], "")}${cover(c3[1], "")}${cover(c3[2], "lg")}${cover(c3[3], "")}${cover(c3[4], "")}</div></div>
     <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:14px;border-radius:20px;background:var(--soft);padding:18px 20px;margin-top:22px"><div class="row"><span class="sic" style="width:48px;height:48px;border-radius:14px;background:var(--grad);color:#fff">${ic("gift",24)}</span><div><b>Sovg'a promokodini faollashtirish</b><div class="muted" style="font-size:13.5px">Promokod bo'lsa, shu yerga kiriting</div></div></div>
-      <div class="row" style="flex:1;max-width:420px"><input id="promo" placeholder="Promokodni kiriting"><button class="btn pri" onclick="toast($('#promo').value.trim()?'Promokod tizimi tez kunda ishga tushadi':'Promokodni kiriting')">Faollashtirish</button></div></div>
+      <div class="row" style="flex:1;max-width:420px"><input id="promo" placeholder="Promokodni kiriting"><button class="btn pri" onclick="redeemPromo($('#promo').value)">Faollashtirish</button></div></div>
     <div style="text-align:center;margin:56px 0 28px"><h2 style="font-size:30px;font-weight:800">Kitob o'qish hech qachon bunchalik qulay bo'lmagan</h2><p class="muted" style="margin-top:10px">Har bir premium imkoniyat sizni kitobga yanada yaqinlashtiradi</p></div>
     <div class="feat">
       <div><span class="fi" style="background:#fff1e8;color:#f04e1c">${ic("chart",24)}</span><h3>Kengaytirilgan statistika</h3><p>Oylik va yillik hisobotlar, eng sevimli mualliflar, o'qish tezligi va yillik "kitobxonlik yakuni".</p></div>
@@ -2800,11 +2898,11 @@ function vPremium() {
       <div><span class="fi" style="background:#e8eefd;color:#3d7bf0">${ic("trophy",24)}</span><h3>Tanlovlar va sertifikatlar</h3><p>Kitobxonlik tanlovlarida qatnashing va yutuqlaringiz uchun sertifikat oling.</p></div>
       <div><span class="fi" style="background:#f0e8fd;color:#8a4fc0">${ic("ban",24)}</span><h3>Reklamasiz</h3><p>Hech narsa chalg'itmaydi — faqat siz va kitob.</p></div></div>
     <div style="text-align:center;margin:56px 0 24px" id="plans"><h2 style="font-size:30px;font-weight:800">O'zingizga mos obunani tanlang</h2><p class="muted" style="margin-top:10px">Istalgan vaqtda o'zgartirishingiz yoki bekor qilishingiz mumkin</p></div>
-    <div class="plans"><div class="plan"><div class="h">Oylik</div><div class="b"><div>Juda oddiy — har oyda to'lov</div><div class="pr">${num(PRICES.month)} <span>so'm / oy</span></div><button class="btn dark full" onclick="buy('month')">Sinab ko'rish</button></div></div>
-      <div class="plan best"><div class="h">Yillik <em>-${Math.round((1 - PRICES.year / (PRICES.month * 12)) * 100)}% tejash</em></div><div class="b"><div>Bir marta to'lang — yil bo'yi xotirjam</div><div class="pr">${num(Math.round(PRICES.year / 12))} <span>so'm / oy</span></div><button class="btn pri full" onclick="buy('year')">Eng yaxshisini tanlash</button><div class="muted" style="text-align:center;font-size:13px;margin-top:8px">jami ${num(PRICES.year)} so'm</div></div></div></div>
+    <div class="plans"><div class="plan"><div class="h">Oylik</div><div class="b"><div>Juda oddiy — har oyda to'lov</div><div class="pr">${num(PRICES.month)} <span>so'm / oy</span></div><button class="btn dark full" onclick="go('#/pay/month')">Sinab ko'rish</button></div></div>
+      <div class="plan best"><div class="h">Yillik <em>-${Math.round((1 - PRICES.year / (PRICES.month * 12)) * 100)}% tejash</em></div><div class="b"><div>Bir marta to'lang — yil bo'yi xotirjam</div><div class="pr">${num(Math.round(PRICES.year / 12))} <span>so'm / oy</span></div><button class="btn pri full" onclick="go('#/pay/year')">Eng yaxshisini tanlash</button><div class="muted" style="text-align:center;font-size:13px;margin-top:8px">jami ${num(PRICES.year)} so'm</div></div></div></div>
     <div style="text-align:center;margin:56px 0 20px"><h2 style="font-size:26px;font-weight:800">Savol va javoblar</h2></div>
     <div class="faq"><details><summary>${APP_NAME} bepulmi?</summary><p>Ha. Kitobxon kundaligi, Davra, Marra va reyting — hammasi bepul. Premium esa qo'shimcha imkoniyatlar beradi.</p></details>
-      <details><summary>To'lovni qanday qilaman?</summary><p>Click va Payme orqali to'lov tez kunda ulanadi. Hozircha Premium imkoniyatlari tayyorlanmoqda.</p></details>
+      <details><summary>To'lovni qanday qilaman?</summary><p>Tarifni tanlang, to'lov usulini belgilang va to'lovni amalga oshiring. Admin tekshirgach Premium avtomatik yoqiladi. Click va Payme orqali avtomatik to'lov ham tez orada ulanadi.</p></details>
       <details><summary>Ma'lumotlarim xavfsizmi?</summary><p>Parolingiz shifrlangan holda saqlanadi. Kunlik yozuvlaringiz faqat sizga ko'rinadi, xohlasangiz profilingizni butunlay yopishingiz mumkin.</p></details>
       <details><summary>Telefonda ham ishlaydimi?</summary><p>Ha. ${APP_NAME}ni brauzerda oching va "Ilovani o'rnatish" tugmasini bosing — u telefoningizda alohida ilova bo'lib turadi va bir akkaunt bilan saytda ham, ilovada ham ishlaysiz.</p></details></div>
     ${footer()}`;
@@ -2910,7 +3008,8 @@ async function vAdmin() {
   const table = list => `<div class="tblw"><table class="atbl"><tr><th>Kitobxon</th><th class="hm">Telefon</th><th>Hozir o'qiyapti</th><th>O'qigan</th><th class="hm">7 kun (bet)</th><th class="hm">Seriya</th><th class="hm">Faollik</th><th class="hm"></th></tr>${list.map(row).join("")}</table>${!list.length ? `<div class="aempty">Kitobxon topilmadi</div>` : ""}</div>`;
   const topKey = { readers: "readers", reading: "readingNow", done: "done" }[ADM.top];
   const tops = d.catalogAll.slice().sort((a, b) => b[topKey] - a[topKey] || b.readers - a.readers).filter(x => x[topKey] > 0).slice(0, 5);
-  const nav = [["dash", "Boshqaruv", "chart"], ["lib", "Kutubxona", "headph"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
+  const nav = [["dash", "Boshqaruv", "chart"], ["prem", "Premium va to'lovlar", "crown"], ["lib", "Kutubxona", "headph"], ["users", "Kitobxonlar", "users"], ["books", "Kitoblar", "book"], ["posts", "Davra fikrlari", "msg"]];
+  const pendN = (d.payments || []).filter(p => p.status === "pending").length;
   let body = "";
   if (ADM.tab === "dash") body = `
     <div class="ahd"><div><small>${ic("cal", 13)} Oxirgi ${P} kun</small><h2>Umumiy ko'rinish</h2></div>
@@ -2936,6 +3035,7 @@ async function vAdmin() {
         <div class="alist">${tops.length ? tops.map(b => `<div class="ali">${cover(b, "xs")}<div class="in"><b>${esc(b.title)}</b><small>${esc(b.author || "—")}</small></div><div class="vr"><b>${b[topKey]}</b><small>kitobxon</small></div><span class="mu">${I.ch}</span></div>`).join("") : `<div class="aempty">Hali ma'lumot yo'q</div>`}</div></div>
     </div>
     <div class="acard" style="margin-top:18px"><div class="row between"><h3>So'nggi faol kitobxonlar</h3><button class="apill" onclick="ADM.tab='users';vAdmin()">Barchasi ${I.ch}</button></div>${table(users.slice(0, 6))}</div>`;
+  else if (ADM.tab === "prem") body = d.payments ? admPremTab(d, q) : `<div class="acard">${ic("refresh", 16)} Premium bo'limi uchun serverdagi Code.gs ni yangi versiyaga yangilang (Deploy → New version).</div>`;
   else if (ADM.tab === "users") body = `<div class="ahd"><div><small>${d.users.length} ta kitobxon</small><h2>Kitobxonlar</h2></div>
       <div class="row" style="gap:8px;flex-wrap:wrap">${[["active", "Faollik"], ["week", "7 kun"], ["ball", "Ball"], ["done", "O'qigan"]].map(([k, n]) => `<button class="apill ${ADM.sort === k ? "on" : ""}" onclick="ADM.sort='${k}';vAdmin()">${n}</button>`).join("")}<button class="apill" onclick="admCSV()">${ic("download", 15)} Excel</button></div></div>
     <div class="acard">${table(users)}</div>`;
@@ -2954,7 +3054,7 @@ async function vAdmin() {
       <div class="mu" style="font-size:13px;margin-top:8px;display:flex;gap:16px">${ic("heart", 14)} ${p.likes}<span>${ic("msg", 14)} ${p.comments.length}</span></div></div>`).join("") || `<div class="acard aempty">Hali fikr yo'q</div>`}`;
   app.innerHTML = `<div class="adm2"><aside class="aside">
       <a class="logo" style="padding:4px 6px 22px;color:#fff"><i>${I.logo}</i><span>${brand()}</span></a>
-      <div class="anav">${nav.map(([k, n, i]) => `<button class="${ADM.tab === k ? "on" : ""}" onclick="ADM.tab='${k}';vAdmin();scrollTo(0,0)">${ic(i, 18)}${n}</button>`).join("")}</div>
+      <div class="anav">${nav.map(([k, n, i]) => `<button class="${ADM.tab === k ? "on" : ""}" onclick="ADM.tab='${k}';vAdmin();scrollTo(0,0)">${ic(i, 18)}${n}${k === "prem" && pendN ? `<span class="anum">${pendN}</span>` : ""}</button>`).join("")}</div>
       <div class="asec">Boshqaruv</div>
       <div class="anav"><button onclick="admCSV()">${ic("download", 18)}Excel'ga yuklash</button><button onclick="location.hash='#/home'">${ic("phone", 18)}Ilovaga o'tish</button><button onclick="ADM.data=null;LS.del('kitobim_adm_key');ADM.key='';vAdmin()">${ic("logout", 18)}Chiqish</button></div>
       <div class="ahelp"><span class="q">?</span><b>Kitobxonlarni rag'batlantiring</b><small>Eng faol kitobxonlarni Davrada e'lon qiling — bu boshqalarni ham ilhomlantiradi.</small><button onclick="ADM.tab='users';ADM.sort='week';vAdmin()">Eng faollar</button></div>
@@ -3280,7 +3380,8 @@ function admUser(id) {
   sheet(`<div class="row">${ava(u, 64)}<div><h2>${esc(u.name)}</h2><div class="muted">+${esc(u.phone)} · @${esc(u.username)}</div><div class="muted" style="font-size:13px">${esc(u.region || "")}${u.age ? " · " + esc(u.age) + " yosh" : ""}</div></div></div>
     <div class="glass"><div><small>O'qigan</small><b>${u.done}</b></div><div><small>Betlar</small><b>${num(u.pages)}</b></div><div><small>Seriya</small><b>${u.streak} kun</b></div></div>
     <p class="muted" style="font-size:13px;text-align:center">Ro'yxatdan o'tgan: ${fmtD(u.createdAt)} · Oxirgi faollik: ${ago(u.lastActive)}</p>
-    <div id="rpBox"><button class="btn full arp" onclick="admResetPass('${u.id}')">${ic("key", 17)} Parolni tiklash</button></div>
+    <div class="row" style="gap:8px"><div id="rpBox" style="flex:1"><button class="btn full arp" onclick="admResetPass('${u.id}')">${ic("key", 17)} Parolni tiklash</button></div>
+      <button class="btn full arp" style="flex:1" onclick="admPremSheet('${u.id}')">${I.crown.replace("<svg", '<svg width="16" height="16"')} ${u.premiumUntil && u.premiumUntil >= today() ? "Premium " + fmtDot(u.premiumUntil) + " gacha" : "Premium berish"}</button></div>
     ${g("reading").length ? `<h3 style="margin:16px 0 8px">O'qiyapti</h3>${g("reading").map(row).join("")}` : ""}${g("plan").length ? `<h3 style="margin:16px 0 8px">Rejada</h3>${g("plan").map(row).join("")}` : ""}
     ${g("done").length ? `<h3 style="margin:16px 0 8px">O'qib bo'lgan</h3>${g("done").map(row).join("")}` : ""}${!bs.length ? `<div class="empty">Hali kitob qo'shmagan</div>` : ""}`);
   $(".sheet").classList.add("asheet");
@@ -3433,8 +3534,8 @@ function bookM(key, r, bk) {
       <div><small>O'qimoqda</small><b>${ic("users", 15)} ${num(bk.readingNow || 0)}</b></div></div>
     ${L ? `<div class="split"><button ${L.pdf ? "" : "disabled"} onclick="openReader(${tjs(L.key)})">${ic("book", 18)} O'qish</button><button ${L.audio.length ? "" : "disabled"} onclick="openPlayer(${tjs(L.key)})">${ic("headph", 18)} Tinglash</button></div>`
       : mine ? `<button class="btn pri full big" onclick="openEntry('${mine.id}')">Kundaligimni ochish</button>` : `<div class="split"><button onclick="bookAdd('reading')">${ic("book", 18)} O'qiyapman</button><button onclick="bookAdd('plan')">${ic("cal", 18)} Rejaga</button></div>`}
-    ${L && L.summary ? `<div class="bkm-sum"><div class="h"><b>${ic("sparkle", 17)} Kitob mag'zi</b>${L.summaryAudio ? `<button class="pill" onclick="openPlayer(${tjs(L.key)},0,'sum')">${ic("headph", 15)} Tinglash</button>` : ""}</div>
-      <div class="t clamp" onclick="this.classList.toggle('clamp')">${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}</div><button class="more" onclick="this.previousElementSibling.classList.toggle('clamp');this.textContent=this.textContent==='Batafsil'?'Yopish':'Batafsil'">Batafsil</button></div>` : ""}
+    ${L && L.summary ? `<div class="bkm-sum"><div class="h"><b>${ic("sparkle", 17)} Kitob mag'zi</b>${L.summaryAudio ? `<button class="pill" onclick="openPlayer(${tjs(L.key)},0,'sum')">${ic(L.summaryAudio.locked ? "lock" : "headph", 15)} Tinglash</button>` : ""}</div>
+      <div class="t ${L.summaryLocked ? "fade" : "clamp"}" onclick="${L.summaryLocked ? "" : "this.classList.toggle('clamp')"}">${L.summary.split(/\n+/).filter(x => x.trim()).map(x => `<p>${esc(x.trim())}</p>`).join("")}</div>${L.summaryLocked ? `<button class="sumlock" onclick="premGate('Kitob magʼzini toʼliq oʼqish','Davomini oʼqish uchun Premium obuna kerak.')">${ic("lock", 16)} Davomini Premiumda o'qing</button>` : `<button class="more" onclick="this.previousElementSibling.classList.toggle('clamp');this.textContent=this.textContent==='Batafsil'?'Yopish':'Batafsil'">Batafsil</button>`}</div>` : ""}
     ${desc ? `<p class="bkm-desc">${esc(desc)}</p>` : ""}
     ${mine ? `<div class="bkm-mine"><span class="tag t-${mine.status}">Javonimda: ${STATUS[mine.status]}</span>${mine.status === "reading" && mine.pages ? `<span>${mine.current}/${mine.pages} bet</span>` : ""}<button class="btn ghost sm" onclick="openEntry('${mine.id}')">Kundalik</button></div>` : ""}
     <div class="facts">${bk.genre ? `<div><span>Janr</span><b>${esc(bk.genre)}</b></div>` : ""}<div><span>Javonida</span><b>${bk.readers || 0}</b></div><div><span>O'qib bo'lgan</span><b>${bk.done || 0}</b></div><div><span>Rejaga qo'shgan</span><b>${bk.plan || 0}</b></div></div>
@@ -3482,7 +3583,7 @@ async function mediaUrl(f, onp) {
   let next = 1; const worker = async () => { while (next < n) { const i = next++; const r = await mediaPart(f.id, i); out[i] = await dec(r.data); onp && onp(++done / n); } };
   await Promise.all([worker(), worker(), worker()]);
   const blob = new Blob(out, { type: first.mime || f.mime || "audio/mpeg" });
-  try { cache && await cache.put(ck, new Response(blob)); } catch (e) {}
+  try { if (cache && (isPremU() || ADM.key)) await cache.put(ck, new Response(blob)); } catch (e) {}
   return MEDIA[f.id] = URL.createObjectURL(blob);
 }
 const tfmt = s => { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ":" + String(m).padStart(2, "0") : String(m).padStart(2, "0")) + ":" + String(x).padStart(2, "0"); };
@@ -3500,20 +3601,24 @@ function openPlayer(key, i, mode) {
   const L = LIBMAP[key]; if (!L) return;
   const tracks = mode === "sum" ? (L.summaryAudio ? [Object.assign({ title: "Kitob mag'zi" }, L.summaryAudio)] : []) : L.audio;
   if (!tracks.length) return;
+  if (mode === "sum" && tracks[0].locked) return premGate("Kitob mag'zini tinglash", "Kitob mag'zining audio talqini Premium obunachilar uchun.");
+  if (i != null && tracks[i] && tracks[i].locked) return premGate("Barcha qismlarni tinglash", "1-qism bepul. Qolgan qismlarni tinglash uchun Premium obuna kerak.");
   if (mode !== "sum") ensureOnShelf(L);
   const a = audEl(), same = AUD.key === key && AUD.mode === (mode || "");
   Object.assign(AUD, { key, L, tracks, mode: mode || "" });
-  const saved = LS.get("kitobim_pos", {})[key + "|" + AUD.mode];
+  let saved = LS.get("kitobim_pos", {})[key + "|" + AUD.mode]; if (saved && tracks[saved.i] && tracks[saved.i].locked) saved = null;
   plOpen();
   if (!same || i != null) plTrack(i != null ? i : saved ? saved.i : 0, true, i == null && saved ? saved.t : 0);
 }
 async function plTrack(i, autoplay, at) {
   const a = audEl(); AUD.i = Math.max(0, Math.min(AUD.tracks.length - 1, i || 0));
+  if (AUD.tracks[AUD.i] && AUD.tracks[AUD.i].locked) { const was = AUD.i; AUD.i = Math.max(0, (AUD.prevI != null ? AUD.prevI : 0)); premGate("Barcha qismlarni tinglash", `1-qism bepul. ${was + 1}-qismdan boshlab tinglash uchun Premium obuna kerak.`); plRender(); return; }
+  AUD.prevI = AUD.i;
   const f = AUD.tracks[AUD.i], tok = AUD.tok = Math.random();
   a.pause(); a.removeAttribute("src"); AUD.err = ""; AUD.load = 0; AUD.loading = true; plRender();
   let url;
   try { url = await mediaUrl(f, p => { if (AUD.tok === tok) { AUD.load = p; plPaint(); } }); }
-  catch (e) { if (AUD.tok === tok) { AUD.loading = false; AUD.err = e.message; plPaint(); } return; }
+  catch (e) { if (AUD.tok === tok) { AUD.loading = false; if (/^PREMIUM:/.test(e.message)) { AUD.err = "Premium obuna kerak"; premGate("Bu qismni tinglash"); } else AUD.err = e.message; plPaint(); } return; }
   if (AUD.tok !== tok) return;
   AUD.loading = false; a.src = url; a.playbackRate = AUD.speed;
   if (at) a.addEventListener("loadedmetadata", () => { try { a.currentTime = at; } catch (e) {} }, { once: true });
@@ -3539,7 +3644,7 @@ function plRender() {
       <div id="plWrap"><div class="plst" id="plSt"></div><input type="range" id="plR" min="0" max="1000" value="0" oninput="plSeek(this.value)"><div class="tm"><span id="plC">00:00</span><span id="plD">--:--</span></div>
       <div class="ctl"><button class="sp" onclick="plSpeed()" id="plS">${AUD.speed}x</button><button class="sk" onclick="plSkip(-10)">${ic("rew", 34, 'stroke-width="1.6"')}<i>10</i></button>
         <button class="pp" onclick="plToggle()" id="plP"></button><button class="sk" onclick="plSkip(10)">${ic("fwd", 34, 'stroke-width="1.6"')}<i>10</i></button><button class="sp" onclick="plSleep()" id="plT">${ic("timer", 24)}</button></div></div>
-      ${AUD.tracks.length > 1 ? `<div class="pls">${AUD.tracks.map((x, j) => `<button class="${j === AUD.i ? "on" : ""}" onclick="plTrack(${j},true)"><span>${j + 1}</span><b>${esc(trackTitle(x, j))}</b>${j === AUD.i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div>` : ""}`;
+      ${AUD.tracks.length > 1 ? `<div class="pls">${AUD.tracks.map((x, j) => `<button class="${j === AUD.i ? "on" : ""}" onclick="plTrack(${j},true)"><span>${j + 1}</span><b>${esc(trackTitle(x, j))}</b>${x.locked ? ic("lock", 15) : j === AUD.i ? ic("headph", 16) : ic("play", 14)}</button>`).join("")}</div>` : ""}`;
   }
   plPaint(); miniPaint();
 }
@@ -3613,14 +3718,15 @@ async function vProfileM() {
   const sm = S.me.stats, gl = Object.keys(sm.days || {}).length;
   const statsT = `<div class="sgrid"><div><small>O'qilgan betlar</small><b>${num(st.pages)}</b></div><div><small>Tugatilgan kitoblar</small><b>${st.done}</b></div><div><small>Eng uzun seriya</small><b>${st.best} kun</b></div><div><small>Kunlik rekord</small><b>${st.record} bet</b></div><div><small>O'rtacha kuniga</small><b>${st.avg} bet</b></div><div><small>Faol kunlar</small><b>${gl}</b></div></div>`;
   const tabs = `<div class="tabs mtabs" style="margin-top:22px">${[["posts", "Fikrlar"], ["shelf", "Javon"], ["stats", "Statistika"]].map(([k, t]) => `<button class="${tab === k ? "on" : ""}" onclick="profTab='${k}';render(true)">${t}</button>`).join("")}</div>`;
-  const body = tab === "shelf" ? shelf : tab === "stats" ? statsT : (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q<br><br><button class="btn pri sm" onclick="openComposer()">Fikr yozish</button></div>`);
+  const statsLock = `<div class="card empty" style="margin:0 16px"><div class="ic" style="color:var(--or)">${ic("chart", 40)}</div><b style="color:var(--ink)">Kengaytirilgan statistika</b><br>O'qish rekordlaringiz, o'rtacha tezlik va faol kunlaringiz — Premiumda.<br><br><button class="btn pri sm" onclick="go('#/premium')">Premiumni ko'rish</button></div>`;
+  const body = tab === "shelf" ? shelf : tab === "stats" ? (isPremU() ? statsT : statsLock) : (f.posts.length ? f.posts.map(postCard).join("") : `<div class="empty">Hali fikrlar yo'q<br><br><button class="btn pri sm" onclick="openComposer()">Fikr yozish</button></div>`);
   return `<div class="pm"><div class="pm-cv" ${r.banner ? `style="background-image:url('${r.banner}')"` : ""}><button class="pm-menu" onclick="go('#/menu')" title="Menyu">☰</button></div>
     <div class="pm-hd"><div class="pm-av" onclick="pickImage('avatar')">${ava(u, 104)}</div><div class="r"><button class="btn ghost" onclick="go('#/personal')">Profilni tahrirlash</button><button class="ibtn" onclick="shareProfile('${esc(u.username)}')">${I.share}</button></div></div>
-    <h1 class="pm-n">${esc(u.name)}</h1><div class="pm-id">@${esc(u.username)}${me.region ? ` <span>|</span> ${esc(me.region)}` : ""}</div>
+    <h1 class="pm-n">${esc(u.name)}${crownB(u)}</h1><div class="pm-id">@${esc(u.username)}${me.region ? ` <span>|</span> ${esc(me.region)}` : ""}</div>
     ${u.bio ? `<p class="pm-bio">${esc(u.bio)}</p>` : `<p class="pm-bio muted" onclick="go('#/personal')">+ O'zingiz haqingizda yozing</p>`}
     <div class="pm-meta">${me.job ? `<span>${ic("user", 15)} ${esc(me.job)}</span>` : ""}<span>${I.cal} ${new Date(u.createdAt).getFullYear()}-yilda qo'shilgan</span></div>
     <div class="pm-fol"><b>${u.followers}</b> fikrdosh <span>|</span> <b>${u.following}</b> davradosh</div>
-    <div class="pm-prem" onclick="go('#/premium')">${ic("sparkle", 30)}<div><b>${APP_NAME} Premium</b><small>Premium imkoniyatlarni kashf eting</small></div><span>Premium ${I.ch}</span></div>
+    <div class="pm-prem" onclick="go('#/premium')">${ic("sparkle", 30)}<div><b>${APP_NAME} Premium</b><small>${isPremU() ? `Faol · ${fmtDot(me.premiumUntil)} gacha` : "Premium imkoniyatlarni kashf eting"}</small></div><span>${isPremU() ? "Faol" : "Premium"} ${I.ch}</span></div>
     <div class="pm-st"><div><small>Ball balansi</small><b><i style="background:#f2a20f">${ic("coin", 13)}</i>${num(u.ball)}</b></div>
       <div><small>Umumiy o'qish</small><b><i style="background:var(--blue)">${ic("book", 13)}</i>${num(st.pages)} bet</b></div>
       <div onclick="go('#/davra/marra')"><small>Marra reytingi</small><b><i style="background:var(--or)">${ic("trophy", 13)}</i>${lb.myRank ? lb.myRank + "-o'rin" : "—"}</b><em>${I.ch}</em></div>
@@ -3634,8 +3740,8 @@ function vMenu() {
   const grp = (t, body) => `<div class="mgrp"><div class="mlabel">${t}</div><div class="menu">${body}</div></div>`;
   const tl = { system: "Tizim", light: "Yorug'", dark: "Qorong'i" }[themePref()];
   return mbar("Menyu") + `<div class="sbox msrch">${I.search}<input placeholder="Qidirish" oninput="menuFilter(this.value)"></div><div id="mnu">
-    ${grp("Shaxsiy hisob", it(ic("user", 18), "#3bb54a", "Shaxsiy ma'lumotlar", "go('#/personal')") + it(ic("target", 18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`) + it(I.heart, "#e0475a", "Donat", "go('#/donat')") + it(ic("gift", 18), "#14a89a", "Bonuslarim", "go('#/bonus')") + it(ic("key", 18), "#5f6b7a", "Parolni o'zgartirish", "openPass()"))}
-    ${grp("Obuna", it(I.crown.replace("<svg", '<svg width="17" height="17"'), "#ff8a2b", "Premium", "go('#/premium')"))}
+    ${grp("Shaxsiy hisob", it(ic("user", 18), "#3bb54a", "Shaxsiy ma'lumotlar", "go('#/personal')") + it(ic("target", 18), "#ff6b1a", "Kunlik maqsad", "openGoal()", `<em>${S.me.user.goal} bet</em>`) + it(I.heart, "#e0475a", "Donat", "go('#/donat')") + it(ic("coin", 18), "#f2a20f", "To'lovlarim", "go('#/payments')") + it(ic("gift", 18), "#14a89a", "Bonuslarim", "go('#/bonus')") + it(ic("key", 18), "#5f6b7a", "Parolni o'zgartirish", "openPass()"))}
+    ${grp("Obuna", it(I.crown.replace("<svg", '<svg width="17" height="17"'), "#ff8a2b", "Premium", "go('#/premium')", isPremU() ? `<em>${fmtDot(S.me.user.premiumUntil)} gacha</em>` : ""))}
     ${grp("Sozlamalar", it(ic("moon", 18), "#2a9a6a", "Displey sozlamalari", "go('#/display')", `<em>${tl}</em>`) + it(ic("msg", 18), "#3d7bf0", "Ilova tili", "openLang()", "<em>O'zbekcha</em>")
       + `<button class="mi" data-t="yopiq profil" onclick="saveProfile({private:${!S.me.user.private}},'${S.me.user.private ? "Profil ochildi" : "Profil yopildi"}')"><span class="ic" style="background:#8a4fc0">${ic("lock", 18)}</span><span>Yopiq profil</span><div class="tg ${S.me.user.private ? "on" : ""}"></div></button>`
       + it(ic("phone", 18), "#0f8a9a", "Ilovani o'rnatish", "installApp()") + it(ic("download", 18), "#5f6b7a", "Ma'lumotlarimni yuklab olish", "exportData()"))}
@@ -3723,20 +3829,16 @@ function vBonus() {
 }
 
 /* ---------- Premium oqimi ---------- */
-const PREM_FEATS = [["headph", "#ff6b1a", "Audio kitoblar", "Kutubxonadagi audio kitoblarni cheklovsiz tinglang"], ["sparkle", "#8a4fc0", "Kitob mag'zi", "Har bir kitobning asosiy g'oyalarini o'qing va tinglang"],
-  ["download", "#2a9a6a", "Oflayn tinglash", "Kitobni yuklab olib, internetsiz tinglang"], ["chart", "#3d7bf0", "Kengaytirilgan statistika", "Oylik va yillik hisobotlar, o'qish tezligi"],
-  ["trophy", "#f2a20f", "Tanlov va sertifikatlar", "Kitobxonlik tanlovlarida qatnashing"], ["palette", "#e0475a", "Maxsus mavzular", "Javon va profil uchun premium dizaynlar"]];
+const PREM_FEATS = [["headph", "#ff6b1a", "Barcha audio qismlar", "Kutubxonadagi audio kitoblarning hamma qismlarini tinglang"], ["sparkle", "#8a4fc0", "Kitob mag'zi — to'liq", "Har bir kitob mag'zini oxirigacha o'qing va ovozda tinglang"],
+  ["download", "#2a9a6a", "Oflayn tinglash", "Tinglagan audiolaringiz telefonda saqlanadi — internetsiz ham ochiladi"], ["chart", "#3d7bf0", "Kengaytirilgan statistika", "O'qish rekordlari, o'rtacha tezlik va faol kunlaringiz"],
+  ["crown", "#f2a20f", "Premium nishoni", "Profilingiz va fikrlaringiz yonida toj belgisi"]];
 function vPremiumM() {
   return `<div class="prm"><button class="prm-x" onclick="goBack()">${ic("x", 22)}</button>
     <div class="prm-hero"><i class="st s1">✦</i><i class="st s2">✦</i><i class="st s3">✦</i><span class="crown">${I.crown}</span>
       <h1>${APP_NAME} Premium</h1><p>Premium sizga cheksiz imkoniyatlar, eksklyuziv funksiyalar va qulayroq tajriba beradi.</p></div>
     <div class="prm-band"><b>Kutubxonadagi barcha kitoblarni cheksiz o'qing va tinglang!</b>${ic("book", 46)}</div>
-    <div class="pcard2 prm-f">${PREM_FEATS.map(([i, c, t, d]) => `<div class="pf"><span style="background:${c}">${ic(i, 20)}</span><div><b>${t}</b><small>${d}</small></div></div>`).join("")}</div>
-    <div class="fixb2"><button class="btn grad full big" onclick="go('#/plans')">Obuna bo'lish</button><button class="btn ghost full" onclick="openPromo()">${ic("gift", 17)} Sovg'a promokodini faollashtirish</button></div></div>`;
-}
-function openPromo() {
-  sheet(`<h2>Promokod qo'shish</h2><label>Promokod</label><input id="prc" placeholder="Masalan: KITOB2026" oninput="$('#prcB').disabled=!this.value.trim()">
-    <button class="btn pri full" id="prcB" disabled style="margin-top:14px" onclick="payStart('promo',0,$('#prc').value.trim())">Tasdiqlash</button>`);
+    ${premStatus()}<div class="pcard2 prm-f">${PREM_FEATS.map(([i, c, t, d]) => `<div class="pf"><span style="background:${c}">${ic(i, 20)}</span><div><b>${t}</b><small>${d}</small></div></div>`).join("")}</div>
+    <div class="fixb2"><button class="btn grad full big" onclick="go('#/plans')">${isPremU() ? "Muddatni uzaytirish" : "Obuna bo'lish"}</button><button class="btn ghost full" onclick="openPromo()">${ic("gift", 17)} Sovg'a promokodini faollashtirish</button></div></div>`;
 }
 let PLAN = { plan: "year", method: "", mode: "sub" };
 window.PLAN = PLAN;
@@ -3760,13 +3862,144 @@ function vPay(plan) {
     <button class="btn grad full big fixb" onclick="payStart(PLAN.plan,${sum},PLAN.method)">${PLAN.mode === "sub" ? "Obuna bo'lish" : "To'lov qilish"}</button>`;
 }
 /* To'lov: Payme / Click kalitlari berilgach shu funksiya haqiqiy to'lovga ulanadi */
+
+
+/* =====================================================================
+   PREMIUM: tekshirish, qulflar, to'lov so'rovlari, promokod
+   Hozircha to'lov qo'lda: foydalanuvchi so'rov yuboradi → admin tasdiqlaydi.
+   Payme/Click kalitlari berilgach payStart() haqiqiy to'lovga ulanadi.
+   ===================================================================== */
+const isPremU = () => !!(S.me && KitobimCore.isPrem(S.me.user, today()));
+const fmtDot = d => d ? d.slice(0, 10).split("-").reverse().join(".") : "";
+const crownB = u => u && u.premium ? `<span class="pbadge" title="Premium">${I.crown.replace("<svg", '<svg width="13" height="13"')}</span>` : "";
+function premGate(title, sub) {
+  sheet(`<div class="intro pgate"><div class="pg-art"><span class="c1">${I.crown.replace("<svg", '<svg width="40" height="40"')}</span><span class="c2">${ic("headph", 30)}</span><i class="s1">✦</i><i class="s2">✦</i></div>
+    <h2>${esc(title)} — faqat Premiumda</h2><p>${esc(sub || "Bu imkoniyatdan foydalanish uchun Premium obuna kerak.")}</p>
+    <button class="btn pri full big" onclick="closeSheet();go('#/premium')">Premiumga obuna bo'lish</button></div>`);
+}
+const PAY_ST = { pending: ["Tekshirilmoqda", "#f7a03a"], paid: ["Tasdiqlangan", "#3bb54a"], rejected: ["Rad etilgan", "#e5484d"] };
+const PAY_KIND = p => p.kind === "plan" ? `Premium · ${(KitobimCore.PLANS[p.plan] || {}).name || ""}` : p.kind === "donat" ? "Donat" : p.kind === "promo" ? "Promokod" : "Sovg'a (admin)";
+function payRowU(p) {
+  const [t, c] = PAY_ST[p.status] || [p.status, "var(--muted)"];
+  return `<div class="prow"><span style="flex:1;color:var(--ink)"><b style="display:block;text-align:left">${PAY_KIND(p)}</b><small class="muted">${fmtDot(p.createdAt)}${p.sum ? " · " + num(p.sum) + " so'm" : ""}${p.reason ? " · " + esc(p.reason) : ""}</small></span><b style="flex:0 0 auto;color:${c};font-size:13.5px">${t}</b></div>`;
+}
+function vPayments() {
+  const L = (S.me && S.me.payments) || [];
+  return mbar("To'lovlarim") + (L.length ? `<div class="pcard2">${L.map(payRowU).join("")}</div>` : `<div class="card empty"><div class="ic">${ic("coin", 40)}</div>Hali to'lovlar yo'q</div>`)
+    + `<button class="btn pri full" style="margin-top:12px" onclick="go('#/premium')">${I.crown.replace("<svg", '<svg width="17" height="17"')} Premium</button>`;
+}
+function premStatus() {
+  if (!S.me) return "";
+  const u = S.me.user, pend = (S.me.payments || []).find(p => p.status === "pending");
+  if (isPremU()) {
+    const left = Math.max(0, Math.round((new Date(u.premiumUntil) - new Date(today())) / 864e5));
+    return `<div class="pstat on">${I.crown.replace("<svg", '<svg width="26" height="26"')}<div><b>Premium faol</b><small>${fmtDot(u.premiumUntil)} gacha · ${left} kun qoldi</small></div></div>`;
+  }
+  if (pend) return `<div class="pstat wait">${ic("cal", 24)}<div><b>To'lovingiz tekshirilmoqda</b><small>${PAY_KIND(pend)} · ${num(pend.sum)} so'm · admin tasdiqlagach Premium yoqiladi</small></div></div>`;
+  return "";
+}
+/* To'lov so'rovi */
 function payStart(kind, sum, method) {
-  if (kind === "promo") return sheet(`<div class="intro"><div class="globe">${ic("gift", 40)}</div><h2>Promokodlar tez orada</h2><p>Promokod tizimi to'lovlar bilan birga ishga tushadi. Kodingizni saqlab qo'ying!</p><button class="btn pri full" onclick="closeSheet()">Tushunarli</button></div>`);
+  if (kind === "promo") return redeemPromo(method);
   if (kind === "donat" && !(sum >= 1000)) return toast("Miqdorni kiriting (kamida 1 000 so'm)");
   if (!method) return toast("To'lov usulini tanlang");
-  sheet(`<div class="intro"><div class="globe">${ic("coin", 40)}</div><h2>To'lov tizimi ulanmoqda</h2><p>${PAY_METHODS.find(x => x[0] === method)[1]} orqali to'lov tez orada ishga tushadi. ${kind === "donat" ? "Qo'llab-quvvatlashga tayyorligingiz uchun rahmat!" : "Premium ishga tushganda sizga birinchi bo'lib xabar beramiz."}</p>
-    ${CONTACT_TG ? `<a class="btn ghost full" style="margin-bottom:10px" target="_blank" href="https://t.me/${CONTACT_TG}">Telegram orqali bog'lanish</a>` : ""}<button class="btn pri full" onclick="closeSheet()">Yaxshi</button></div>`);
+  const plan = kind === "donat" ? "" : kind, mName = (PAY_METHODS.find(x => x[0] === method) || [, method])[1];
+  const card = PAY_CARD.number ? `<div class="pcardn"><small>Karta raqami</small><b>${esc(PAY_CARD.number)}</b>${PAY_CARD.owner ? `<small>${esc(PAY_CARD.owner)}</small>` : ""}
+      <button class="btn ghost sm" onclick="navigator.clipboard&&navigator.clipboard.writeText(${tjs(PAY_CARD.number.replace(/\s/g, ""))});toast('Karta raqami nusxalandi')">${ic("file", 15)} Nusxalash</button></div>` : "";
+  sheet(`<h2>${kind === "donat" ? "Qo'llab-quvvatlash" : "Premium · " + KitobimCore.PLANS[plan].name}</h2>
+    <div class="psum" style="margin-top:12px"><div><span>To'lov usuli</span><i></i><b>${esc(mName)}</b></div><div class="tot"><span>To'lov summasi:</span><b>${num(sum)} so'm</b></div></div>
+    ${card}
+    <p class="muted" style="font-size:13.5px;line-height:1.5;margin:14px 2px 0">${PAY_CARD.number ? `${esc(mName)} ilovasi orqali shu kartaga <b>${num(sum)} so'm</b> o'tkazing, keyin “To'ladim” tugmasini bosing.` : "“To'ladim” tugmasini bosing — admin siz bilan bog'lanib, to'lovni tasdiqlaydi."} ${kind === "donat" ? "" : "Admin tekshirgach Premium avtomatik yoqiladi."}</p>
+    <label>Izoh (ixtiyoriy)</label><input id="payNote" maxlength="200" placeholder="Masalan: karta oxiri 4417 yoki to'lovchi ismi">
+    <button class="btn pri full big" id="payB" style="margin-top:16px" onclick="paySend('${kind === "donat" ? "donat" : "plan"}','${plan}',${sum},'${method}')">To'ladim</button>
+    ${CONTACT_TG ? `<a class="btn ghost full" style="margin-top:10px" target="_blank" href="https://t.me/${CONTACT_TG}">Savol bo'lsa — Telegram</a>` : ""}`);
 }
+async function paySend(kind, plan, sum, method) {
+  const b = $("#payB"); if (b) b.disabled = true;
+  await safe(async () => {
+    const r = await api("payRequest", { kind, plan, sum, method, note: ($("#payNote") || {}).value || "" });
+    if (r.me) setMe(r.me);
+    sheet(`<div class="intro"><div class="globe">${ic("check", 40)}</div><h2>So'rovingiz yuborildi</h2><p>${kind === "donat" ? "Qo'llab-quvvatlaganingiz uchun katta rahmat! 🧡" : "Admin to'lovni tekshirgach Premium avtomatik yoqiladi. Holatini “Menyu → To'lovlarim” bo'limida ko'rasiz."}</p>
+      <button class="btn pri full" onclick="closeSheet();go('${kind === "donat" ? "#/home" : "#/premium"}')">Yaxshi</button></div>`);
+  });
+  if (b) b.disabled = false;
+}
+function openPromo() {
+  sheet(`<h2>Promokod qo'shish</h2><label>Promokod</label><input id="prc" placeholder="Masalan: KITOB2026" oninput="$('#prcB').disabled=!this.value.trim()" onkeydown="if(event.key==='Enter'&&this.value.trim())redeemPromo(this.value)">
+    <button class="btn pri full" id="prcB" disabled style="margin-top:14px" onclick="redeemPromo($('#prc').value)">Tasdiqlash</button>`);
+  setTimeout(() => $("#prc") && $("#prc").focus(), 250);
+}
+async function redeemPromo(code) {
+  code = String(code || "").trim(); if (!code) return;
+  const b = $("#prcB"); if (b) b.disabled = true;
+  await safe(async () => {
+    const r = await api("redeemPromo", { code }); if (r.me) setMe(r.me); rcStale();
+    sheet(`<div class="intro"><div class="globe">${I.crown.replace("<svg", '<svg width="40" height="40"')}</div><h2>Premium yoqildi! 🎉</h2><p>Promokod qabul qilindi: +${r.days} kun. Premium ${fmtDot(r.until)} gacha amal qiladi.</p>
+      <button class="btn pri full" onclick="closeSheet();go('#/library')">Kutubxonaga o'tish</button></div>`);
+  });
+  if (b) b.disabled = false;
+}
+
+/* =====================================================================
+   ADMIN: Premium va to'lovlar
+   ===================================================================== */
+function admPremTab(d, q) {
+  const P = d.payments || [], T = today(), U = d.users;
+  const prem = U.filter(u => u.premiumUntil && u.premiumUntil >= T), exp = U.filter(u => u.premiumUntil && u.premiumUntil < T);
+  const pend = P.filter(p => p.status === "pending"), paid = P.filter(p => p.status === "paid" && p.sum > 0);
+  const mon = T.slice(0, 7), monSum = paid.filter(p => (p.confirmedAt || p.createdAt).slice(0, 7) === mon).reduce((a, p) => a + p.sum, 0), allSum = paid.reduce((a, p) => a + p.sum, 0);
+  const uById = id => U.find(u => u.id === id) || { name: "O'chirilgan", phone: "", username: "" };
+  const pf = ADM.pf || "all";
+  const list = (pf === "prem" ? prem : pf === "free" ? U.filter(u => !(u.premiumUntil && u.premiumUntil >= T)) : pf === "exp" ? exp : U)
+    .filter(u => !q || [u.name, u.phone, u.username].join(" ").toLowerCase().includes(q)).sort((a, b) => (b.premiumUntil || "").localeCompare(a.premiumUntil || ""));
+  const kpi = (icn, bg, t, v, sub) => `<div class="acard"><div class="row"><span class="aic" style="background:${bg}">${icn}</span><div><small>${t}</small><div class="abig" style="font-size:26px">${v}</div></div></div><small class="mu">${sub}</small></div>`;
+  const pcard = p => { const u = uById(p.userId); return `<div class="acard apay"><div class="row between" style="align-items:flex-start"><div class="row">${ava(u, 40)}<div><b>${esc(u.name)}</b><small class="mu"> +${esc(u.phone)}</small><div class="mu" style="font-size:13px;margin-top:2px">${ago(p.createdAt)} · ${esc((PAY_METHODS.find(x => x[0] === p.method) || [, p.method])[1] || "")}</div></div></div>
+      <div style="text-align:right"><b style="font-size:20px">${num(p.sum)} so'm</b><div class="mu" style="font-size:13px">${PAY_KIND(p)}</div></div></div>
+      ${p.note ? `<div class="apnote">${ic("msg", 14)} ${esc(p.note)}</div>` : ""}
+      <div class="row" style="gap:8px;margin-top:12px"><button class="apill on" onclick="admPay('${p.id}',true,this)">${ic("check", 15)} Tasdiqlash${p.kind === "plan" ? ` (+${KitobimCore.PLANS[p.plan].days} kun)` : ""}</button><button class="apill danger" onclick="admPay('${p.id}',false,this)">Rad etish</button></div></div>`; };
+  const st = u => u.premiumUntil && u.premiumUntil >= T ? `<span class="aptag on">${I.crown.replace("<svg", '<svg width="12" height="12"')} ${fmtDot(u.premiumUntil)} gacha</span>` : u.premiumUntil ? `<span class="aptag exp">Tugagan ${fmtDot(u.premiumUntil)}</span>` : `<span class="aptag">Bepul</span>`;
+  const urow = u => `<tr><td><div class="row">${ava(u, 34)}<div><b>${esc(u.name)}</b><small>@${esc(u.username)}</small></div></div></td><td class="hm">+${esc(u.phone)}</td><td>${st(u)}</td><td class="hm">${(P.filter(p => p.userId === u.id && p.status === "paid" && p.sum > 0).reduce((a, p) => a + p.sum, 0) && num(P.filter(p => p.userId === u.id && p.status === "paid").reduce((a, p) => a + p.sum, 0)) + " so'm") || '<span class="mu">—</span>'}</td>
+    <td style="text-align:right"><button class="apill" onclick="admPremSheet('${u.id}')">${u.premiumUntil && u.premiumUntil >= T ? "Boshqarish" : "Premium berish"}</button></td></tr>`;
+  const hrow = p => { const u = uById(p.userId), [t, c] = PAY_ST[p.status] || [p.status, "#888"]; return `<tr><td><b>${esc(u.name)}</b><small>+${esc(u.phone)}</small></td><td>${PAY_KIND(p)}${p.note ? `<small>${esc(p.note)}</small>` : ""}</td><td><b>${p.sum ? num(p.sum) + " so'm" : "—"}</b></td><td class="hm">${esc(p.method || "")}</td><td><span style="color:${c};font-weight:700">${t}</span>${p.until ? `<small>${fmtDot(p.until)} gacha</small>` : ""}</td><td class="hm mu">${fmtD(p.createdAt)}</td></tr>`; };
+  const promos = d.promos || [];
+  return `<div class="ahd"><div><small>${prem.length} ta Premium · ${U.length - prem.length} ta bepul</small><h2>Premium va to'lovlar</h2></div>
+      <div class="row" style="gap:8px">${[["all", "Hammasi"], ["prem", "Premium"], ["free", "Bepul"], ["exp", "Muddati tugagan"]].map(([k, n]) => `<button class="apill ${pf === k ? "on" : ""}" onclick="ADM.pf='${k}';vAdmin()">${n}</button>`).join("")}</div></div>
+    <div class="ag4">${kpi(I.crown.replace("<svg", '<svg width="22" height="22"'), "linear-gradient(135deg,#ffb04a,#ff6b1a)", "Premium a'zolar", prem.length, `${U.length ? Math.round(prem.length / U.length * 100) : 0}% · ${exp.length} tasining muddati tugagan`)}
+      ${kpi(ic("users", 22), "linear-gradient(135deg,#8a96a8,#5f6b7a)", "Bepul foydalanuvchilar", U.length - prem.length, "Premiumga taklif qilish mumkin")}
+      ${kpi(ic("cal", 22), "linear-gradient(135deg,#ffd36a,#f7a03a)", "Tekshirilmoqda", pend.length, pend.length ? `${num(pend.reduce((a, p) => a + p.sum, 0))} so'm kutilmoqda` : "Yangi so'rov yo'q")}
+      ${kpi(ic("coin", 22), "linear-gradient(135deg,#5ee08a,#2a9a6a)", "Shu oy tushum", num(monSum), `Jami: ${num(allSum)} so'm`)}</div>
+    ${pend.length ? `<h3 class="ah3">${ic("cal", 18)} Tasdiqlanishi kutilayotgan to'lovlar <span class="anum">${pend.length}</span></h3><div class="apays">${pend.map(pcard).join("")}</div>` : ""}
+    <div class="acard" style="margin-top:18px"><div class="row between"><h3>Foydalanuvchilar</h3><small class="mu">${list.length} ta</small></div>
+      <div class="tblw"><table class="atbl"><tr><th>Kitobxon</th><th class="hm">Telefon</th><th>Holat</th><th class="hm">To'lagan</th><th></th></tr>${list.slice(0, 300).map(urow).join("")}</table>${!list.length ? `<div class="aempty">Bu bo'limda hech kim yo'q</div>` : ""}</div></div>
+    <div class="ag2" style="margin-top:18px">
+      <div class="acard"><h3>To'lovlar tarixi</h3><div class="tblw"><table class="atbl">${P.filter(p => p.status !== "pending").slice(0, 100).map(hrow).join("") || `<tr><td class="aempty">Hali to'lov yo'q</td></tr>`}</table></div></div>
+      <div class="acard"><h3>Promokodlar</h3><p class="mu" style="font-size:13px;margin:4px 0 12px">Kod kiritgan foydalanuvchiga shuncha kun Premium beriladi. Limit 0 — cheksiz.</p>
+        <div class="apromo-f"><input id="pmC" placeholder="KOD (masalan KITOB2026)"><input id="pmD" type="number" placeholder="Necha kun" value="30" title="Necha kun Premium"><input id="pmM" type="number" placeholder="Limit (0 — cheksiz)" title="Necha kishi ishlata oladi"><button class="apill on" onclick="admPromoSave()">${ic("plus", 15)} Qo'shish</button></div>
+        ${promos.map(x => `<div class="apromo"><b>${esc(x.id)}</b><span>${x.days} kun</span><span>${(x.users || []).length}${x.max ? " / " + x.max : ""} ta ishlatilgan</span><button class="apill danger" onclick="admPromoDel('${esc(x.id)}')">O'chirish</button></div>`).join("") || `<div class="aempty" style="padding:14px">Hali promokod yo'q</div>`}</div></div>`;
+}
+async function admCall(action, p, okMsg) {
+  try { const [r] = await rawCall([[action, Object.assign({ key: ADM.key }, p)]]); if (!r.ok) throw new Error(r.error); rcStale(); await admLoad(true); if (okMsg) toast(okMsg); return r; }
+  catch (e) { toast(e.message); }
+}
+async function admPay(id, ok, btn) {
+  let reason = "";
+  if (!ok) { reason = prompt("Rad etish sababi (foydalanuvchiga ko'rinadi):", "To'lov topilmadi"); if (reason === null) return; }
+  if (btn) btn.disabled = true;
+  await admCall("adminPay", { id, ok, reason }, ok ? "Tasdiqlandi — Premium yoqildi ✓" : "Rad etildi");
+}
+function admPremSheet(id) {
+  const u = ADM.data.users.find(x => x.id === id), on = u.premiumUntil && u.premiumUntil >= today();
+  sheet(`<div class="row">${ava(u, 56)}<div><h2>${esc(u.name)}</h2><div class="muted">+${esc(u.phone)} · ${on ? `Premium ${fmtDot(u.premiumUntil)} gacha` : "Bepul"}</div></div></div>
+    <h3 style="margin:18px 0 10px">${on ? "Muddatni uzaytirish" : "Premium berish"}</h3>
+    <div class="two">${[[30, "1 oy"], [90, "3 oy"], [180, "6 oy"], [365, "1 yil"]].map(([n, t]) => `<button class="btn line" onclick="admPremSet('${id}',${n})">+ ${t}</button>`).join("")}</div>
+    <div class="row" style="gap:8px;margin-top:10px"><input id="apD" type="number" placeholder="Boshqa: necha kun"><button class="btn pri" onclick="admPremSet('${id}',+$('#apD').value)">Berish</button></div>
+    ${on ? `<button class="btn danger full" style="margin-top:16px" onclick="if(confirm('Premium bekor qilinsinmi?'))admPremSet('${id}',0)">Premiumni bekor qilish</button>` : ""}
+    <p class="muted" style="font-size:12.5px;margin-top:12px">Bu yerdan berilgan Premium to'lovlar tarixida “Sovg'a (admin)” bo'lib yoziladi.</p>`);
+  $(".sheet").classList.add("asheet");
+}
+async function admPremSet(id, days) { if (days < 0 || (days !== 0 && !days)) return toast("Kunni kiriting"); closeSheet(); await admCall("adminPremium", { userId: id, days }, days ? `+${days} kun Premium berildi ✓` : "Premium bekor qilindi"); }
+async function admPromoSave() { await admCall("adminPromo", { code: $("#pmC").value, days: $("#pmD").value, max: $("#pmM").value }, "Promokod saqlandi ✓"); }
+async function admPromoDel(code) { if (confirm(code + " o'chirilsinmi?")) await admCall("adminPromo", { code, remove: true }, "O'chirildi"); }
 
 /* ---------- Yangilanish oynasi (yangi versiya chiqqanda) ---------- */
 function showUpdate() {
